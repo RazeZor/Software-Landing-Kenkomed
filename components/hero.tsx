@@ -7,9 +7,9 @@ import { ArrowRight, Star, Shield, Zap, Clock } from 'lucide-react'
 import { useReveal, useCountUp, useMousePosition } from '@/hooks/use-scroll-animation'
 
 const stats = [
-  { value: 500, prefix: '+', suffix: '', label: 'Clínicas confían en Kenkomed' },
-  { value: 94, prefix: '', suffix: '%', label: 'Índice de mejora clínica' },
-  { value: 40, prefix: '-', suffix: '%', label: 'Tiempo administrativo' },
+  { value: 7, prefix: '+', suffix: '', label: 'Escalas de evaluación validadas' },
+  { value: 9, prefix: '', suffix: '', label: 'Pasos en anamnesis inteligente' },
+  { value: 100, prefix: '', suffix: '%', label: 'Especializado en kinesiología' },
 ]
 
 const tickerItems = [
