@@ -50,7 +50,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3 mb-6 group">
               <div className="w-11 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <Image
-                  src="/images/LogoKenKo.png"
+                  src="/images/LogoKenko.png"
                   alt="Kenkomed logo"
                   width={44}
                   height={44}
