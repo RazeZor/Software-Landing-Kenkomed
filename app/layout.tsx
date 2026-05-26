@@ -135,6 +135,12 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning className={`${inter.variable} ${sora.variable} ${geistMono.variable}`}>
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/images/LogoKenko.png" />
+        <link rel="shortcut icon" href="/images/LogoKenko.png" />
+        <link rel="icon" type="image/png" href="/images/LogoKenko.png" media="(prefers-color-scheme: light)" />
+        <link rel="icon" type="image/png" href="/images/LogoKenko.png" media="(prefers-color-scheme: dark)" />
+        <link rel="apple-touch-icon" href="/images/LogoKenko.png" />
+        <meta name="theme-color" content="#1a6fc4" />
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />
         <JsonLd data={softwareSchema} />
