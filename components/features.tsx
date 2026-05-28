@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   CalendarCheck,
   FileText,
@@ -12,6 +13,13 @@ import {
   Zap,
   Brain,
   Users,
+  ArrowRight,
+  XCircle,
+  CheckCheck,
+  ClipboardList,
+  Clock,
+  BrainCircuit,
+  Sparkles,
 } from 'lucide-react'
 
 const features = [
@@ -392,3 +400,125 @@ export function ProductShowcase() {
   )
 }
 
+/* ────────────────────────────────────────────────
+   SOLUCIÓN TEASER — Homepage sales block
+──────────────────────────────────────────────── */
+
+const teaserPains = [
+  {
+    icon: ClipboardList,
+    color: 'bg-rose-50 text-rose-600',
+    title: 'Fichas en papel o Excel',
+    bad: 'Datos perdidos, sin trazabilidad, sin análisis.',
+    good: 'Historia digital estructurada, lista en segundos.',
+  },
+  {
+    icon: BrainCircuit,
+    color: 'bg-purple-50 text-purple-600',
+    title: 'Cero apoyo a la decisión',
+    bad: 'Todo depende de tu memoria y tiempo.',
+    good: 'DSS que recomienda escalas y alerta automáticamente.',
+  },
+  {
+    icon: Clock,
+    color: 'bg-amber-50 text-amber-600',
+    title: 'Tiempo clínico perdido',
+    bad: '+30% del tiempo en papeleo y burocracia.',
+    good: 'Anamnesis en minutos. Informe generado al instante.',
+  },
+]
+
+export function SolucionTeaser() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect() } },
+      { threshold: 0.1 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  return (
+    <section
+      id="solucion-teaser"
+      className="py-28 md:py-36 bg-background relative overflow-hidden"
+      aria-labelledby="solucion-teaser-heading"
+    >
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.04]"
+          style={{ background: 'radial-gradient(circle, oklch(0.48 0.18 246), transparent 70%)' }} />
+      </div>
+
+      <div ref={ref} className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className={`text-center mb-16 scroll-reveal ${visible ? 'is-visible' : ''}`}>
+          <div className="inline-flex items-center gap-2 bg-rose-50 border border-rose-200 rounded-full px-4 py-1.5 mb-6">
+            <Sparkles size={12} className="text-rose-600" />
+            <span className="text-xs font-semibold text-rose-600 tracking-wide uppercase">¿Te identificas?</span>
+          </div>
+          <h2
+            id="solucion-teaser-heading"
+            className="font-display font-bold text-3xl md:text-5xl text-foreground mb-5 text-balance"
+          >
+            Estos problemas te están{' '}
+            <span className="text-gradient">costando pacientes y tiempo.</span>
+          </h2>
+          <p className="text-lg text-foreground-muted leading-relaxed max-w-2xl mx-auto">
+            La mayoría de los kinesiólogos en Chile trabajan con herramientas del pasado.
+            Kenkomed los soluciona todos — en una sola plataforma.
+          </p>
+        </div>
+
+        {/* Pain / Solution cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
+          {teaserPains.map((item, i) => {
+            const Icon = item.icon
+            return (
+              <div key={i}
+                className={`group rounded-2xl border border-border/60 overflow-hidden bg-card hover:shadow-lg hover:border-teal-200 transition-all duration-300 scroll-reveal stagger-${i + 1} ${visible ? 'is-visible' : ''}`}>
+                {/* Top — pain */}
+                <div className="p-6 border-b border-rose-100/60 bg-rose-50/30">
+                  <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center mb-3`}>
+                    <Icon size={18} />
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-2 text-sm">{item.title}</h3>
+                  <div className="flex items-start gap-2">
+                    <XCircle size={13} className="text-rose-400 mt-0.5 flex-shrink-0" />
+                    <p className="text-xs text-foreground-muted">{item.bad}</p>
+                  </div>
+                </div>
+                {/* Bottom — solution */}
+                <div className="p-6 bg-teal-50/30">
+                  <div className="flex items-start gap-2">
+                    <CheckCheck size={13} className="text-teal-500 mt-0.5 flex-shrink-0" />
+                    <p className="text-xs text-foreground font-medium">{item.good}</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* CTA */}
+        <div className={`text-center scroll-reveal stagger-4 ${visible ? 'is-visible' : ''}`}>
+          <Link
+            href="/solucion"
+            className="group inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5"
+          >
+            Ver cómo Kenkomed lo resuelve
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <p className="text-sm text-foreground-muted mt-3">
+            Solución + validación científica completa →
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}

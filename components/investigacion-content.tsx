@@ -468,14 +468,6 @@ export default function InvestigacionContent() {
                         </p>
                     </div>
 
-                    {/* Flow diagram */}
-                    <div className={`mb-16 scroll-reveal ${flowSection.visible ? 'is-visible' : ''}`}>
-                        <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/30 bg-white dark:bg-card">
-                            <Image src="/images/dss-flow-diagram.png" alt="Diagrama de flujo del proceso de Anamnesis DSS de Kenkomed — 9 pasos del sistema de soporte a la decisión clínica"
-                                width={1200} height={800} className="w-full h-auto" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px" priority />
-                        </div>
-                    </div>
-
                     {/* Steps */}
                     <div className="relative">
                         <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border/60" aria-hidden="true" />

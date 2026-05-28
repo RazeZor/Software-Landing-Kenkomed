@@ -490,3 +490,20 @@
 .dark .bg-white\/10 { background-color: oklch(0.99 0 0 / 0.1); }
 .dark .border-white\/10 { border-color: oklch(0.99 0 0 / 0.1); }
 
+/* === HERO PANEL FADE — blends dashboard into page background === */
+.hero-panel-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    oklch(0.99 0.002 246 / 0.5) 55%,
+    oklch(0.99 0.002 246) 100%
+  );
+}
+.dark .hero-panel-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    oklch(0.09 0.01 240 / 0.7) 55%,
+    oklch(0.09 0.01 240) 100%
+  );
+}
