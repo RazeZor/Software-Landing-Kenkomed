@@ -372,20 +372,6 @@ export function FeaturesComplete() {
                     </p>
                 </div>
 
-                {/* Stats summary */}
-                <div ref={statsSection.ref} className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 scroll-reveal ${statsSection.visible ? 'is-visible' : ''}`}>
-                    {[
-                        { value: `${totalClinician}+`, label: 'Funcionalidades para clínicos', color: 'bg-blue-50 border-blue-200 text-blue-700' },
-                        { value: `${totalPatient}`,    label: 'Funcionalidades para pacientes', color: 'bg-teal-50 border-teal-200 text-teal-700' },
-                        { value: '8',                  label: 'Escalas clínicas integradas',    color: 'bg-purple-50 border-purple-200 text-purple-700' },
-                        { value: '14',                 label: 'Páginas de anamnesis remota',    color: 'bg-amber-50 border-amber-200 text-amber-700' },
-                    ].map((s, i) => (
-                        <div key={i} className={`rounded-2xl border ${s.color} p-5 text-center`}>
-                            <p className="font-display font-bold text-4xl mb-1">{s.value}</p>
-                            <p className="text-xs font-medium opacity-80 leading-snug">{s.label}</p>
-                        </div>
-                    ))}
-                </div>
 
                 {/* Two columns: Clinicians + Patients */}
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">

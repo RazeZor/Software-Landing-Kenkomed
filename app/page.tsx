@@ -16,7 +16,6 @@ export default function Home() {
       <Hero />
       <ProductShowcase />
       <PlatformOverview />
-      <Features />
       <FeaturesComplete />
       <QRAdmission />
       <StatsMonitor />
