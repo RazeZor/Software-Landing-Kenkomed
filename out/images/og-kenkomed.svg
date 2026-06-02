@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Kenkomed  Software para kinesiólogos">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d4a8a"/>
+      <stop offset="55%" stop-color="#1a6fc4"/>
+      <stop offset="100%" stop-color="#2d8ae8"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1050" cy="120" r="180" fill="#ffffff" opacity="0.06"/>
+  <circle cx="150" cy="520" r="220" fill="#ffffff" opacity="0.05"/>
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <rect x="80" y="80" width="72" height="72" rx="16" fill="#ffffff" fill-opacity="0.15"/>
+  <text x="116" y="132" font-family="system-ui, Segoe UI, sans-serif" font-size="42" font-weight="700" fill="#ffffff">K</text>
+  <text x="180" y="118" font-family="system-ui, Segoe UI, sans-serif" font-size="28" font-weight="600" fill="#ffffff" opacity="0.9">KENKOMED</text>
+  <text x="180" y="148" font-family="system-ui, Segoe UI, sans-serif" font-size="16" fill="#ffffff" opacity="0.75">Software para kinesiólogos · Chile</text>
+  <text x="80" y="260" font-family="system-ui, Segoe UI, sans-serif" font-size="56" font-weight="700" fill="#ffffff">Software para</text>
+  <text x="80" y="330" font-family="system-ui, Segoe UI, sans-serif" font-size="56" font-weight="700" fill="#ffffff">Kinesiólogos</text>
+  <rect x="80" y="360" width="420" height="6" rx="3" fill="url(#accent)"/>
+  <text x="80" y="420" font-family="system-ui, Segoe UI, sans-serif" font-size="26" fill="#ffffff" opacity="0.92">Sistema DSS · Fichas digitales · Agenda inteligente</text>
+  <text x="80" y="465" font-family="system-ui, Segoe UI, sans-serif" font-size="22" fill="#ffffff" opacity="0.8">EVA · PSFS · Barthel · GROC · Gestión clínica integral</text>
+  <rect x="80" y="520" width="280" height="52" rx="26" fill="#ffffff"/>
+  <text x="220" y="553" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#1a6fc4">kenkomed.cl</text>
+  <rect x="720" y="140" width="400" height="350" rx="20" fill="#ffffff" fill-opacity="0.12" stroke="#ffffff" stroke-opacity="0.2" stroke-width="2"/>
+  <rect x="750" y="180" width="160" height="12" rx="6" fill="#ffffff" fill-opacity="0.35"/>
+  <rect x="750" y="210" width="320" height="8" rx="4" fill="#ffffff" fill-opacity="0.2"/>
+  <rect x="750" y="235" width="280" height="8" rx="4" fill="#ffffff" fill-opacity="0.2"/>
+  <rect x="750" y="280" width="120" height="80" rx="12" fill="#10b981" fill-opacity="0.5"/>
+  <rect x="890" y="280" width="120" height="80" rx="12" fill="#ffffff" fill-opacity="0.15"/>
+  <rect x="1030" y="280" width="60" height="80" rx="12" fill="#ffffff" fill-opacity="0.1"/>
+  <text x="750" y="400" font-family="system-ui, Segoe UI, sans-serif" font-size="14" fill="#ffffff" fill-opacity="0.7">Panel clínico · Historia digital · Reportes DSS</text>
+</svg>

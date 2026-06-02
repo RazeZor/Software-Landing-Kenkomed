@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import InvestigacionContent from '@/components/investigacion-content'
 import { JsonLd, breadcrumbSchema } from '@/components/json-ld'
+import { defaultOgImage, defaultOgImagePath } from '@/lib/seo-assets'
 
 export const metadata: Metadata = {
   title: 'Investigación y Evidencia Científica',
@@ -11,21 +12,14 @@ export const metadata: Metadata = {
     description:
       'Escalas clínicas validadas internacionalmente, algoritmo DSS basado en evidencia y respaldo universitario chileno. Conoce la investigación detrás de Kenkomed.',
     url: '/investigacion',
-    images: [
-      {
-        url: '/images/dss-flow-diagram.png',
-        width: 1200,
-        height: 800,
-        alt: 'Diagrama del flujo DSS de Kenkomed — Sistema de Soporte a la Decisión Clínica',
-      },
-    ],
+    images: [defaultOgImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Investigación y Evidencia — Kenkomed',
     description:
       'Conoce la investigación científica y las escalas clínicas validadas detrás del sistema DSS de Kenkomed.',
-    images: ['/images/dss-flow-diagram.png'],
+    images: [defaultOgImagePath],
   },
   alternates: {
     canonical: '/investigacion',

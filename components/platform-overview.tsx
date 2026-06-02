@@ -91,8 +91,9 @@ export function PlatformOverview() {
                         <span className="text-gradient">Cero compromisos.</span>
                     </h2>
                     <p className="text-lg text-foreground-muted leading-relaxed">
-                        Kenkomed es la solución de gestión clínica especializada en kinesiología que
-                        cubre <strong className="text-foreground">todo el ciclo del paciente</strong> — desde el primer contacto remoto hasta el alta.
+                        Plataforma de <strong className="text-foreground">software para kinesiólogos y fisioterapeutas en Chile</strong>:
+                        gestión de pacientes, sistema DSS, admisión QR y reportes clínicos que cubren{' '}
+                        <strong className="text-foreground">todo el ciclo del paciente</strong> — desde el primer contacto hasta el alta.
                     </p>
                 </div>
 

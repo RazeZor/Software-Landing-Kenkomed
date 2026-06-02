@@ -130,8 +130,8 @@ export function Hero() {
             className="font-display font-bold text-5xl sm:text-6xl md:text-7xl leading-[1.04] tracking-tight text-foreground mb-6 animate-fade-up delay-100 text-balance"
             style={{ opacity: 0 }}
           >
-            Digitaliza tu clínica.{' '}
-            <span className="text-gradient">Potencia tu práctica.</span>
+            Software para kinesiólogos en Chile.{' '}
+            <span className="text-gradient">Digitaliza tu clínica.</span>
           </h1>
 
           {/* Subheadline */}
@@ -140,9 +140,9 @@ export function Hero() {
             style={{ opacity: 0 }}
           >
             Kenkomed es el{' '}
-            <strong className="text-foreground">Sistema de Soporte a la Decisión Clínica (DSS)</strong>{' '}
-            diseñado para kinesiólogos y fisioterapeutas. Anamnesis inteligente, 9&nbsp;escalas
-            validadas y gestión integral — todo en una plataforma.
+            <strong className="text-foreground">software de gestión clínica y Sistema DSS</strong>{' '}
+            para kinesiólogos y fisioterapeutas: historias clínicas digitales, agenda inteligente,
+            fichas sin papel y cuestionarios EVA, PSFS y Barthel en una sola plataforma.
           </p>
 
           {/* Trust badges */}

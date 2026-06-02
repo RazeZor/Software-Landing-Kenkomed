@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import SolucionContent from '@/components/solucion-content'
 import { JsonLd, breadcrumbSchema } from '@/components/json-ld'
+import { defaultOgImage, defaultOgImagePath } from '@/lib/seo-assets'
 
 export const metadata: Metadata = {
   title: 'Nuestra Solución — Kenkomed Transforma tu Clínica',
@@ -11,21 +12,14 @@ export const metadata: Metadata = {
     description:
       'Compara cómo trabaja una clínica SIN y CON Kenkomed. Escalas EVA, PSFS, Barthel, Oswestry, Lefebvre y más. Sistema DSS que piensa contigo.',
     url: '/solucion',
-    images: [
-      {
-        url: '/images/dss-flow-diagram.png',
-        width: 1200,
-        height: 800,
-        alt: 'Kenkomed — Sistema DSS para kinesiólogos',
-      },
-    ],
+    images: [defaultOgImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kenkomed: La Solución que tu Clínica Estaba Esperando',
     description:
       'DSS clínico con escalas validadas, anamnesis inteligente e informes automáticos para kinesiólogos.',
-    images: ['/images/dss-flow-diagram.png'],
+    images: [defaultOgImagePath],
   },
   alternates: {
     canonical: '/solucion',

@@ -33,7 +33,7 @@ const features = [
   {
     icon: FileText,
     title: 'Historias Clínicas Digitales',
-    desc: 'Registros médicos completos y seguros con acceso instantáneo desde cualquier dispositivo.',
+    desc: 'Ficha clínica digital para kinesiólogos: registros completos, seguros y acceso instantáneo desde web o móvil.',
   },
   {
     icon: BarChart3,
@@ -58,7 +58,7 @@ const features = [
   {
     icon: CalendarCheck,
     title: 'Agenda Inteligente',
-    desc: 'Gestión de citas con recordatorios automáticos y optimización de horarios.',
+    desc: 'Agenda médica para kinesiología: citas, recordatorios automáticos y optimización del centro kinesiológico.',
   },
   {
     icon: Smartphone,

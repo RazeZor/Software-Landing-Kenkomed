@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import DemoContent from '@/components/demo-content'
 import { JsonLd, breadcrumbSchema } from '@/components/json-ld'
+import { defaultOgImage, defaultOgImagePath } from '@/lib/seo-assets'
 
 export const metadata: Metadata = {
   title: 'Demo del Software',
@@ -11,21 +12,14 @@ export const metadata: Metadata = {
     description:
       'Video demo y capturas de pantalla del software clínico Kenkomed. Conoce todas las funcionalidades del sistema DSS.',
     url: '/demo',
-    images: [
-      {
-        url: '/software/Panel.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Panel de control de Kenkomed - Software para Kinesiólogos',
-      },
-    ],
+    images: [defaultOgImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Demo de Kenkomed — Software para Kinesiólogos',
     description:
       'Video demo y capturas de pantalla del sistema DSS para kinesiólogos y fisioterapeutas.',
-    images: ['/software/Panel.jpg'],
+    images: [defaultOgImagePath],
   },
   alternates: {
     canonical: '/demo',

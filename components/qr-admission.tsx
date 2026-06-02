@@ -19,6 +19,20 @@ import {
     AlertCircle,
 } from 'lucide-react'
 
+/** Patrón fijo para el mock del QR (evita Math.random y errores de hidratación). */
+function isQrMockCellFilled(index: number): boolean {
+    const row = Math.floor(index / 7)
+    const col = index % 7
+    const isCorner =
+        (row < 3 && col < 3) ||
+        (row < 3 && col > 3) ||
+        (row > 3 && col < 3) ||
+        (col === 6 && row < 2) ||
+        (col === 0 && row > 3 && row < 6)
+    if (isCorner) return true
+    return ((index * 13 + row * 3 + col * 7) % 17) > 8
+}
+
 function useReveal() {
     const ref = useRef<HTMLDivElement>(null)
     const [visible, setVisible] = useState(false)
@@ -263,18 +277,12 @@ export function QRAdmission() {
                             {/* Fake QR pattern */}
                             <div className="w-40 h-40 mx-auto mb-5 rounded-2xl bg-white border-2 border-blue-100 p-3 shadow-inner">
                                 <div className="w-full h-full grid grid-cols-7 gap-0.5">
-                                    {Array.from({ length: 49 }).map((_, i) => {
-                                        // Corner squares pattern
-                                        const isCorner = (i < 7 && (i < 3 || i > 3)) ||
-                                            (i >= 42 && (i % 7 < 3)) ||
-                                            (i % 7 === 0 && i < 21) ||
-                                            (i % 7 === 6 && i < 7) ||
-                                            Math.random() > 0.55
-                                        return (
-                                            <div key={i}
-                                                className={`rounded-[1px] ${isCorner ? 'bg-foreground' : 'bg-transparent'}`} />
-                                        )
-                                    })}
+                                    {Array.from({ length: 49 }).map((_, i) => (
+                                            <div
+                                                key={i}
+                                                className={`rounded-[1px] ${isQrMockCellFilled(i) ? 'bg-foreground' : 'bg-transparent'}`}
+                                            />
+                                    ))}
                                 </div>
                             </div>
                             <p className="font-semibold text-foreground text-sm mb-1">Tu formulario de admisión</p>

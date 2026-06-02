@@ -7,6 +7,7 @@ import {
   websiteSchema,
   softwareSchema,
 } from '@/components/json-ld'
+import { defaultOgImage } from '@/lib/seo-assets'
 import './globals.css'
 
 const inter = Inter({
@@ -76,6 +77,17 @@ export const metadata: Metadata = {
     canonical: '/',
   },
 
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icons/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icons/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icons/favicon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/favicon.ico',
+  },
+
   openGraph: {
     title: 'Kenkomed — Software para Kinesiólogos | DSS Clínico',
     description:
@@ -84,15 +96,7 @@ export const metadata: Metadata = {
     locale: 'es_CL',
     url: 'https://kenkomed.cl',
     siteName: 'Kenkomed',
-    images: [
-      {
-        url: '/images/logo.jpeg',
-        width: 800,
-        height: 600,
-        alt: 'Kenkomed — Software para Kinesiólogos',
-        type: 'image/jpeg',
-      },
-    ],
+    images: [defaultOgImage],
   },
 
   twitter: {
@@ -100,7 +104,7 @@ export const metadata: Metadata = {
     title: 'Kenkomed — Software para Kinesiólogos | DSS Clínico',
     description:
       'Sistema de Soporte a la Decisión Clínica para kinesiólogos y fisioterapeutas. Digitaliza tu clínica con Kenkomed.',
-    images: ['/images/logo.jpeg'],
+    images: [defaultOgImage.url],
   },
 
   robots: {
@@ -135,18 +139,16 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning className={`${inter.variable} ${sora.variable} ${geistMono.variable}`}>
       <head>
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/images/LogoKenko.png" />
-        <link rel="shortcut icon" href="/images/LogoKenko.png" />
-        <link rel="icon" type="image/png" href="/images/LogoKenko.png" media="(prefers-color-scheme: light)" />
-        <link rel="icon" type="image/png" href="/images/LogoKenko.png" media="(prefers-color-scheme: dark)" />
-        <link rel="apple-touch-icon" href="/images/LogoKenko.png" />
         <meta name="theme-color" content="#1a6fc4" />
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />
         <JsonLd data={softwareSchema} />
       </head>
-      <body className="font-sans antialiased bg-background text-foreground">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body
+        suppressHydrationWarning
+        className="font-sans antialiased bg-background text-foreground"
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
           <VirtualAssistant />
         </ThemeProvider>
