@@ -71,12 +71,6 @@ export const softwareSchema = {
     '@type': 'Organization',
     name: 'Kenkomed',
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '500',
-    bestRating: '5',
-  },
 }
 
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
