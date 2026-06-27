@@ -1,16 +1,45 @@
+import dynamic from 'next/dynamic'
 import { Navbar } from '@/components/navbar'
 import { Hero } from '@/components/hero'
-import { Features, ProductShowcase, SolucionTeaser } from '@/components/features'
-import { PlatformOverview } from '@/components/platform-overview'
-import { FeaturesComplete } from '@/components/features-complete'
-import { QRAdmission } from '@/components/qr-admission'
-import { StatsMonitor } from '@/components/stats-monitor'
-import { Team } from '@/components/team'
-import { FaqSection } from '@/components/faq-section'
-import { ContactForm } from '@/components/contact-form'
 import { Footer } from '@/components/footer'
 import { JsonLd, faqSchema } from '@/components/json-ld'
 import { homeFaqItems } from '@/lib/faq-data'
+import { SectionSkeleton } from '@/components/section-skeleton'
+
+const SolucionTeaser = dynamic(
+  () => import('@/components/features').then((m) => m.SolucionTeaser),
+  { loading: () => <SectionSkeleton className="h-[32rem]" /> }
+)
+
+const ProductShowcase = dynamic(
+  () => import('@/components/features').then((m) => m.ProductShowcase),
+  { loading: () => <SectionSkeleton className="h-[40rem]" /> }
+)
+
+const HomeMidCta = dynamic(
+  () => import('@/components/home-mid-cta').then((m) => m.HomeMidCta),
+  { loading: () => <SectionSkeleton className="h-48" /> }
+)
+
+const HomeExploreStrip = dynamic(
+  () => import('@/components/home-explore-strip').then((m) => m.HomeExploreStrip),
+  { loading: () => <SectionSkeleton className="h-80" /> }
+)
+
+const FaqSection = dynamic(
+  () => import('@/components/faq-section').then((m) => m.FaqSection),
+  { loading: () => <SectionSkeleton className="h-96" /> }
+)
+
+const Team = dynamic(
+  () => import('@/components/team').then((m) => m.Team),
+  { loading: () => <SectionSkeleton className="h-80" /> }
+)
+
+const ContactForm = dynamic(
+  () => import('@/components/contact-form').then((m) => m.ContactForm),
+  { loading: () => <SectionSkeleton className="h-[36rem]" /> }
+)
 
 export default function Home() {
   return (
@@ -18,12 +47,10 @@ export default function Home() {
       <JsonLd data={faqSchema(homeFaqItems)} />
       <Navbar />
       <Hero />
-      <ProductShowcase />
-      <PlatformOverview />
-      <FeaturesComplete />
-      <QRAdmission />
-      <StatsMonitor />
       <SolucionTeaser />
+      <ProductShowcase />
+      <HomeMidCta />
+      <HomeExploreStrip />
       <FaqSection />
       <Team />
       <ContactForm />

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SectionEyebrow } from '@/components/brand-elements'
 import {
   CalendarCheck,
   FileText,
@@ -169,7 +170,7 @@ export function Features() {
           </div>
           <a
             href="#pricing"
-            className="relative z-10 flex-shrink-0 inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-200 shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5"
+            className="group justify-center btn-kenko-primary"
           >
             Comenzar ahora
           </a>
@@ -190,18 +191,19 @@ function BrowserMockup({
   alt,
   aspectClass = 'aspect-[16/10]',
   className = '',
+  priority = false,
 }: {
   src: string
   alt: string
   aspectClass?: string
   className?: string
+  priority?: boolean
 }) {
   return (
     <div
-      className={`relative ${aspectClass} w-full rounded-2xl overflow-hidden border border-border/30 bg-surface shadow-lg group-hover/card:scale-[1.02] transition-transform duration-500 ${className}`}
+      className={`relative ${aspectClass} w-full rounded-2xl overflow-hidden border border-border/30 bg-surface shadow-lg group-hover/card:scale-[1.01] transition-transform duration-300 ${className}`}
     >
-      {/* Browser chrome */}
-      <div className="w-full h-7 bg-secondary/80 backdrop-blur-sm flex items-center gap-1.5 px-3 border-b border-border/30 flex-shrink-0">
+      <div className="w-full h-7 bg-secondary/80 flex items-center gap-1.5 px-3 border-b border-border/30 flex-shrink-0">
         <div className="w-2 h-2 rounded-full bg-rose-400/80" />
         <div className="w-2 h-2 rounded-full bg-amber-400/80" />
         <div className="w-2 h-2 rounded-full bg-emerald-400/80" />
@@ -212,10 +214,11 @@ function BrowserMockup({
           src={src}
           alt={alt}
           fill
+          loading={priority ? undefined : 'lazy'}
+          priority={priority}
           className="object-cover object-top"
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, 40vw"
         />
-        {/* Subtle inner shadow overlay to make images pop */}
         <div className="absolute inset-0 shadow-[inset_0_-40px_60px_rgba(0,0,0,0.08)] pointer-events-none" />
       </div>
     </div>
@@ -245,7 +248,7 @@ export function ProductShowcase() {
   return (
     <section
       id="product"
-      className="py-28 md:py-36 bg-surface relative overflow-hidden"
+      className="py-28 md:py-36 bg-surface relative overflow-hidden section-deferred"
       aria-labelledby="product-heading"
     >
       {/* Background grid */}
@@ -262,9 +265,7 @@ export function ProductShowcase() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
-            El Producto
-          </span>
+          <SectionEyebrow>El Producto</SectionEyebrow>
           <h2
             id="product-heading"
             className="font-display font-bold text-4xl md:text-5xl text-foreground mb-6 text-balance"
@@ -298,6 +299,7 @@ export function ProductShowcase() {
                 fill
                 className="object-cover object-top group-hover/card:scale-[1.03] transition-transform duration-700"
                 sizes="(max-width: 768px) 100vw, 58vw"
+                loading="lazy"
               />
               {/* Gradient overlay bottom */}
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
@@ -707,7 +709,7 @@ export function SolucionTeaser() {
         <div className={`text-center scroll-reveal stagger-4 ${visible ? 'is-visible' : ''}`}>
           <Link
             href="/solucion"
-            className="group inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5"
+            className="group justify-center btn-kenko-primary"
           >
             Ver cómo Kenkomed lo resuelve
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

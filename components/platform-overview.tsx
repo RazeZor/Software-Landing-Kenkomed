@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { SectionEyebrow } from '@/components/brand-elements'
 import {
     CheckCircle2,
     ArrowRight,
@@ -65,7 +66,7 @@ export function PlatformOverview() {
     return (
         <section
             id="plataforma"
-            className="py-28 md:py-36 bg-surface relative overflow-hidden"
+            className="py-28 md:py-36 kenko-band-mist relative overflow-hidden"
             aria-labelledby="platform-heading"
         >
             {/* Background decoration */}
@@ -80,9 +81,7 @@ export function PlatformOverview() {
 
                 {/* Header */}
                 <div ref={headerSection.ref} className={`max-w-3xl mx-auto text-center mb-20 scroll-reveal ${headerSection.visible ? 'is-visible' : ''}`}>
-                    <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
-                        La Plataforma
-                    </span>
+                    <SectionEyebrow>La Plataforma</SectionEyebrow>
                     <h2
                         id="platform-heading"
                         className="font-display font-bold text-4xl md:text-5xl text-foreground mb-5 text-balance"
@@ -176,7 +175,7 @@ export function PlatformOverview() {
 
                         {/* CTA */}
                         <Link href="/solucion"
-                            className="group inline-flex items-center justify-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5">
+                            className="group justify-center btn-kenko-primary">
                             Ver validación completa
                             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                         </Link>

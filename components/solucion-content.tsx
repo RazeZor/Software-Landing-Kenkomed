@@ -221,40 +221,53 @@ export default function SolucionContent() {
         <main className="bg-background text-foreground">
             <Navbar />
 
-            {/* ═══ HERO ═══ */}
-            <section className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden">
+            {/* ═══ HERO — Identidad Kenkomed Navy ═══ */}
+            <section
+                className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden"
+                style={{
+                    background: 'linear-gradient(160deg, #05111e 0%, #081b35 30%, #0d2a50 55%, #091e3a 78%, #05111e 100%)',
+                }}
+            >
+                <div className="absolute inset-0 pointer-events-none kenko-grid opacity-[0.05]" aria-hidden="true" />
+
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <div className="absolute top-0 left-1/2 w-[1100px] h-[1100px] -translate-x-1/2 opacity-[0.07]"
-                        style={{ background: 'radial-gradient(circle at center, oklch(0.48 0.18 246), transparent 70%)' }} />
-                    <div className="absolute bottom-0 right-0 w-[600px] h-[600px] opacity-[0.05]"
-                        style={{ background: 'radial-gradient(circle at center, oklch(0.66 0.18 163), transparent 70%)' }} />
-                    <div className="absolute inset-0 opacity-[0.02]"
-                        style={{ backgroundImage: 'linear-gradient(oklch(0.48 0.18 246) 1px, transparent 1px), linear-gradient(90deg, oklch(0.48 0.18 246) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
+                    <div className="absolute top-0 left-1/2 w-[1100px] h-[1100px] -translate-x-1/2 rounded-full opacity-[0.13]"
+                        style={{ background: 'radial-gradient(circle, oklch(0.48 0.18 246) 0%, transparent 65%)', filter: 'blur(100px)' }} />
+                    <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.10]"
+                        style={{ background: 'radial-gradient(circle, oklch(0.66 0.19 163) 0%, transparent 65%)', filter: 'blur(80px)' }} />
                 </div>
 
                 <div ref={heroSection.ref} className={`relative z-10 max-w-5xl mx-auto px-6 text-center scroll-reveal ${heroSection.visible ? 'is-visible' : ''}`}>
-                    <div className="inline-flex items-center gap-2 bg-teal-50 border border-teal-200 rounded-full px-4 py-1.5 mb-8">
-                        <Sparkles size={12} className="text-brand" />
-                        <span className="text-xs font-semibold text-brand tracking-wide uppercase">Solución & Validación Clínica</span>
+                    <div className="inline-flex items-center gap-2.5 glass-mint rounded-full px-5 py-2 mb-8">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: 'var(--kenko-pulse)' }} />
+                            <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: 'var(--kenko-mint)' }} />
+                        </span>
+                        <Sparkles size={12} style={{ color: 'var(--kenko-pulse)' }} />
+                        <span className="text-xs font-bold font-display tracking-[0.18em] uppercase" style={{ color: 'oklch(0.97 0.003 246 / 0.7)' }}>Solución &amp; Validación Clínica</span>
                     </div>
 
-                    <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-foreground mb-6 text-balance">
+                    <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.04] tracking-tight text-on-brand mb-6 text-balance">
                         El problema es real.{' '}
-                        <span className="text-gradient">Kenkomed lo resuelve.</span>
+                        <span style={{
+                            background: 'linear-gradient(135deg, var(--kenko-sapphire), var(--kenko-sky), var(--kenko-pulse))',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                        }}>Kenkomed lo resuelve.</span>
                     </h1>
 
-                    <p className="text-lg md:text-xl text-foreground-muted leading-relaxed max-w-3xl mx-auto mb-10">
+                    <p className="text-lg md:text-xl text-on-brand-muted leading-relaxed max-w-3xl mx-auto mb-10">
                         Cada día, kinesiólogos de todo Chile pierden tiempo, datos y oportunidades de mejora clínica por no tener las herramientas correctas.
-                        Kenkomed nació para cambiar eso — con <strong className="text-foreground">evidencia científica real</strong> y un sistema que piensa contigo.
+                        Kenkomed nació para cambiar eso — con <strong className="text-on-brand font-semibold">evidencia científica real</strong> y un sistema que piensa contigo.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/#contact"
-                            className="group inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5">
+                        <Link href="/#contact" className="btn-kenko-primary">
                             Quiero transformar mi clínica
                             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-foreground-muted hover:text-foreground transition-colors">
+                        <Link href="/" className="btn-kenko-ghost text-sm font-medium">
                             <ArrowLeft size={14} /> Volver al inicio
                         </Link>
                     </div>
@@ -558,31 +571,37 @@ export default function SolucionContent() {
             {/* ═══ CTA FINAL ═══ */}
             <section className="py-16 md:py-24 bg-surface">
                 <div className="max-w-4xl mx-auto px-6">
-                    <div className="rounded-3xl bg-teal-50 dark:bg-surface-2 border border-teal-200/60 dark:border-border/60 p-10 md:p-16 text-center relative overflow-hidden">
-                        <div className="absolute right-0 top-0 w-96 h-96 opacity-10 pointer-events-none" aria-hidden="true"
-                            style={{ background: 'radial-gradient(circle, oklch(0.42 0.12 210), transparent 70%)' }} />
-                        <div className="absolute left-0 bottom-0 w-80 h-80 opacity-8 pointer-events-none" aria-hidden="true"
-                            style={{ background: 'radial-gradient(circle, oklch(0.66 0.18 163), transparent 70%)' }} />
+                    <div
+                        className="rounded-3xl p-10 md:p-16 text-center relative overflow-hidden"
+                        style={{
+                            background: 'linear-gradient(135deg, #05111e 0%, #0a2340 40%, #0d2d52 70%, #081b35 100%)',
+                            border: '1px solid oklch(0.48 0.18 246 / 0.2)',
+                            boxShadow: '0 24px 80px oklch(0.05 0.01 240 / 0.5)',
+                        }}
+                    >
+                        <div className="absolute inset-0 pointer-events-none kenko-grid opacity-[0.04]" aria-hidden="true" />
+                        <div className="absolute right-0 top-0 w-96 h-96 rounded-full opacity-15 pointer-events-none" aria-hidden="true"
+                            style={{ background: 'radial-gradient(circle, oklch(0.66 0.19 163) 0%, transparent 65%)', filter: 'blur(60px)' }} />
+                        <div className="absolute left-0 bottom-0 w-80 h-80 rounded-full opacity-10 pointer-events-none" aria-hidden="true"
+                            style={{ background: 'radial-gradient(circle, oklch(0.48 0.18 246) 0%, transparent 65%)', filter: 'blur(60px)' }} />
                         <div className="relative z-10">
-                            <div className="inline-flex items-center gap-2 bg-white/60 border border-teal-200/60 rounded-full px-4 py-1.5 mb-6">
-                                <Sparkles size={12} className="text-brand" />
-                                <span className="text-xs font-semibold text-brand tracking-wide uppercase">Transforma tu práctica hoy</span>
+                            <div className="inline-flex items-center gap-2.5 glass-mint rounded-full px-5 py-2 mb-6">
+                                <Sparkles size={12} style={{ color: 'var(--kenko-pulse)' }} />
+                                <span className="text-xs font-bold font-display tracking-[0.18em] uppercase" style={{ color: 'oklch(0.97 0.003 246 / 0.7)' }}>Transforma tu práctica hoy</span>
                             </div>
-                            <h3 className="font-display font-bold text-2xl md:text-4xl text-foreground mb-4 text-balance">
+                            <h3 className="font-display font-bold text-2xl md:text-4xl text-on-brand mb-4 text-balance">
                                 ¿Listo para dejar atrás el papel y el Excel?
                             </h3>
-                            <p className="text-foreground-muted max-w-lg mx-auto leading-relaxed mb-8">
+                            <p className="text-on-brand-muted max-w-lg mx-auto leading-relaxed mb-8">
                                 Únete a los kinesiólogos que ya gestionan sus pacientes con inteligencia clínica real.
                                 Contáctanos y te mostramos cómo en una demo personalizada.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                                <Link href="/#contact"
-                                    className="group inline-flex items-center justify-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5">
+                                <Link href="/#contact" className="btn-kenko-primary">
                                     Solicitar Demo Gratuita
-                                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                    <ArrowRight size={16} />
                                 </Link>
-                                <Link href="/"
-                                    className="inline-flex items-center justify-center gap-2 text-sm font-medium text-foreground-muted hover:text-foreground transition-colors px-6 py-3.5">
+                                <Link href="/" className="btn-kenko-ghost text-sm">
                                     <ArrowLeft size={14} /> Volver al inicio
                                 </Link>
                             </div>
@@ -595,3 +614,4 @@ export default function SolucionContent() {
         </main>
     )
 }
+

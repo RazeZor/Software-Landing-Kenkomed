@@ -446,7 +446,7 @@ export function FeaturesComplete() {
                         <div className="mt-6">
                             <Link
                                 href="/#contact"
-                                className="group w-full inline-flex items-center justify-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5"
+                                className="group w-full justify-center btn-kenko-primary"
                             >
                                 Quiero todo esto para mi clínica
                                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

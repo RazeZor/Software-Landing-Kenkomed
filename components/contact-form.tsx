@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Send, User, Mail, Phone, Building2, MessageSquare, CheckCircle2 } from 'lucide-react'
+import { SectionEyebrow } from '@/components/brand-elements'
 
 export function ContactForm() {
     const sectionRef = useRef<HTMLElement>(null)
@@ -85,7 +86,7 @@ export function ContactForm() {
         <section
             id="contact"
             ref={sectionRef}
-            className="py-28 md:py-36 bg-teal-50 dark:bg-surface overflow-hidden"
+            className="py-28 md:py-36 kenko-band-mist overflow-hidden"
             aria-labelledby="contact-heading"
         >
             <div className="max-w-7xl mx-auto px-6">
@@ -93,9 +94,7 @@ export function ContactForm() {
                 <div
                     className={`text-center max-w-2xl mx-auto mb-14 scroll-reveal ${revealed ? 'is-visible' : ''}`}
                 >
-                    <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
-                        Contacto
-                    </span>
+                    <SectionEyebrow>Contacto</SectionEyebrow>
                     <h2
                         id="contact-heading"
                         className="font-display font-bold text-4xl md:text-5xl text-foreground text-balance mb-4"
@@ -257,7 +256,7 @@ export function ContactForm() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="group w-full inline-flex items-center justify-center gap-2.5 bg-primary text-primary-foreground font-semibold px-7 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-md"
+                                    className="group w-full justify-center btn-kenko-primary disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-md"
                                 >
                                     {isSubmitting ? (
                                         <>
@@ -274,6 +273,13 @@ export function ContactForm() {
 
                                 <p className="text-xs text-center text-foreground-muted">
                                     Responderemos dentro de 24 horas hábiles. Sin compromiso.
+                                </p>
+                                <p className="text-xs text-center text-foreground-muted">
+                                    Al enviar este formulario aceptas nuestra{' '}
+                                    <a href="/privacidad" className="text-brand hover:underline">
+                                        Política de Privacidad
+                                    </a>{' '}
+                                    y el tratamiento de tus datos para responder tu solicitud.
                                 </p>
                             </form>
                         )}

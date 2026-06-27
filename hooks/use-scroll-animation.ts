@@ -71,46 +71,100 @@ export function useCountUp(
     return display
 }
 
-/* ─── Scroll progress (0-1) ─── */
+/* ─── Scroll progress (0-1) — throttled with rAF ─── */
 export function useScrollProgress() {
     const [progress, setProgress] = useState(0)
 
     useEffect(() => {
+        let rafId = 0
+
         const update = () => {
+            rafId = 0
             const scrollTop = window.scrollY
             const docHeight = document.documentElement.scrollHeight - window.innerHeight
             setProgress(docHeight > 0 ? scrollTop / docHeight : 0)
         }
 
-        window.addEventListener('scroll', update, { passive: true })
+        const onScroll = () => {
+            if (!rafId) rafId = requestAnimationFrame(update)
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true })
         update()
-        return () => window.removeEventListener('scroll', update)
+        return () => {
+            window.removeEventListener('scroll', onScroll)
+            if (rafId) cancelAnimationFrame(rafId)
+        }
     }, [])
 
     return progress
 }
 
-/* ─── Mouse position tracker ─── */
-export function useMousePosition(containerRef: React.RefObject<HTMLElement | null>) {
+/* ─── Mouse position tracker — throttled, optional ─── */
+export function useMousePosition(
+    containerRef: React.RefObject<HTMLElement | null>,
+    enabled = true
+) {
     const [pos, setPos] = useState({ x: 0.5, y: 0.5 })
 
     useEffect(() => {
+        if (!enabled) return
         const el = containerRef.current
         if (!el) return
 
+        let rafId = 0
+        let pending = { x: 0.5, y: 0.5 }
+
         const handler = (e: MouseEvent) => {
             const rect = el.getBoundingClientRect()
-            setPos({
+            pending = {
                 x: (e.clientX - rect.left) / rect.width,
                 y: (e.clientY - rect.top) / rect.height,
+            }
+            if (rafId) return
+            rafId = requestAnimationFrame(() => {
+                rafId = 0
+                setPos(pending)
             })
         }
 
         el.addEventListener('mousemove', handler, { passive: true })
-        return () => el.removeEventListener('mousemove', handler)
-    }, [containerRef])
+        return () => {
+            el.removeEventListener('mousemove', handler)
+            if (rafId) cancelAnimationFrame(rafId)
+        }
+    }, [containerRef, enabled])
 
     return pos
+}
+
+/** Preferencias de FX del hero: motion + puntero fino */
+export function usePrefersMotionFx() {
+    const [state, setState] = useState({
+        motion: true,
+        finePointer: false,
+    })
+
+    useEffect(() => {
+        const motionMq = window.matchMedia('(prefers-reduced-motion: no-preference)')
+        const pointerMq = window.matchMedia('(hover: hover) and (pointer: fine)')
+
+        const sync = () =>
+            setState({
+                motion: motionMq.matches,
+                finePointer: pointerMq.matches,
+            })
+
+        sync()
+        motionMq.addEventListener('change', sync)
+        pointerMq.addEventListener('change', sync)
+        return () => {
+            motionMq.removeEventListener('change', sync)
+            pointerMq.removeEventListener('change', sync)
+        }
+    }, [])
+
+    return state
 }
 
 /* ─── Parallax value based on scroll ─── */

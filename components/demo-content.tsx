@@ -88,46 +88,54 @@ export default function DemoContent() {
         <main className="bg-background text-foreground">
             <Navbar />
 
-            {/* ═══ HERO ═══ */}
-            <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
-                {/* Background mesh — same as landing */}
+            {/* ═══ HERO — Identidad Kenkomed Navy ═══ */}
+            <section
+                className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden"
+                style={{
+                    background: 'linear-gradient(160deg, #05111e 0%, #081b35 30%, #0d2a50 55%, #091e3a 78%, #05111e 100%)',
+                }}
+            >
+                {/* Grid de fondo */}
+                <div className="absolute inset-0 pointer-events-none kenko-grid opacity-[0.05]" aria-hidden="true" />
+
+                {/* Orbes atmosféricos */}
                 <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <div
-                        className="absolute top-0 right-0 w-[800px] h-[800px] opacity-[0.06]"
-                        style={{ background: 'radial-gradient(circle at center, oklch(0.48 0.18 246), transparent 70%)' }}
-                    />
-                    <div
-                        className="absolute bottom-0 left-0 w-[600px] h-[600px] opacity-[0.05]"
-                        style={{ background: 'radial-gradient(circle at center, oklch(0.66 0.18 163), transparent 70%)' }}
-                    />
-                    <div
-                        className="absolute inset-0 opacity-[0.02]"
-                        style={{
-                            backgroundImage: 'linear-gradient(oklch(0.48 0.18 246) 1px, transparent 1px), linear-gradient(90deg, oklch(0.48 0.18 246) 1px, transparent 1px)',
-                            backgroundSize: '64px 64px',
-                        }}
-                    />
+                    <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full opacity-[0.15]"
+                        style={{ background: 'radial-gradient(circle, oklch(0.48 0.18 246) 0%, transparent 65%)', filter: 'blur(80px)' }} />
+                    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full opacity-[0.10]"
+                        style={{ background: 'radial-gradient(circle, oklch(0.66 0.19 163) 0%, transparent 65%)', filter: 'blur(80px)' }} />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full opacity-[0.08]"
+                        style={{ background: 'radial-gradient(ellipse, oklch(0.62 0.16 230) 0%, transparent 60%)', filter: 'blur(60px)' }} />
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-1.5 mb-8 animate-fade-up">
-                        <Play size={12} className="text-brand fill-brand" />
-                        <span className="text-xs font-semibold text-brand tracking-wide uppercase">
+                    <div className="inline-flex items-center gap-2.5 glass-mint rounded-full px-5 py-2 mb-8 animate-fade-up">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: 'var(--kenko-pulse)' }} />
+                            <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: 'var(--kenko-mint)' }} />
+                        </span>
+                        <Play size={12} style={{ color: 'var(--kenko-pulse)', fill: 'var(--kenko-pulse)' }} />
+                        <span className="text-xs font-bold font-display tracking-[0.18em] uppercase" style={{ color: 'oklch(0.97 0.003 246 / 0.7)' }}>
                             Demo del Producto
                         </span>
                     </div>
 
                     <h1
-                        className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-foreground mb-6 animate-fade-up delay-100 text-balance"
+                        className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.04] tracking-tight text-on-brand mb-6 animate-fade-up delay-100 text-balance"
                         style={{ opacity: 0 }}
                     >
                         Descubre Kenkomed{' '}
-                        <span className="text-gradient">en Acción</span>
+                        <span style={{
+                            background: 'linear-gradient(135deg, var(--kenko-sapphire), var(--kenko-sky), var(--kenko-pulse))',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                        }}>en Acción</span>
                     </h1>
 
                     <p
-                        className="text-lg md:text-xl text-foreground-muted leading-relaxed max-w-2xl mx-auto mb-8 animate-fade-up delay-200"
+                        className="text-lg md:text-xl text-on-brand-muted leading-relaxed max-w-2xl mx-auto mb-8 animate-fade-up delay-200"
                         style={{ opacity: 0 }}
                     >
                         Mira cómo Kenkomed transforma la gestión clínica de kinesiólogos.
@@ -135,7 +143,7 @@ export default function DemoContent() {
                     </p>
 
                     <div className="animate-fade-up delay-300" style={{ opacity: 0 }}>
-                        <ChevronDown size={20} className="mx-auto text-foreground-muted animate-bounce" />
+                        <ChevronDown size={20} className="mx-auto animate-bounce" style={{ color: 'var(--kenko-pulse)' }} />
                     </div>
                 </div>
             </section>
@@ -168,10 +176,11 @@ export default function DemoContent() {
 
                                 {/* Play button */}
                                 <button
-                                    className="relative z-10 w-20 h-20 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-xl"
+                                    className="relative z-10 w-20 h-20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-xl"
+                                    style={{ background: 'linear-gradient(135deg, var(--kenko-mint), var(--kenko-pulse))' }}
                                     aria-label="Reproducir video demo de Kenkomed"
                                 >
-                                    <Play size={28} className="fill-primary-foreground text-primary-foreground ml-1" />
+                                    <Play size={28} className="fill-[#05111e] text-[#05111e] ml-1" />
                                 </button>
 
                                 {/* Duration */}
@@ -274,15 +283,22 @@ export default function DemoContent() {
                 </div>
             </section>
 
-            {/* ═══ SOCIAL PROOF STRIP ═══ */} 
-            <section className="py-14 bg-blue-50 dark:bg-surface border-y border-border/40">
+            {/* ═══ SOCIAL PROOF STRIP ═══ */}
+            <section
+                className="py-14 border-y"
+                style={{
+                    background: 'linear-gradient(90deg, #05111e, #081b35, #05111e)',
+                    borderColor: 'oklch(0.48 0.18 246 / 0.2)',
+                }}
+            >
                 <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-10">
                     <div className="flex items-center gap-4">
                         <div className="flex -space-x-2">
                             {['RE', 'MF', 'AV', 'CO', 'FT'].map((initials, i) => (
                                 <div
                                     key={i}
-                                    className="w-9 h-9 rounded-full bg-blue-100 border-2 border-background flex items-center justify-center text-[10px] font-bold text-brand"
+                                    className="w-9 h-9 rounded-full kenko-card border-2 flex items-center justify-center text-[10px] font-bold font-display text-on-brand"
+                                    style={{ borderColor: 'oklch(0.48 0.18 246 / 0.3)' }}
                                 >
                                     {initials}
                                 </div>
@@ -294,18 +310,18 @@ export default function DemoContent() {
                                     <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
                                 ))}
                             </div>
-                            <p className="text-sm text-foreground-muted">
-                                <strong className="text-foreground">+500 clínicas</strong> confían en Kenkomed
+                            <p className="text-sm text-on-brand-muted">
+                                <strong className="text-on-brand">+500 clínicas</strong> confían en Kenkomed
                             </p>
                         </div>
                     </div>
                     <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-1.5 text-xs text-foreground-muted">
-                            <Shield size={13} className="text-emerald" />
+                        <div className="flex items-center gap-1.5 text-xs text-on-brand-subtle">
+                            <Shield size={13} style={{ color: 'var(--kenko-pulse)' }} />
                             Datos encriptados
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-foreground-muted">
-                            <Zap size={13} className="text-emerald" />
+                        <div className="flex items-center gap-1.5 text-xs text-on-brand-subtle">
+                            <Zap size={13} style={{ color: 'var(--kenko-pulse)' }} />
                             Configuración en minutos
                         </div>
                     </div>
@@ -315,35 +331,35 @@ export default function DemoContent() {
             {/* ═══ CTA SECTION ═══ */}
             <section className="py-20 md:py-28">
                 <div ref={ctaSection.ref} className={`max-w-7xl mx-auto px-6 scroll-reveal ${ctaSection.visible ? 'is-visible' : ''}`}>
-                    <div className="rounded-3xl bg-teal-50 dark:bg-surface-2 border border-teal-200/60 dark:border-border/60 p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden relative">
+                    <div
+                        className="rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden relative"
+                        style={{
+                            background: 'linear-gradient(135deg, #05111e 0%, #0a2340 40%, #0d2d52 70%, #081b35 100%)',
+                            border: '1px solid oklch(0.48 0.18 246 / 0.2)',
+                            boxShadow: '0 24px 80px oklch(0.05 0.01 240 / 0.5)',
+                        }}
+                    >
+                        <div className="absolute inset-0 pointer-events-none kenko-grid opacity-[0.04]" aria-hidden="true" />
                         <div
-                            className="absolute right-0 top-0 w-96 h-96 opacity-10 pointer-events-none"
+                            className="absolute right-0 top-0 w-96 h-96 rounded-full opacity-15 pointer-events-none"
                             aria-hidden="true"
-                            style={{
-                                background: 'radial-gradient(circle, oklch(0.42 0.12 210), transparent 70%)',
-                            }}
+                            style={{ background: 'radial-gradient(circle, oklch(0.66 0.19 163) 0%, transparent 65%)', filter: 'blur(60px)' }}
                         />
                         <div className="relative z-10">
-                            <h3 className="font-display font-bold text-2xl md:text-3xl text-foreground mb-3 text-balance">
+                            <h3 className="font-display font-bold text-2xl md:text-3xl text-on-brand mb-3 text-balance">
                                 ¿Listo para transformar tu clínica?
                             </h3>
-                            <p className="text-foreground-muted max-w-lg leading-relaxed">
+                            <p className="text-on-brand-muted max-w-lg leading-relaxed">
                                 Únete a más de 500 kinesiólogos que ya optimizaron su práctica con Kenkomed.
                                 Sin tarjeta de crédito — 30 días gratis.
                             </p>
                         </div>
                         <div className="relative z-10 flex flex-col sm:flex-row gap-3 flex-shrink-0">
-                            <a
-                                href="#contact"
-                                className="group inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-200 shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5"
-                            >
+                            <a href="/#contact" className="btn-kenko-primary">
                                 Solicitar Demo
-                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight size={16} />
                             </a>
-                            <Link
-                                href="/"
-                                className="inline-flex items-center gap-2 text-sm font-medium text-foreground-muted hover:text-foreground transition-colors px-6 py-3.5"
-                            >
+                            <Link href="/" className="btn-kenko-ghost text-sm">
                                 <ArrowLeft size={14} />
                                 Volver al inicio
                             </Link>
@@ -351,7 +367,6 @@ export default function DemoContent() {
                     </div>
                 </div>
             </section>
-
             <Footer />
         </main>
     )

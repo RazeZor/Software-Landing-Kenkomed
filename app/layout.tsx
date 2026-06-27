@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Sora, Geist_Mono } from 'next/font/google'
+import { Inter, Space_Grotesk, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import {
   JsonLd,
@@ -8,18 +8,29 @@ import {
   softwareSchema,
 } from '@/components/json-ld'
 import { defaultOgImage } from '@/lib/seo-assets'
+import { VirtualAssistantLazy } from '@/components/virtual-assistant-lazy'
 import './globals.css'
+
+/* ──────────────────────────────────────────────────────────────
+   SISTEMA TIPOGRÁFICO KENKOMED — Clínico y Preciso
+   ──────────────────────────────────────────────────────────────
+   Inter         → cuerpo de texto · estándar médico/SaaS, legibilidad máxima
+   Space Grotesk → display / titulares · técnica, autoridad sin decoración
+   Geist Mono    → código / datos clínicos / métricas
+   ────────────────────────────────────────────────────────────── */
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
 })
 
-const sora = Sora({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-sora',
+  variable: '--font-space-grotesk',
   display: 'swap',
+  weight: ['400', '500', '600', '700'],
 })
 
 const geistMono = Geist_Mono({
@@ -122,8 +133,6 @@ export const metadata: Metadata = {
   category: 'health',
 }
 
-import { VirtualAssistant } from '@/components/virtual-assistant'
-
 export const viewport = {
   themeColor: '#1a6fc4',
   width: 'device-width',
@@ -136,7 +145,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning className={`${inter.variable} ${sora.variable} ${geistMono.variable}`}>
+    <html
+      lang="es"
+      suppressHydrationWarning
+      className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
+    >
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1a6fc4" />
@@ -150,7 +163,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
-          <VirtualAssistant />
+          <VirtualAssistantLazy />
         </ThemeProvider>
       </body>
     </html>
