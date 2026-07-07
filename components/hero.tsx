@@ -1,9 +1,8 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Shield, Zap, Clock, CheckCircle2 } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import {
   useReveal,
   useCountUp,
@@ -12,9 +11,7 @@ import {
 } from '@/hooks/use-scroll-animation'
 import {
   BrandGrid,
-  DataParticle,
   PulseDivider,
-  SectionEyebrow,
 } from '@/components/brand-elements'
 
 const stats = [
@@ -29,13 +26,6 @@ const tickerItems = [
   '8 escalas validadas',
   'Agenda y fichas digitales',
   'Hecho en Chile',
-]
-
-const trustBadges = [
-  { icon: Shield,       text: 'Datos encriptados' },
-  { icon: Zap,          text: 'Configuración en minutos' },
-  { icon: Clock,        text: 'Soporte Lun–Vie' },
-  { icon: CheckCircle2, text: 'Escalas validadas OMS' },
 ]
 
 function AnimatedStat({ stat, isVisible }: { stat: typeof stats[0]; isVisible: boolean }) {
@@ -173,34 +163,9 @@ export function Hero() {
           />
         )}
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-36 pb-12 text-center">
-          <div className="animate-fade-up" style={{ opacity: 0 }}>
-            <div className="inline-flex items-center gap-2.5 glass-mint rounded-full px-5 py-2 mb-6">
-              {motion ? (
-                <span className="relative flex h-2 w-2">
-                  <span
-                    className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                    style={{ backgroundColor: 'var(--kenko-pulse)' }}
-                  />
-                  <span
-                    className="relative inline-flex rounded-full h-2 w-2"
-                    style={{ backgroundColor: 'var(--kenko-mint)' }}
-                  />
-                </span>
-              ) : (
-                <span
-                  className="inline-flex rounded-full h-2 w-2"
-                  style={{ backgroundColor: 'var(--kenko-mint)' }}
-                />
-              )}
-              <SectionEyebrow light className="mb-0">
-                Sistema DSS para Kinesiólogos
-              </SectionEyebrow>
-            </div>
-          </div>
-
+        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-36 pb-24 text-center md:pb-28">
           <h1
-            className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.02] tracking-tight text-on-brand mb-6 animate-fade-up delay-100 text-balance"
+            className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.02] tracking-tight text-on-brand mb-6 animate-fade-up text-balance"
             style={{ opacity: 0 }}
           >
             Software para{' '}
@@ -220,7 +185,7 @@ export function Hero() {
           </h1>
 
           <p
-            className="text-lg md:text-xl text-on-brand-muted leading-relaxed mb-9 max-w-2xl mx-auto animate-fade-up delay-200"
+            className="text-lg md:text-xl text-on-brand-muted leading-relaxed mb-10 max-w-2xl mx-auto animate-fade-up delay-100"
             style={{ opacity: 0 }}
           >
             Kenkomed es el{' '}
@@ -230,19 +195,7 @@ export function Hero() {
           </p>
 
           <div
-            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-10 animate-fade-up delay-200"
-            style={{ opacity: 0 }}
-          >
-            {trustBadges.map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-1.5 text-xs text-on-brand-subtle">
-                <Icon size={13} style={{ color: 'var(--kenko-pulse)' }} />
-                {text}
-              </div>
-            ))}
-          </div>
-
-          <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 animate-fade-up delay-300"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 animate-fade-up delay-200"
             style={{ opacity: 0 }}
           >
             <a href="#contact" className="btn-kenko-primary group">
@@ -258,141 +211,6 @@ export function Hero() {
                 <ArrowRight size={12} />
               </span>
             </Link>
-          </div>
-
-          <div
-            className="flex items-center justify-center gap-5 animate-fade-up delay-400"
-            style={{ opacity: 0 }}
-          >
-            <div className="flex -space-x-2">
-              {['IC', 'NJ', 'SM', 'MC', 'KP'].map((initials, i) => (
-                <div
-                  key={i}
-                  className="w-8 h-8 rounded-full kenko-card flex items-center justify-center text-[10px] font-bold font-display text-on-brand"
-                  style={{ border: '2px solid oklch(0.48 0.18 246 / 0.3)' }}
-                >
-                  {initials}
-                </div>
-              ))}
-            </div>
-            <div className="text-left">
-              <div className="flex items-center gap-0.5 mb-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} width="12" height="12" viewBox="0 0 12 12" fill="#f59e0b" aria-hidden="true">
-                    <path d="M6 1l1.5 3 3.3.5-2.4 2.3.6 3.2L6 8.5l-3 1.5.6-3.2L1.2 4.5l3.3-.5L6 1z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-xs text-on-brand-subtle">
-                <strong className="text-on-brand">Confianza</strong> en Kenkomed
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Chips flotantes + mockup */}
-        <div className="relative z-10 animate-fade-up delay-500" style={{ opacity: 0 }}>
-          {motion && (
-            <>
-              <DataParticle
-                label="Citas hoy"
-                value="4 confirmadas"
-                color="mint"
-                style={{ top: '-300px', left: '5%' }}
-              />
-              <DataParticle
-                label="DSS activo"
-                value="● En línea"
-                color="sky"
-                style={{ top: '-260px', right: '5%', animationDelay: '1.8s' }}
-              />
-              <DataParticle
-                label="Cuestionarios"
-                value="97% completos"
-                color="blue"
-                style={{ top: '-120px', right: '12%', animationDelay: '3s' }}
-                className="hidden lg:block"
-              />
-              <DataParticle
-                label="Admisión QR"
-                value="● Paciente en camino"
-                color="mint"
-                style={{ top: '-120px', left: '12%', animationDelay: '0.8s' }}
-                className="hidden lg:block"
-              />
-            </>
-          )}
-
-          <div
-            className="absolute inset-x-0 top-0 h-40 pointer-events-none"
-            aria-hidden="true"
-            style={{
-              background:
-                'radial-gradient(ellipse 70% 80% at 50% 0%, oklch(0.66 0.19 163 / 0.15), transparent 80%)',
-            }}
-          />
-
-          <div className="px-4 sm:px-10 lg:px-20 xl:px-28">
-            <div
-              className="relative rounded-t-2xl overflow-hidden"
-              style={{
-                boxShadow:
-                  '0 0 0 1px oklch(0.48 0.18 246 / 0.2), 0 0 0 2px oklch(0.66 0.19 163 / 0.05), 0 24px 80px oklch(0.05 0.02 240 / 0.8), 0 60px 160px oklch(0.48 0.18 246 / 0.25)',
-              }}
-            >
-              <div
-                className="flex items-center gap-3 px-5 py-3 border-b"
-                style={{ background: '#030d1a', borderColor: 'oklch(0.48 0.18 246 / 0.15)' }}
-              >
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                  <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                  <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-                </div>
-                <div className="flex-1 max-w-xs mx-auto">
-                  <div
-                    className="flex items-center gap-2 rounded-md px-3 py-1 border"
-                    style={{
-                      background: 'oklch(0.48 0.18 246 / 0.08)',
-                      borderColor: 'oklch(0.48 0.18 246 / 0.15)',
-                    }}
-                  >
-                    <svg
-                      width="10"
-                      height="12"
-                      viewBox="0 0 10 12"
-                      fill="none"
-                      style={{ color: 'var(--kenko-pulse)', flexShrink: 0 }}
-                      aria-hidden="true"
-                    >
-                      <rect x="1" y="5" width="8" height="7" rx="1.5" fill="currentColor" opacity="0.3" />
-                      <path d="M3 5V3.5a2 2 0 014 0V5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-                      <circle cx="5" cy="8.5" r="1" fill="currentColor" />
-                    </svg>
-                    <span className="text-[11px] text-white/40 font-medium tracking-tight select-none">
-                      app.kenkomed.cl/panel
-                    </span>
-                  </div>
-                </div>
-                <div className="flex gap-2 opacity-20 flex-shrink-0" aria-hidden="true">
-                  <div className="w-4 h-4 rounded bg-white/30" />
-                  <div className="w-4 h-4 rounded bg-white/30" />
-                  <div className="w-4 h-4 rounded bg-white/30" />
-                </div>
-              </div>
-
-              <div className="relative w-full" style={{ aspectRatio: '1440 / 820' }}>
-                <Image
-                  src="/software/Panel.jpg"
-                  alt="Panel de control Kenkomed — gestión clínica para kinesiólogos"
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 90vw, 1280px"
-                  priority
-                />
-                <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none hero-panel-fade-dark" />
-              </div>
-            </div>
           </div>
         </div>
       </section>
