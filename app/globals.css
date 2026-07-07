@@ -970,3 +970,36 @@
     padding: 0.25rem 1rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   SITE HEADER — navy dark overrides
+   Force dropdown/popover tokens to navy regardless of theme
+   ═══════════════════════════════════════════════════════════ */
+.site-header-nav {
+  /* Override popover tokens so the dropdown menu is always dark navy */
+  --popover:            #05111e;
+  --popover-foreground: oklch(0.97 0.003 246);
+  --background:         #05111e;
+  --foreground:         oklch(0.97 0.003 246);
+  --accent:             rgba(255, 255, 255, 0.1);
+  --accent-foreground:  oklch(0.97 0.003 246);
+  --border:             rgba(255, 255, 255, 0.1);
+  --muted-foreground:   oklch(0.60 0.008 246);
+}
+
+/* Scroll-progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--brand),
+    var(--emerald),
+    var(--emerald-light)
+  );
+  pointer-events: none;
+  transition: width 150ms linear;
+}

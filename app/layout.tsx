@@ -9,6 +9,7 @@ import {
 } from '@/components/json-ld'
 import { defaultOgImage } from '@/lib/seo-assets'
 import { VirtualAssistantLazy } from '@/components/virtual-assistant-lazy'
+import { SiteHeader } from '@/components/ui/site-header'
 import './globals.css'
 
 /* ──────────────────────────────────────────────────────────────
@@ -162,6 +163,7 @@ export default function RootLayout({
         className="font-sans antialiased bg-background text-foreground"
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <SiteHeader />
           {children}
           <VirtualAssistantLazy />
         </ThemeProvider>

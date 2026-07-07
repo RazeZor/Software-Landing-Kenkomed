@@ -3,21 +3,24 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  // Avoid hydration mismatch — only render after mount
   useEffect(() => setMounted(true), [])
 
   if (!mounted) {
     return (
       <button
-        className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center"
+        className={cn(
+          'flex h-9 w-9 items-center justify-center rounded-full bg-secondary',
+          className,
+        )}
         aria-label="Cambiar tema"
       >
-        <span className="w-4 h-4" />
+        <span className="h-4 w-4" />
       </button>
     )
   }
@@ -27,7 +30,10 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="relative w-9 h-9 rounded-full border border-border/60 bg-card hover:bg-secondary flex items-center justify-center transition-all duration-300 hover:scale-105 group"
+      className={cn(
+        'group relative flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-card transition-all duration-300 hover:scale-105 hover:bg-secondary',
+        className,
+      )}
       aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
       title={isDark ? 'Modo claro' : 'Modo oscuro'}
     >

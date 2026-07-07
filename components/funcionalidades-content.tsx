@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { PlatformOverview } from '@/components/platform-overview'
 import { FeaturesComplete } from '@/components/features-complete'
@@ -13,7 +12,6 @@ import { SectionEyebrow } from '@/components/brand-elements'
 export function FuncionalidadesContent() {
   return (
     <>
-      <Navbar />
       <main>
         <div className="kenko-band-deep pt-32 pb-14 px-6">
           <div className="max-w-3xl mx-auto text-center">

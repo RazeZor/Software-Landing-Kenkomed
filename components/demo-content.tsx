@@ -16,7 +16,6 @@ import {
     Shield,
     Zap,
 } from 'lucide-react'
-import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 
 /* ─── YouTube Video ID ─── */
@@ -86,7 +85,6 @@ export default function DemoContent() {
 
     return (
         <main className="bg-background text-foreground">
-            <Navbar />
 
             {/* ═══ HERO — Identidad Kenkomed Navy ═══ */}
             <section

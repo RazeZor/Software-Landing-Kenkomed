@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { Navbar } from '@/components/navbar'
 import { Hero } from '@/components/hero'
 import { Footer } from '@/components/footer'
 import { JsonLd, faqSchema } from '@/components/json-ld'
@@ -45,7 +44,6 @@ export default function Home() {
   return (
     <main>
       <JsonLd data={faqSchema(homeFaqItems)} />
-      <Navbar />
       <Hero />
       <SolucionTeaser />
       <ProductShowcase />

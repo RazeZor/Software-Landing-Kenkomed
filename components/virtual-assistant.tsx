@@ -1,269 +1,398 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { MessageSquareText, X, Send, Bot, User, ChevronRight } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import {
+  ArrowUp,
+  CalendarDays,
+  MessageCircle,
+  Minimize2,
+  Sparkles,
+  X,
+} from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { cn } from '@/lib/utils'
+import {
+  getBotReply,
+  QUICK_PROMPTS,
+  type ChatAction,
+} from '@/lib/chatbot-knowledge'
 
 type Message = {
   id: string
-  sender: 'bot' | 'user'
-  type: 'text' | 'options'
+  role: 'user' | 'assistant'
   content: string
-  options?: { label: string; action: () => void }[]
+  actions?: ChatAction[]
+  timestamp: Date
+}
+
+function TypingIndicator() {
+  return (
+    <div className="flex items-end gap-2.5">
+      <AssistantAvatar size="sm" />
+      <div className="rounded-2xl rounded-bl-md border border-border/60 bg-card px-4 py-3 shadow-sm">
+        <div className="flex items-center gap-1">
+          {[0, 150, 300].map((delay) => (
+            <span
+              key={delay}
+              className="size-1.5 animate-bounce rounded-full bg-brand/60"
+              style={{ animationDelay: `${delay}ms` }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AssistantAvatar({ size = 'md' }: { size?: 'sm' | 'md' }) {
+  const dim = size === 'sm' ? 'size-7' : 'size-8'
+  return (
+    <Avatar className={cn(dim, 'ring-2 ring-brand/15')}>
+      <AvatarImage src="/images/LogoKenko.png" alt="Kenkomed" />
+      <AvatarFallback className="bg-brand text-[10px] font-bold text-white">
+        K
+      </AvatarFallback>
+    </Avatar>
+  )
+}
+
+function ActionChip({
+  action,
+  onSelect,
+}: {
+  action: ChatAction
+  onSelect: (action: ChatAction) => void
+}) {
+  if (action.href) {
+    return (
+      <Button
+        asChild
+        variant="outline"
+        size="sm"
+        className="h-8 rounded-full border-brand/20 bg-background/80 text-xs font-medium text-brand hover:bg-brand/5 hover:text-brand"
+      >
+        <Link href={action.href}>{action.label}</Link>
+      </Button>
+    )
+  }
+
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      className="h-8 rounded-full border-brand/20 bg-background/80 text-xs font-medium text-brand hover:bg-brand/5 hover:text-brand"
+      onClick={() => onSelect(action)}
+    >
+      {action.label}
+    </Button>
+  )
 }
 
 export function VirtualAssistant() {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
-  const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [messages, setMessages] = useState<Message[]>([])
+  const [hasGreeted, setHasGreeted] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  // Initial welcome message
-  useEffect(() => {
-    if (messages.length === 0) {
-      setMessages([
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [])
+
+  const pushAssistantMessage = useCallback(
+    (content: string, actions?: ChatAction[]) => {
+      setMessages((prev) => [
+        ...prev,
         {
-          id: '1',
-          sender: 'bot',
-          type: 'text',
-          content: '¡Hola! Soy el asistente virtual de Kenkomed 👋',
-        },
-        {
-          id: '2',
-          sender: 'bot',
-          type: 'options',
-          content: '¿En qué te puedo ayudar hoy?',
-          options: [
-            {
-              label: '📋 ¿Qué es Kenkomed?',
-              action: () => handleOptionClick('¿Qué es Kenkomed?', 'Kenkomed es un Sistema de Soporte a la Decisión Clínica (DSS) diseñado específicamente para kinesiólogos y fisioterapeutas. Digitaliza fichas, agenda y seguimiento de pacientes.'),
-            },
-            {
-              label: '💰 Ver Precios',
-              action: () => {
-                handleOptionClick('Ver Precios', 'Te llevaré a la sección de funcionalidades y contacto para que solicites una cotización personalizada.')
-                scrollToSection('features')
-              },
-            },
-            {
-              label: '📞 Contactar a un asesor',
-              action: () => {
-                handleOptionClick('Contactar a un asesor', '¡Perfecto! Completa el formulario de contacto y te llamaremos a la brevedad.')
-                scrollToSection('contact')
-                setIsOpen(false)
-              },
-            },
-            {
-              label: '📅 Agendar Demo',
-              action: () => {
-                handleOptionClick('Agendar Demo', 'Puedes ver nuestra demo navegando en el menú superior o solicitándola en el formulario.')
-                window.location.href = '/demo'
-              },
-            },
-          ],
+          id: crypto.randomUUID(),
+          role: 'assistant',
+          content,
+          actions,
+          timestamp: new Date(),
         },
       ])
-    }
-  }, [messages.length])
+    },
+    [],
+  )
 
-  // Scroll to bottom when new messages arrive
-  useEffect(() => {
-    if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [messages, isOpen, isTyping])
+  const respondToUser = useCallback(
+    (userText: string) => {
+      setIsTyping(true)
+      window.setTimeout(() => {
+        const reply = getBotReply(userText)
+        pushAssistantMessage(reply.content, reply.actions)
+        setIsTyping(false)
+      }, 650)
+    },
+    [pushAssistantMessage],
+  )
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  const simulateBotResponse = (userText: string, customBotResponse?: string) => {
-    setIsTyping(true)
-
-    // Simulate network delay
-    setTimeout(() => {
-      let botResponse = customBotResponse
-      
-      if (!botResponse) {
-        // Simple fallback response
-        botResponse = 'Gracias por escribirnos. Nuestro equipo revisará tu mensaje o puedes utilizar las opciones rápidas de arriba si necesitas navegar por la web.'
-      }
+  const sendUserMessage = useCallback(
+    (text: string) => {
+      const trimmed = text.trim()
+      if (!trimmed || isTyping) return
 
       setMessages((prev) => [
         ...prev,
         {
-          id: Date.now().toString(),
-          sender: 'bot',
-          type: 'text',
-          content: botResponse!,
+          id: crypto.randomUUID(),
+          role: 'user',
+          content: trimmed,
+          timestamp: new Date(),
         },
       ])
-      setIsTyping(false)
-    }, 1000)
+      respondToUser(trimmed)
+    },
+    [isTyping, respondToUser],
+  )
+
+  const handleQuickPrompt = (prompt: string) => {
+    sendUserMessage(prompt)
   }
 
-  const handleOptionClick = (userLabel: string, botResponse: string) => {
-    // Add user message
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        sender: 'user',
-        type: 'text',
-        content: userLabel,
-      },
-    ])
-    
-    // Trigger bot typing and response
-    simulateBotResponse(userLabel, botResponse)
+  const handleActionSelect = (action: ChatAction) => {
+    if (action.href) {
+      router.push(action.href)
+      setIsOpen(false)
+      return
+    }
+    if (action.scrollTo) {
+      document.getElementById(action.scrollTo)?.scrollIntoView({ behavior: 'smooth' })
+      setIsOpen(false)
+      return
+    }
+    sendUserMessage(action.label)
   }
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!inputValue.trim()) return
-
-    const userText = inputValue.trim()
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    const value = inputValue
     setInputValue('')
-
-    // Add user message
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        sender: 'user',
-        type: 'text',
-        content: userText,
-      },
-    ])
-
-    simulateBotResponse(userText)
+    sendUserMessage(value)
   }
+
+  useEffect(() => {
+    if (isOpen && !hasGreeted) {
+      setHasGreeted(true)
+      pushAssistantMessage(
+        'Hola, soy el asistente de Kenkomed. Te ayudo a conocer el software, agendar una demo o contactar al equipo.',
+        QUICK_PROMPTS.map((item) => ({ label: item.label })),
+      )
+    }
+  }, [hasGreeted, isOpen, pushAssistantMessage])
+
+  useEffect(() => {
+    if (isOpen) scrollToBottom()
+  }, [messages, isTyping, isOpen, scrollToBottom])
+
+  useEffect(() => {
+    if (!isOpen) return
+    inputRef.current?.focus()
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [isOpen])
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 transition-transform hover:scale-105">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="group relative flex items-center justify-center w-14 h-14 bg-brand hover:bg-brand-dark text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-brand/20 transition-all duration-300 pointer-events-auto ring-4 ring-brand/20"
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+        <div className="hidden max-w-[220px] animate-in fade-in slide-in-from-bottom-2 rounded-2xl border border-border/60 bg-card/95 px-4 py-3 text-sm text-foreground shadow-xl backdrop-blur-md duration-300 sm:block">
+          <p className="font-medium">¿Necesitas ayuda?</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Pregúntame sobre Kenkomed, demo o contacto.
+          </p>
+        </div>
+
+        <Button
+          type="button"
+          size="icon-lg"
           aria-label="Abrir asistente virtual"
+          onClick={() => setIsOpen(true)}
+          className="group relative size-14 rounded-full bg-gradient-to-br from-brand to-brand-dark text-white shadow-lg shadow-brand/25 transition-all hover:scale-105 hover:shadow-xl hover:shadow-brand/30"
         >
-          <MessageSquareText size={26} className="fill-current" />
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full pointer-events-none" />
-        </button>
+          <MessageCircle className="size-6 transition-transform group-hover:scale-110" />
+          <span className="absolute -right-0.5 -top-0.5 flex size-5 items-center justify-center rounded-full bg-emerald text-[10px] text-white ring-2 ring-background">
+            <Sparkles className="size-3" />
+          </span>
+        </Button>
       </div>
     )
   }
 
   return (
-    <div className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-[calc(100vw-3rem)] sm:w-[380px] h-[580px] max-h-[calc(100vh-6rem)] bg-card border border-border/60 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300 pointer-events-auto">
-      
+    <div
+      role="dialog"
+      aria-label="Asistente virtual Kenkomed"
+      className="fixed bottom-5 right-5 z-50 flex w-[min(100vw-2rem,400px)] flex-col overflow-hidden rounded-2xl border border-border/60 bg-card/95 shadow-2xl shadow-black/10 backdrop-blur-xl animate-in fade-in slide-in-from-bottom-4 duration-300 sm:bottom-6 sm:right-6 sm:h-[min(640px,calc(100vh-3rem))]"
+    >
       {/* Header */}
-      <div className="bg-brand text-white px-5 py-4 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center relative backdrop-blur-sm">
-            <Bot size={22} className="text-white" />
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-brand rounded-full" />
+      <div className="relative shrink-0 overflow-hidden bg-gradient-to-br from-[#05111e] via-brand-dark to-brand px-4 py-4 text-white">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,217,139,0.18),transparent_55%)]" />
+        <div className="relative flex items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="flex size-11 items-center justify-center overflow-hidden rounded-xl bg-white/10 ring-1 ring-white/20 backdrop-blur-sm">
+                <Image
+                  src="/images/LogoKenko.png"
+                  alt="Kenkomed"
+                  width={28}
+                  height={28}
+                  className="object-contain"
+                />
+              </div>
+              <span className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-brand-dark bg-emerald" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-semibold tracking-tight">Asistente Kenkomed</h3>
+                <Badge className="border-emerald/30 bg-emerald/15 px-2 py-0 text-[10px] font-medium text-emerald-light hover:bg-emerald/15">
+                  En línea
+                </Badge>
+              </div>
+              <p className="mt-0.5 text-xs text-white/70">
+                Respuestas instantáneas sobre el software
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold text-sm leading-tight">Asistente Kenkomed</h3>
-            <p className="text-xs text-white/80">En línea ahora</p>
+
+          <div className="flex items-center gap-1">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Minimizar chat"
+              onClick={() => setIsOpen(false)}
+              className="text-white/80 hover:bg-white/10 hover:text-white"
+            >
+              <Minimize2 className="size-4" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Cerrar chat"
+              onClick={() => setIsOpen(false)}
+              className="text-white/80 hover:bg-white/10 hover:text-white"
+            >
+              <X className="size-4" />
+            </Button>
           </div>
         </div>
-        <button
-          onClick={() => setIsOpen(false)}
-          className="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors"
-          aria-label="Cerrar asistente"
-        >
-          <X size={20} />
-        </button>
       </div>
 
-      {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-5 pb-2 bg-slate-50 dark:bg-slate-900/50 space-y-4">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
-          >
-            {/* Context sender row */}
-            <div className={`flex items-end gap-2 max-w-[85%] ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-              
-              {/* Avatar */}
-              <div className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center ${msg.sender === 'user' ? 'bg-primary/10 text-primary' : 'bg-brand/10 text-brand'}`}>
-                {msg.sender === 'user' ? <User size={14} /> : <Bot size={14} />}
-              </div>
-
-              {/* Message bubble */}
+      {/* Messages */}
+      <ScrollArea className="min-h-0 flex-1 bg-gradient-to-b from-muted/30 to-background">
+        <div className="space-y-4 p-4">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={cn(
+                'flex flex-col gap-2',
+                message.role === 'user' ? 'items-end' : 'items-start',
+              )}
+            >
               <div
-                className={`px-4 py-2.5 rounded-2xl text-sm ${
-                  msg.sender === 'user'
-                    ? 'bg-primary text-primary-foreground rounded-br-none'
-                    : 'bg-white dark:bg-slate-800 border border-border/50 text-foreground shadow-sm rounded-bl-none'
-                }`}
+                className={cn(
+                  'flex max-w-[88%] items-end gap-2',
+                  message.role === 'user' && 'flex-row-reverse',
+                )}
               >
-                {msg.content}
+                {message.role === 'assistant' && <AssistantAvatar size="sm" />}
+
+                <div
+                  className={cn(
+                    'rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-sm',
+                    message.role === 'user'
+                      ? 'rounded-br-md bg-brand text-white'
+                      : 'rounded-bl-md border border-border/60 bg-card text-foreground',
+                  )}
+                >
+                  {message.content}
+                </div>
               </div>
-            </div>
 
-            {/* Options buttons if present */}
-            {msg.type === 'options' && msg.options && (
-              <div className="flex flex-col gap-2 mt-3 ml-9">
-                {msg.options.map((opt, i) => (
-                  <button
-                    key={i}
-                    onClick={opt.action}
-                    className="text-left text-sm bg-white dark:bg-slate-800 border border-brand/20 text-brand hover:bg-brand/5 px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center justify-between group"
-                  >
-                    <span>{opt.label}</span>
-                    <ChevronRight size={14} className="text-brand/50 group-hover:text-brand transition-colors" />
-                  </button>
-                ))}
-              </div>
-            )}
+              {message.role === 'assistant' && message.actions && message.actions.length > 0 && (
+                <div className="ml-9 flex max-w-[88%] flex-wrap gap-2">
+                  {message.actions.map((action) => (
+                    <ActionChip
+                      key={`${message.id}-${action.label}`}
+                      action={action}
+                      onSelect={handleActionSelect}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {isTyping && <TypingIndicator />}
+          <div ref={messagesEndRef} />
+        </div>
+      </ScrollArea>
+
+      {/* Quick prompts */}
+      {!isTyping && messages.length <= 2 && (
+        <div className="shrink-0 border-t border-border/50 bg-background/80 px-3 py-2.5">
+          <div className="mb-2 flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+            <CalendarDays className="size-3" />
+            Sugerencias rápidas
           </div>
-        ))}
-
-        {/* Typing indicator */}
-        {isTyping && (
-          <div className="flex items-end gap-2 max-w-[85%]">
-            <div className="w-7 h-7 shrink-0 rounded-full bg-brand/10 text-brand flex items-center justify-center">
-              <Bot size={14} />
-            </div>
-            <div className="bg-white dark:bg-slate-800 border border-border/50 px-4 py-3 rounded-2xl rounded-bl-none shadow-sm flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 bg-brand/50 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <div className="w-1.5 h-1.5 bg-brand/50 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <div className="w-1.5 h-1.5 bg-brand/50 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-            </div>
+          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {QUICK_PROMPTS.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleQuickPrompt(item.prompt)}
+                className="shrink-0 rounded-full border border-border/70 bg-muted/50 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-brand/30 hover:bg-brand/5 hover:text-brand"
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
+        </div>
+      )}
 
-      {/* Input area */}
+      {/* Input */}
       <form
-        onSubmit={handleSendMessage}
-        className="bg-card border-t border-border/60 p-3 sm:p-4 flex items-center gap-2"
+        onSubmit={handleSubmit}
+        className="shrink-0 border-t border-border/60 bg-card p-3"
       >
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Escribe un mensaje..."
-          className="flex-1 bg-secondary text-foreground text-sm px-4 py-2.5 rounded-full border-transparent focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition-all placeholder:text-foreground-muted"
-        />
-        <button
-          type="submit"
-          disabled={!inputValue.trim() || isTyping}
-          className="bg-brand hover:bg-brand-dark text-white p-2.5 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
-          aria-label="Enviar mensaje"
-        >
-          <Send size={18} className="translate-x-[1px] translate-y-[-1px]" />
-        </button>
+        <div className="flex items-center gap-2 rounded-xl border border-border/70 bg-background p-1.5 shadow-xs focus-within:border-brand/40 focus-within:ring-2 focus-within:ring-brand/15">
+          <Input
+            ref={inputRef}
+            value={inputValue}
+            onChange={(event) => setInputValue(event.target.value)}
+            placeholder="Escribe tu pregunta..."
+            disabled={isTyping}
+            className="h-9 flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0"
+          />
+          <Button
+            type="submit"
+            size="icon-sm"
+            disabled={!inputValue.trim() || isTyping}
+            aria-label="Enviar mensaje"
+            className="rounded-lg bg-brand text-white hover:bg-brand-dark"
+          >
+            <ArrowUp className="size-4" />
+          </Button>
+        </div>
+        <p className="mt-2 text-center text-[11px] text-muted-foreground">
+          Enter para enviar · Esc para cerrar
+        </p>
       </form>
-
     </div>
   )
 }

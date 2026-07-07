@@ -28,7 +28,6 @@ import {
     CircleDollarSign,
     BrainCircuit
 } from 'lucide-react'
-import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 
 /* ─── Reveal on scroll hook ─── */
@@ -187,7 +186,6 @@ export default function InvestigacionContent() {
 
     return (
         <main className="bg-background text-foreground">
-            <Navbar />
 
             {/* ═══ HERO — Identidad Kenkomed Navy ═══ */}
             <section

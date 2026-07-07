@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { SectionEyebrow } from '@/components/brand-elements'
 
@@ -25,7 +24,6 @@ export function LegalPageLayout({
 }: LegalPageLayoutProps) {
   return (
     <>
-      <Navbar />
       <main className="min-h-screen bg-background">
         <div className="kenko-band-deep pt-32 pb-16 px-6">
           <div className="max-w-3xl mx-auto text-center">
