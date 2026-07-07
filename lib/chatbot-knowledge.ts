@@ -76,7 +76,7 @@ export function getBotReply(input: string): ChatReply {
         'Completa el formulario de contacto y te responderemos a la brevedad. También puedes revisar nuestra sección de equipo e investigación.',
       actions: [
         { label: 'Ir al formulario', href: '/#contact' },
-        { label: 'Ver equipo', href: '/#team' },
+        { label: 'Conócenos', href: '/nosotros' },
       ],
     }
   }

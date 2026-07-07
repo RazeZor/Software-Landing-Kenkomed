@@ -12,8 +12,8 @@ const footerLinks = {
     { label: 'Investigación',    href: '/investigacion' },
   ],
   Empresa: [
-    { label: 'Nuestro Equipo', href: '#team' },
-    { label: 'Contacto',       href: '#contact' },
+    { label: 'Nosotros', href: '/nosotros' },
+    { label: 'Contacto', href: '#contact' },
   ],
   Legal: [
     { label: 'Privacidad',      href: '/privacidad' },

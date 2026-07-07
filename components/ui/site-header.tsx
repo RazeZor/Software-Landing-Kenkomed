@@ -75,9 +75,9 @@ const companyItems = [
     description: 'Cómo Kenkomed transforma tu clínica.',
   },
   {
-    title: 'Equipo',
-    href: '/#team',
-    description: 'Conoce al equipo detrás del producto.',
+    title: 'Nosotros',
+    href: '/nosotros',
+    description: 'La historia y el equipo detrás del producto.',
   },
   {
     title: 'Investigación',

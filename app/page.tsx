@@ -30,11 +30,6 @@ const FaqSection = dynamic(
   { loading: () => <SectionSkeleton className="h-96" /> }
 )
 
-const Team = dynamic(
-  () => import('@/components/team').then((m) => m.Team),
-  { loading: () => <SectionSkeleton className="h-80" /> }
-)
-
 const ContactForm = dynamic(
   () => import('@/components/contact-form').then((m) => m.ContactForm),
   { loading: () => <SectionSkeleton className="h-[36rem]" /> }
@@ -50,7 +45,6 @@ export default function Home() {
       <HomeMidCta />
       <HomeExploreStrip />
       <FaqSection />
-      <Team />
       <ContactForm />
       <Footer />
     </main>
