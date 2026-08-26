@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Zap } from 'lucide-react'
+import { ArrowRight, Activity, CheckCircle2 } from 'lucide-react'
 import {
   useReveal,
   useCountUp,
@@ -11,15 +11,15 @@ import {
   usePrefersMotionFx,
 } from '@/hooks/use-scroll-animation'
 
-/* Hallmark · component: Split Product Hero · genre: modern-minimal · theme: Cobalt (Paper Light)
- * 2-column layout: Left = messaging + CTAs + proof tags. Right = product UI browser mockup + float badges.
- * Fixed: text invisibility bug (no opacity:0 traps), crisp light theme, visible hero product showcase.
+/* Hallmark · component: Split Studio Editorial Hero · genre: modern-minimal · theme: Cobalt Paper Light
+ * Diptych layout: Real Kinesiology Photography (E8) + Foreground Software Browser Frame (E3)
+ * Phrasing: 'Soporte a la Decisión Clínica' (NO DSS acronym)
  */
 
 const stats = [
-  { value: 8,   prefix: '', suffix: '',  label: 'Escalas clínicas validadas' },
-  { value: 9,   prefix: '', suffix: '',  label: 'Pasos de anamnesis inteligente' },
-  { value: 100, prefix: '', suffix: '%', label: 'Especializado en kinesiología' },
+  { value: 8,   prefix: '', suffix: '',  label: 'Escalas clínicas validadas (EVA, PSFS, Barthel)' },
+  { value: 9,   prefix: '', suffix: '',  label: 'Pasos de anamnesis inteligente vía QR' },
+  { value: 100, prefix: '', suffix: '%', label: 'Especializado en kinesiología y fisioterapia' },
 ]
 
 function ProofStat({ stat, isVisible }: { stat: typeof stats[0]; isVisible: boolean }) {
@@ -52,15 +52,15 @@ export function Hero() {
   return (
     <>
       <style>{`
-        /* Hallmark · Split Product Hero — Paper Light Theme */
+        /* Hallmark · Split Studio Editorial Hero — Paper Light Cobalt Theme */
         .hm-hero-section {
-          background: linear-gradient(180deg, oklch(0.98 0.005 246) 0%, oklch(0.99 0.002 246) 100%);
+          background: linear-gradient(180deg, oklch(0.975 0.006 246) 0%, oklch(0.99 0.002 246) 100%);
           border-bottom: var(--hairline);
           position: relative;
-          padding-top: 5.5rem; /* space for sticky navbar */
+          padding-top: 5rem;
         }
 
-        .hm-hero-container {
+        .hm-hero-grid {
           max-width: 88rem;
           margin-inline: auto;
           padding-inline: var(--space-lg);
@@ -71,68 +71,69 @@ export function Hero() {
           align-items: center;
         }
 
-        /* Eyebrow badge */
-        .hm-eyebrow {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-xs);
+        /* Mono Outlier Tag */
+        .hm-hero-outlier {
           font-family: var(--font-outlier);
           font-size: 0.75rem;
-          font-weight: 600;
-          letter-spacing: 0.06em;
+          font-weight: 500;
+          letter-spacing: 0.10em;
           text-transform: uppercase;
-          color: var(--kenko-cobalt);
+          color: var(--kenko-sapphire);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
           padding: 0.375rem 0.875rem;
           border-radius: 999px;
-          border: 1px solid oklch(0.48 0.18 246 / 0.20);
-          background: oklch(0.48 0.18 246 / 0.06);
+          border: 1px solid oklch(0.48 0.18 246 / 0.18);
+          background: oklch(0.48 0.18 246 / 0.05);
           margin-bottom: var(--space-md);
         }
 
-        .hm-eyebrow-dot {
+        .hm-outlier-dot {
           width: 6px;
           height: 6px;
           border-radius: 50%;
           background: var(--kenko-mint);
         }
 
-        /* Headline */
-        .hm-hero-title {
+        /* Editorial Display Headline */
+        .hm-hero-h1 {
           font-family: var(--font-display);
-          font-size: clamp(2.25rem, 4vw + 0.75rem, 3.85rem);
+          font-size: clamp(2.5rem, 4.5vw + 0.5rem, 4.25rem);
           font-weight: 800;
           font-style: normal;
-          line-height: 1.06;
-          letter-spacing: -0.04em;
+          line-height: 1.04;
+          letter-spacing: -0.045em;
           color: var(--foreground);
           margin-bottom: var(--space-md);
           overflow-wrap: anywhere;
         }
 
-        .hm-hero-title-accent {
+        .hm-hero-h1-highlight {
           color: var(--kenko-sapphire);
+          position: relative;
         }
 
-        /* Subtitle */
-        .hm-hero-sub {
+        /* Lede Copy */
+        .hm-hero-lede {
           font-family: var(--font-body);
           font-size: 1.0625rem;
           color: var(--foreground-muted);
           line-height: 1.65;
           margin-bottom: var(--space-xl);
-          max-width: 48ch;
+          max-width: 50ch;
         }
 
-        /* CTAs */
-        .hm-hero-ctas {
+        /* Hero Action Buttons */
+        .hm-hero-actions {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
           gap: var(--space-sm);
-          margin-bottom: var(--space-xl);
+          margin-bottom: var(--space-2xl);
         }
 
-        .hm-cta-primary {
+        .hm-btn-primary {
           display: inline-flex;
           align-items: center;
           gap: var(--space-xs);
@@ -141,24 +142,27 @@ export function Hero() {
           font-family: var(--font-body);
           font-size: 0.9375rem;
           font-weight: 600;
-          padding: 0.8125rem 1.625rem;
+          padding: 0.875rem 1.75rem;
           border-radius: var(--radius-md);
           border: none;
           cursor: pointer;
           text-decoration: none;
           line-height: 1;
-          box-shadow: 0 4px 14px oklch(0.48 0.18 246 / 0.22);
+          box-shadow: 0 4px 16px oklch(0.48 0.18 246 / 0.25);
           transition-property: background-color, transform, box-shadow;
           transition-duration: var(--dur-base);
           transition-timing-function: var(--ease-default);
+          outline: 2px solid transparent;
+          outline-offset: 2px;
         }
-        .hm-cta-primary:hover {
+        .hm-btn-primary:hover {
           background: var(--kenko-cobalt);
           transform: translateY(-1px);
-          box-shadow: 0 6px 20px oklch(0.48 0.18 246 / 0.30);
+          box-shadow: 0 6px 22px oklch(0.48 0.18 246 / 0.35);
         }
+        .hm-btn-primary:focus-visible { outline-color: var(--color-focus); }
 
-        .hm-cta-ghost {
+        .hm-btn-ghost {
           display: inline-flex;
           align-items: center;
           gap: var(--space-xs);
@@ -166,7 +170,7 @@ export function Hero() {
           font-family: var(--font-body);
           font-size: 0.875rem;
           font-weight: 500;
-          padding: 0.8125rem 1.25rem;
+          padding: 0.875rem 1.25rem;
           border-radius: var(--radius-md);
           border: var(--hairline);
           background: var(--background);
@@ -176,115 +180,139 @@ export function Hero() {
           transition-property: color, border-color, background-color;
           transition-duration: var(--dur-base);
           transition-timing-function: var(--ease-default);
+          outline: 2px solid transparent;
+          outline-offset: 2px;
         }
-        .hm-cta-ghost:hover {
+        .hm-btn-ghost:hover {
           color: var(--kenko-cobalt);
           border-color: var(--kenko-sapphire);
           background: oklch(0.48 0.18 246 / 0.04);
         }
+        .hm-btn-ghost:focus-visible { outline-color: var(--color-focus); }
 
-        /* Hero feature tags */
-        .hm-hero-tags {
+        /* Trust Pills */
+        .hm-trust-pills {
           display: flex;
           flex-wrap: wrap;
           gap: var(--space-md);
+          border-top: var(--hairline);
+          padding-top: var(--space-md);
         }
 
-        .hm-hero-tag {
+        .hm-trust-item {
           display: inline-flex;
           align-items: center;
-          gap: var(--space-2xs);
+          gap: 0.375rem;
           font-family: var(--font-body);
           font-size: 0.8125rem;
           font-weight: 500;
           color: var(--foreground-muted);
         }
 
-        /* ─── Right Column: Browser Mockup Showcase ─── */
-        .hm-hero-media {
+        /* ─── Right Column: Bespoke Diptych Art ─── */
+        .hm-hero-diptych {
           position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .hm-browser-frame {
+        /* Backing Kinesiology Photo (E8) */
+        .hm-photo-wrapper {
           position: relative;
+          width: 82%;
+          aspect-ratio: 4 / 3;
           border-radius: var(--radius-xl);
           overflow: hidden;
-          background: var(--card);
-          border: var(--hairline-accent);
-          box-shadow: 0 20px 40px -15px oklch(0.12 0.02 246 / 0.12), 0 0 0 1px oklch(0.48 0.18 246 / 0.15);
+          border: var(--hairline);
+          box-shadow: 0 10px 30px oklch(0.12 0.02 246 / 0.08);
+          transform: rotate(-1.5deg);
         }
 
-        .hm-browser-bar {
-          height: 2.25rem;
+        .hm-photo-img {
+          object-fit: cover;
+          filter: contrast(1.03) brightness(0.98);
+        }
+
+        /* Foreground Software UI Frame (E3) */
+        .hm-ui-frame {
+          position: absolute;
+          width: 86%;
+          top: 15%;
+          right: 0;
+          background: var(--card);
+          border-radius: var(--radius-lg);
+          border: var(--hairline-accent);
+          box-shadow: 0 20px 45px -10px oklch(0.12 0.02 246 / 0.18), 0 0 0 1px oklch(0.48 0.18 246 / 0.12);
+          overflow: hidden;
+          transform: rotate(1deg);
+        }
+
+        .hm-ui-bar {
+          height: 2rem;
           background: var(--surface-2);
           border-bottom: var(--hairline);
           display: flex;
           align-items: center;
-          gap: 0.375rem;
-          padding-inline: 0.875rem;
+          gap: 0.35rem;
+          padding-inline: 0.75rem;
         }
 
-        .hm-browser-dot {
+        .hm-ui-dot {
           width: 0.5rem;
           height: 0.5rem;
           border-radius: 50%;
         }
 
-        .hm-browser-url {
-          margin-left: 0.5rem;
-          height: 1.25rem;
-          flex: 1;
-          max-width: 14rem;
-          background: var(--background);
-          border-radius: 999px;
-          border: var(--hairline);
-          display: flex;
-          align-items: center;
-          padding-inline: 0.625rem;
+        .hm-ui-path {
           font-family: var(--font-outlier);
           font-size: 0.625rem;
           color: var(--foreground-subtle);
+          margin-left: 0.5rem;
+          background: var(--background);
+          padding: 0.125rem 0.5rem;
+          border-radius: 999px;
+          border: var(--hairline);
         }
 
-        .hm-browser-content {
+        .hm-ui-body {
           position: relative;
           aspect-ratio: 16 / 10;
           width: 100%;
           overflow: hidden;
         }
 
-        /* Floating UI badges */
-        .hm-float-card-1 {
+        /* Floating Mono Annotation Cards */
+        .hm-annotation-card {
           position: absolute;
           bottom: -1rem;
-          left: -1.5rem;
+          left: -1rem;
           background: var(--card);
           border: var(--hairline-accent);
-          border-radius: var(--radius-lg);
-          padding: 0.75rem 1rem;
-          box-shadow: 0 10px 25px oklch(0.12 0.02 246 / 0.10);
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          z-index: 20;
-        }
-
-        .hm-float-card-2 {
-          position: absolute;
-          top: 1.5rem;
-          right: -1.5rem;
-          background: var(--card);
-          border: var(--hairline-accent);
-          border-radius: var(--radius-lg);
+          border-radius: var(--radius-md);
           padding: 0.625rem 0.875rem;
-          box-shadow: 0 10px 25px oklch(0.12 0.02 246 / 0.10);
+          box-shadow: 0 12px 30px oklch(0.12 0.02 246 / 0.12);
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          z-index: 20;
+          gap: 0.625rem;
+          z-index: 30;
         }
 
-        /* ─── Proof Strip ─── */
+        .hm-annotation-tag {
+          font-family: var(--font-outlier);
+          font-size: 0.6875rem;
+          font-weight: 600;
+          color: var(--kenko-sapphire);
+          letter-spacing: 0.04em;
+        }
+
+        .hm-annotation-sub {
+          font-family: var(--font-body);
+          font-size: 0.75rem;
+          color: var(--foreground-muted);
+        }
+
+        /* Proof Strip */
         .hm-proof-strip {
           display: flex;
           align-items: stretch;
@@ -321,12 +349,16 @@ export function Hero() {
 
         /* Responsive */
         @media (max-width: 960px) {
-          .hm-hero-container {
+          .hm-hero-grid {
             grid-template-columns: 1fr;
             gap: var(--space-2xl);
-            padding-block: var(--space-2xl);
           }
-          .hm-float-card-1, .hm-float-card-2 { display: none; }
+          .hm-hero-diptych {
+            margin-top: var(--space-md);
+          }
+          .hm-photo-wrapper { width: 100%; transform: none; }
+          .hm-ui-frame { position: static; width: 100%; margin-top: var(--space-md); transform: none; }
+          .hm-annotation-card { display: none; }
         }
 
         @media (max-width: 640px) {
@@ -336,8 +368,8 @@ export function Hero() {
             border-top: var(--hairline);
           }
           .hm-proof-stat { padding: var(--space-sm) var(--space-md); }
-          .hm-hero-ctas { flex-direction: column; align-items: stretch; }
-          .hm-hero-container { padding-inline: var(--space-md); }
+          .hm-hero-actions { flex-direction: column; align-items: stretch; }
+          .hm-hero-grid { padding-inline: var(--space-md); }
         }
       `}</style>
 
@@ -347,9 +379,9 @@ export function Hero() {
         className="hm-hero-section overflow-hidden"
         aria-label="Sección principal"
       >
-        {/* Subtle grid background */}
+        {/* Subtle structural grid background */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.035]"
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
           aria-hidden="true"
           style={{
             backgroundImage:
@@ -358,7 +390,7 @@ export function Hero() {
           }}
         />
 
-        {/* Ambient light glows */}
+        {/* Atmosphere glows */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div
             className="hero-mesh absolute -top-40 right-0 w-[550px] h-[550px] rounded-full"
@@ -393,92 +425,99 @@ export function Hero() {
           />
         )}
 
-        {/* ─── 2-Column Hero Content ─── */}
-        <div className="hm-hero-container relative z-10">
+        {/* ─── 2-Column Split Studio Layout ─── */}
+        <div className="hm-hero-grid relative z-10">
 
-          {/* Left Column: Messaging & CTAs */}
+          {/* Left Column: Authoritative Copy */}
           <div>
-            <div className="hm-eyebrow">
-              <span className="hm-eyebrow-dot" aria-hidden="true" />
-              Chile · Kinesiología & Fisioterapia
+            <div className="hm-hero-outlier">
+              <span className="hm-outlier-dot" aria-hidden="true" />
+              01 · PLATAFORMA CLÍNICA DE KINESIOLOGÍA
             </div>
 
-            <h1 className="hm-hero-title">
-              Software para{' '}
-              <span className="hm-hero-title-accent">kinesiólogos</span>.{' '}
-              Digitaliza tu clínica.
+            <h1 className="hm-hero-h1">
+              Rigor clínico.{' '}
+              <span className="hm-hero-h1-highlight">Sin burocracia.</span>
             </h1>
 
-            <p className="hm-hero-sub">
-              Kenkomed es el <strong className="text-foreground font-semibold">software de gestión clínica y Sistema DSS</strong> para kinesiólogos: historias clínicas digitales, agenda inteligente, fichas sin papel y cuestionarios EVA, PSFS y Barthel.
+            <p className="hm-hero-lede">
+              Kenkomed es la plataforma integral de <strong className="text-foreground font-semibold">soporte a la decisión clínica</strong> diseñada en Chile para kinesiólogos y fisioterapeutas: historias digitales, admisión QR, agenda inteligente y cuestionarios EVA, PSFS y Barthel automatizados.
             </p>
 
-            <div className="hm-hero-ctas">
-              <a href="#contact" className="hm-cta-primary">
+            <div className="hm-hero-actions">
+              <a href="#contact" className="hm-btn-primary">
                 Solicitar Demo Gratuita
                 <ArrowRight size={15} aria-hidden="true" />
               </a>
-              <Link href="/demo" className="hm-cta-ghost">
+              <Link href="/demo" className="hm-btn-ghost">
                 Ver Demo del Software
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
 
-            <div className="hm-hero-tags">
-              <span className="hm-hero-tag">
+            <div className="hm-trust-pills" role="list">
+              <span className="hm-trust-item" role="listitem">
                 <CheckCircle2 size={15} className="text-emerald" />
                 8 escalas validadas
               </span>
-              <span className="hm-hero-tag">
+              <span className="hm-trust-item" role="listitem">
                 <CheckCircle2 size={15} className="text-emerald" />
                 Admisión QR sin papel
               </span>
-              <span className="hm-hero-tag">
+              <span className="hm-trust-item" role="listitem">
                 <CheckCircle2 size={15} className="text-emerald" />
-                Soporte en Chile
+                Desarrollo e infraestructura en Chile
               </span>
             </div>
           </div>
 
-          {/* Right Column: Product Showcase Browser Frame */}
-          <div className="hm-hero-media">
-            <div className="hm-browser-frame">
-              <div className="hm-browser-bar">
-                <span className="hm-browser-dot bg-rose-400" />
-                <span className="hm-browser-dot bg-amber-400" />
-                <span className="hm-browser-dot bg-emerald-400" />
-                <div className="hm-browser-url">app.kenkomed.cl/dss-clinico</div>
+          {/* Right Column: Editorial Diptych Showcase (Photo + UI Frame) */}
+          <div className="hm-hero-diptych">
+
+            {/* Backing Software UI Card */}
+            <div className="hm-photo-wrapper">
+              <Image
+                src="/software/FichaClinica.jpg"
+                alt="Ficha clínica digital de Kenkomed"
+                fill
+                priority
+                className="hm-photo-img"
+                sizes="(max-width: 960px) 100vw, 42vw"
+              />
+            </div>
+
+            {/* Foreground Real Software UI Browser Frame (E3) */}
+            <div className="hm-ui-frame">
+              <div className="hm-ui-bar">
+                <span className="hm-ui-dot bg-rose-400" />
+                <span className="hm-ui-dot bg-amber-400" />
+                <span className="hm-ui-dot bg-emerald-400" />
+                <span className="hm-ui-path">kenkomed.cl/panel-clinico</span>
               </div>
 
-              <div className="hm-browser-content">
+              <div className="hm-ui-body">
                 <Image
                   src="/software/Panel.jpg"
-                  alt="Panel de software clínico Kenkomed"
+                  alt="Panel clínico del software Kenkomed"
                   fill
                   priority
                   className="object-cover object-top"
-                  sizes="(max-width: 960px) 100vw, 45vw"
+                  sizes="(max-width: 960px) 100vw, 40vw"
                 />
               </div>
             </div>
 
-            {/* Floating badge 1: DSS Active */}
-            <div className="hm-float-card-1">
-              <div className="w-9 h-9 rounded-xl bg-emerald/10 border border-emerald/20 flex items-center justify-center flex-shrink-0">
-                <Sparkles size={18} className="text-emerald" />
-              </div>
+            {/* Mono Annotation Card */}
+            <div className="hm-annotation-card">
+              <Activity size={18} className="text-emerald" />
               <div>
-                <p className="text-xs font-bold text-foreground">Sistema DSS Activo</p>
-                <p className="text-[11px] text-foreground-muted">Interpretación automática EVA / Barthel</p>
+                <span className="hm-annotation-tag">[SOPORTE A LA DECISIÓN CLÍNICA]</span>
+                <p className="hm-annotation-sub">Banderas rojas & EVA/Barthel en tiempo real</p>
               </div>
             </div>
 
-            {/* Floating badge 2: QR Admission */}
-            <div className="hm-float-card-2">
-              <ShieldCheck size={16} className="text-brand" />
-              <span className="text-xs font-semibold text-foreground">Ficha digital encriptada</span>
-            </div>
           </div>
+
         </div>
       </section>
 
