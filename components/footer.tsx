@@ -1,223 +1,260 @@
+'use client'
+
+/* Hallmark · component: Statement Footer (Ft5) · genre: modern-minimal · theme: Cobalt (Paper Light)
+ * Clean light paper background, dark typography, vibrant emerald & cobalt accents
+ */
+
 import Link from 'next/link'
 import Image from 'next/image'
-import { Instagram, Linkedin, Mail, Phone, MapPin, Heart } from 'lucide-react'
-import { BrandGrid, PulseDivider } from '@/components/brand-elements'
+import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
 
-const footerLinks = {
-  Producto: [
-    { label: 'Funcionalidades', href: '/funcionalidades' },
-    { label: 'El Producto',      href: '/#product' },
-    { label: 'Nuestra Solución', href: '/solucion' },
-    { label: 'Ver Demo',         href: '/demo' },
-    { label: 'Investigación',    href: '/investigacion' },
-  ],
-  Empresa: [
-    { label: 'Nosotros', href: '/nosotros' },
-    { label: 'Contacto', href: '#contact' },
-  ],
-  Legal: [
-    { label: 'Privacidad',      href: '/privacidad' },
-    { label: 'Términos de uso', href: '/terminos' },
-    { label: 'Seguridad',       href: '/seguridad' },
-  ],
-}
+const navLinks = [
+  { label: 'Funcionalidades', href: '/funcionalidades' },
+  { label: 'Nuestra Solución', href: '/solucion' },
+  { label: 'Ver Demo', href: '/demo' },
+  { label: 'Investigación', href: '/investigacion' },
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Privacidad', href: '/privacidad' },
+  { label: 'Términos de Uso', href: '/terminos' },
+  { label: 'Seguridad', href: '/seguridad' },
+]
 
 const socialLinks = [
   { icon: Instagram, label: 'Instagram de Kenkomed', href: 'https://www.instagram.com/_kenkomed_/' },
-  { icon: Linkedin,  label: 'LinkedIn de Kenkomed',  href: '#' },
+  { icon: Linkedin, label: 'LinkedIn de Kenkomed', href: '#' },
 ]
 
 export function Footer() {
   return (
     <>
-      {/* Estilos de hover puramente CSS — sin handlers JS */}
       <style>{`
-        .footer-link:hover   { color: var(--kenko-pulse) !important; }
-        .footer-social:hover {
-          background: oklch(0.66 0.19 163 / 0.15) !important;
-          border-color: oklch(0.66 0.19 163 / 0.35) !important;
-          color: var(--kenko-pulse) !important;
-          transform: translateY(-2px);
+        /* Hallmark · Statement Footer (Ft5) · Paper Light */
+        .hm-footer {
+          background: var(--surface);
+          color: var(--foreground);
+          border-top: var(--hairline);
+          overflow-x: clip;
+          position: relative;
         }
-        .footer-contact:hover { color: var(--kenko-pulse) !important; }
-        .footer-contact:hover .footer-contact-icon {
-          border-color: oklch(0.66 0.19 163 / 0.4) !important;
-          background: oklch(0.66 0.19 163 / 0.18) !important;
+
+        .hm-footer-inner {
+          max-width: 88rem;
+          margin-inline: auto;
+          padding-inline: var(--space-lg);
+          padding-block: var(--space-4xl) var(--space-2xl);
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-3xl);
+        }
+
+        /* ── Top Statement Block ── */
+        .hm-footer-statement-block {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: var(--space-2xl);
+          align-items: start;
+        }
+
+        .hm-footer-brand-heading {
+          font-family: var(--font-display);
+          font-size: clamp(2rem, 4.5vw + 0.5rem, 3.75rem);
+          font-weight: 800;
+          font-style: normal;
+          line-height: 1.05;
+          letter-spacing: -0.04em;
+          color: var(--foreground);
+          max-width: 20ch;
+          overflow-wrap: anywhere;
+          min-width: 0;
+        }
+
+        .hm-footer-accent-text {
+          color: var(--kenko-sapphire);
+        }
+
+        .hm-footer-contact-box {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-sm);
+          font-family: var(--font-body);
+          font-size: 0.875rem;
+          color: var(--foreground-muted);
+        }
+
+        .hm-footer-contact-link {
+          display: inline-flex;
+          align-items: center;
+          gap: var(--space-xs);
+          color: var(--foreground);
+          text-decoration: none;
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+          border-radius: var(--radius-sm);
+          transition-property: color;
+          transition-duration: 150ms;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hm-footer-contact-link:hover {
+          color: var(--kenko-sapphire);
+        }
+        .hm-footer-contact-link:focus-visible {
+          outline-color: var(--color-focus);
+        }
+
+        /* ── Middle: Single horizontal nav row ── */
+        .hm-footer-nav-row {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: var(--space-md) var(--space-lg);
+          padding-block: var(--space-lg);
+          border-top: var(--hairline);
+          border-bottom: var(--hairline);
+        }
+
+        .hm-footer-link {
+          font-family: var(--font-body);
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: var(--foreground-muted);
+          text-decoration: none;
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+          border-radius: var(--radius-sm);
+          transition-property: color;
+          transition-duration: 150ms;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hm-footer-link:hover {
+          color: var(--foreground);
+        }
+        .hm-footer-link:focus-visible {
+          outline-color: var(--color-focus);
+        }
+
+        /* ── Bottom row: Copyright & Social ── */
+        .hm-footer-bottom {
+          display: flex;
+          flex-wrap: wrap;
+          items-center: center;
+          justify-content: space-between;
+          gap: var(--space-md);
+          font-family: var(--font-body);
+          font-size: 0.8125rem;
+          color: var(--foreground-subtle);
+        }
+
+        .hm-footer-social-group {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+        }
+
+        .hm-footer-social-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.25rem;
+          height: 2.25rem;
+          border-radius: var(--radius-md);
+          border: var(--hairline);
+          color: var(--foreground-muted);
+          background: var(--background);
+          text-decoration: none;
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+          transition-property: color, border-color, background-color;
+          transition-duration: 150ms;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hm-footer-social-btn:hover {
+          color: var(--kenko-sapphire);
+          border-color: oklch(0.48 0.18 246 / 0.40);
+          background: oklch(0.48 0.18 246 / 0.06);
+        }
+        .hm-footer-social-btn:focus-visible {
+          outline-color: var(--color-focus);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+          .hm-footer-statement-block {
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+          }
+          .hm-footer-inner {
+            padding-inline: var(--space-md);
+          }
         }
       `}</style>
 
-      <footer
-        id="footer"
-        className="relative text-white overflow-hidden"
-        style={{
-          background:
-            'linear-gradient(180deg, #05111e 0%, #030c18 50%, #020810 100%)',
-          borderTop: '1px solid oklch(0.48 0.18 246 / 0.15)',
-        }}
-        role="contentinfo"
-      >
-        <BrandGrid className="opacity-[0.04]" />
-
-        {/* Orbes atmosféricos */}
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div
-            className="absolute top-0 right-0 w-[500px] h-[400px] rounded-full opacity-[0.08]"
-            style={{
-              background: 'radial-gradient(circle, oklch(0.48 0.18 246) 0%, transparent 65%)',
-              filter: 'blur(80px)',
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-[400px] h-[300px] rounded-full opacity-[0.06]"
-            style={{
-              background: 'radial-gradient(circle, oklch(0.66 0.19 163) 0%, transparent 65%)',
-              filter: 'blur(80px)',
-            }}
-          />
-        </div>
-
-        {/* Separador animado superior */}
-        <div className="relative z-10 pt-4">
-          <PulseDivider variant="dark" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-6 pb-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-14">
-
-            {/* Columna de marca */}
-            <div className="md:col-span-5">
-              <Link href="/" className="flex items-center gap-3 mb-6 group">
-                <div className="w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Image
-                    src="/images/LogoKenko.png"
-                    alt="Kenkomed logo"
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <span className="font-display font-bold text-xl tracking-tight">
-                  Ken<span style={{ color: 'var(--kenko-pulse)' }}>ko</span>med
+      <footer className="hm-footer" role="contentinfo">
+        <div className="hm-footer-inner">
+          {/* Top Statement Block */}
+          <div className="hm-footer-statement-block">
+            <div>
+              <Link href="/" className="inline-flex items-center gap-2 mb-6 group">
+                <Image
+                  src="/images/LogoKenko.png"
+                  alt="Kenkomed logo"
+                  width={36}
+                  height={36}
+                  className="object-contain"
+                />
+                <span className="font-display font-extrabold text-xl tracking-tight text-foreground">
+                  Kenko<span className="text-emerald">med</span>
                 </span>
               </Link>
-
-              <p className="text-sm text-on-brand-muted leading-relaxed mb-7 max-w-sm">
-                Software clínico profesional diseñado específicamente para kinesiólogos y
-                fisioterapeutas en Chile. Potenciado con sistema de apoyo a la decisión clínica (DSS).
-              </p>
-
-              {/* Contacto */}
-              <div className="flex flex-col gap-3 mb-7">
-                <a
-                  href="mailto:kenkomedplus@gmail.com"
-                  className="footer-contact group/link flex items-center gap-2.5 text-sm text-on-brand-subtle transition-colors duration-200"
-                >
-                  <div
-                    className="footer-contact-icon w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300"
-                    style={{
-                      background: 'oklch(0.66 0.19 163 / 0.12)',
-                      border: '1px solid oklch(0.66 0.19 163 / 0.25)',
-                    }}
-                  >
-                    <Mail size={14} style={{ color: 'var(--kenko-pulse)' }} />
-                  </div>
-                  kenkomedplus@gmail.com
-                </a>
-                <a
-                  href="tel:+56940966266"
-                  className="footer-contact group/link flex items-center gap-2.5 text-sm text-on-brand-subtle transition-colors duration-200"
-                >
-                  <div
-                    className="footer-contact-icon w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300"
-                    style={{
-                      background: 'oklch(0.66 0.19 163 / 0.12)',
-                      border: '1px solid oklch(0.66 0.19 163 / 0.25)',
-                    }}
-                  >
-                    <Phone size={14} style={{ color: 'var(--kenko-pulse)' }} />
-                  </div>
-                  +56 9 4096 6266
-                </a>
-                <div className="flex items-center gap-2.5 text-sm text-on-brand-subtle">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{
-                      background: 'oklch(0.66 0.19 163 / 0.08)',
-                      border: '1px solid oklch(0.66 0.19 163 / 0.15)',
-                    }}
-                  >
-                    <MapPin size={14} style={{ color: 'var(--kenko-mint)' }} />
-                  </div>
-                  Concepción, Chile
-                </div>
-              </div>
-
-              {/* Redes sociales */}
-              <div className="flex gap-2.5">
-                {socialLinks.map(({ icon: Icon, label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="footer-social w-10 h-10 rounded-xl flex items-center justify-center text-on-brand-subtle transition-all duration-300"
-                    style={{
-                      background: 'oklch(1 0 0 / 0.06)',
-                      border: '1px solid oklch(1 0 0 / 0.10)',
-                    }}
-                  >
-                    <Icon size={16} />
-                  </a>
-                ))}
-              </div>
+              <h2 className="hm-footer-brand-heading">
+                El software clínico que los{' '}
+                <span className="hm-footer-accent-text">kinesiólogos</span> de Chile merecían.
+              </h2>
             </div>
 
-            {/* Columnas de links */}
-            <div className="md:col-span-7 grid grid-cols-3 gap-8">
-              {Object.entries(footerLinks).map(([category, links]) => (
-                <div key={category}>
-                  <h3
-                    className="text-xs font-bold tracking-widest uppercase mb-5 font-display"
-                    style={{ color: 'oklch(0.97 0.003 246 / 0.4)' }}
-                  >
-                    {category}
-                  </h3>
-                  <ul className="flex flex-col gap-3">
-                    {links.map((link) => (
-                      <li key={link.label}>
-                        <Link
-                          href={link.href}
-                          className="footer-link text-sm text-on-brand-muted transition-colors duration-200"
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            {/* Contact info box */}
+            <div className="hm-footer-contact-box">
+              <span className="font-mono text-xs uppercase tracking-widest text-emerald font-semibold">Contacto directo</span>
+              <a href="mailto:kenkomedplus@gmail.com" className="hm-footer-contact-link">
+                <Mail size={14} aria-hidden="true" />
+                kenkomedplus@gmail.com
+              </a>
+              <a href="tel:+56940966266" className="hm-footer-contact-link">
+                <Phone size={14} aria-hidden="true" />
+                +56 9 4096 6266
+              </a>
+              <span className="inline-flex items-center gap-1.5 text-xs text-foreground-muted">
+                <MapPin size={13} aria-hidden="true" />
+                Concepción, Chile
+              </span>
             </div>
           </div>
 
-          {/* Divisor */}
-          <div
-            className="h-px mb-8"
-            style={{
-              background: 'linear-gradient(90deg, transparent, oklch(1 0 0 / 0.08), transparent)',
-            }}
-          />
+          {/* Single horizontal link row */}
+          <nav className="hm-footer-nav-row" aria-label="Navegación del pie de página">
+            {navLinks.map((link) => (
+              <Link key={link.label} href={link.href} className="hm-footer-link">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
-          {/* Copyright */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-on-brand-subtle">
-              © {new Date().getFullYear()} Kenkomed. Todos los derechos reservados.
-            </p>
-            <p className="text-xs text-on-brand-subtle flex items-center gap-1.5">
-              Hecho con{' '}
-              <Heart size={11} style={{ color: 'var(--kenko-pulse)', fill: 'var(--kenko-pulse)' }} />{' '}
-              en Chile para kinesiólogos
-            </p>
+          {/* Bottom Copyright & Social */}
+          <div className="hm-footer-bottom">
+            <p>© {new Date().getFullYear()} Kenkomed. Todos los derechos reservados. Hecho en Chile.</p>
+            <div className="hm-footer-social-group">
+              {socialLinks.map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="hm-footer-social-btn"
+                >
+                  <Icon size={15} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </footer>

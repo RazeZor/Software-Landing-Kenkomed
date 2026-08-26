@@ -162,7 +162,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="font-sans antialiased bg-background text-foreground"
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
           <SiteHeader />
           {children}
           <VirtualAssistantLazy />

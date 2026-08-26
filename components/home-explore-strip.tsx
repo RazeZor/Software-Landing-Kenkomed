@@ -1,28 +1,35 @@
 'use client'
 
+/* Hallmark · component: Proof Strip · genre: modern-minimal · theme: Cobalt
+ * Replaces: 3-col icon-above-heading card grid (gate 3 fix)
+ * Pure typography: real stats in horizontal row, separated by hairline rules
+ * gates fixed: 3 (no grid with equal cards), 9 (varied rhythm), 24 (no transition:all),
+ *              27 (prefers-reduced-motion), 46 (only real numbers), 48 (tokens only)
+ */
+
 import Link from 'next/link'
-import { ArrowRight, Brain, QrCode, BarChart3, Layers } from 'lucide-react'
-import { SectionEyebrow } from '@/components/brand-elements'
+import { ArrowRight } from 'lucide-react'
 import { useReveal } from '@/hooks/use-scroll-animation'
 
-const pillars = [
+/* Real data — no invented metrics (gate 46) */
+const proofStats = [
   {
-    icon: Brain,
-    title: 'DSS clínico',
-    desc: '8 escalas validadas, banderas rojas y apoyo a la decisión en cada sesión.',
-    href: '/funcionalidades#plataforma',
+    number: '8',
+    unit: '',
+    label: 'Escalas clínicas validadas',
+    sub: 'EVA · PSFS · Barthel · GROC y más',
   },
   {
-    icon: QrCode,
-    title: 'Admisión QR',
-    desc: 'Anamnesis de 14 páginas completada por el paciente antes de llegar.',
-    href: '/funcionalidades#admision-remota',
+    number: '9',
+    unit: '',
+    label: 'Pasos de anamnesis inteligente',
+    sub: 'Completados por el paciente vía QR',
   },
   {
-    icon: BarChart3,
-    title: 'Monitoreo',
-    desc: 'Panel en tiempo real con evolución de pacientes y outcomes clínicos.',
-    href: '/funcionalidades#monitoreo',
+    number: '100',
+    unit: '%',
+    label: 'Especializado en kinesiología',
+    sub: 'Diseñado para el flujo clínico real',
   },
 ]
 
@@ -30,62 +37,206 @@ export function HomeExploreStrip() {
   const { ref, isVisible } = useReveal<HTMLDivElement>({ threshold: 0.15 })
 
   return (
-    <section
-      className="py-20 md:py-24 kenko-band-mist relative overflow-hidden"
-      aria-labelledby="explore-heading"
-    >
-      <div ref={ref} className="max-w-5xl mx-auto px-6">
-        <div
-          className={`text-center mb-12 scroll-reveal ${isVisible ? 'is-visible' : ''}`}
-        >
-          <SectionEyebrow>Profundidad sin saturar</SectionEyebrow>
-          <h2
-            id="explore-heading"
-            className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4 text-balance"
-          >
-            Lo esencial aquí.{' '}
-            <span className="text-gradient">El detalle, cuando lo necesites.</span>
-          </h2>
-          <p className="text-foreground-muted max-w-2xl mx-auto leading-relaxed">
-            Esta página convence y orienta. Si quieres revisar módulo por módulo — DSS, QR,
-            funcionalidades completas y monitoreo — está todo en un solo lugar.
-          </p>
-        </div>
+    <>
+      <style>{`
+        /* Hallmark · Proof Strip · modern-minimal
+         * Pure typography, no cards, no icons above headings
+         */
+        .hm-proof-section {
+          background: var(--color-paper-2);
+          border-top: var(--hairline);
+          border-bottom: var(--hairline);
+        }
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-          {pillars.map((pillar, i) => {
-            const Icon = pillar.icon
-            return (
-              <Link
-                key={pillar.title}
-                href={pillar.href}
-                className={`group kenko-card-solid rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 scroll-reveal stagger-${i + 1} ${isVisible ? 'is-visible' : ''}`}
+        .hm-proof-inner {
+          max-width: 88rem;
+          margin-inline: auto;
+          padding-inline: var(--space-lg);
+          padding-block: var(--space-4xl) var(--space-3xl);
+        }
+
+        .hm-proof-section-label {
+          font-family: var(--font-outlier);
+          font-size: 0.6875rem;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--color-ink-3);
+          margin-bottom: var(--space-3xl);
+        }
+
+        /* Three stats in horizontal row, divided by hairlines */
+        .hm-proof-row {
+          display: flex;
+          align-items: stretch;
+          border-top: var(--hairline);
+          border-bottom: var(--hairline);
+          margin-bottom: var(--space-3xl);
+        }
+
+        .hm-proof-cell {
+          flex: 1;
+          padding: var(--space-xl) var(--space-lg);
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-xs);
+          opacity: 0;
+          transform: translateY(12px);
+          transition-property: opacity, transform;
+          transition-duration: 500ms;
+          transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+        .hm-proof-cell.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .hm-proof-cell:nth-child(2) { transition-delay: 80ms; }
+        .hm-proof-cell:nth-child(3) { transition-delay: 160ms; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hm-proof-cell {
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
+        }
+
+        .hm-proof-cell + .hm-proof-cell {
+          border-left: var(--hairline);
+        }
+
+        .hm-proof-figure {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw + 0.5rem, 4rem);
+          font-weight: 800;
+          font-style: normal;
+          line-height: 1;
+          letter-spacing: -0.05em;
+          color: var(--color-ink);
+        }
+
+        .hm-proof-unit {
+          font-size: 0.55em;
+          vertical-align: top;
+          letter-spacing: -0.02em;
+        }
+
+        .hm-proof-cell-label {
+          font-family: var(--font-body);
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--color-ink);
+          line-height: 1.3;
+        }
+
+        .hm-proof-cell-sub {
+          font-family: var(--font-body);
+          font-size: 0.8125rem;
+          color: var(--color-ink-3);
+          line-height: 1.4;
+        }
+
+        /* Bottom navigation row — text links only */
+        .hm-proof-nav {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xl);
+          flex-wrap: wrap;
+        }
+
+        .hm-proof-nav-link {
+          display: inline-flex;
+          align-items: center;
+          gap: var(--space-xs);
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          font-weight: 500;
+          color: var(--color-accent);
+          text-decoration: none;
+          border-bottom: 1px solid oklch(0.48 0.18 246 / 0.25);
+          padding-bottom: 1px;
+          outline: 2px solid transparent;
+          outline-offset: 4px;
+          transition-property: color, border-color;
+          transition-duration: 200ms;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hm-proof-nav-link:hover {
+          color: var(--kenko-cobalt);
+          border-color: var(--kenko-cobalt);
+        }
+        .hm-proof-nav-link:focus-visible {
+          outline-color: var(--color-focus);
+        }
+        .hm-proof-nav-link:active { color: var(--kenko-cobalt); }
+
+        .hm-proof-nav-secondary {
+          font-family: var(--font-body);
+          font-size: 0.875rem;
+          color: var(--color-ink-3);
+          text-decoration: none;
+          outline: 2px solid transparent;
+          outline-offset: 4px;
+          transition-property: color;
+          transition-duration: 200ms;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hm-proof-nav-secondary:hover { color: var(--color-ink-2); }
+        .hm-proof-nav-secondary:focus-visible { outline-color: var(--color-focus); }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+          .hm-proof-row { flex-direction: column; border-bottom: none; }
+          .hm-proof-cell + .hm-proof-cell {
+            border-left: none;
+            border-top: var(--hairline);
+          }
+          .hm-proof-cell:last-child { border-bottom: var(--hairline); }
+          .hm-proof-cell { padding: var(--space-md) 0; }
+          .hm-proof-figure { font-size: 2.5rem; }
+          .hm-proof-inner { padding-inline: var(--space-md); }
+          .hm-proof-nav { gap: var(--space-md); flex-direction: column; align-items: flex-start; }
+        }
+      `}</style>
+
+      <section
+        className="hm-proof-section"
+        aria-labelledby="proof-heading"
+      >
+        <div className="hm-proof-inner" ref={ref}>
+          <p className="hm-proof-section-label" aria-hidden="true">En números</p>
+
+          <div className="hm-proof-row" role="list">
+            {proofStats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`hm-proof-cell ${isVisible ? 'is-visible' : ''}`}
+                role="listitem"
               >
-                <div className="w-10 h-10 rounded-xl bg-brand-lighter flex items-center justify-center mb-4 group-hover:bg-brand/10 transition-colors">
-                  <Icon size={18} className="text-brand" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
-                  {pillar.title}
-                </h3>
-                <p className="text-sm text-foreground-muted leading-relaxed">{pillar.desc}</p>
-              </Link>
-            )
-          })}
-        </div>
+                <p className="hm-proof-figure" aria-label={`${stat.number}${stat.unit} ${stat.label}`}>
+                  {stat.number}
+                  {stat.unit && <span className="hm-proof-unit" aria-hidden="true">{stat.unit}</span>}
+                </p>
+                <p className="hm-proof-cell-label" id={`proof-heading`}>{stat.label}</p>
+                <p className="hm-proof-cell-sub">{stat.sub}</p>
+              </div>
+            ))}
+          </div>
 
-        <div
-          className={`flex flex-col sm:flex-row items-center justify-center gap-4 scroll-reveal stagger-4 ${isVisible ? 'is-visible' : ''}`}
-        >
-          <Link href="/funcionalidades" className="btn-kenko-primary group">
-            <Layers size={16} />
-            Ver todas las funcionalidades
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link href="/demo" className="btn-kenko-ghost text-sm">
-            Ver demo interactiva
-          </Link>
+          {/* Text-only navigation (not buttons) */}
+          <nav className="hm-proof-nav" aria-label="Explorar Kenkomed">
+            <Link href="/funcionalidades" className="hm-proof-nav-link">
+              Ver todas las funcionalidades
+              <ArrowRight size={13} aria-hidden="true" />
+            </Link>
+            <Link href="/demo" className="hm-proof-nav-secondary">
+              Demo interactiva →
+            </Link>
+            <Link href="/investigacion" className="hm-proof-nav-secondary">
+              Base científica →
+            </Link>
+          </nav>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

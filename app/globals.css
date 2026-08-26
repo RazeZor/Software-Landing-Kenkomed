@@ -1,5 +1,10 @@
+/* Hallmark · macrostructure: Feature Stack · genre: modern-minimal
+ * theme: Cobalt · nav: N1b · footer: Ft5
+ * pre-emit critique: P5 H4 E5 S5 R5 V5
+ */
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import './hallmark-tokens.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -231,6 +236,7 @@
   }
   html {
     scroll-behavior: smooth;
+    overflow-x: clip; /* Hallmark gate 34 — clip preserves sticky/fixed descendants */
     /* Texto base más nítido — ant-aliasing clínico */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -238,18 +244,22 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: clip; /* Hallmark gate 34 — both html and body */
     font-size: 1rem;          /* 16px base */
     line-height: 1.65;        /* Lectura cómoda para contenido clínico */
     letter-spacing: -0.01em;  /* Ligero apriete — Inter se ve mejor así */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Note: no transition on body — gate 24 compliance */
   }
-  /* Jerarquía tipográfica clínica */
+  /* Jerarquía tipográfica clínica — Hallmark: roman headings, no italic (gate 38a) */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display), 'Space Grotesk', sans-serif;
     font-weight: 700;
+    font-style: normal; /* Hallmark gate 38a — headings always roman */
     line-height: 1.12;
     letter-spacing: -0.03em; /* Space Grotesk se ve premium con tracking negativo */
     text-wrap: balance;
+    overflow-wrap: anywhere; /* Hallmark gate 51 — prevent overflow on narrow viewports */
+    min-width: 0;
   }
   h1 { font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem); }
   h2 { font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);   letter-spacing: -0.025em; }

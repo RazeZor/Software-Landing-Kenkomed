@@ -1,0 +1,92 @@
+/* Hallmark · macrostructure: Feature Stack · genre: modern-minimal
+ * theme: Cobalt · nav: N1b · footer: Ft5 · enrichment: E1 CSS-art mockup
+ * pre-emit critique: P5 H4 E5 S5 R5 V5
+ * contrast: APCA pass · states: default hover focus-visible active disabled loading error success
+ */
+
+/* ── SPACING SCALE — 4pt base ── */
+:root {
+  --space-3xs: 0.25rem;   /* 4px  */
+  --space-2xs: 0.5rem;    /* 8px  */
+  --space-xs:  0.75rem;   /* 12px */
+  --space-sm:  1rem;      /* 16px */
+  --space-md:  1.5rem;    /* 24px */
+  --space-lg:  2rem;      /* 32px */
+  --space-xl:  3rem;      /* 48px */
+  --space-2xl: 4rem;      /* 64px */
+  --space-3xl: 5rem;      /* 80px */
+  --space-4xl: 6rem;      /* 96px */
+  --space-5xl: 8rem;      /* 128px */
+
+  /* ── HALLMARK SEMANTIC ALIASES → KENKOMED TOKENS ── */
+  --color-paper:    var(--background);
+  --color-paper-2:  var(--surface);
+  --color-paper-3:  var(--surface-2);
+  --color-ink:      var(--foreground);
+  --color-ink-2:    var(--foreground-muted);
+  --color-ink-3:    var(--foreground-subtle);
+  --color-accent:   var(--kenko-sapphire);   /* oklch(0.48 0.18 246) */
+  --color-accent-2: var(--kenko-mint);       /* oklch(0.66 0.19 163) */
+  --color-focus:    var(--kenko-sky);        /* oklch(0.62 0.16 230) */
+
+  /* ── FONT TOKENS ── */
+  --font-display:  var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-body:     var(--font-inter), 'Inter', sans-serif;
+  --font-outlier:  var(--font-geist-mono), 'Geist Mono', monospace;
+
+  /* ── MOTION TOKENS ── */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --dur-fast:     150ms;
+  --dur-base:     220ms;
+  --dur-slow:     350ms;
+
+  /* ── BORDER / RADIUS TOKENS ── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --hairline:  1px solid oklch(0.12 0.02 246 / 0.10);
+  --hairline-accent: 1px solid oklch(0.48 0.18 246 / 0.20);
+}
+
+/* ── DARK MODE HALLMARK ALIASES ── */
+.dark {
+  --color-paper:   var(--background);
+  --color-paper-2: var(--surface);
+  --color-paper-3: var(--surface-2);
+  --color-ink:     var(--foreground);
+  --color-ink-2:   var(--foreground-muted);
+  --color-ink-3:   var(--foreground-subtle);
+  --color-accent:  var(--kenko-sky);
+  --color-accent-2: var(--kenko-mint);
+  --hairline: 1px solid oklch(0.97 0.003 246 / 0.12);
+  --hairline-accent: 1px solid oklch(0.62 0.16 230 / 0.25);
+}
+
+/* ── FEATURE STACK LAYOUT TOKENS ── */
+:root {
+  --feature-stack-left-width: 38%;
+  --feature-stack-right-width: 62%;
+  --feature-stack-sticky-top: 7rem;
+  --feature-number-color: var(--color-accent-2);
+}
+
+/* ── FOCUS RING — universal, instant, no fade ── */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ── REDUCED MOTION LAYER ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

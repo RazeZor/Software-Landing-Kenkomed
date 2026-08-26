@@ -1,20 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import type { ComponentProps } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon'
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
 import {
   Sheet,
   SheetContent,
@@ -24,105 +15,68 @@ import {
 } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { useScrollProgress } from '@/hooks/use-scroll-animation'
+import { ChevronDown, ArrowRight, Brain, QrCode, FileText, BarChart3, ShieldCheck, Sparkles, Users } from 'lucide-react'
 
-/* ── Nav data ─────────────────────────────────────────────────── */
+/* ── Nav Links Configuration ──────────────────────────────────── */
 
-const productItems = [
+const funcionesSubMenu = [
   {
-    title: 'Panel de control',
-    href: '/#product',
-    description: 'Métricas, accesos rápidos y gestión del centro.',
+    title: 'DSS Clínico & Algoritmos',
+    href: '/funcionalidades#plataforma',
+    desc: 'Escalas EVA, PSFS, Barthel y banderas rojas.',
+    icon: Brain,
   },
   {
-    title: 'Admisión QR',
+    title: 'Admisión Express QR',
     href: '/funcionalidades#admision-remota',
-    description: 'Anamnesis digital antes de la consulta.',
+    desc: 'Anamnesis inteligente desde el celular.',
+    icon: QrCode,
   },
   {
-    title: 'Historial clínico',
+    title: 'Ficha Digital Unificada',
     href: '/funcionalidades#funcionalidades',
-    description: 'Fichas, sesiones y evolución del paciente.',
-  },
-]
-
-const featureItems = [
-  {
-    title: 'Gestión de citas',
-    href: '/funcionalidades#admision-remota',
-    description: 'Agenda clínica y admisión remota con código QR.',
+    desc: 'Historial clínico, sesiones y evoluciones.',
+    icon: FileText,
   },
   {
-    title: 'Reportes clínicos',
+    title: 'Monitoreo & Outcomes',
     href: '/funcionalidades#monitoreo',
-    description: 'Historial de sesiones y evolución de cuestionarios.',
-  },
-  {
-    title: 'Historial médico',
-    href: '/funcionalidades#funcionalidades',
-    description: 'Fichas profesionales y escalas validadas.',
-  },
-  {
-    title: 'Ver todas',
-    href: '/funcionalidades',
-    description: 'Explora el detalle completo del software.',
+    desc: 'Gráficos de recuperación en tiempo real.',
+    icon: BarChart3,
   },
 ]
 
-const companyItems = [
+const solucionSubMenu = [
   {
-    title: 'Nuestra solución',
+    title: 'Nuestra Solución',
     href: '/solucion',
-    description: 'Cómo Kenkomed transforma tu clínica.',
+    desc: 'Transformación digital clínica integral.',
+    icon: Sparkles,
   },
   {
-    title: 'Nosotros',
-    href: '/nosotros',
-    description: 'La historia y el equipo detrás del producto.',
-  },
-  {
-    title: 'Investigación',
+    title: 'Investigación Científica',
     href: '/investigacion',
-    description: 'Base científica y evidencia del producto.',
+    desc: 'Evidencia clínica y base de datos DSS.',
+    icon: Brain,
+  },
+  {
+    title: 'Sobre Nosotros',
+    href: '/nosotros',
+    desc: 'El equipo detrás de Kenkomed.',
+    icon: Users,
   },
 ]
 
-const legalItems = [
+const recursosSubMenu = [
+  { title: 'Preguntas Frecuentes', href: '/#preguntas-frecuentes' },
+  { title: 'Seguridad & Datos', href: '/seguridad' },
   { title: 'Privacidad', href: '/privacidad' },
-  { title: 'Términos', href: '/terminos' },
-  { title: 'Seguridad', href: '/seguridad' },
-  { title: 'Contacto', href: '/#contact' },
+  { title: 'Términos de uso', href: '/terminos' },
 ]
-
-/* ── Shared sub-components ────────────────────────────────────── */
-
-const ListItem = React.forwardRef<
-  React.ComponentRef<typeof Link>,
-  ComponentProps<typeof Link> & { title: string }
->(({ className, title, children, ...props }, ref) => (
-  <li>
-    <NavigationMenuLink asChild>
-      <Link
-        ref={ref}
-        className={cn(
-          'block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-colors',
-          'hover:bg-white/10 hover:text-white focus:bg-white/10 focus:text-white',
-          className,
-        )}
-        {...props}
-      >
-        <div className="text-sm font-semibold text-white/90 leading-none">{title}</div>
-        {children && (
-          <p className="line-clamp-2 text-xs leading-snug text-white/55 mt-1">{children}</p>
-        )}
-      </Link>
-    </NavigationMenuLink>
-  </li>
-))
-ListItem.displayName = 'ListItem'
 
 /* ── Scroll hook ──────────────────────────────────────────────── */
 
-function useScrolled(threshold = 20) {
+function useScrolled(threshold = 15) {
   const [scrolled, setScrolled] = React.useState(false)
 
   React.useEffect(() => {
@@ -134,7 +88,6 @@ function useScrolled(threshold = 20) {
         setScrolled(window.scrollY > threshold)
       })
     }
-    // Run immediately so state is correct after hydration
     handler()
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
@@ -143,53 +96,78 @@ function useScrolled(threshold = 20) {
   return scrolled
 }
 
-/* ── SiteHeader ───────────────────────────────────────────────── */
+/* ── Simple, Rock-Solid SiteHeader Component ──────────────────── */
 
 export function SiteHeader() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const scrolled = useScrolled(20)
+  const scrolled = useScrolled(15)
   const progress = useScrollProgress()
 
   React.useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
 
-  /* Standalone trigger/link classes — no accent tokens, pure navy */
-  const triggerClass =
-    'group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white/80 transition-colors outline-none' +
-    ' hover:bg-white/10 hover:text-white' +
-    ' focus:bg-white/10 focus:text-white focus-visible:ring-2 focus-visible:ring-white/30' +
-    ' data-[state=open]:bg-white/10 data-[state=open]:text-white' +
-    ' disabled:pointer-events-none disabled:opacity-50'
-
-  const linkClass =
-    'inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-white/80 transition-colors outline-none' +
-    ' hover:bg-white/10 hover:text-white' +
-    ' focus:bg-white/10 focus:text-white focus-visible:ring-2 focus-visible:ring-white/30'
-
   return (
     <>
-      {/* Scroll progress line */}
+      {/* Scroll progress bar */}
       <div
         className="scroll-progress"
         style={{ width: `${progress * 100}%` }}
         aria-hidden="true"
       />
 
+      <style>{`
+        /* Simple, bulletproof CSS hover dropdowns — zero radix glitches, zero black boxes */
+        .hm-nav-group {
+          position: relative;
+        }
+
+        .hm-dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          padding-top: 0.5rem;
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transform: translateY(6px);
+          transition-property: opacity, transform, visibility;
+          transition-duration: 180ms;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 100;
+        }
+
+        .hm-nav-group:hover .hm-dropdown-menu,
+        .hm-nav-group:focus-within .hm-dropdown-menu {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+          transform: translateY(0);
+        }
+
+        .hm-dropdown-panel {
+          background: var(--card);
+          border: var(--hairline);
+          border-radius: var(--radius-xl);
+          box-shadow: 0 10px 30px -5px oklch(0.12 0.02 246 / 0.12), 0 0 0 1px oklch(0.12 0.02 246 / 0.04);
+          padding: 0.75rem;
+        }
+      `}</style>
+
       <header
         className={cn(
           'fixed top-0 z-50 w-full transition-all duration-300',
           scrolled
             ? [
-                'border-b border-white/10',
-                'bg-[#05111e]/96 shadow-lg shadow-black/30',
-                'backdrop-blur-xl supports-[backdrop-filter]:bg-[#05111e]/90',
+                'border-b border-border/80',
+                'bg-background/95 shadow-sm',
+                'backdrop-blur-xl supports-[backdrop-filter]:bg-background/90',
               ]
             : [
-                'border-b border-white/5',
-                'bg-[#05111e]/80',
-                'backdrop-blur-md supports-[backdrop-filter]:bg-[#05111e]/70',
+                'border-b border-border/40',
+                'bg-background/85',
+                'backdrop-blur-md supports-[backdrop-filter]:bg-background/75',
               ],
         )}
       >
@@ -198,175 +176,214 @@ export function SiteHeader() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-2.5 rounded-lg p-1 transition-colors hover:bg-white/10"
+            className="flex shrink-0 items-center gap-2.5 rounded-lg p-1 transition-colors hover:bg-foreground/5"
+            aria-label="Ir al inicio de Kenkomed"
           >
             <Image
               src="/images/LogoKenko.png"
-              alt="Kenkomed"
+              alt="Logo Kenkomed"
               width={36}
               height={36}
               className="h-9 w-9 object-contain"
               priority
             />
-            <span className="font-display hidden text-lg font-bold tracking-tight text-white sm:inline">
-              Ken<span className="text-[var(--kenko-pulse)]">ko</span>med
+            <span className="font-display text-xl font-extrabold tracking-tight text-foreground">
+              Ken<span className="text-emerald">ko</span>med
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>
+          {/* Desktop Navigation — Clean, Fast, Bulletproof Dropdowns */}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Navegación principal">
 
-              {/* Producto */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={triggerClass}>
-                  Producto
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 p-4 md:w-[420px] lg:w-[520px] lg:grid-cols-[.8fr_1fr]">
-                    <li className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href="/demo"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-xl bg-gradient-to-b from-brand/30 to-emerald/20 p-6 no-underline outline-none ring-1 ring-white/10 transition-all hover:from-brand/40 hover:to-emerald/30 focus:shadow-md"
-                        >
-                          <div className="mb-2 text-base font-bold text-white">Kenkomed</div>
-                          <p className="text-xs leading-snug text-white/60">
-                            Software de gestión clínica para kinesiólogos en Chile.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    {productItems.map((item) => (
-                      <ListItem key={item.title} href={item.href} title={item.title}>
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Funcionalidades */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={triggerClass}>
-                  Funcionalidades
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2">
-                    {featureItems.map((item) => (
-                      <ListItem key={item.title} href={item.href} title={item.title}>
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Empresa */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={triggerClass}>
-                  Empresa
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-2 p-4 md:w-[480px] md:grid-cols-2">
-                    {companyItems.map((item) => (
-                      <ListItem key={item.title} href={item.href} title={item.title}>
-                        {item.description}
-                      </ListItem>
-                    ))}
-                    {legalItems.map((item) => (
-                      <li key={item.title}>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href={item.href}
-                            className="block rounded-lg p-3 text-sm font-medium text-white/60 transition-colors hover:bg-white/10 hover:text-white"
-                          >
+            {/* Solución Dropdown */}
+            <div className="hm-nav-group">
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
+              >
+                Solución
+                <ChevronDown size={14} className="text-foreground-muted" />
+              </button>
+              <div className="hm-dropdown-menu w-72">
+                <div className="hm-dropdown-panel flex flex-col gap-1">
+                  {solucionSubMenu.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <Link
+                        key={item.title}
+                        href={item.href}
+                        className="group flex items-start gap-3 p-2.5 rounded-lg hover:bg-foreground/5 transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-colors">
+                          <Icon size={16} />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
                             {item.title}
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                          </div>
+                          <div className="text-xs text-foreground-muted leading-tight mt-0.5">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
 
-              {/* Demo link */}
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link href="/demo" className={linkClass}>
-                    Demo
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+            {/* Funcionalidades Dropdown */}
+            <div className="hm-nav-group">
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
+              >
+                Funcionalidades
+                <ChevronDown size={14} className="text-foreground-muted" />
+              </button>
+              <div className="hm-dropdown-menu w-80">
+                <div className="hm-dropdown-panel flex flex-col gap-1">
+                  {funcionesSubMenu.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <Link
+                        key={item.title}
+                        href={item.href}
+                        className="group flex items-start gap-3 p-2.5 rounded-lg hover:bg-foreground/5 transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-colors">
+                          <Icon size={16} />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
+                            {item.title}
+                          </div>
+                          <div className="text-xs text-foreground-muted leading-tight mt-0.5">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                  <div className="pt-1 mt-1 border-t border-border/60">
+                    <Link
+                      href="/funcionalidades"
+                      className="flex items-center justify-between p-2 rounded-lg text-xs font-semibold text-brand hover:bg-brand/10 transition-colors"
+                    >
+                      Ver todas las funcionalidades
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            </NavigationMenuList>
-          </NavigationMenu>
+            {/* Recursos & Legal Dropdown */}
+            <div className="hm-nav-group">
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
+              >
+                Recursos
+                <ChevronDown size={14} className="text-foreground-muted" />
+              </button>
+              <div className="hm-dropdown-menu w-56">
+                <div className="hm-dropdown-panel flex flex-col gap-0.5">
+                  {recursosSubMenu.map((item) => (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      className="px-3 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-brand hover:bg-foreground/5 transition-colors"
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Demo Link */}
+            <Link
+              href="/demo"
+              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
+            >
+              Demo
+            </Link>
+
+            {/* Nosotros Link */}
+            <Link
+              href="/nosotros"
+              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
+            >
+              Nosotros
+            </Link>
+          </nav>
 
           {/* Desktop CTAs */}
           <div className="hidden items-center gap-2 md:flex">
             <Button
               variant="ghost"
               asChild
-              className="text-white/80 hover:bg-white/10 hover:text-white"
+              className="text-foreground/80 hover:bg-foreground/5 hover:text-foreground text-sm font-medium"
             >
               <Link href="/demo">Ver demo</Link>
             </Button>
             <Button
               asChild
-              className="bg-emerald hover:bg-emerald-dark text-[#05111e] font-semibold shadow-md shadow-emerald/20 transition-all hover:shadow-emerald/30"
+              className="bg-brand hover:bg-brand-dark text-white font-semibold text-sm shadow-md shadow-brand/15 transition-all hover:shadow-brand/25"
             >
               <Link href="/#contact">Solicitar demo</Link>
             </Button>
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile Hamburger Drawer */}
           <div className="flex items-center gap-2 lg:hidden">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-white hover:bg-white/10"
-                  aria-label="Abrir menú"
+                  className="text-foreground hover:bg-foreground/5"
+                  aria-label="Abrir menú de navegación"
                 >
                   <MenuToggleIcon open={mobileOpen} className="size-5" duration={300} />
                 </Button>
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[min(100vw-2rem,360px)] overflow-y-auto border-l border-white/10 bg-[#05111e] text-white"
+                className="w-[min(100vw-2rem,360px)] overflow-y-auto border-l border-border bg-background text-foreground"
               >
                 <SheetHeader>
-                  <SheetTitle className="flex items-center gap-2 text-white">
+                  <SheetTitle className="flex items-center gap-2 text-foreground">
                     <Image
                       src="/images/LogoKenko.png"
-                      alt="Kenkomed"
+                      alt="Logo Kenkomed"
                       width={28}
                       height={28}
                       className="h-7 w-7 object-contain"
                     />
-                    <span className="font-display font-bold">
-                      Ken<span className="text-[var(--kenko-pulse)]">ko</span>med
+                    <span className="font-display font-extrabold text-lg">
+                      Ken<span className="text-emerald">ko</span>med
                     </span>
                   </SheetTitle>
                 </SheetHeader>
 
-                <nav className="mt-6 flex flex-col gap-6" aria-label="Menú móvil">
+                <nav className="mt-6 flex flex-col gap-6" aria-label="Navegación móvil">
                   {[
-                    { label: 'Producto', items: productItems },
-                    { label: 'Funcionalidades', items: featureItems },
-                    { label: 'Empresa', items: [...companyItems, ...legalItems] },
+                    { label: 'Solución & Empresa', items: solucionSubMenu },
+                    { label: 'Funcionalidades', items: funcionesSubMenu },
+                    { label: 'Recursos & Legal', items: recursosSubMenu },
                   ].map(({ label, items }) => (
                     <div key={label}>
-                      <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-white/40">
+                      <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-foreground-muted">
                         {label}
                       </p>
-                      <div className="flex flex-col gap-0.5">
+                      <div className="flex flex-col gap-1">
                         {items.map((item) => (
                           <Link
                             key={item.title}
                             href={item.href}
-                            className="rounded-lg px-3 py-2.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+                            className="rounded-lg px-3 py-2 text-sm font-medium text-foreground/85 transition-colors hover:bg-foreground/5 hover:text-brand"
                           >
                             {item.title}
                           </Link>
@@ -375,19 +392,19 @@ export function SiteHeader() {
                     </div>
                   ))}
 
-                  <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
+                  <div className="flex flex-col gap-2 border-t border-border pt-4">
                     <Button
                       variant="outline"
                       asChild
-                      className="w-full border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
+                      className="w-full border-border bg-transparent text-foreground hover:bg-foreground/5"
                     >
-                      <Link href="/demo">Ver demo</Link>
+                      <Link href="/demo">Ver demo interactiva</Link>
                     </Button>
                     <Button
                       asChild
-                      className="w-full bg-emerald font-semibold text-[#05111e] hover:bg-emerald-dark"
+                      className="w-full bg-brand font-semibold text-white hover:bg-brand-dark"
                     >
-                      <Link href="/#contact">Solicitar demo</Link>
+                      <Link href="/#contact">Solicitar demo gratuita</Link>
                     </Button>
                   </div>
                 </nav>

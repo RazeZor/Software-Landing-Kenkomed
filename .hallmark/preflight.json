@@ -1,0 +1,8 @@
+{
+  "scanned": "2026-08-26",
+  "fontStack": "Space Grotesk (display) + Inter (body) + Geist Mono (mono) via next/font — layout.tsx L2",
+  "palette": "OKLCH custom properties (globals.css :root) — kenko-sapphire oklch(0.48 0.18 246) + kenko-mint oklch(0.66 0.19 163)",
+  "motion": "motion-cut (no framer-motion / gsap detected)",
+  "spacing": "Tailwind v4, no custom spacing scale tokens",
+  "framework": "Next.js 16, App Router"
+}
