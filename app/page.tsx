@@ -25,6 +25,11 @@ const HomeExploreStrip = dynamic(
   { loading: () => <SectionSkeleton className="h-80" /> }
 )
 
+const Pricing = dynamic(
+  () => import('@/components/pricing').then((m) => m.Pricing),
+  { loading: () => <SectionSkeleton className="h-[48rem]" /> }
+)
+
 const FaqSection = dynamic(
   () => import('@/components/faq-section').then((m) => m.FaqSection),
   { loading: () => <SectionSkeleton className="h-96" /> }
@@ -44,9 +49,11 @@ export default function Home() {
       <ProductShowcase />
       <HomeMidCta />
       <HomeExploreStrip />
+      <Pricing />
       <FaqSection />
       <ContactForm />
       <Footer />
     </main>
   )
 }
+
