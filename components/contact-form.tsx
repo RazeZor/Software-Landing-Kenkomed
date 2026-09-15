@@ -40,8 +40,27 @@ export function ContactForm() {
         e.preventDefault()
         setIsSubmitting(true)
 
+        const structuredMessage = `
+==================================================
+📩 NUEVO MENSAJE DE CONTACTO — KENKOMED LANDING
+==================================================
+
+👤 DATOS DE CONTACTO:
+- Nombre: ${form.name}
+- Email: ${form.email}
+- Teléfono: ${form.phone || 'No especificado'}
+- Clínica / Centro: ${form.clinic || 'No especificado'}
+
+💬 MENSAJE / CONSULTA:
+${form.message}
+
+==================================================
+Fecha: ${new Date().toLocaleString('es-CL')}
+Origen: Seccion Contacto General Landing
+==================================================
+`.trim()
+
         try {
-            // Se usa Web3Forms. Asegúrate de que este access_key sea válido y esté activo.
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
@@ -50,13 +69,17 @@ export function ContactForm() {
                 },
                 body: JSON.stringify({
                     access_key: '491d435e-576c-4b14-86a2-7d9540776b32',
-                    ...form,
-                    subject: `Nuevo mensaje de Kenkomed Landing de: ${form.name}`,
-                    from_name: 'Kenkomed Landing Page'
+                    subject: `💬 Mensaje Contacto — ${form.name} (${form.clinic || 'Consulta'})`,
+                    from_name: 'Kenkomed Landing — Contacto General',
+                    name: form.name,
+                    email: form.email,
+                    phone: form.phone,
+                    clinic: form.clinic,
+                    comentarios: form.message,
+                    message: structuredMessage,
                 })
             })
 
-            // Comprobar si la respuesta es JSON (por si Cloudflare bloquea la IP local)
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const result = await response.json()
@@ -69,7 +92,6 @@ export function ContactForm() {
                     alert(`Error de validación: ${result.message || 'La key podría ser inválida.'}`)
                 }
             } else {
-                // Si la respuesta no es JSON (ej. HTML de Cloudflare)
                 const textResult = await response.text();
                 console.error("Respuesta inesperada (no-JSON):", textResult);
                 setIsSubmitting(false);

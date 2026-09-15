@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Check, Zap, X, Send, User, Mail, Phone, Building2, Users, ChevronRight } from 'lucide-react'
+import { Check, Zap, X, Send, User, Mail, Phone, Building2, Users, ChevronRight, Stethoscope, Clock, MessageSquare, ShieldCheck, Sparkles, Activity } from 'lucide-react'
 
 /* ── Plan data (Opción B aprobada) ─────────────────────────────── */
 
@@ -25,7 +25,7 @@ const plans = [
       'Notificaciones automáticas por email',
       'Soporte por email (48h)',
     ],
-    cta: 'Quiero saber más',
+    cta: 'Prueba gratis 3 días',
     ctaStyle: 'secondary' as const,
   },
   {
@@ -49,7 +49,7 @@ const plans = [
       'Logo personalizado en correos e informes',
       'Soporte prioritario (24h)',
     ],
-    cta: 'Quiero saber más',
+    cta: 'Solicitar Demo',
     ctaStyle: 'primary' as const,
   },
   {
@@ -74,7 +74,7 @@ const plans = [
       'Exportación avanzada (ARCO + auditoría PDF)',
       'Gerente de cuenta dedicado (12h)',
     ],
-    cta: 'Quiero saber más',
+    cta: 'Hablar con Ventas',
     ctaStyle: 'secondary' as const,
   },
 ]
@@ -87,14 +87,16 @@ function formatPrice(price: number) {
   }).format(price)
 }
 
-/* ── Lead Capture Modal ────────────────────────────────────────── */
+/* ── Lead Capture Modal Formal ────────────────────────────────── */
 
 function LeadModal({
   plan,
+  annual,
   open,
   onClose,
 }: {
   plan: (typeof plans)[number] | null
+  annual: boolean
   open: boolean
   onClose: () => void
 }) {
@@ -108,15 +110,29 @@ function LeadModal({
     phone: '',
     clinic: '',
     kines: '1',
+    specialty: 'Traumatología y Ortopedia',
+    modality: 'Presencial en consulta',
+    contactPreference: 'WhatsApp (Mañana 9:00 - 13:00)',
+    comments: '',
   })
 
   // Reset form on open
   useEffect(() => {
     if (open) {
       setIsSubmitted(false)
-      setForm({ name: '', email: '', phone: '', clinic: '', kines: '1' })
+      setForm({
+        name: '',
+        email: '',
+        phone: '',
+        clinic: '',
+        kines: plan?.slug === 'clinica' ? '3-4' : '1',
+        specialty: 'Traumatología y Ortopedia',
+        modality: 'Presencial en consulta',
+        contactPreference: 'WhatsApp (Mañana 9:00 - 13:00)',
+        comments: '',
+      })
     }
-  }, [open])
+  }, [open, plan])
 
   // Close on Escape
   useEffect(() => {
@@ -136,13 +152,48 @@ function LeadModal({
     return () => { document.body.style.overflow = '' }
   }, [open])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+
+    const planName = plan?.name ?? 'No especificado'
+    const priceValue = annual ? plan?.annualPrice : plan?.monthlyPrice
+    const priceText = priceValue ? `${formatPrice(priceValue)} CLP/mes (${annual ? 'Plan Anual' : 'Plan Mensual'})` : 'A convenir'
+
+    const structuredMessage = `
+==================================================
+🎯 NUEVO LEAD QUALIFICADO — KENKOMED LANDING
+==================================================
+
+📋 SOLICITUD DE PLAN:
+- Plan Seleccionado: ${planName}
+- Modalidad y Valor: ${priceText}
+- Acción: ${plan?.cta ?? 'Consulta Comercial'}
+
+👤 1. INFORMACIÓN DE CONTACTO:
+- Nombre completo: ${form.name}
+- Email profesional: ${form.email}
+- Teléfono / WhatsApp: ${form.phone}
+
+🏥 2. PERFIL DEL CENTRO O PROFESIONAL:
+- Nombre de Clínica / Consulta: ${form.clinic || 'Consulta Individual'}
+- N° de Kinesiólogos: ${form.kines}
+- Especialidad Principal: ${form.specialty}
+- Modalidad de Atención: ${form.modality}
+
+📞 3. PREFERENCIAS DE ATENCIÓN Y HORARIO:
+- Canal y Horario Preferido: ${form.contactPreference}
+- Comentarios / Necesidades: ${form.comments || 'Sin comentarios adicionales.'}
+
+==================================================
+Fecha de solicitud: ${new Date().toLocaleString('es-CL')}
+Origen: Landing Kenkomed (Formulario Formal Lead)
+==================================================
+`.trim()
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -153,10 +204,19 @@ function LeadModal({
         },
         body: JSON.stringify({
           access_key: '491d435e-576c-4b14-86a2-7d9540776b32',
-          ...form,
-          plan_interes: plan?.name ?? 'No especificado',
-          subject: `🎯 Lead Pricing — ${plan?.name} — ${form.name}`,
-          from_name: 'Kenkomed Landing – Planes',
+          subject: `🎯 Lead Kenkomed [${planName}] — ${form.name} (${form.clinic || 'Consulta'})`,
+          from_name: 'Kenkomed Landing — Leads Formales',
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          clinic: form.clinic,
+          kinesiologos: form.kines,
+          especialidad: form.specialty,
+          modalidad_atencion: form.modality,
+          horario_preferido: form.contactPreference,
+          plan_interes: `${planName} - ${priceText}`,
+          comentarios: form.comments,
+          message: structuredMessage,
         }),
       })
 
@@ -166,13 +226,13 @@ function LeadModal({
         if (result.success) {
           setIsSubmitted(true)
         } else {
-          alert(`Error: ${result.message || 'Intenta de nuevo.'}`)
+          alert(`Error al enviar la solicitud: ${result.message || 'Por favor intenta de nuevo.'}`)
         }
       } else {
-        alert('Error de conexión. Intenta de nuevo más tarde.')
+        alert('Respuesta inesperada de servidor. Intenta de nuevo.')
       }
     } catch {
-      alert('Hubo un error de conexión. Por favor intenta de nuevo.')
+      alert('Hubo un error de conexión al enviar la solicitud. Por favor intenta de nuevo.')
     } finally {
       setIsSubmitting(false)
     }
@@ -180,77 +240,104 @@ function LeadModal({
 
   if (!open) return null
 
+  const selectedPrice = annual ? plan?.annualPrice : plan?.monthlyPrice
+
   return (
     <div
       ref={backdropRef}
-      className="fixed inset-0 z-[999] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-4 md:p-6"
       onClick={(e) => e.target === backdropRef.current && onClose()}
       role="dialog"
       aria-modal="true"
       aria-label={`Solicitar información del plan ${plan?.name}`}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200" />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-md animate-in fade-in duration-200" />
 
-      {/* Modal */}
-      <div className="relative w-full max-w-lg bg-card rounded-2xl border border-border/60 shadow-2xl animate-in zoom-in-95 fade-in duration-300 max-h-[90vh] overflow-y-auto">
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-full text-foreground-muted hover:text-foreground hover:bg-surface transition-all z-10"
-          aria-label="Cerrar"
-        >
-          <X size={18} />
-        </button>
+      {/* Modal Container */}
+      <div className="relative w-full max-w-2xl bg-card rounded-2xl border border-border/80 shadow-2xl animate-in zoom-in-95 fade-in duration-300 max-h-[92vh] flex flex-col overflow-hidden">
+        
+        {/* Modal Header */}
+        <div className="relative bg-surface p-6 border-b border-border/60 flex items-start justify-between gap-4 shrink-0">
+          <div>
+            <div className="inline-flex items-center gap-2 text-[11px] font-bold text-brand tracking-widest uppercase mb-1.5 px-2.5 py-0.5 rounded-full bg-brand/10 border border-brand/20">
+              <Zap size={11} className="fill-brand text-brand" />
+              Plan {plan?.name} {selectedPrice ? `· ${formatPrice(selectedPrice)} CLP/mes` : ''}
+            </div>
+            <h3 className="font-display font-bold text-xl sm:text-2xl text-foreground">
+              {plan?.slug === 'individual'
+                ? 'Solicitud de Prueba Gratuita (3 Días)'
+                : plan?.slug === 'clinica'
+                ? 'Asesoría Personalizada para Centros Clínicos'
+                : 'Solicitud de Demostración Guiada'}
+            </h3>
+            <p className="text-xs sm:text-sm text-foreground-muted mt-1">
+              Completa la información para que un especialista clínico coordine la atención de tu consulta o centro.
+            </p>
+          </div>
 
-        <div className="p-8">
+          <button
+            onClick={onClose}
+            className="p-2 rounded-xl text-foreground-muted hover:text-foreground hover:bg-background border border-transparent hover:border-border/60 transition-all shrink-0"
+            aria-label="Cerrar ventana"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Modal Body */}
+        <div className="p-6 overflow-y-auto space-y-6">
           {isSubmitted ? (
             /* ── Success state ── */
-            <div className="flex flex-col items-center justify-center py-8 text-center">
-              <div className="w-16 h-16 rounded-full bg-emerald/10 flex items-center justify-center mb-6">
-                <Check size={32} className="text-emerald" />
+            <div className="flex flex-col items-center justify-center py-10 text-center space-y-4">
+              <div className="w-16 h-16 rounded-2xl bg-emerald/15 border border-emerald/30 flex items-center justify-center text-emerald">
+                <Check size={36} />
               </div>
-              <h3 className="font-display font-bold text-2xl text-foreground mb-3">
-                ¡Recibimos tu solicitud!
+              <h3 className="font-display font-bold text-2xl text-foreground">
+                ¡Solicitud Registrada Exitosamente!
               </h3>
-              <p className="text-foreground-muted max-w-sm mb-2">
-                Te contactaremos dentro de <strong className="text-foreground">24 horas hábiles</strong> con
-                toda la información del plan <strong className="text-foreground">{plan?.name}</strong>.
+              <p className="text-sm text-foreground-muted max-w-md leading-relaxed">
+                Hemos recibido los datos de tu consulta. Un especialista comercial de <strong>Kenkomed</strong> se pondrá en contacto contigo en un plazo máximo de <strong className="text-foreground">24 horas hábiles</strong>.
               </p>
-              <p className="text-sm text-foreground-subtle mb-6">
-                Revisa tu bandeja de entrada y spam.
+              <div className="bg-surface rounded-xl p-4 border border-border/60 max-w-md w-full text-left space-y-2 text-xs text-foreground-muted">
+                <div className="flex justify-between border-b border-border/40 pb-1.5">
+                  <span className="font-medium text-foreground">Plan solicitado:</span>
+                  <span className="font-semibold text-brand">Plan {plan?.name}</span>
+                </div>
+                <div className="flex justify-between border-b border-border/40 pb-1.5">
+                  <span className="font-medium text-foreground">Contacto registrado:</span>
+                  <span>{form.email}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-medium text-foreground">Canal preferido:</span>
+                  <span>{form.contactPreference}</span>
+                </div>
+              </div>
+              <p className="text-xs text-foreground-subtle">
+                Enviamos una confirmación de respaldo a tu bandeja de entrada (revisa también tu carpeta de Spam).
               </p>
               <button
                 onClick={onClose}
-                className="text-sm font-medium text-brand hover:text-brand-dark transition-colors"
+                className="btn-kenko-primary text-sm px-6 py-2.5 rounded-full font-semibold mt-2"
               >
-                Cerrar ventana
+                Entendido, cerrar ventana
               </button>
             </div>
           ) : (
-            /* ── Form ── */
-            <>
-              {/* Header */}
-              <div className="mb-6">
-                <div className="inline-flex items-center gap-2 text-xs font-bold text-brand tracking-widest uppercase mb-3">
-                  <Zap size={12} className="fill-brand text-brand" />
-                  Plan {plan?.name}
+            /* ── Formal Form ── */
+            <form onSubmit={handleSubmit} className="space-y-6">
+              
+              {/* Sección 1: Datos de contacto */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand border-b border-border/50 pb-2">
+                  <span className="w-5 h-5 rounded-full bg-brand/10 text-brand flex items-center justify-center text-[10px]">1</span>
+                  Información de Contacto Principal
                 </div>
-                <h3 className="font-display font-bold text-xl text-foreground mb-1">
-                  Cuéntanos sobre ti
-                </h3>
-                <p className="text-sm text-foreground-muted">
-                  Completa tus datos y te contactaremos para mostrarte cómo KenkoMed
-                  puede transformar tu práctica.
-                </p>
-              </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Name */}
                 <div className="space-y-1.5">
-                  <label htmlFor="lead-name" className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                    <User size={13} className="text-foreground-muted" />
-                    Nombre completo <span className="text-destructive">*</span>
+                  <label htmlFor="lead-name" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                    <User size={13} className="text-brand" />
+                    Nombre y Apellidos <span className="text-destructive">*</span>
                   </label>
                   <input
                     type="text"
@@ -259,17 +346,16 @@ function LeadModal({
                     required
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Tu nombre"
-                    className="w-full px-4 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                    placeholder="Ej. Dr. Mauricio Silva"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/40 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
                   />
                 </div>
 
-                {/* Email & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1.5">
-                    <label htmlFor="lead-email" className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                      <Mail size={13} className="text-foreground-muted" />
-                      Email <span className="text-destructive">*</span>
+                    <label htmlFor="lead-email" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                      <Mail size={13} className="text-brand" />
+                      Correo Electrónico <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="email"
@@ -278,14 +364,15 @@ function LeadModal({
                       required
                       value={form.email}
                       onChange={handleChange}
-                      placeholder="tu@email.com"
-                      className="w-full px-4 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                      placeholder="kine@tucultura.cl"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/40 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
                     />
                   </div>
+
                   <div className="space-y-1.5">
-                    <label htmlFor="lead-phone" className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                      <Phone size={13} className="text-foreground-muted" />
-                      Teléfono <span className="text-destructive">*</span>
+                    <label htmlFor="lead-phone" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                      <Phone size={13} className="text-brand" />
+                      Teléfono / WhatsApp <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="tel"
@@ -294,18 +381,25 @@ function LeadModal({
                       required
                       value={form.phone}
                       onChange={handleChange}
-                      placeholder="+56 9 1234 5678"
-                      className="w-full px-4 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                      placeholder="+56 9 8765 4321"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/40 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
                     />
                   </div>
                 </div>
+              </div>
 
-                {/* Clinic & Kines */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Sección 2: Datos del Centro / Práctica */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand border-b border-border/50 pb-2">
+                  <span className="w-5 h-5 rounded-full bg-brand/10 text-brand flex items-center justify-center text-[10px]">2</span>
+                  Perfil de la Clínica o Ejercicio Profesional
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1.5">
-                    <label htmlFor="lead-clinic" className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                      <Building2 size={13} className="text-foreground-muted" />
-                      Clínica / Centro
+                    <label htmlFor="lead-clinic" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                      <Building2 size={13} className="text-brand" />
+                      Nombre de la Clínica o Consulta
                     </label>
                     <input
                       type="text"
@@ -313,14 +407,15 @@ function LeadModal({
                       name="clinic"
                       value={form.clinic}
                       onChange={handleChange}
-                      placeholder="Nombre de tu clínica"
-                      className="w-full px-4 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                      placeholder="Ej. Centro de Rehabilitación KinePro"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/40 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
                     />
                   </div>
+
                   <div className="space-y-1.5">
-                    <label htmlFor="lead-kines" className="text-sm font-medium text-foreground flex items-center gap-1.5">
-                      <Users size={13} className="text-foreground-muted" />
-                      ¿Cuántos kinesiólogos? <span className="text-destructive">*</span>
+                    <label htmlFor="lead-kines" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                      <Users size={13} className="text-brand" />
+                      Cantidad de Profesionales <span className="text-destructive">*</span>
                     </label>
                     <select
                       id="lead-kines"
@@ -328,44 +423,135 @@ function LeadModal({
                       required
                       value={form.kines}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all appearance-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
                     >
-                      <option value="1">1 (solo yo)</option>
-                      <option value="2">2 profesionales</option>
-                      <option value="3-4">3 a 4 profesionales</option>
-                      <option value="5-8">5 a 8 profesionales</option>
-                      <option value="9+">9 o más</option>
+                      <option value="1">1 kinesiólogo (ejercicio independiente)</option>
+                      <option value="2">2 kinesiólogos</option>
+                      <option value="3-4">3 a 4 kinesiólogos</option>
+                      <option value="5-8">5 a 8 kinesiólogos</option>
+                      <option value="9+">9 o más (centro de salud mayor)</option>
                     </select>
                   </div>
                 </div>
 
-                {/* Submit */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label htmlFor="lead-specialty" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                      <Stethoscope size={13} className="text-brand" />
+                      Especialidad Principal
+                    </label>
+                    <select
+                      id="lead-specialty"
+                      name="specialty"
+                      value={form.specialty}
+                      onChange={handleChange}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                    >
+                      <option value="Traumatología y Ortopedia">Traumatología y Ortopedia</option>
+                      <option value="Kinesiología Respiratoria">Kinesiología Respiratoria</option>
+                      <option value="Neurología / Neurorehabilitación">Neurología / Neurorehabilitación</option>
+                      <option value="Kinesiología Deportiva">Kinesiología Deportiva</option>
+                      <option value="Suelo Pélvico / Uroginecología">Suelo Pélvico / Uroginecología</option>
+                      <option value="Kinesiología General / Policlínico">Kinesiología General / Policlínico</option>
+                      <option value="Otra especialidad">Otra especialidad</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label htmlFor="lead-modality" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                      <Activity size={13} className="text-brand" />
+                      Modalidad de Atención
+                    </label>
+                    <select
+                      id="lead-modality"
+                      name="modality"
+                      value={form.modality}
+                      onChange={handleChange}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                    >
+                      <option value="Presencial en consulta">Presencial en consulta o centro</option>
+                      <option value="Atención a domicilio">Atención a domicilio</option>
+                      <option value="Mixta (Presencial + Domicilio)">Mixta (Presencial + Domicilio)</option>
+                      <option value="Telemedicina / Remota">Telemedicina / Remota</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sección 3: Preferencia de contacto y comentarios */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand border-b border-border/50 pb-2">
+                  <span className="w-5 h-5 rounded-full bg-brand/10 text-brand flex items-center justify-center text-[10px]">3</span>
+                  Preferencia de Contacto y Comentarios
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="lead-contactPref" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                    <Clock size={13} className="text-brand" />
+                    Horario y Canal Preferido de Contacto
+                  </label>
+                  <select
+                    id="lead-contactPref"
+                    name="contactPreference"
+                    value={form.contactPreference}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                  >
+                    <option value="WhatsApp (Mañana 9:00 - 13:00)">WhatsApp (Mañana 9:00 - 13:00)</option>
+                    <option value="WhatsApp (Tarde 14:00 - 18:00)">WhatsApp (Tarde 14:00 - 18:00)</option>
+                    <option value="Llamada Telefónica (Mañana 9:00 - 13:00)">Llamada Telefónica (Mañana 9:00 - 13:00)</option>
+                    <option value="Llamada Telefónica (Tarde 14:00 - 18:00)">Llamada Telefónica (Tarde 14:00 - 18:00)</option>
+                    <option value="Correo Electrónico Directo">Correo Electrónico Directo</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="lead-comments" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                    <MessageSquare size={13} className="text-brand" />
+                    Notas Adicionales o Necesidades Específicas <span className="text-foreground-subtle font-normal">(Opcional)</span>
+                  </label>
+                  <textarea
+                    id="lead-comments"
+                    name="comments"
+                    rows={2}
+                    value={form.comments}
+                    onChange={handleChange}
+                    placeholder="Ej. Me interesa migrar fichas desde Excel o consultar sobre integración..."
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/40 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all resize-none"
+                  />
+                </div>
+              </div>
+
+              {/* Action Submit */}
+              <div className="pt-2 space-y-3">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 rounded-full font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="group w-full flex items-center justify-center gap-2.5 btn-kenko-primary py-3.5 rounded-xl font-bold text-sm shadow-md shadow-brand/20 transition-all hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
-                      <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                      Enviando...
+                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Procesando Solicitud Formal...
                     </>
                   ) : (
                     <>
-                      Solicitar información
+                      {plan?.slug === 'individual'
+                        ? 'Enviar Solicitud y Activar 3 Días Gratis'
+                        : plan?.slug === 'clinica'
+                        ? 'Solicitar Propuesta y Asesoría Corporativa'
+                        : 'Agendar Demostración Personalizada'}
                       <Send size={15} className="group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
                 </button>
 
-                <p className="text-xs text-center text-foreground-subtle">
-                  Sin compromiso · Respuesta en 24h hábiles ·{' '}
-                  <a href="/privacidad" className="text-brand hover:underline">
-                    Política de Privacidad
-                  </a>
-                </p>
-              </form>
-            </>
+                <div className="flex items-center justify-center gap-2 text-xs text-foreground-subtle">
+                  <ShieldCheck size={14} className="text-emerald shrink-0" />
+                  <span>Información confidencial resguardada bajo la Ley N° 19.628 de Protección de Datos Personales en Chile.</span>
+                </div>
+              </div>
+            </form>
           )}
         </div>
       </div>
@@ -374,6 +560,7 @@ function LeadModal({
 }
 
 /* ── Main Pricing Section ──────────────────────────────────────── */
+
 
 export function Pricing() {
   const [annual, setAnnual] = useState(true)
@@ -419,7 +606,7 @@ export function Pricing() {
               <span className="text-gradient">sin sorpresas.</span>
             </h2>
             <p className="text-foreground-muted leading-relaxed mb-8">
-              30 días gratis en cualquier plan. Sin tarjeta de crédito. Cancela cuando quieras.
+              3 días gratis en cualquier plan. Sin tarjeta de crédito. Cancela cuando quieras.
             </p>
 
             {/* Toggle */}
@@ -585,7 +772,7 @@ export function Pricing() {
       </section>
 
       {/* Lead capture modal */}
-      <LeadModal plan={modalPlan} open={modalPlan !== null} onClose={closeModal} />
+      <LeadModal plan={modalPlan} annual={annual} open={modalPlan !== null} onClose={closeModal} />
     </>
   )
 }

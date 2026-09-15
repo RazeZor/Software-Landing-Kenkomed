@@ -302,12 +302,12 @@ export function SiteHeader() {
               </div>
             </div>
 
-            {/* Demo Link */}
+            {/* Precios Principal Link */}
             <Link
-              href="/demo"
-              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
+              href="/#pricing"
+              className="px-3.5 py-2 rounded-lg text-sm font-bold text-brand bg-brand/10 hover:bg-brand/20 transition-colors"
             >
-              Demo
+              Precios
             </Link>
 
             {/* Nosotros Link */}
@@ -322,17 +322,10 @@ export function SiteHeader() {
           {/* Desktop CTAs */}
           <div className="hidden items-center gap-2 md:flex">
             <Button
-              variant="ghost"
-              asChild
-              className="text-foreground/80 hover:bg-foreground/5 hover:text-foreground text-sm font-medium"
-            >
-              <Link href="/demo">Ver demo</Link>
-            </Button>
-            <Button
               asChild
               className="bg-brand hover:bg-brand-dark text-white font-semibold text-sm shadow-md shadow-brand/15 transition-all hover:shadow-brand/25"
             >
-              <Link href="/#contact">Solicitar demo</Link>
+              <Link href="/#pricing">Ver Planes y Precios</Link>
             </Button>
           </div>
 
@@ -369,6 +362,16 @@ export function SiteHeader() {
                 </SheetHeader>
 
                 <nav className="mt-6 flex flex-col gap-6" aria-label="Navegación móvil">
+                  <div className="flex flex-col gap-1">
+                    <Link
+                      href="/#pricing"
+                      className="rounded-xl px-4 py-3 text-base font-bold text-brand bg-brand/10 border border-brand/20 transition-colors flex items-center justify-between"
+                    >
+                      Precios y Planes
+                      <ArrowRight size={16} />
+                    </Link>
+                  </div>
+
                   {[
                     { label: 'Solución & Empresa', items: solucionSubMenu },
                     { label: 'Funcionalidades', items: funcionesSubMenu },
@@ -394,17 +397,10 @@ export function SiteHeader() {
 
                   <div className="flex flex-col gap-2 border-t border-border pt-4">
                     <Button
-                      variant="outline"
-                      asChild
-                      className="w-full border-border bg-transparent text-foreground hover:bg-foreground/5"
-                    >
-                      <Link href="/demo">Ver demo interactiva</Link>
-                    </Button>
-                    <Button
                       asChild
                       className="w-full bg-brand font-semibold text-white hover:bg-brand-dark"
                     >
-                      <Link href="/#contact">Solicitar demo gratuita</Link>
+                      <Link href="/#pricing">Ver Planes y Precios</Link>
                     </Button>
                   </div>
                 </nav>
