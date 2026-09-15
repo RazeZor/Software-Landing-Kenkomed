@@ -23,9 +23,7 @@ const plans = [
       '13 escalas clínicas validadas',
       'Dashboard con métricas en tiempo real',
       'Notificaciones automáticas por email',
-      'Auditoría clínica (Ley 21.719)',
-      'Exportación ARCO (JSON / HTML)',
-      'Soporte por email (48h hábiles)',
+      'Soporte por email (48h)',
     ],
     cta: 'Quiero saber más',
     ctaStyle: 'secondary' as const,
@@ -49,7 +47,7 @@ const plans = [
       'Auditoría clínica (Ley 21.719)',
       'Exportación ARCO (JSON / HTML)',
       'Logo personalizado en correos e informes',
-      'Soporte prioritario (48h hábiles)',
+      'Soporte prioritario (24h)',
     ],
     cta: 'Quiero saber más',
     ctaStyle: 'primary' as const,
@@ -74,7 +72,7 @@ const plans = [
       'Onboarding personalizado',
       'Branding completo (logo en correos, informes, PDF)',
       'Exportación avanzada (ARCO + auditoría PDF)',
-      'Gerente de cuenta dedicado (24h hábiles)',
+      'Gerente de cuenta dedicado (12h)',
     ],
     cta: 'Quiero saber más',
     ctaStyle: 'secondary' as const,
@@ -429,8 +427,8 @@ export function Pricing() {
               <button
                 onClick={() => setAnnual(false)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${!annual
-                    ? 'bg-card text-foreground shadow-sm'
-                    : 'text-foreground-muted hover:text-foreground'
+                  ? 'bg-card text-foreground shadow-sm'
+                  : 'text-foreground-muted hover:text-foreground'
                   }`}
               >
                 Mensual
@@ -438,8 +436,8 @@ export function Pricing() {
               <button
                 onClick={() => setAnnual(true)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${annual
-                    ? 'bg-card text-foreground shadow-sm'
-                    : 'text-foreground-muted hover:text-foreground'
+                  ? 'bg-card text-foreground shadow-sm'
+                  : 'text-foreground-muted hover:text-foreground'
                   }`}
               >
                 Anual
@@ -464,11 +462,10 @@ export function Pricing() {
                 {/* Badge */}
                 {plan.badge && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-4 py-1.5 rounded-full border shadow-sm ${
-                      plan.highlighted
+                    <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-4 py-1.5 rounded-full border shadow-sm ${plan.highlighted
                         ? 'bg-background text-brand border-teal-200'
                         : 'bg-background text-foreground border-border'
-                    }`}>
+                      }`}>
                       <Zap size={11} className={plan.highlighted ? 'fill-amber-400 text-amber-400' : 'fill-brand text-brand'} />
                       {plan.badge}
                     </span>
@@ -560,8 +557,8 @@ export function Pricing() {
                 <button
                   onClick={() => setModalPlan(plan)}
                   className={`w-full flex items-center justify-center gap-2 text-center py-3.5 rounded-full font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 cursor-pointer ${plan.highlighted
-                      ? 'bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-md'
-                      : 'bg-primary text-primary-foreground hover:bg-brand-dark shadow-sm hover:shadow-md hover:shadow-primary/20'
+                    ? 'bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-md'
+                    : 'bg-primary text-primary-foreground hover:bg-brand-dark shadow-sm hover:shadow-md hover:shadow-primary/20'
                     }`}
                 >
                   {plan.cta}
