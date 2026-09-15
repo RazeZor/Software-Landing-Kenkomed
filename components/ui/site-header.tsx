@@ -278,6 +278,22 @@ export function SiteHeader() {
               </div>
             </div>
 
+            {/* Precios Link */}
+            <Link
+              href="/#pricing"
+              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
+            >
+              Precios
+            </Link>
+
+            {/* Nosotros Link */}
+            <Link
+              href="/nosotros"
+              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
+            >
+              Nosotros
+            </Link>
+
             {/* Recursos & Legal Dropdown */}
             <div className="hm-nav-group">
               <button
@@ -301,22 +317,6 @@ export function SiteHeader() {
                 </div>
               </div>
             </div>
-
-            {/* Precios Principal Link */}
-            <Link
-              href="/#pricing"
-              className="px-3.5 py-2 rounded-lg text-sm font-bold text-brand bg-brand/10 hover:bg-brand/20 transition-colors"
-            >
-              Precios
-            </Link>
-
-            {/* Nosotros Link */}
-            <Link
-              href="/nosotros"
-              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
-            >
-              Nosotros
-            </Link>
           </nav>
 
           {/* Desktop CTAs */}
@@ -325,7 +325,7 @@ export function SiteHeader() {
               asChild
               className="bg-brand hover:bg-brand-dark text-white font-semibold text-sm shadow-md shadow-brand/15 transition-all hover:shadow-brand/25"
             >
-              <Link href="/#pricing">Ver Planes y Precios</Link>
+              <Link href="/#contact">Solicitar Demo</Link>
             </Button>
           </div>
 
@@ -365,10 +365,10 @@ export function SiteHeader() {
                   <div className="flex flex-col gap-1">
                     <Link
                       href="/#pricing"
-                      className="rounded-xl px-4 py-3 text-base font-bold text-brand bg-brand/10 border border-brand/20 transition-colors flex items-center justify-between"
+                      className="rounded-lg px-3 py-2 text-sm font-semibold text-foreground hover:text-brand transition-colors flex items-center justify-between"
                     >
-                      Precios y Planes
-                      <ArrowRight size={16} />
+                      Precios
+                      <ArrowRight size={14} className="text-foreground-muted" />
                     </Link>
                   </div>
 
@@ -400,7 +400,7 @@ export function SiteHeader() {
                       asChild
                       className="w-full bg-brand font-semibold text-white hover:bg-brand-dark"
                     >
-                      <Link href="/#pricing">Ver Planes y Precios</Link>
+                      <Link href="/#contact">Solicitar Demo Gratuita</Link>
                     </Button>
                   </div>
                 </nav>

@@ -5,11 +5,14 @@ import { Check, Zap, X, Send, User, Mail, Phone, Building2, Users, ChevronRight,
 
 /* ── Plan data (Opción B aprobada) ─────────────────────────────── */
 
+export type BillingCycle = 'monthly' | 'semi-annual' | 'annual'
+
 const plans = [
   {
     slug: 'individual',
     name: 'Individual',
     monthlyPrice: 19990,
+    semiAnnualPrice: 17990,
     annualPrice: 15990,
     description: 'Para kinesiólogos independientes que trabajan solos.',
     badge: null,
@@ -32,6 +35,7 @@ const plans = [
     slug: 'clinico-pro',
     name: 'Clínico Pro',
     monthlyPrice: 29990,
+    semiAnnualPrice: 26990,
     annualPrice: 23990,
     description: 'Para kinesiólogos que quieren más potencia o trabajan con un asistente.',
     badge: 'Más popular',
@@ -56,6 +60,7 @@ const plans = [
     slug: 'clinica',
     name: 'Clínica',
     monthlyPrice: 69990,
+    semiAnnualPrice: 62990,
     annualPrice: 55990,
     description: 'Para centros con 3 a 4 kinesiólogos. Todo incluido.',
     badge: 'Máximo poder',
@@ -91,12 +96,12 @@ function formatPrice(price: number) {
 
 function LeadModal({
   plan,
-  annual,
+  billingCycle,
   open,
   onClose,
 }: {
   plan: (typeof plans)[number] | null
-  annual: boolean
+  billingCycle: BillingCycle
   open: boolean
   onClose: () => void
 }) {
@@ -188,8 +193,22 @@ function LeadModal({
     setIsSubmitting(true)
 
     const planName = plan?.name ?? 'No especificado'
-    const priceValue = annual ? plan?.annualPrice : plan?.monthlyPrice
-    const priceText = priceValue ? `${formatPrice(priceValue)} CLP/mes (${annual ? 'Facturación Anual' : 'Facturación Mensual'})` : 'A convenir'
+    const priceValue = plan
+      ? billingCycle === 'annual'
+        ? plan.annualPrice
+        : billingCycle === 'semi-annual'
+        ? plan.semiAnnualPrice
+        : plan.monthlyPrice
+      : undefined
+
+    const cycleLabel =
+      billingCycle === 'annual'
+        ? 'Facturación Anual'
+        : billingCycle === 'semi-annual'
+        ? 'Facturación Semestral (6 meses)'
+        : 'Facturación Mensual'
+
+    const priceText = priceValue ? `${formatPrice(priceValue)} CLP/mes (${cycleLabel})` : 'A convenir'
 
     let structuredMessage = ''
     let emailSubject = ''
@@ -327,7 +346,13 @@ Plan: Clínica (${priceText})
 
   if (!open) return null
 
-  const selectedPrice = annual ? plan?.annualPrice : plan?.monthlyPrice
+  const selectedPrice = plan
+    ? billingCycle === 'annual'
+      ? plan.annualPrice
+      : billingCycle === 'semi-annual'
+      ? plan.semiAnnualPrice
+      : plan.monthlyPrice
+    : undefined
   const isIndividual = plan?.slug === 'individual'
   const isClinicoPro = plan?.slug === 'clinico-pro'
   const isClinica = plan?.slug === 'clinica'
@@ -942,7 +967,7 @@ Plan: Clínica (${priceText})
 
 
 export function Pricing() {
-  const [annual, setAnnual] = useState(true)
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>('annual')
   const sectionRef = useRef<HTMLElement>(null)
   const [revealed, setRevealed] = useState(false)
   const [modalPlan, setModalPlan] = useState<(typeof plans)[number] | null>(null)
@@ -988,26 +1013,41 @@ export function Pricing() {
               3 días gratis en cualquier plan. Sin tarjeta de crédito. Cancela cuando quieras.
             </p>
 
-            {/* Toggle */}
-            <div className="inline-flex items-center gap-3 bg-surface border border-border rounded-full p-1.5">
+            {/* Toggle 3 Opciones (Mensual / 6 Meses / Anual) */}
+            <div className="inline-flex items-center gap-1 sm:gap-1.5 p-1.5 bg-surface border border-border rounded-full shadow-inner max-w-full overflow-x-auto">
               <button
-                onClick={() => setAnnual(false)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${!annual
-                  ? 'bg-card text-foreground shadow-sm'
-                  : 'text-foreground-muted hover:text-foreground'
-                  }`}
+                onClick={() => setBillingCycle('monthly')}
+                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                  billingCycle === 'monthly'
+                    ? 'bg-card text-foreground shadow-sm font-semibold'
+                    : 'text-foreground-muted hover:text-foreground'
+                }`}
               >
                 Mensual
               </button>
               <button
-                onClick={() => setAnnual(true)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${annual
-                  ? 'bg-card text-foreground shadow-sm'
-                  : 'text-foreground-muted hover:text-foreground'
-                  }`}
+                onClick={() => setBillingCycle('semi-annual')}
+                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  billingCycle === 'semi-annual'
+                    ? 'bg-card text-foreground shadow-sm font-semibold'
+                    : 'text-foreground-muted hover:text-foreground'
+                }`}
+              >
+                6 Meses
+                <span className="text-[10px] sm:text-xs bg-brand/10 text-brand border border-brand/20 px-2 py-0.5 rounded-full font-bold">
+                  -10%
+                </span>
+              </button>
+              <button
+                onClick={() => setBillingCycle('annual')}
+                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  billingCycle === 'annual'
+                    ? 'bg-card text-foreground shadow-sm font-semibold'
+                    : 'text-foreground-muted hover:text-foreground'
+                }`}
               >
                 Anual
-                <span className="text-xs bg-emerald text-primary-foreground px-2 py-0.5 rounded-full font-semibold">
+                <span className="text-[10px] sm:text-xs bg-emerald text-primary-foreground px-2 py-0.5 rounded-full font-bold">
                   2 meses gratis
                 </span>
               </button>
@@ -1067,7 +1107,13 @@ export function Pricing() {
                       className={`font-display font-bold text-4xl ${plan.highlighted ? 'text-primary-foreground' : 'text-foreground'
                         }`}
                     >
-                      {formatPrice(annual ? plan.annualPrice : plan.monthlyPrice)}
+                      {formatPrice(
+                        billingCycle === 'annual'
+                          ? plan.annualPrice
+                          : billingCycle === 'semi-annual'
+                          ? plan.semiAnnualPrice
+                          : plan.monthlyPrice
+                      )}
                     </span>
                     <span
                       className={`text-sm mb-1.5 ${plan.highlighted ? 'text-primary-foreground/70' : 'text-foreground-muted'
@@ -1076,12 +1122,28 @@ export function Pricing() {
                       /mes + IVA
                     </span>
                   </div>
-                  {annual && (
+                  {billingCycle === 'annual' && (
                     <p
                       className={`text-xs mt-1 ${plan.highlighted ? 'text-primary-foreground/60' : 'text-foreground-subtle'
                         }`}
                     >
                       Facturado anualmente · {formatPrice(plan.annualPrice * 12)} /año
+                    </p>
+                  )}
+                  {billingCycle === 'semi-annual' && (
+                    <p
+                      className={`text-xs mt-1 ${plan.highlighted ? 'text-primary-foreground/60' : 'text-foreground-subtle'
+                        }`}
+                    >
+                      Facturado semestralmente · {formatPrice(plan.semiAnnualPrice * 6)} cada 6 meses
+                    </p>
+                  )}
+                  {billingCycle === 'monthly' && (
+                    <p
+                      className={`text-xs mt-1 ${plan.highlighted ? 'text-primary-foreground/60' : 'text-foreground-subtle'
+                        }`}
+                    >
+                      Facturado mes a mes sin permanencia
                     </p>
                   )}
                   {/* Extra kine pricing for Clínica */}
@@ -1151,7 +1213,7 @@ export function Pricing() {
       </section>
 
       {/* Lead capture modal */}
-      <LeadModal plan={modalPlan} annual={annual} open={modalPlan !== null} onClose={closeModal} />
+      <LeadModal plan={modalPlan} billingCycle={billingCycle} open={modalPlan !== null} onClose={closeModal} />
     </>
   )
 }
