@@ -29,7 +29,7 @@ const plans = [
       'Notificaciones automáticas por email',
       'Soporte por email (48h)',
     ],
-    cta: 'Agendar llamada',
+    cta: 'Agendar Demo',
   },
   {
     slug: 'clinico-pro',
@@ -54,7 +54,7 @@ const plans = [
       'Logo personalizado en correos e informes',
       'Soporte prioritario (24h)',
     ],
-    cta: 'Agendar demo 30 min',
+    cta: 'Agendar Demo',
   },
   {
     slug: 'clinica',
@@ -79,7 +79,7 @@ const plans = [
       'Exportación avanzada (ARCO + auditoría PDF)',
       'Gerente de cuenta dedicado (12h)',
     ],
-    cta: 'Hablar con Ventas',
+    cta: 'Agendar Demo',
     ctaStyle: 'secondary' as const,
   },
 ]
