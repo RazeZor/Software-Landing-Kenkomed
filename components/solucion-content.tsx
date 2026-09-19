@@ -102,7 +102,7 @@ const pains = [
 /* ─── Comparison table ─── */
 const comparisons = [
     { topic: 'Registro de pacientes', sin: 'Papel / Excel desorganizado', con: 'Historia clínica digital estructurada' },
-    { topic: 'Escalas clínicas', sin: 'Impresas o no se usan', con: '9 escalas validadas integradas y automáticas' },
+    { topic: 'Escalas clínicas', sin: 'Impresas o no se usan', con: '13 escalas validadas integradas y automáticas' },
     { topic: 'Toma de decisiones', sin: 'Solo intuición del profesional', con: 'DSS: alertas y recomendaciones basadas en evidencia' },
     { topic: 'Informes clínicos', sin: 'No existen o son manuales', con: 'Generados automáticamente al terminar la anamnesis' },
     { topic: 'Detección de comorbilidades', sin: 'Depende de la memoria del profesional', con: 'Screening automático: fibromialgia, neuropatía, ansiedad, depresión' },
@@ -202,9 +202,9 @@ const flowSteps = [
 
 /* ─── Validation signals ─── */
 const validations = [
-    { icon: GraduationCap, color: 'bg-blue-50 text-blue-600', title: 'Respaldo Universitario', desc: 'Escalas validadas por U. de Chile, PUC, U. de Concepción y USACH.' },
+    { icon: GraduationCap, color: 'bg-blue-50 text-blue-600', title: 'Escalas publicadas internacionalmente', desc: 'Instrumentos como PSFS, Barthel, GROC y EQ-5D, publicados en revistas científicas y utilizados en la práctica clínica en Chile.' },
     { icon: CheckCircle2, color: 'bg-emerald-50 text-emerald-600', title: 'Guías Internacionales', desc: 'Algoritmos basados en guías NICE (UK), IASP y recomendaciones de la OMS.' },
-    { icon: Shield, color: 'bg-teal-50 text-teal-600', title: 'MINSAL Chile', desc: 'Métricas validadas por grupos interdisciplinarios del Ministerio de Salud de Chile.' },
+    { icon: Shield, color: 'bg-teal-50 text-teal-600', title: 'Investigación en terreno', desc: 'Desarrollado a partir de investigación de campo en clínicas de la provincia de Concepción, Chile.' },
 ]
 
 export default function SolucionContent() {
@@ -431,7 +431,7 @@ export default function SolucionContent() {
                 </div>
             </section>
 
-            {/* ═══ ESCALAS CLÍNICAS — 9 escalas ═══ */}
+            {/* ═══ ESCALAS CLÍNICAS — 13 escalas ═══ */}
             <section className="py-20 md:py-28">
                 <div ref={scalesSection.ref} className="max-w-7xl mx-auto px-6">
                     <div className={`text-center mb-16 scroll-reveal ${scalesSection.visible ? 'is-visible' : ''}`}>
@@ -473,13 +473,13 @@ export default function SolucionContent() {
                 </div>
             </section>
 
-            {/* ═══ FLUJO DSS — 9 pasos ═══ */}
+            {/* ═══ FLUJO DSS — 14 pasos ═══ */}
             <section className="py-20 md:py-28 bg-surface">
                 <div ref={flowSection.ref} className="max-w-6xl mx-auto px-6">
                     <div className={`text-center mb-16 scroll-reveal ${flowSection.visible ? 'is-visible' : ''}`}>
                         <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">Flujo DSS</span>
                         <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-5 text-balance">
-                            9 pasos. Una anamnesis inteligente.
+                            14 pasos. Una anamnesis inteligente.
                         </h2>
                         <p className="text-lg text-foreground-muted leading-relaxed max-w-2xl mx-auto">
                             Desde el ingreso del paciente hasta el informe clínico automático, el sistema guía al profesional paso a paso,
@@ -527,9 +527,8 @@ export default function SolucionContent() {
                         <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-6 text-balance">
                             No solo prometemos. Lo probamos.
                         </h2>
-                        <p className="text-foreground-muted leading-relaxed mb-10">
-                            Kenkomed fue construido sobre investigación real, con escalas validadas por universidades chilenas y organismos internacionales.
-                            Cada algoritmo del DSS tiene respaldo bibliográfico.
+                        <p className="text-foreground-muted mb-8 text-lg">
+                            Kenkomed fue construido sobre investigación real, integrando escalas validadas internacionalmente y adaptadas al contexto clínico chileno. Cada algoritmo del DSS tiene respaldo bibliográfico.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">

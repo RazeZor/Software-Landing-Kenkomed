@@ -17,8 +17,8 @@ import {
  */
 
 const stats = [
-  { value: 8,   prefix: '', suffix: '',  label: 'Escalas clínicas validadas (EVA, PSFS, Barthel)' },
-  { value: 9,   prefix: '', suffix: '',  label: 'Pasos de anamnesis inteligente vía QR' },
+  { value: 13,   prefix: '', suffix: '',  label: 'Escalas clínicas validadas (EVA, PSFS, WOMAC, etc.)' },
+  { value: 14,   prefix: '', suffix: '',  label: 'Pasos de anamnesis inteligente vía QR' },
   { value: 100, prefix: '', suffix: '%', label: 'Especializado en kinesiología y fisioterapia' },
 ]
 
@@ -436,21 +436,21 @@ export function Hero() {
             </div>
 
             <h1 className="hm-hero-h1">
-              Rigor clínico.{' '}
-              <span className="hm-hero-h1-highlight">Sin burocracia.</span>
+              El sistema clínico del kinesiólogo:{' '}
+              <span className="hm-hero-h1-highlight">de la admisión al alta.</span>
             </h1>
 
             <p className="hm-hero-lede">
-              Kenkomed es la plataforma integral de <strong className="text-foreground font-semibold">soporte a la decisión clínica</strong> diseñada en Chile para kinesiólogos y fisioterapeutas: historias digitales, admisión QR, agenda inteligente y cuestionarios EVA, PSFS y Barthel automatizados.
+              Del QR de admisión al informe de alta. Kenkomed acompaña cada etapa clínica de tu paciente: <strong className="text-foreground font-semibold">evaluación, seguimiento y resultados</strong>, sin papel.
             </p>
 
             <div className="hm-hero-actions">
-              <a href="#contact" className="hm-btn-primary">
-                Solicitar Demo Gratuita
+              <Link href="/demo" className="hm-btn-primary">
+                Ver video de demostración
                 <ArrowRight size={15} aria-hidden="true" />
-              </a>
-              <Link href="/demo" className="hm-btn-ghost">
-                Ver Demo del Software
+              </Link>
+              <Link href="/demo?modo=invitado" className="hm-btn-ghost">
+                Probar demo sin registrarse
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
@@ -458,15 +458,15 @@ export function Hero() {
             <div className="hm-trust-pills" role="list">
               <span className="hm-trust-item" role="listitem">
                 <CheckCircle2 size={15} className="text-emerald" />
-                8 escalas validadas
+                Demuestra la evolución de tu paciente
               </span>
               <span className="hm-trust-item" role="listitem">
                 <CheckCircle2 size={15} className="text-emerald" />
-                Admisión QR sin papel
+                1ª sesión lista antes que llegue el paciente
               </span>
               <span className="hm-trust-item" role="listitem">
                 <CheckCircle2 size={15} className="text-emerald" />
-                Desarrollo e infraestructura en Chile
+                Hecho por kinesiólogos, precio transparente
               </span>
             </div>
           </div>
@@ -477,7 +477,7 @@ export function Hero() {
             {/* Backing Software UI Card */}
             <div className="hm-photo-wrapper">
               <Image
-                src="/software/FichaClinica.jpg"
+                src="/software/ficha_clinica.png"
                 alt="Ficha clínica digital de Kenkomed"
                 fill
                 priority

@@ -213,45 +213,7 @@ Origen: Seccion Contacto General Landing
                                     </div>
                                 </div>
 
-                                {/* Phone & Clinic row */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <div className="space-y-2">
-                                        <label
-                                            htmlFor="contact-phone"
-                                            className="text-sm font-medium text-foreground flex items-center gap-1.5"
-                                        >
-                                            <Phone size={14} className="text-foreground-muted" />
-                                            Teléfono
-                                        </label>
-                                        <input
-                                            type="tel"
-                                            id="contact-phone"
-                                            name="phone"
-                                            value={form.phone}
-                                            onChange={handleChange}
-                                            placeholder="+56 9 1234 5678"
-                                            className="w-full px-4 py-3 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label
-                                            htmlFor="contact-clinic"
-                                            className="text-sm font-medium text-foreground flex items-center gap-1.5"
-                                        >
-                                            <Building2 size={14} className="text-foreground-muted" />
-                                            Clínica / Centro
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="contact-clinic"
-                                            name="clinic"
-                                            value={form.clinic}
-                                            onChange={handleChange}
-                                            placeholder="Nombre de tu clínica"
-                                            className="w-full px-4 py-3 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
-                                        />
-                                    </div>
-                                </div>
+
 
                                 {/* Message */}
                                 <div className="space-y-2">

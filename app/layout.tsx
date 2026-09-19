@@ -52,28 +52,7 @@ export const metadata: Metadata = {
   description:
     'Kenkomed: Sistema de Soporte a la Decisión Clínica (DSS) para kinesiólogos y fisioterapeutas. Historias clínicas digitales, cuestionarios automatizados (EVA, PSFS, Barthel, GROC), agenda inteligente y gestión integral de tu centro kinesiológico en Chile.',
 
-  keywords: [
-    'software kinesiología',
-    'sistema DSS kinesiología',
-    'gestión clínica kinesiología',
-    'fichas digitales fisioterapia',
-    'kenkomed',
-    'software kinesiólogos Chile',
-    'cuestionarios EVA PSFS Barthel',
-    'agenda médica kinesiología',
-    'software fisioterapia Chile',
-    'historia clínica digital kinesiología',
-    'sistema decisión clínica',
-    'ficha clínica kinesiología',
-    'software centro kinesiológico',
-    'gestión pacientes kinesiólogos',
-    'escala visual analógica kinesiología',
-    'software rehabilitación Chile',
-    'sistema gestión kinesiólogos',
-    'plataforma kinesiología online',
-    'software salud Chile',
-    'DSS kinesiología fisioterapia',
-  ],
+
 
   authors: [{ name: 'Kenkomed', url: 'https://kenkomed.cl' }],
   creator: 'Kenkomed',
@@ -163,6 +142,11 @@ export default function RootLayout({
         className="font-sans antialiased bg-background text-foreground"
       >
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
+          <noscript>
+            <div style={{ padding: '1rem', background: '#fee2e2', color: '#991b1b', textAlign: 'center', fontFamily: 'system-ui, sans-serif' }}>
+              <strong>JavaScript está deshabilitado.</strong> Kenkomed requiere JavaScript para funcionar correctamente. Por favor, actívalo en tu navegador.
+            </div>
+          </noscript>
           <SiteHeader />
           {children}
           <VirtualAssistantLazy />

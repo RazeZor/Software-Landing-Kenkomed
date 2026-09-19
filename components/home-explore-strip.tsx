@@ -11,16 +11,18 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { useReveal } from '@/hooks/use-scroll-animation'
 
+import { SITE_CONSTANTS } from '@/lib/site-constants'
+
 /* Real data — no invented metrics (gate 46) */
 const proofStats = [
   {
-    number: '8',
+    number: SITE_CONSTANTS.SCALE_COUNT,
     unit: '',
     label: 'Escalas clínicas validadas',
     sub: 'EVA · PSFS · Barthel · GROC y más',
   },
   {
-    number: '9',
+    number: SITE_CONSTANTS.ANAMNESIS_PAGES,
     unit: '',
     label: 'Pasos de anamnesis inteligente',
     sub: 'Completados por el paciente vía QR',

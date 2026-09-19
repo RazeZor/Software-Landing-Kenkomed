@@ -66,14 +66,14 @@ const team = [
         role: 'Desarrollador Backend',
         bio: 'Responsable de la lógica del servidor, la gestión de bases de datos y las APIs. Enfocado en seguridad y estabilidad.',
         image: '/images/fotoseba.jpeg',
-        linkedin: '#',
+        linkedin: '',
     },
     {
         name: 'Maximiliano Cuevas',
         role: 'DevOps & QA',
         bio: 'Despliega el sistema en producción, gestiona la infraestructura y ejecuta las pruebas de calidad que mantienen todo en pie.',
         image: '/images/fotomaxi.jpeg',
-        linkedin: '#',
+        linkedin: '',
     },
 ]
 
@@ -354,15 +354,19 @@ export default function NosotrosContent() {
                                 <p className="md:hidden text-sm text-foreground-muted leading-relaxed">{member.bio}</p>
 
                                 {/* LinkedIn */}
-                                <a
-                                    href={member.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={`LinkedIn de ${member.name}`}
-                                    className="justify-self-start md:justify-self-end inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border/60 text-foreground-subtle hover:text-brand hover:border-brand/40 hover:bg-brand/5 transition-all"
-                                >
-                                    <Linkedin size={16} />
-                                </a>
+                                {member.linkedin ? (
+                                    <a
+                                        href={member.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`LinkedIn de ${member.name}`}
+                                        className="justify-self-start md:justify-self-end inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border/60 text-foreground-subtle hover:text-brand hover:border-brand/40 hover:bg-brand/5 transition-all"
+                                    >
+                                        <Linkedin size={16} />
+                                    </a>
+                                ) : (
+                                    <div className="justify-self-start md:justify-self-end w-10 h-10"></div>
+                                )}
                             </article>
                         ))}
                     </div>

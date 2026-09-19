@@ -8,7 +8,7 @@ export function FloatingWhatsApp() {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false)
 
   const phoneNumber = '56940966266'
-  const message = 'Hola, estoy interesado en conocer más sobre el software Kenkomed para mi consulta.'
+  const message = 'Hola, quiero ver una demo de Kenkomed'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
 
   // Show button after a short delay

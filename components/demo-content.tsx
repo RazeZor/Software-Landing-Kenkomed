@@ -12,7 +12,6 @@ import {
     Smartphone,
     ArrowLeft,
     ChevronDown,
-    Star,
     Shield,
     Zap,
 } from 'lucide-react'
@@ -39,24 +38,24 @@ const highlights = [
     },
     {
         icon: Smartphone,
-        title: 'App Móvil',
-        desc: 'Tu clínica en el bolsillo, disponible 24/7.',
+        title: 'Acceso Móvil',
+        desc: 'Funciona en tu celular desde el navegador, sin instalar nada.',
     },
 ]
 
 /* Real software screenshots for the gallery */
 const galleryImages = [
     { src: '/software/Panel.jpg', alt: 'Panel de control del sistema clínico Kenkomed', caption: 'Panel Principal' },
-    { src: '/software/DSS.jpg', alt: 'Sistema de apoyo a la decisión clínica DSS Kenkomed', caption: 'DSS Clínico' },
+    { src: '/software/DSS.png', alt: 'Sistema de apoyo a la decisión clínica DSS Kenkomed', caption: 'DSS Clínico' },
     { src: '/software/FichaClinica.jpg', alt: 'Ficha clínica digital del paciente en Kenkomed', caption: 'Ficha Clínica' },
-    { src: '/software/Graficos.jpg', alt: 'Gráficos y visualización de datos clínicos en Kenkomed', caption: 'Estadísticas' },
+    { src: '/software/graficos_nuevo.png', alt: 'Gráficos y visualización de datos clínicos en Kenkomed', caption: 'Estadísticas' },
     { src: '/software/EVA.jpg', alt: 'Cuestionario EVA - Escala Visual Analógica en Kenkomed', caption: 'Cuestionario EVA' },
     { src: '/software/Bartel.jpg', alt: 'Cuestionario Barthel de independencia funcional en Kenkomed', caption: 'Barthel' },
     { src: '/software/PSFS.jpg', alt: 'Escala Funcional Específica del Paciente PSFS en Kenkomed', caption: 'PSFS' },
     { src: '/software/Groc.jpg', alt: 'Cuestionario GROC de percepción de cambio global en Kenkomed', caption: 'GROC' },
     { src: '/software/Condiciones.jpg', alt: 'Gestión de condiciones clínicas en Kenkomed', caption: 'Condiciones' },
     { src: '/software/Ingreso.jpg', alt: 'Pantalla de ingreso de pacientes en Kenkomed', caption: 'Ingreso' },
-    { src: '/software/Recetas.jpg', alt: 'Gestión de recetas médicas en Kenkomed', caption: 'Recetas Médicas' },
+    { src: '/software/Recetas.jpg', alt: 'Prescripción de ejercicios en Kenkomed', caption: 'Prescripción de Ejercicios' },
     { src: '/software/Cuerpo.jpg', alt: 'Mapa corporal interactivo para evaluación kinesiológica', caption: 'Mapa Corporal' },
 ]
 
@@ -281,7 +280,7 @@ export default function DemoContent() {
                 </div>
             </section>
 
-            {/* ═══ SOCIAL PROOF STRIP ═══ */}
+            {/* ═══ TRUST SIGNALS STRIP ═══ */}
             <section
                 className="py-14 border-y"
                 style={{
@@ -290,29 +289,6 @@ export default function DemoContent() {
                 }}
             >
                 <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-10">
-                    <div className="flex items-center gap-4">
-                        <div className="flex -space-x-2">
-                            {['RE', 'MF', 'AV', 'CO', 'FT'].map((initials, i) => (
-                                <div
-                                    key={i}
-                                    className="w-9 h-9 rounded-full kenko-card border-2 flex items-center justify-center text-[10px] font-bold font-display text-on-brand"
-                                    style={{ borderColor: 'oklch(0.48 0.18 246 / 0.3)' }}
-                                >
-                                    {initials}
-                                </div>
-                            ))}
-                        </div>
-                        <div>
-                            <div className="flex items-center gap-1 mb-0.5">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
-                                ))}
-                            </div>
-                            <p className="text-sm text-on-brand-muted">
-                                <strong className="text-on-brand">+500 clínicas</strong> confían en Kenkomed
-                            </p>
-                        </div>
-                    </div>
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-1.5 text-xs text-on-brand-subtle">
                             <Shield size={13} style={{ color: 'var(--kenko-pulse)' }} />
@@ -321,6 +297,10 @@ export default function DemoContent() {
                         <div className="flex items-center gap-1.5 text-xs text-on-brand-subtle">
                             <Zap size={13} style={{ color: 'var(--kenko-pulse)' }} />
                             Configuración en minutos
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-on-brand-subtle">
+                            <Shield size={13} style={{ color: 'var(--kenko-pulse)' }} />
+                            Hecho en Chile
                         </div>
                     </div>
                 </div>
@@ -348,8 +328,8 @@ export default function DemoContent() {
                                 ¿Listo para transformar tu clínica?
                             </h3>
                             <p className="text-on-brand-muted max-w-lg leading-relaxed">
-                                Únete a más de 500 kinesiólogos que ya optimizaron su práctica con Kenkomed.
-                                Sin tarjeta de crédito — 30 días gratis.
+                                Solicita una demo guiada y descubre cómo Kenkomed puede optimizar tu práctica clínica.
+                                Sin compromiso.
                             </p>
                         </div>
                         <div className="relative z-10 flex flex-col sm:flex-row gap-3 flex-shrink-0">

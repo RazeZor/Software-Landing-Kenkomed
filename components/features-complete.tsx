@@ -246,9 +246,9 @@ const clinicianGroups = [
         icon: Scale,
         color: 'bg-red-50 text-red-600',
         accent: 'border-red-200',
-        title: 'Auditoría Clínica — Ley 21.719',
+        title: 'Trazabilidad Clínica — Ley 21.719',
         count: 5,
-        badge: 'Cumplimiento Legal',
+        badge: 'Trazabilidad',
         features: [
             'Registro automático de 30+ tipos de acciones clínicas',
             'Trazabilidad: profesional, paciente, IP, fecha/hora',

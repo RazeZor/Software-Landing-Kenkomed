@@ -40,12 +40,12 @@ function useReveal() {
 
 const capabilities = [
     { icon: Zap,          text: 'Automatiza todo el ciclo de vida del paciente',      detail: 'Desde la admisión remota hasta el alta, sin papel ni fricción.' },
-    { icon: ClipboardList,text: '8 escalas clínicas validadas internacionalmente',       detail: 'PSFS, GROC, EQ-5D, Barthel, Screening, ENA, Oswestry y LEFS.' },
+    { icon: ClipboardList,text: '13 escalas clínicas validadas internacionalmente',       detail: 'PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, etc.' },
     { icon: Brain,        text: 'Sistema inteligente de apoyo a decisiones (DSS)',     detail: 'Alertas en tiempo real y recomendaciones basadas en evidencia.' },
     { icon: QrCode,       text: 'Admisión remota via QR — formulario de 14 páginas', detail: 'El paciente completa la anamnesis completa desde casa antes de llegar.' },
     { icon: FileText,     text: 'Fichas clínicas y sesiones de kinesiología',          detail: 'Sesión inicial, seguimiento y alta. Todo estructurado y consultable.' },
     { icon: TrendingUp,   text: 'Seguimiento de evolución y outcomes clínicos',       detail: 'Gráficos interactivos de progreso sesión a sesión con historial.' },
-    { icon: Layers,       text: 'Prescripciones médicas con renderizado para impresión', detail: 'Crea, edita, elimina y renderiza recetas médicas directamente.' },
+    { icon: Layers,       text: 'Prescripción de ejercicios y plan casero', detail: 'Crea, edita, elimina y renderiza tu pauta de ejercicios para el paciente.' },
     { icon: ShieldCheck,  text: 'Control de roles: Admin vs Clínico Regular',           detail: 'Admin accede a todo. Clínico solo a sus pacientes asignados.' },
     { icon: Network,      text: 'Escala desde practitioner hasta redes de clínicas',    detail: 'Un profesional independiente o múltiples sedes — mismo sistema.' },
 ]

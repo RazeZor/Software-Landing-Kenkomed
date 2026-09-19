@@ -282,43 +282,40 @@ export default function InvestigacionContent() {
                 </div>
             </section>
 
-            {/* ═══ IMPACTO — The cost of doing nothing ═══ */}
+            {/* ═══ IMPACTO — El contexto del problema ═══ */}
             <section className="py-20 md:py-28">
                 <div ref={impactoSection.ref} className="max-w-4xl mx-auto px-6">
                     <div className={`scroll-reveal ${impactoSection.visible ? 'is-visible' : ''}`}>
                         <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
-                            El Costo de no Actuar
+                            El Contexto Clínico
                         </span>
                         <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-6 text-balance">
-                            La falta de información cuesta vidas
+                            Sin datos estructurados, las decisiones se vuelven inciertas
                         </h2>
                         <p className="text-foreground-muted leading-relaxed mb-10">
-                            Sin información clínica estructurada y accesible, los profesionales de la salud
-                            pierden la capacidad de anticipar riesgos, reconocer patrones y actuar proactivamente.
+                            Sin información clínica estructurada y accesible, los kinesiólogos
+                            pierden la capacidad de medir progreso, reconocer patrones y ajustar tratamientos a tiempo.
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
                             <div className="text-center p-6 rounded-2xl bg-card border border-border/60">
-                                <p className="font-display font-bold text-4xl text-red-500 mb-2">7.4M</p>
-                                <p className="text-xs text-foreground-muted">personas mal diagnosticadas al año en EE.UU.</p>
+                                <p className="font-display font-bold text-4xl text-amber-500 mb-2">30%+</p>
+                                <p className="text-xs text-foreground-muted">del tiempo clínico se pierde en tareas administrativas</p>
                             </div>
                             <div className="text-center p-6 rounded-2xl bg-card border border-border/60">
-                                <p className="font-display font-bold text-4xl text-amber-500 mb-2">33%</p>
-                                <p className="text-xs text-foreground-muted">más error diagnóstico en mujeres tras ACV</p>
+                                <p className="font-display font-bold text-4xl text-amber-500 mb-2">7/10</p>
+                                <p className="text-xs text-foreground-muted">centros aún no usan un sistema clínico estructurado</p>
                             </div>
                             <div className="text-center p-6 rounded-2xl bg-card border border-border/60">
-                                <p className="font-display font-bold text-4xl text-rose-500 mb-2">50%</p>
-                                <p className="text-xs text-foreground-muted">más error en mujeres con infarto cardíaco</p>
+                                <p className="font-display font-bold text-4xl text-brand mb-2">0</p>
+                                <p className="text-xs text-foreground-muted">software DSS diseñado específicamente para kinesiología en Chile</p>
                             </div>
                         </div>
 
                         <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-100/50">
                             <p className="text-xs text-foreground-muted">
-                                <strong className="text-foreground">Fuente:</strong>{' '}
-                                <a href="https://portalredsalud.cl/2025/04/05/salud-digital-en-chile-innovacion-tecnologica-para-un-sistema-sanitario-mas-eficiente"
-                                    target="_blank" rel="noopener noreferrer" className="text-brand hover:text-brand-dark transition-colors underline underline-offset-2">
-                                    Portal Red Salud — Salud digital en Chile
-                                </a>
+                                <strong className="text-foreground">Nota:</strong>{' '}
+                                Estas cifras están basadas en la investigación de campo realizada por el equipo Kenkomed en la provincia de Concepción, Chile.
                             </p>
                         </div>
                     </div>
@@ -361,7 +358,7 @@ export default function InvestigacionContent() {
                             {[
                                 { icon: BarChart3, label: 'Gráficos de evolución', desc: 'Tendencias visuales del progreso del paciente' },
                                 { icon: FileText, label: 'Informes automáticos', desc: 'Reportes clínicos exportables con un clic' },
-                                { icon: ClipboardList, label: 'Escalas validadas', desc: 'Instrumentos reconocidos internacionalmente' },
+                                { icon: ClipboardList, label: '13 Escalas validadas', desc: 'Instrumentos reconocidos internacionalmente' },
                                 { icon: Zap, label: 'Alertas inteligentes', desc: 'Recomendaciones automáticas según respuestas' },
                             ].map((item) => {
                                 const Icon = item.icon
@@ -396,9 +393,9 @@ export default function InvestigacionContent() {
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
                                     <GraduationCap size={22} className="text-blue-600" />
                                 </div>
-                                <h3 className="font-semibold text-foreground mb-2 text-sm">Respaldo Universitario</h3>
+                                <h3 className="font-semibold text-foreground mb-2 text-sm">Escalas publicadas internacionalmente</h3>
                                 <p className="text-xs text-foreground-muted leading-relaxed">
-                                    Escalas validadas por universidades chilenas reconocidas: U. de Chile, PUC, U. de Concepción y USACH.
+                                    Instrumentos como PSFS, Barthel, GROC y EQ-5D, publicados en revistas científicas y utilizados en la práctica clínica en Chile.
                                 </p>
                             </div>
                             <div className="p-6 rounded-2xl bg-card border border-border/60">
@@ -414,9 +411,9 @@ export default function InvestigacionContent() {
                                 <div className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center mb-4">
                                     <Shield size={22} className="text-teal-600" />
                                 </div>
-                                <h3 className="font-semibold text-foreground mb-2 text-sm">MINSAL Chile</h3>
+                                <h3 className="font-semibold text-foreground mb-2 text-sm">Investigación en terreno</h3>
                                 <p className="text-xs text-foreground-muted leading-relaxed">
-                                    Métricas validadas por grupos de trabajo interdisciplinarios del Ministerio de Salud de Chile.
+                                    Desarrollado a partir de investigación de campo en clínicas de la provincia de Concepción, Chile.
                                 </p>
                             </div>
                         </div>
@@ -430,7 +427,7 @@ export default function InvestigacionContent() {
                     <div className={`text-center mb-16 scroll-reveal ${scalesSection.visible ? 'is-visible' : ''}`}>
                         <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">Escalas Clínicas</span>
                         <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-5 text-balance">
-                            7 instrumentos validados internacionalmente
+                            13 instrumentos validados internacionalmente
                         </h2>
                         <p className="text-lg text-foreground-muted leading-relaxed max-w-2xl mx-auto">
                             Cada escala fue seleccionada por su evidencia científica, fiabilidad y relevancia en kinesiología.
@@ -477,7 +474,7 @@ export default function InvestigacionContent() {
                             Proceso de Anamnesis Inteligente
                         </h2>
                         <p className="text-lg text-foreground-muted leading-relaxed max-w-2xl mx-auto">
-                            9 pasos estructurados que guían al kinesiólogo desde el ingreso del paciente
+                            14 pasos estructurados que guían al kinesiólogo desde el ingreso del paciente
                             hasta la generación del informe clínico con recomendaciones automatizadas.
                         </p>
                     </div>

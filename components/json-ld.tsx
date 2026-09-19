@@ -58,14 +58,14 @@ export const softwareSchema = {
   '@type': 'SoftwareApplication',
   name: 'Kenkomed',
   applicationCategory: 'HealthApplication',
-  operatingSystem: 'Web, Android, iOS',
+  operatingSystem: 'Web',
   description:
     'Sistema de Soporte a la Decisión Clínica (DSS) para kinesiólogos. Fichas clínicas digitales, cuestionarios automatizados EVA, PSFS, Barthel, GROC, agenda inteligente y reportes clínicos.',
   offers: {
     '@type': 'Offer',
-    price: '0',
+    price: '15990',
     priceCurrency: 'CLP',
-    description: 'Prueba gratuita de 30 días',
+    description: 'Desde $15.990 CLP/mes (plan anual). Demo guiada sin costo.',
   },
   author: {
     '@type': 'Organization',

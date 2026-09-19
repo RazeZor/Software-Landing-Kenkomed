@@ -8,7 +8,6 @@
  * Enrichment: E1 CSS-art mockup — UI del software Kenkomed en figure + hairline border
  */
 
-import { useEffect, useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -25,618 +24,318 @@ import {
 const stackFeatures = [
   {
     number: '01',
-    label: 'DSS Clínico',
-    title: 'Sistema de Apoyo a Decisiones',
-    desc: 'Interpreta automáticamente 13 escalas clínicas validadas, detecta banderas rojas y guía cada evaluación con rigor científico. Desde PSFS y Barthel hasta Berg, Tinetti y WOMAC.',
-    tags: ['13 escalas validadas', 'Banderas rojas automáticas', 'Algoritmo de dolor', 'Anamnesis 14 págs.'],
-    icon: Brain,
-    imageSrc: '/software/DSS.jpg',
-    imageAlt: 'Panel DSS clínico de Kenkomed mostrando escalas validadas',
+    label: 'Antes de la cita',
+    title: 'Anamnesis desde el celular',
+    desc: 'El paciente completa su anamnesis desde casa. Tú llegas a la consulta con la ficha lista y las alertas ya marcadas.',
+    tags: ['Código QR único', 'Ahorro de 15 minutos'],
+    icon: QrCode,
+    imageSrc: '/software/Cuerpo.jpg',
+    imageAlt: 'Paciente llenando anamnesis en el celular',
     accentToken: '--color-accent',
   },
   {
     number: '02',
-    label: 'Admisión QR',
-    title: 'Admisión Express sin papel',
-    desc: 'El paciente completa su anamnesis completa desde el celular antes de llegar. Cero formularios en recepción, cero errores de transcripción.',
-    tags: ['Código QR único', 'Anamnesis remota', 'Mapa corporal digital', 'Sin instalación'],
-    icon: QrCode,
-    imageSrc: '/software/Cuerpo.jpg',
-    imageAlt: 'Mapa corporal y formulario de anamnesis QR de Kenkomed',
+    label: 'Primera sesión',
+    title: 'Evaluación y Banderas Rojas',
+    desc: 'Escalas validadas, mapa corporal y screening, con las banderas rojas visibles desde el minuto uno para tomar mejores decisiones.',
+    tags: ['Banderas rojas automáticas', 'Mapa corporal'],
+    icon: Brain,
+    imageSrc: '/software/DSS.png',
+    imageAlt: 'Panel DSS clínico de Kenkomed mostrando escalas validadas',
     accentToken: '--color-accent-2',
   },
   {
     number: '03',
-    label: 'Agenda Clínica',
-    title: 'Agenda + notificaciones automáticas',
-    desc: 'Gestiona citas presenciales, domicilio y telemedicina. Notificaciones automáticas por email al crear, reagendar o cancelar. Vista personal y de todo el centro.',
-    tags: ['Presencial · Domicilio · Telemedicina', 'Emails automáticos de citas', 'Vista personal y centro', 'Multi-kinesiólogo'],
+    label: 'Plan de tratamiento',
+    title: 'Objetivos y Prescripción',
+    desc: 'Definición de objetivos funcionales, número de sesiones y dosificación de ejercicios estructurada en un solo lugar.',
+    tags: ['Objetivos funcionales', 'Prescripción de ejercicios'],
     icon: CalendarCheck,
-    imageSrc: '/software/Panel.jpg',
-    imageAlt: 'Agenda inteligente del software Kenkomed',
+    imageSrc: '/software/Objetivos_y_prescripcion.png',
+    imageAlt: 'Pantalla de prescripción de ejercicios',
     accentToken: '--color-accent',
   },
   {
     number: '04',
-    label: 'Ficha Digital',
-    title: 'Historia clínica completa con ciclos',
-    desc: 'Ciclos clínicos, sesiones kinésicas, evolución, recetas médicas y alta con diagnóstico final. Todo documentado con trazabilidad y auditoría de accesos.',
-    tags: ['Ciclos clínicos', 'Alta con diagnóstico final', 'Recetas médicas digitales', 'Auditoría Ley 21.719'],
+    label: 'Cada sesión',
+    title: 'Evolución estructurada (SOAP)',
+    desc: 'Evolución estructurada en formato SOAP, sin reescribir nada. Cada sesión se enlaza con los objetivos planteados inicialmente.',
+    tags: ['Formato SOAP', 'Trazabilidad clínica'],
     icon: FileText,
-    imageSrc: '/software/Panel.jpg',
+    imageSrc: '/software/ficha_clinica.png',
     imageAlt: 'Ficha clínica digital de Kenkomed',
     accentToken: '--color-accent-2',
   },
   {
     number: '05',
-    label: 'Dashboard',
-    title: 'Panel de control en tiempo real',
-    desc: 'Métricas reales de tu práctica: pacientes activos, citas del día y la semana, sesiones realizadas y anamnesis del mes. Vista diferenciada para admin y miembro del equipo.',
-    tags: ['Métricas en tiempo real', 'Citas hoy y esta semana', 'Exportación ARCO (JSON/HTML)', 'Estadísticas por profesional'],
+    label: 'Reevaluación',
+    title: 'Demuestra tus resultados',
+    desc: 'Repites las escalas y ves el cambio en un gráfico automático. El paciente ve su progreso, tú demuestras tu resultado.',
+    tags: ['Gráficos automáticos', 'Comparación de escalas'],
     icon: BarChart3,
-    imageSrc: '/software/DSS.jpg',
+    imageSrc: '/software/graficos_nuevo.png',
     imageAlt: 'Panel de monitoreo y outcomes de Kenkomed',
     accentToken: '--color-accent',
   },
+  {
+    number: '06',
+    label: 'Alta e informe',
+    title: 'Diagnóstico y Reporte Final',
+    desc: 'Diagnóstico final y reporte listo para el médico derivador. Exporta el resumen clínico en PDF con un solo clic.',
+    tags: ['Reporte para médico derivador', 'Diagnóstico kinésico'],
+    icon: CheckCircle2,
+    imageSrc: '/software/Diagnostico_final.png',
+    imageAlt: 'Reporte clínico de alta exportado',
+    accentToken: '--color-accent-2',
+  },
 ]
 
-/* ── CSS-art feature mockup (no fake chrome, no BrowserMockup) ── */
-function FeatureMockup({
-  feature,
-  isActive,
-}: {
-  feature: typeof stackFeatures[0]
-  isActive: boolean
-}) {
-  return (
-    <figure
-      className={`hm-feature-mockup ${isActive ? 'is-active' : ''}`}
-      aria-label={feature.imageAlt}
-    >
-      {/* Real software screenshot inside figure — hairline border only */}
-      <div className="hm-mockup-inner">
-        {/* Module label badge */}
-        <div className="hm-mockup-badge">
-          <span
-            className="hm-badge-dot"
-            style={{ background: `var(${feature.accentToken})` }}
-            aria-hidden="true"
-          />
-          {feature.label}
-        </div>
-        <Image
-          src={feature.imageSrc}
-          alt={feature.imageAlt}
-          fill
-          loading={isActive ? 'eager' : 'lazy'}
-          className="hm-mockup-img object-cover object-top"
-          sizes="(max-width: 768px) 100vw, 55vw"
-        />
-        {/* Subtle vignette — not a gradient headline */}
-        <div className="hm-mockup-vignette" aria-hidden="true" />
-      </div>
-      <figcaption className="sr-only">{feature.imageAlt}</figcaption>
-    </figure>
-  )
-}
-
-/* ── Feature Stack component ── */
+/* ── Bento Grid Component ── */
 export function SolucionTeaser() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const sectionRef = useRef<HTMLElement>(null)
-  const itemRefs = useRef<(HTMLButtonElement | null)[]>([])
-
-  /* Scroll-sync: activate feature based on viewport position */
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
-
-    const handleScroll = () => {
-      const section = sectionRef.current
-      if (!section) return
-      const sectionTop = section.getBoundingClientRect().top
-      const viewportH = window.innerHeight
-      const sectionH = section.offsetHeight
-      const scrollRatio = Math.max(0, Math.min(1, -sectionTop / (sectionH - viewportH)))
-      const newIndex = Math.min(
-        stackFeatures.length - 1,
-        Math.floor(scrollRatio * stackFeatures.length)
-      )
-      setActiveIndex(newIndex)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
     <>
       <style>{`
-        /* Hallmark · Feature Stack (16) · modern-minimal · Cobalt
-         * No 3-col grid, no equal-height cards, no icon-above-heading
+        /* Hallmark · macrostructure: Bento Grid (01) · genre: modern-minimal · theme: Cobalt
+         * 2-column uniform grid — each card has full breathing room for image + text.
          */
 
-        /* ─── Section wrapper ─── */
-        .hm-feature-stack {
-          position: relative;
-          background: var(--color-paper);
+        .hm-bento-section {
+          padding-block: var(--space-4xl) var(--space-6xl);
+          background: var(--color-paper-2);
           border-top: var(--hairline);
         }
 
-        /* ─── Layout: sticky left + scroll-synced right ─── */
-        .hm-stack-layout {
-          display: grid;
-          grid-template-columns: var(--feature-stack-left-width) var(--feature-stack-right-width);
-          min-height: 100vh;
+        .hm-bento-container {
           max-width: 88rem;
           margin-inline: auto;
           padding-inline: var(--space-lg);
         }
 
-        /* ─── Left pane — sticky ─── */
-        .hm-stack-left {
-          position: sticky;
-          top: var(--feature-stack-sticky-top);
-          align-self: start;
-          padding-block: var(--space-4xl);
-          padding-right: var(--space-2xl);
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-sm);
+        .hm-bento-header {
+          text-align: center;
+          margin-bottom: var(--space-4xl);
+          max-width: 60ch;
+          margin-inline: auto;
         }
 
-        .hm-stack-section-label {
+        .hm-bento-label {
           font-family: var(--font-outlier);
-          font-size: 0.6875rem;
+          font-size: 0.75rem;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: var(--color-ink-3);
+          color: var(--color-accent);
+          margin-bottom: var(--space-md);
+          display: block;
+        }
+
+        .hm-bento-heading {
+          font-family: var(--font-display);
+          font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+          font-weight: 700;
+          color: var(--color-ink);
+          line-height: 1.1;
+          letter-spacing: -0.04em;
           margin-bottom: var(--space-lg);
         }
 
-        .hm-stack-heading {
-          font-family: var(--font-display);
-          font-size: clamp(2rem, 3.5vw + 0.5rem, 2.75rem);
-          font-weight: 800;
-          font-style: normal; /* gate 38a */
-          line-height: 1.08;
-          letter-spacing: -0.04em;
-          color: var(--color-ink);
-          margin-bottom: var(--space-md);
-          overflow-wrap: anywhere;
-          min-width: 0;
-        }
-
-        .hm-stack-intro {
+        .hm-bento-intro {
           font-family: var(--font-body);
-          font-size: 1rem;
+          font-size: 1.125rem;
           color: var(--color-ink-2);
-          line-height: 1.65;
-          margin-bottom: var(--space-xl);
+          line-height: 1.6;
         }
 
-        /* Feature nav items — inline, not icon-above-heading */
-        .hm-feature-nav {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-          border-left: 1px solid oklch(0.12 0.02 246 / 0.08);
-        }
-        .dark .hm-feature-nav {
-          border-left-color: oklch(0.97 0.003 246 / 0.10);
+        /* Grid layout — 1 col mobile, 2 col desktop */
+        .hm-bento-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: var(--space-xl);
         }
 
-        .hm-feature-nav-item {
-          display: flex;
-          align-items: center;
-          gap: var(--space-md);
-          padding: var(--space-sm) var(--space-md);
-          background: none;
-          border: none;
-          cursor: pointer;
-          text-align: left;
+        @media (min-width: 768px) {
+          .hm-bento-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        /* Cards */
+        .hm-bento-card {
           position: relative;
-          transition-property: background-color;
-          transition-duration: var(--dur-base);
-          transition-timing-function: var(--ease-default);
-          border-radius: 0 var(--radius-md) var(--radius-md) 0;
-          outline: 2px solid transparent;
-          outline-offset: 2px;
+          background: var(--color-paper);
+          border-radius: var(--radius-xl);
+          border: var(--hairline);
+          box-shadow: 0 1px 3px oklch(0.12 0.02 246 / 0.03), 0 8px 32px oklch(0.12 0.02 246 / 0.05);
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
         }
-        .hm-feature-nav-item:focus-visible {
-          outline-color: var(--color-focus);
-        }
-        .hm-feature-nav-item::before {
-          content: '';
-          position: absolute;
-          left: -1px;
-          top: 0;
-          bottom: 0;
-          width: 2px;
-          background: transparent;
-          transition-property: background-color;
-          transition-duration: var(--dur-base);
-          transition-timing-function: var(--ease-default);
-        }
-        .hm-feature-nav-item.is-active::before {
-          background: var(--color-accent);
-        }
-        .hm-feature-nav-item.is-active {
-          background: oklch(0.48 0.18 246 / 0.04);
-        }
-        .dark .hm-feature-nav-item.is-active {
-          background: oklch(0.62 0.16 230 / 0.10);
+        .hm-bento-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 4px 12px oklch(0.12 0.02 246 / 0.06), 0 16px 48px oklch(0.12 0.02 246 / 0.08);
         }
 
-        .hm-feature-number {
-          font-family: var(--font-outlier);
-          font-size: 0.6875rem;
-          letter-spacing: 0.06em;
-          color: var(--color-ink-3);
-          flex-shrink: 0;
-          transition-property: color;
-          transition-duration: var(--dur-base);
-          transition-timing-function: var(--ease-default);
+        /* Content Wrapper */
+        .hm-bento-content {
+          padding: var(--space-2xl);
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-md);
         }
-        .hm-feature-nav-item.is-active .hm-feature-number {
+
+        /* Typography inside card */
+        .hm-card-icon {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: var(--radius-md);
+          background: oklch(0.48 0.18 246 / 0.06);
           color: var(--color-accent);
-        }
-
-        .hm-feature-nav-label {
-          font-family: var(--font-body);
-          font-size: 0.9375rem;
-          font-weight: 500;
-          color: var(--color-ink-2);
-          transition-property: color;
-          transition-duration: var(--dur-base);
-          transition-timing-function: var(--ease-default);
-        }
-        .hm-feature-nav-item.is-active .hm-feature-nav-label {
-          color: var(--color-ink);
-          font-weight: 600;
-        }
-
-        /* ─── Right pane ─── */
-        .hm-stack-right {
-          padding-block: var(--space-4xl);
-          padding-left: var(--space-xl);
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-3xl);
-        }
-
-        /* ─── Feature panel ─── */
-        .hm-feature-panel {
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-lg);
-        }
-
-        .hm-panel-header {
           display: flex;
           align-items: center;
-          gap: var(--space-sm);
+          justify-content: center;
+          margin-bottom: var(--space-xs);
         }
 
-        .hm-panel-number {
-          font-family: var(--font-outlier);
-          font-size: 0.75rem;
-          color: var(--color-accent-2);
-          letter-spacing: 0.08em;
-        }
-
-        .hm-panel-title {
+        .hm-card-title {
           font-family: var(--font-display);
-          font-size: clamp(1.375rem, 2vw + 0.5rem, 1.875rem);
+          font-size: 1.5rem;
           font-weight: 700;
-          font-style: normal; /* gate 38a */
           color: var(--color-ink);
-          line-height: 1.12;
-          letter-spacing: -0.03em;
-          overflow-wrap: anywhere;
-          min-width: 0;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
         }
 
-        .hm-panel-desc {
+        .hm-card-desc {
           font-family: var(--font-body);
           font-size: 1rem;
           color: var(--color-ink-2);
-          line-height: 1.65;
-          max-width: 52ch;
+          line-height: 1.6;
         }
 
-        .hm-panel-tags {
+        /* Tag list */
+        .hm-card-tags {
           display: flex;
           flex-wrap: wrap;
-          gap: var(--space-2xs);
+          gap: var(--space-xs);
+          margin-top: var(--space-sm);
         }
-
-        .hm-panel-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-2xs);
+        .hm-card-tag {
           font-family: var(--font-body);
-          font-size: 0.8125rem;
-          font-weight: 500;
-          color: var(--color-accent);
-          background: oklch(0.48 0.18 246 / 0.06);
-          border: 1px solid oklch(0.48 0.18 246 / 0.14);
-          border-radius: 999px;
-          padding: 0.3125rem 0.75rem;
-          line-height: 1;
-        }
-        .dark .hm-panel-tag {
-          background: oklch(0.62 0.16 230 / 0.12);
-          border-color: oklch(0.62 0.16 230 / 0.20);
-          color: var(--kenko-sky);
-        }
-
-        .hm-panel-tag-dot {
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background: var(--color-accent);
-          flex-shrink: 0;
-        }
-        .dark .hm-panel-tag-dot { background: var(--kenko-sky); }
-
-        /* ─── CSS-art mockup — NO fake browser chrome (gate 47) ─── */
-        .hm-feature-mockup {
-          position: relative;
-          border-radius: var(--radius-xl);
-          overflow: hidden;
-          border: var(--hairline-accent);
-          box-shadow: 0 1px 3px oklch(0.12 0.02 246 / 0.06), 0 8px 32px oklch(0.12 0.02 246 / 0.08);
-          aspect-ratio: 16 / 10;
-          transition-property: opacity, transform;
-          transition-duration: var(--dur-slow);
-          transition-timing-function: var(--ease-out);
-          opacity: 0.7;
-          transform: translateY(8px);
-        }
-        .hm-feature-mockup.is-active {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .hm-feature-mockup { opacity: 1; transform: none; }
-        }
-
-        .hm-mockup-inner {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
-
-        .hm-mockup-badge {
-          position: absolute;
-          top: var(--space-md);
-          left: var(--space-md);
-          z-index: 10;
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-2xs);
-          font-family: var(--font-outlier);
-          font-size: 0.6875rem;
-          letter-spacing: 0.10em;
-          text-transform: uppercase;
-          color: oklch(0.99 0.002 246);
-          background: oklch(0.09 0.018 240 / 0.80);
-          backdrop-filter: blur(8px);
-          border: 1px solid oklch(0.97 0.003 246 / 0.12);
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: var(--color-ink-3);
+          background: var(--color-paper-3);
           padding: 0.25rem 0.625rem;
           border-radius: 999px;
+          border: var(--hairline);
         }
 
-        .hm-badge-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
+        /* Image wrapper — fixed height, always visible, not cropped */
+        .hm-bento-image-wrapper {
+          position: relative;
+          width: 100%;
+          height: 280px;
+          border-top: var(--hairline);
+          overflow: hidden;
+          background: var(--color-paper-3);
           flex-shrink: 0;
+        }
+
+        @media (min-width: 768px) {
+          .hm-bento-image-wrapper {
+            height: 320px;
+          }
         }
 
         .hm-mockup-img {
           object-fit: cover;
-          object-position: top;
+          object-position: top center;
         }
 
-        .hm-mockup-vignette {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to bottom, transparent 60%, oklch(0.09 0.018 240 / 0.20) 100%);
-          pointer-events: none;
-        }
-        .dark .hm-mockup-vignette {
-          background: linear-gradient(to bottom, transparent 60%, oklch(0.07 0.015 240 / 0.30) 100%);
-        }
-
-        /* ─── Section divider — hairline rule (not whitespace only, gate 9) ─── */
-        .hm-section-rule {
-          height: 1px;
-          background: linear-gradient(90deg, transparent 0%, oklch(0.12 0.02 246 / 0.12) 20%, oklch(0.12 0.02 246 / 0.12) 80%, transparent 100%);
-          max-width: 88rem;
-          margin-inline: auto;
-        }
-        .dark .hm-section-rule {
-          background: linear-gradient(90deg, transparent 0%, oklch(0.97 0.003 246 / 0.08) 20%, oklch(0.97 0.003 246 / 0.08) 80%, transparent 100%);
-        }
-
-        /* ─── CTA section at bottom ─── */
-        .hm-stack-cta {
-          max-width: 88rem;
-          margin-inline: auto;
-          padding-inline: var(--space-lg);
-          padding-block: var(--space-3xl);
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: var(--space-md);
-          border-top: var(--hairline);
-        }
-
-        .hm-stack-cta-heading {
-          font-family: var(--font-display);
-          font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem);
-          font-weight: 700;
-          font-style: normal;
-          color: var(--color-ink);
-          letter-spacing: -0.03em;
-          line-height: 1.12;
-          overflow-wrap: anywhere;
-          min-width: 0;
-        }
-
-        .hm-stack-cta-link {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-xs);
-          font-family: var(--font-body);
-          font-size: 0.9375rem;
-          font-weight: 600;
-          color: var(--color-accent);
-          text-decoration: none;
-          border-bottom: 1px solid oklch(0.48 0.18 246 / 0.30);
-          padding-bottom: 1px;
-          outline: 2px solid transparent;
-          outline-offset: 4px;
-          transition-property: color, border-color;
-          transition-duration: var(--dur-base);
-          transition-timing-function: var(--ease-default);
-        }
-        .hm-stack-cta-link:hover {
-          color: var(--kenko-cobalt);
-          border-color: var(--kenko-cobalt);
-        }
-        .hm-stack-cta-link:focus-visible {
-          outline-color: var(--color-focus);
-        }
-        .hm-stack-cta-link:active {
-          color: var(--kenko-cobalt);
-        }
-
-        /* ─── Responsive ─── */
-        @media (max-width: 900px) {
-          .hm-stack-layout {
-            grid-template-columns: 1fr;
-          }
-          .hm-stack-left {
-            position: static;
-            padding-right: 0;
-            padding-bottom: var(--space-xl);
-          }
-          .hm-stack-right {
-            padding-left: 0;
-            padding-top: 0;
-          }
-          .hm-feature-nav { border-left: none; flex-direction: row; flex-wrap: wrap; gap: var(--space-2xs); }
-          .hm-feature-nav-item::before { display: none; }
-          .hm-feature-nav-item { border-radius: 999px; padding: var(--space-2xs) var(--space-sm); }
-          .hm-feature-nav-item.is-active { border: 1px solid oklch(0.48 0.18 246 / 0.30); }
-          .hm-stack-cta { align-items: flex-start; }
-        }
-        @media (max-width: 640px) {
-          .hm-stack-layout { padding-inline: var(--space-md); }
-          .hm-stack-cta { padding-inline: var(--space-md); }
-          .hm-panel-tags { gap: var(--space-3xs); }
+        /* Step label */
+        .hm-card-step {
+          font-family: var(--font-outlier);
+          font-size: 0.7rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--color-ink-3);
+          margin-bottom: 0.25rem;
         }
       `}</style>
 
-      <section
-        id="features"
-        ref={sectionRef}
-        className="hm-feature-stack"
-        aria-labelledby="feature-stack-heading"
-        style={{ minHeight: `${stackFeatures.length * 60}vh` }}
-      >
-        <div className="hm-stack-layout">
-          {/* ── Left pane (sticky) ── */}
-          <div className="hm-stack-left">
-            <p className="hm-stack-section-label" aria-hidden="true">Plataforma Kenkomed</p>
-            <h2 id="feature-stack-heading" className="hm-stack-heading">
-              Todo lo que necesita tu clínica
-            </h2>
-            <p className="hm-stack-intro">
-              Cada módulo diseñado para el flujo de trabajo real de un kinesiólogo.
-              Sin funciones de más, sin curva de aprendizaje.
+      <section id="features" className="hm-bento-section">
+        <div className="hm-bento-container">
+          <header className="hm-bento-header">
+            <span className="hm-bento-label">Tu día, paso a paso</span>
+            <h2 className="hm-bento-heading">De la admisión al alta</h2>
+            <p className="hm-bento-intro">
+              El único software que acompaña cada etapa clínica de tu paciente: evaluación, seguimiento y resultados, eliminando por completo el papel y las planillas.
             </p>
+          </header>
 
-            <nav className="hm-feature-nav" aria-label="Módulos de Kenkomed">
-              {stackFeatures.map((feat, i) => {
-                const Icon = feat.icon
-                return (
-                  <button
-                    key={feat.number}
-                    ref={el => { itemRefs.current[i] = el }}
-                    className={`hm-feature-nav-item ${activeIndex === i ? 'is-active' : ''}`}
-                    onClick={() => setActiveIndex(i)}
-                    aria-pressed={activeIndex === i}
-                    aria-label={`Ver módulo ${feat.number}: ${feat.label}`}
-                    type="button"
-                  >
-                    <span className="hm-feature-number" aria-hidden="true">{feat.number} ·</span>
-                    <Icon size={15} aria-hidden="true" style={{ color: activeIndex === i ? 'var(--color-accent)' : 'var(--color-ink-3)', flexShrink: 0 }} />
-                    <span className="hm-feature-nav-label">{feat.label}</span>
-                  </button>
-                )
-              })}
-            </nav>
+          <div className="hm-bento-grid">
+            {stackFeatures.map((feat) => {
+              const Icon = feat.icon;
+              return (
+                <article key={feat.number} className="hm-bento-card">
+                  <div className="hm-bento-content">
+                    <div className="hm-card-icon" style={{ color: `var(${feat.accentToken})` }}>
+                      <Icon size={20} aria-hidden="true" />
+                    </div>
+                    <div>
+                      <p className="hm-card-step">{feat.label}</p>
+                      <h3 className="hm-card-title">{feat.title}</h3>
+                    </div>
+                    <p className="hm-card-desc">{feat.desc}</p>
+                    {feat.tags.length > 0 && (
+                      <div className="hm-card-tags">
+                        {feat.tags.slice(0, 3).map(tag => (
+                          <span key={tag} className="hm-card-tag">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="hm-bento-image-wrapper">
+                    <Image
+                      src={feat.imageSrc}
+                      alt={feat.imageAlt}
+                      fill
+                      className="hm-mockup-img"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                </article>
+              );
+            })}
           </div>
-
-          {/* ── Right pane (scroll-synced) ── */}
-          <div className="hm-stack-right">
-            {stackFeatures.map((feat, i) => (
-              <div
-                key={feat.number}
-                id={`feature-panel-${feat.number}`}
-                className="hm-feature-panel"
-                aria-label={`Módulo ${feat.number}: ${feat.title}`}
-              >
-                <div className="hm-panel-header">
-                  <span className="hm-panel-number" aria-hidden="true">{feat.number} ·</span>
-                  <h3 className="hm-panel-title">{feat.title}</h3>
-                </div>
-
-                <p className="hm-panel-desc">{feat.desc}</p>
-
-                <div className="hm-panel-tags" role="list" aria-label="Características">
-                  {feat.tags.map(tag => (
-                    <span key={tag} className="hm-panel-tag" role="listitem">
-                      <span className="hm-panel-tag-dot" aria-hidden="true" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* E1 CSS-art mockup — figure + hairline border, no fake chrome */}
-                <FeatureMockup feature={feat} isActive={activeIndex === i} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ─── Section rule divider (gate 9) ─── */}
-        <div className="hm-section-rule" aria-hidden="true" />
-
-        {/* ─── Bottom CTA ─── */}
-        <div className="hm-stack-cta">
-          <p className="hm-stack-section-label" aria-hidden="true">¿Listo para empezar?</p>
-          <h2 className="hm-stack-cta-heading">
-            Solicita una demo gratuita.<br />Te mostramos todo en 30 minutos.
-          </h2>
-          <div style={{ display: 'flex', gap: 'var(--space-lg)', flexWrap: 'wrap', alignItems: 'center' }}>
-            <a href="#contact" className="hm-stack-cta-link">
-              Solicitar Demo
-              <ArrowRight size={14} aria-hidden="true" />
-            </a>
-            <Link
-              href="/funcionalidades"
-              className="hm-stack-cta-link"
-              style={{ color: 'var(--color-ink-2)', borderColor: 'oklch(0.12 0.02 246 / 0.20)' }}
-            >
-              Ver funcionalidades completas
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
+          
+          {/* ─── Bottom CTA ─── */}
+          <div className="hm-bento-cta" style={{ marginTop: 'var(--space-5xl)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span className="hm-bento-label">¿Listo para empezar?</span>
+            <h2 className="hm-bento-heading" style={{ marginBottom: 'var(--space-xl)', maxWidth: '20ch' }}>
+              Solicita una demo gratuita. Te mostramos todo en 30 minutos.
+            </h2>
+            <div style={{ display: 'flex', gap: 'var(--space-lg)', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
+              <a href="#contact" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2xs)',
+                fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontWeight: 600,
+                color: 'var(--color-accent)', textDecoration: 'none',
+                borderBottom: '1px solid oklch(0.48 0.18 246 / 0.30)', paddingBottom: '1px'
+              }}>
+                Solicitar Demo
+                <ArrowRight size={14} aria-hidden="true" />
+              </a>
+              <Link href="/funcionalidades" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2xs)',
+                fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontWeight: 600,
+                color: 'var(--color-ink-2)', textDecoration: 'none',
+                borderBottom: '1px solid oklch(0.12 0.02 246 / 0.20)', paddingBottom: '1px'
+              }}>
+                Ver funcionalidades completas
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

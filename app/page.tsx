@@ -10,6 +10,11 @@ const SolucionTeaser = dynamic(
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
 )
 
+const BeforeAfter = dynamic(
+  () => import('@/components/before-after').then((m) => m.BeforeAfter),
+  { loading: () => <SectionSkeleton className="h-[32rem]" /> }
+)
+
 const ProductShowcase = dynamic(
   () => import('@/components/features').then((m) => m.ProductShowcase),
   { loading: () => <SectionSkeleton className="h-[40rem]" /> }
@@ -45,6 +50,7 @@ export default function Home() {
     <main>
       <JsonLd data={faqSchema(homeFaqItems)} />
       <Hero />
+      <BeforeAfter />
       <SolucionTeaser />
       <ProductShowcase />
       <HomeMidCta />

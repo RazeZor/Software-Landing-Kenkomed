@@ -21,6 +21,7 @@ const plans = [
     features: [
       'Hasta 100 pacientes activos',
       'Agenda con calendario personal',
+      '20 Admisiones QR al mes',
       'Fichas clínicas SOAP digitales',
       'Sesiones kinésicas con evolución',
       '13 escalas clínicas validadas',
@@ -28,8 +29,7 @@ const plans = [
       'Notificaciones automáticas por email',
       'Soporte por email (48h)',
     ],
-    cta: 'Solicitar Demo',
-    ctaStyle: 'secondary' as const,
+    cta: 'Agendar llamada',
   },
   {
     slug: 'clinico-pro',
@@ -46,15 +46,15 @@ const plans = [
       'Agenda avanzada (Presencial · Domicilio · Telemedicina)',
       'Admisión QR — anamnesis remota 14 págs.',
       'Ciclos clínicos con alta y diagnóstico final',
-      'Recetas médicas digitales con email automático',
+      'Evoluciones sin límite',
+      'Prescripción de ejercicios con envío automático',
       'Reportes clínicos con análisis DSS',
-      'Auditoría clínica (Ley 21.719)',
+      'Trazabilidad clínica (Ley 21.719)',
       'Exportación ARCO (JSON / HTML)',
       'Logo personalizado en correos e informes',
       'Soporte prioritario (24h)',
     ],
-    cta: 'Solicitar Demo',
-    ctaStyle: 'primary' as const,
+    cta: 'Agendar demo 30 min',
   },
   {
     slug: 'clinica',
@@ -727,7 +727,9 @@ Plan: Clínica (${priceText})
                       >
                         <option value="Admisión QR y Ficha Digital DSS">Admisión QR y Ficha Digital DSS</option>
                         <option value="Escalas Validadas (EVA, PSFS, Barthel)">Escalas Validadas (EVA, PSFS, Barthel)</option>
-                        <option value="Recetas médicas y Reportes PDF">Recetas médicas y Reportes PDF</option>
+                        <option value="Trazabilidad y Auditoría de Accesos">Trazabilidad y Auditoría de Accesos</option>
+                        <option value="Prescripción de ejercicios y Reportes PDF">Prescripción de ejercicios y Reportes PDF</option>
+                        <option value="Agenda para múltiples profesionales">Agenda para múltiples profesionales</option>
                         <option value="Agenda y Telemedicina">Agenda y Telemedicina</option>
                         <option value="Todo el software completo">Todo el software completo</option>
                       </select>
@@ -913,7 +915,7 @@ Plan: Clínica (${priceText})
                   onChange={handleChange}
                   placeholder={
                     isIndividual
-                      ? 'Ej. Deseo probar el módulo de recetas y admisión QR en mi consulta...'
+                      ? 'Ej. Deseo probar la prescripción de ejercicios y admisión QR en mi consulta...'
                       : isClinicoPro
                       ? 'Ej. Queremos revisar cómo funciona la firma digital y las escalas...'
                       : 'Ej. Necesitamos cotizar para 6 profesionales y 2 sedes...'
@@ -1000,17 +1002,17 @@ export function Pricing() {
           {/* Header */}
           <div className={`max-w-xl mx-auto text-center mb-14 scroll-reveal ${revealed ? 'is-visible' : ''}`}>
             <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
-              Precios
+              Hecho por y para kinesiología
             </span>
             <h2
               id="pricing-heading"
               className="font-display font-bold text-4xl md:text-5xl text-foreground mb-5 text-balance"
             >
-              Planes transparentes,{' '}
+              Precio transparente,{' '}
               <span className="text-gradient">sin sorpresas.</span>
             </h2>
             <p className="text-foreground-muted leading-relaxed mb-8">
-              3 días gratis en cualquier plan. Sin tarjeta de crédito. Cancela cuando quieras.
+              Sin cobros extra por módulos ni límites ocultos. Demo guiada sin costo en cualquier plan.
             </p>
 
             {/* Toggle 3 Opciones (Mensual / 6 Meses / Anual) */}
@@ -1199,13 +1201,13 @@ export function Pricing() {
           {/* IVA notice + Guarantee */}
           <div className="mt-14 text-center space-y-2">
             <p className="text-sm text-foreground-muted">
-              Todos los precios son neto + IVA (19%). Incluyen soporte en español y{' '}
-              <strong className="text-foreground">garantía de devolución de 30 días.</strong>
+              Todos los precios son neto + IVA (19%). Sabemos que cambiar de software es una decisión importante, por eso te ofrecemos{' '}
+              <strong className="text-foreground">3 días de prueba gratuita</strong> y una demo en video guiada paso a paso.
             </p>
-            <p className="text-xs text-foreground-subtle">
-              ¿Necesitas un plan personalizado?{' '}
-              <a href="#contact" className="text-brand hover:underline font-medium">
-                Contáctanos
+            <p className="text-sm text-foreground-muted">
+              ¿Tienes dudas sobre los planes?{' '}
+              <a href="#contact" className="text-brand font-medium hover:underline">
+                Escríbenos y te asesoramos
               </a>
             </p>
           </div>

@@ -5,53 +5,26 @@ import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const testimonials = [
   {
-    quote:
-      'Kenkomed transformó completamente mi consulta. Lo que antes me tomaba 2 horas de papeleo, ahora lo hago en 20 minutos. Mis pacientes también aman poder reservar online.',
-    name: 'Kinesiólogo Renato Espinoza',
-    role: 'Clínica Vitale, Santiago',
-    initials: 'RE',
+    quote: 'Kenkomed ordenó mi clínica. La admisión QR ahorra 15 minutos por paciente y la ficha es 100% kinesiológica.',
+    name: 'Andrés Soto',
+    role: 'Kinesiólogo, Clínica Deportiva',
+    initials: 'F',
     rating: 5,
   },
   {
-    quote:
-      'Por fin un software que entiende cómo trabaja un kinesiólogo. Las fichas SOAP, la agenda, los cobros — todo en un lugar. El soporte es increíble, responden en minutos.',
-    name: 'Kinesióloga Mónica Fuentes',
-    role: 'Rehabilitación Integral, Viña del Mar',
-    initials: 'MF',
+    quote: 'El panel DSS y las alertas de banderas rojas son increíbles. Da mucha tranquilidad tener un soporte clínico basado en evidencia.',
+    name: 'María Paz Silva',
+    role: 'Kinesióloga Integrativa',
+    initials: 'F',
     rating: 5,
   },
   {
-    quote:
-      'Probé 4 softwares distintos antes de Kenkomed. Ninguno pensó en el kinesiólogo. Éste sí. La app móvil es un plus increíble para cuando atiendo a domicilio.',
-    name: 'Kinesiólogo Andrés Valdés',
-    role: 'Fisio en Movimiento, Concepción',
-    initials: 'AV',
+    quote: 'Pasamos de un caos de papeles a tener toda la evolución en gráficos. Los pacientes valoran mucho ver su progreso.',
+    name: 'Roberto Gómez',
+    role: 'Centro de Rehabilitación Física',
+    initials: 'F',
     rating: 5,
-  },
-  {
-    quote:
-      'La reducción en inasistencias es real. Con los recordatorios automáticos bajamos de un 25% a menos del 8%. Eso se traduce directamente en más ingresos.',
-    name: 'Kinesióloga Camila Ortega',
-    role: 'Centro KineSalud, Temuco',
-    initials: 'CO',
-    rating: 5,
-  },
-  {
-    quote:
-      'La implementación fue rapidísima. En una tarde ya tenía todo configurado y mis pacientes importados. No necesité ningún tutorial — la interfaz es muy intuitiva.',
-    name: 'Kinesiólogo Felipe Torres',
-    role: 'Torres Rehabilitación, La Serena',
-    initials: 'FT',
-    rating: 5,
-  },
-  {
-    quote:
-      'Los reportes de ingresos y asistencia me permiten tomar decisiones reales sobre mi clínica. Por primera vez tengo claridad financiera total de mi negocio.',
-    name: 'Kinesióloga Isabel Lagos',
-    role: 'Clínica FisioActiva, Puerto Montt',
-    initials: 'IL',
-    rating: 5,
-  },
+  }
 ]
 
 export function Testimonials() {
