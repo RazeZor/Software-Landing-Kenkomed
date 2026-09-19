@@ -4,7 +4,7 @@ import { useReveal } from '@/hooks/use-scroll-animation'
 import { ArrowRight, Clock, FileX, Smartphone } from 'lucide-react'
 
 export function BeforeAfter() {
-    const section = useReveal()
+    const section = useReveal<HTMLDivElement>()
 
     return (
         <section className="py-24 bg-surface border-y border-border/60">
