@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Check, Zap, X, Send, User, Mail, Phone, Building2, Users, ChevronRight, Stethoscope, Clock, MessageSquare, ShieldCheck, Sparkles, Activity, FileText, Brain } from 'lucide-react'
+import { Check, Zap, X, Send, User, Mail, Phone, Building2, Users, ChevronRight, Stethoscope, Clock, MessageSquare, ShieldCheck, Sparkles, Activity, FileText, Brain, CreditCard, Receipt, Layers, Wallet } from 'lucide-react'
 
 /* ── Plan data (Opción B aprobada) ─────────────────────────────── */
 
@@ -43,6 +43,8 @@ const plans = [
     users: '1 kine + 1 asistente',
     features: [
       'Pacientes ilimitados',
+      'Módulo de Pagos y Caja (Registro de cobros, saldos y recibos)',
+      'Gestión de Packs de Sesiones (Bolsillo Fonasa/Particular)',
       'Agenda avanzada (Presencial · Domicilio · Telemedicina)',
       'Admisión QR — anamnesis remota 14 págs.',
       'Ciclos clínicos con alta y diagnóstico final',
@@ -69,6 +71,8 @@ const plans = [
     extraKinePrice: 12990,
     features: [
       'Todo lo de Clínico Pro',
+      'Módulo de Pagos y Caja Centralizado (Multi-kine y auditoría)',
+      'Gestión de Packs de Sesiones Multi-Kinesiólogo',
       'Multi-sede con migración de pacientes',
       'Roles avanzados: Admin · Miembro · Secretaria',
       'Calendario del centro (todo el equipo)',
@@ -1053,6 +1057,80 @@ export function Pricing() {
                   2 meses gratis
                 </span>
               </button>
+            </div>
+          </div>
+
+          {/* Explanatory banner for Pagos & Packs */}
+          <div className={`mb-12 max-w-5xl mx-auto rounded-3xl bg-surface/90 border border-brand/20 p-6 md:p-8 shadow-xl shadow-brand/5 backdrop-blur-sm scroll-reveal ${revealed ? 'is-visible' : ''}`}>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-border/60">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center text-brand shrink-0">
+                  <CreditCard className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-brand bg-brand/10 px-2.5 py-0.5 rounded-full mb-0.5">
+                    Módulos Financieros Exclusivos
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-foreground">
+                    ¿Cómo funcionan los Pagos y los Packs de Sesiones?
+                  </h3>
+                </div>
+              </div>
+              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald/10 border border-emerald/20 text-emerald shrink-0">
+                Solo en Clínico Pro y Clínica
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              {/* Card 1: Pagos */}
+              <div className="p-5 rounded-2xl bg-card border border-border/70 space-y-3">
+                <div className="flex items-center gap-2 text-brand font-bold text-sm">
+                  <Receipt className="w-4 h-4" />
+                  <span>1. Módulo de Pagos y Caja</span>
+                </div>
+                <p className="text-xs text-foreground-muted leading-relaxed">
+                  Gestiona la tesorería de tu consulta o centro sin planillas separadas. Registra abonos, cuotas pendientes, emite comprobantes de pago en PDF y monitorea la recaudación diaria o mensual.
+                </p>
+                <ul className="space-y-1.5 text-xs text-foreground-subtle pt-1">
+                  <li className="flex items-center gap-2">
+                    <Check size={12} className="text-emerald shrink-0" />
+                    <span>Control de deudas y saldos pendientes por paciente</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check size={12} className="text-emerald shrink-0" />
+                    <span>Comprobantes de pago digitales descargables</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check size={12} className="text-emerald shrink-0" />
+                    <span>Arqueo de caja y reportes de cobros por profesional</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Card 2: Packs */}
+              <div className="p-5 rounded-2xl bg-card border border-border/70 space-y-3">
+                <div className="flex items-center gap-2 text-brand font-bold text-sm">
+                  <Layers className="w-4 h-4" />
+                  <span>2. Módulo de Packs de Sesiones</span>
+                </div>
+                <p className="text-xs text-foreground-muted leading-relaxed">
+                  Vende paquetes globales (ej: 10 sesiones) a precio libre Fonasa ($80.000) o Particular ($120.000). El paciente obtiene un <strong>&quot;bolsillo de sesiones prepagadas&quot;</strong> que la secretaria o kine descuenta en 1 clic al asistir.
+                </p>
+                <ul className="space-y-1.5 text-xs text-foreground-subtle pt-1">
+                  <li className="flex items-center gap-2">
+                    <Check size={12} className="text-emerald shrink-0" />
+                    <span>Precio total libre (sin tarifas unitarias rígidas)</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check size={12} className="text-emerald shrink-0" />
+                    <span>Descuento automático de saldo de sesiones en cada cita</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check size={12} className="text-emerald shrink-0" />
+                    <span>Trazabilidad de consumo y alertas de saldo por agotar</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 

@@ -26,6 +26,8 @@ import {
     Mail,
     FileOutput,
     Scale,
+    Wallet,
+    Building2,
 } from 'lucide-react'
 
 function useReveal() {
@@ -282,6 +284,35 @@ const clinicianGroups = [
             'Admin del centro: Gestión del equipo y agenda completa',
             'Miembro: Acceso solo a sus pacientes asignados',
             'Secretaria / Recepción: Gestión de agenda sin acceso clínico',
+        ],
+    },
+    {
+        icon: Wallet,
+        color: 'bg-green-50 text-green-600',
+        accent: 'border-green-200',
+        title: 'Finanzas y Pagos',
+        count: 5,
+        badge: 'Nuevo',
+        features: [
+            'Venta y gestión de Packs de Atención',
+            'Cruce automático de deuda clínica vs pagos',
+            'Dashboard financiero y control de ingresos por mes',
+            'Soporte dual para pacientes Isapre/Particular y Fonasa',
+            'Listado en tiempo real de pacientes morosos',
+        ],
+    },
+    {
+        icon: Building2,
+        color: 'bg-indigo-50 text-indigo-600',
+        accent: 'border-indigo-200',
+        title: 'Gestión Multi-Centro',
+        count: 4,
+        badge: 'Escalable',
+        features: [
+            'Creación y configuración de múltiples clínicas',
+            'Panel "Mi Centro" interactivo y directorio del equipo',
+            'Separación estricta de pacientes por centro de trabajo',
+            'Módulos de administración exclusivos para secretarias',
         ],
     },
 ]

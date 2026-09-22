@@ -18,6 +18,7 @@ import {
   BarChart3,
   ArrowRight,
   CheckCircle2,
+  Wallet,
 } from 'lucide-react'
 
 /* ── Feature data — real product content, no invented metrics ── */
@@ -87,6 +88,17 @@ const stackFeatures = [
     imageSrc: '/software/Diagnostico_final.png',
     imageAlt: 'Reporte clínico de alta exportado',
     accentToken: '--color-accent-2',
+  },
+  {
+    number: '07',
+    label: 'Pagos y Finanzas',
+    title: 'Packs y Deudas',
+    desc: 'Vende packs de atención y el sistema cruza la deuda automáticamente. Control total de morosos y flujos de caja del centro.',
+    tags: ['Packs de atención', 'Cruce automático'],
+    icon: Wallet,
+    imageSrc: '/software/pagos_foto.png',
+    imageAlt: 'Gestión de pagos y Packs de atención en Kenkomed',
+    accentToken: '--color-accent',
   },
 ]
 

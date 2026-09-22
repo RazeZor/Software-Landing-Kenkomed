@@ -445,12 +445,12 @@ export function Hero() {
             </p>
 
             <div className="hm-hero-actions">
-              <Link href="/demo" className="hm-btn-primary">
-                Ver video de demostración
+              <Link href="/#contact" className="hm-btn-primary">
+                Solicitar software
                 <ArrowRight size={15} aria-hidden="true" />
               </Link>
-              <Link href="/demo?modo=invitado" className="hm-btn-ghost">
-                Probar demo sin registrarse
+              <Link href="/#pricing" className="hm-btn-ghost">
+                Ver precios
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>

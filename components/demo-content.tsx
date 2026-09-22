@@ -48,6 +48,7 @@ const galleryImages = [
     { src: '/software/Panel.jpg', alt: 'Panel de control del sistema clínico Kenkomed', caption: 'Panel Principal' },
     { src: '/software/DSS.png', alt: 'Sistema de apoyo a la decisión clínica DSS Kenkomed', caption: 'DSS Clínico' },
     { src: '/software/FichaClinica.jpg', alt: 'Ficha clínica digital del paciente en Kenkomed', caption: 'Ficha Clínica' },
+    { src: '/software/pagos_foto.png', alt: 'Gestión de pagos y packs de atención en Kenkomed', caption: 'Pagos y Packs' },
     { src: '/software/graficos_nuevo.png', alt: 'Gráficos y visualización de datos clínicos en Kenkomed', caption: 'Estadísticas' },
     { src: '/software/EVA.jpg', alt: 'Cuestionario EVA - Escala Visual Analógica en Kenkomed', caption: 'Cuestionario EVA' },
     { src: '/software/Bartel.jpg', alt: 'Cuestionario Barthel de independencia funcional en Kenkomed', caption: 'Barthel' },
