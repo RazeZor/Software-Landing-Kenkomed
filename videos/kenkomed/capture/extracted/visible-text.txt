@@ -1,0 +1,1 @@
+Kenkomed es un software clínico con Sistema de Soporte a la Decisión Clínica (DSS). Incluye módulos de Ficha Clínica, Agenda, Cuestionarios y Escalas (EVA, Barthel, PSFS), además de una aplicación móvil.
