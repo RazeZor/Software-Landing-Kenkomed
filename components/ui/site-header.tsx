@@ -15,7 +15,18 @@ import {
 } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { useScrollProgress } from '@/hooks/use-scroll-animation'
-import { ChevronDown, ArrowRight, Brain, QrCode, FileText, BarChart3, ShieldCheck, Sparkles, Users } from 'lucide-react'
+import {
+  RiArrowDownSLine as ChevronDown,
+  RiArrowRightLine as ArrowRight,
+  RiBrainLine as Brain,
+  RiQrCodeLine as QrCode,
+  RiFileTextLine as FileText,
+  RiBarChartBoxLine as BarChart3,
+  RiShieldCheckLine as ShieldCheck,
+  RiSparklingLine as Sparkles,
+  RiTeamLine as Users
+} from 'react-icons/ri'
+import { DropdownNavigation, NavItem } from '@/components/ui/dropdown-navigation'
 
 /* ── Nav Links Configuration ──────────────────────────────────── */
 
@@ -74,6 +85,66 @@ const recursosSubMenu = [
   { title: 'Términos de uso', href: '/terminos' },
 ]
 
+const NAV_ITEMS: NavItem[] = [
+  {
+    id: 1,
+    label: "Solución",
+    subMenus: [
+      {
+        items: solucionSubMenu.map(item => ({
+          label: item.title,
+          description: item.desc,
+          icon: item.icon,
+          href: item.href,
+        }))
+      }
+    ]
+  },
+  {
+    id: 2,
+    label: "Funcionalidades",
+    subMenus: [
+      {
+        items: [
+          ...funcionesSubMenu.map(item => ({
+            label: item.title,
+            description: item.desc,
+            icon: item.icon,
+            href: item.href,
+          })),
+          {
+            label: "Ver todas las funcionalidades",
+            icon: ArrowRight,
+            href: "/funcionalidades",
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    label: "Precios",
+    link: "/#pricing"
+  },
+  {
+    id: 4,
+    label: "Nosotros",
+    link: "/nosotros"
+  },
+  {
+    id: 5,
+    label: "Recursos",
+    subMenus: [
+      {
+        items: recursosSubMenu.map(item => ({
+          label: item.title,
+          href: item.href,
+        }))
+      }
+    ]
+  }
+]
+
 /* ── Scroll hook ──────────────────────────────────────────────── */
 
 function useScrolled(threshold = 15) {
@@ -118,41 +189,7 @@ export function SiteHeader() {
       />
 
       <style>{`
-        /* Simple, bulletproof CSS hover dropdowns — zero radix glitches, zero black boxes */
-        .hm-nav-group {
-          position: relative;
-        }
-
-        .hm-dropdown-menu {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          padding-top: 0.5rem;
-          opacity: 0;
-          visibility: hidden;
-          pointer-events: none;
-          transform: translateY(6px);
-          transition-property: opacity, transform, visibility;
-          transition-duration: 180ms;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-          z-index: 100;
-        }
-
-        .hm-nav-group:hover .hm-dropdown-menu,
-        .hm-nav-group:focus-within .hm-dropdown-menu {
-          opacity: 1;
-          visibility: visible;
-          pointer-events: auto;
-          transform: translateY(0);
-        }
-
-        .hm-dropdown-panel {
-          background: var(--card);
-          border: var(--hairline);
-          border-radius: var(--radius-xl);
-          box-shadow: 0 10px 30px -5px oklch(0.12 0.02 246 / 0.12), 0 0 0 1px oklch(0.12 0.02 246 / 0.04);
-          padding: 0.75rem;
-        }
+        /* ── Removing hm-nav-group old styles since we use framer-motion now ── */
       `}</style>
 
       <header
@@ -192,131 +229,9 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          {/* Desktop Navigation — Clean, Fast, Bulletproof Dropdowns */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Navegación principal">
-
-            {/* Solución Dropdown */}
-            <div className="hm-nav-group">
-              <button
-                type="button"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
-              >
-                Solución
-                <ChevronDown size={14} className="text-foreground-muted" />
-              </button>
-              <div className="hm-dropdown-menu w-72">
-                <div className="hm-dropdown-panel flex flex-col gap-1">
-                  {solucionSubMenu.map((item) => {
-                    const Icon = item.icon
-                    return (
-                      <Link
-                        key={item.title}
-                        href={item.href}
-                        className="group flex items-start gap-3 p-2.5 rounded-lg hover:bg-foreground/5 transition-colors"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-colors">
-                          <Icon size={16} />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
-                            {item.title}
-                          </div>
-                          <div className="text-xs text-foreground-muted leading-tight mt-0.5">
-                            {item.desc}
-                          </div>
-                        </div>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Funcionalidades Dropdown */}
-            <div className="hm-nav-group">
-              <button
-                type="button"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
-              >
-                Funcionalidades
-                <ChevronDown size={14} className="text-foreground-muted" />
-              </button>
-              <div className="hm-dropdown-menu w-80">
-                <div className="hm-dropdown-panel flex flex-col gap-1">
-                  {funcionesSubMenu.map((item) => {
-                    const Icon = item.icon
-                    return (
-                      <Link
-                        key={item.title}
-                        href={item.href}
-                        className="group flex items-start gap-3 p-2.5 rounded-lg hover:bg-foreground/5 transition-colors"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0 group-hover:bg-brand group-hover:text-white transition-colors">
-                          <Icon size={16} />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
-                            {item.title}
-                          </div>
-                          <div className="text-xs text-foreground-muted leading-tight mt-0.5">
-                            {item.desc}
-                          </div>
-                        </div>
-                      </Link>
-                    )
-                  })}
-                  <div className="pt-1 mt-1 border-t border-border/60">
-                    <Link
-                      href="/funcionalidades"
-                      className="flex items-center justify-between p-2 rounded-lg text-xs font-semibold text-brand hover:bg-brand/10 transition-colors"
-                    >
-                      Ver todas las funcionalidades
-                      <ArrowRight size={13} />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Precios Link */}
-            <Link
-              href="/#pricing"
-              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
-            >
-              Precios
-            </Link>
-
-            {/* Nosotros Link */}
-            <Link
-              href="/nosotros"
-              className="px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors"
-            >
-              Nosotros
-            </Link>
-
-            {/* Recursos & Legal Dropdown */}
-            <div className="hm-nav-group">
-              <button
-                type="button"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
-              >
-                Recursos
-                <ChevronDown size={14} className="text-foreground-muted" />
-              </button>
-              <div className="hm-dropdown-menu w-56">
-                <div className="hm-dropdown-panel flex flex-col gap-0.5">
-                  {recursosSubMenu.map((item) => (
-                    <Link
-                      key={item.title}
-                      href={item.href}
-                      className="px-3 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-brand hover:bg-foreground/5 transition-colors"
-                    >
-                      {item.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center" aria-label="Navegación principal">
+            <DropdownNavigation navItems={NAV_ITEMS} />
           </nav>
 
           {/* Desktop CTAs */}

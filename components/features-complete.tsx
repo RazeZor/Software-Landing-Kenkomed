@@ -390,7 +390,7 @@ function GroupCard({
 
     return (
         <div
-            className={`rounded-2xl border ${group.accent} bg-card overflow-hidden transition-all duration-300 hover:shadow-md scroll-reveal stagger-${(index % 6) + 1} ${visible ? 'is-visible' : ''}`}
+            className={`rounded-2xl border ${group.accent} bg-card overflow-hidden transition-all duration-300 scroll-reveal stagger-${(index % 6) + 1} ${visible ? 'is-visible' : ''}`}
         >
             <button
                 onClick={() => setOpen(!open)}
@@ -463,7 +463,7 @@ export function FeaturesComplete() {
                         className="font-display font-bold text-4xl md:text-5xl text-foreground mb-5 text-balance"
                     >
                         Todo lo que{' '}
-                        <span className="text-gradient">Kenkomed hace por ti.</span>
+                        <span className="text-brand">Kenkomed hace por ti.</span>
                     </h2>
                     <p className="text-lg text-foreground-muted leading-relaxed">
                         Un sistema completo construido para la realidad del kinesiólogo chileno.

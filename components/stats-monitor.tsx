@@ -139,7 +139,7 @@ export function StatsMonitor() {
                         className="font-display font-bold text-4xl md:text-5xl text-foreground mb-5 text-balance"
                     >
                         Tu clínica, en{' '}
-                        <span className="text-gradient">tiempo real.</span>
+                        <span className="text-brand">tiempo real.</span>
                     </h2>
                     <p className="text-lg text-foreground-muted leading-relaxed">
                         Kenkomed te da visibilidad total de lo que ocurre en tu centro —
@@ -153,7 +153,7 @@ export function StatsMonitor() {
                         const Icon = kpi.icon
                         return (
                             <div key={i}
-                                className={`group p-6 rounded-2xl bg-card border ${kpi.border} hover:shadow-lg transition-all duration-300 scroll-reveal stagger-${i + 1} ${kpiSection.visible ? 'is-visible' : ''}`}>
+                                className={`group p-6 rounded-2xl bg-card border ${kpi.border} transition-all duration-300 scroll-reveal stagger-${i + 1} ${kpiSection.visible ? 'is-visible' : ''}`}>
                                 <div className="flex items-start justify-between mb-4">
                                     <div className={`w-10 h-10 rounded-xl ${kpi.color} flex items-center justify-center`}>
                                         <Icon size={18} />
@@ -177,7 +177,7 @@ export function StatsMonitor() {
                 <div ref={chartSection.ref} className={`grid grid-cols-1 lg:grid-cols-3 gap-6 scroll-reveal ${chartSection.visible ? 'is-visible' : ''}`}>
 
                     {/* Bar chart — sesiones por día */}
-                    <div className="lg:col-span-2 bg-card border border-border/60 rounded-3xl p-8 shadow-sm">
+                    <div className="lg:col-span-2 bg-card border border-border/60 rounded-3xl p-8">
                         <div className="flex items-center justify-between mb-8">
                             <div>
                                 <p className="font-semibold text-foreground text-sm">Tendencia de Sesiones</p>
@@ -230,7 +230,7 @@ export function StatsMonitor() {
                     {/* Sidebar — quick stats */}
                     <div className="flex flex-col gap-4">
                         {/* Próximas citas list */}
-                        <div className="bg-card border border-border/60 rounded-2xl p-6 shadow-sm flex-1">
+                        <div className="bg-card border border-border/60 rounded-2xl p-6 flex-1">
                             <div className="flex items-center gap-2 mb-4">
                                 <CalendarCheck size={16} className="text-brand" />
                                 <p className="font-semibold text-foreground text-sm">Próximas Citas</p>
@@ -257,7 +257,7 @@ export function StatsMonitor() {
                         </div>
 
                         {/* Estado cuestionarios */}
-                        <div className="bg-card border border-border/60 rounded-2xl p-6 shadow-sm">
+                        <div className="bg-card border border-border/60 rounded-2xl p-6">
                             <div className="flex items-center gap-2 mb-4">
                                 <Activity size={16} className="text-brand" />
                                 <p className="font-semibold text-foreground text-sm">Estado de Evaluaciones</p>

@@ -11,15 +11,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  Brain,
-  QrCode,
-  CalendarCheck,
-  FileText,
-  BarChart3,
-  ArrowRight,
-  CheckCircle2,
-  Wallet,
-} from 'lucide-react'
+  RiBrainLine as Brain,
+  RiQrCodeLine as QrCode,
+  RiCalendarCheckLine as CalendarCheck,
+  RiFileTextLine as FileText,
+  RiBarChartBoxLine as BarChart3,
+  RiArrowRightLine as ArrowRight,
+  RiCheckboxCircleLine as CheckCircle2,
+  RiWallet3Line as Wallet,
+} from 'react-icons/ri'
+import { FeatureSteps } from '@/components/ui/feature-section'
 
 /* ── Feature data — real product content, no invented metrics ── */
 const stackFeatures = [
@@ -176,15 +177,14 @@ export function SolucionTeaser() {
           background: var(--color-paper);
           border-radius: var(--radius-xl);
           border: var(--hairline);
-          box-shadow: 0 1px 3px oklch(0.12 0.02 246 / 0.03), 0 8px 32px oklch(0.12 0.02 246 / 0.05);
           overflow: hidden;
           display: flex;
           flex-direction: column;
-          transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+          transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
         }
         .hm-bento-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 4px 12px oklch(0.12 0.02 246 / 0.06), 0 16px 48px oklch(0.12 0.02 246 / 0.08);
+          border-color: var(--color-accent);
         }
 
         /* Content Wrapper */
@@ -275,54 +275,21 @@ export function SolucionTeaser() {
         }
       `}</style>
 
-      <section id="features" className="hm-bento-section">
-        <div className="hm-bento-container">
-          <header className="hm-bento-header">
-            <span className="hm-bento-label">Tu día, paso a paso</span>
-            <h2 className="hm-bento-heading">De la admisión al alta</h2>
-            <p className="hm-bento-intro">
-              El único software que acompaña cada etapa clínica de tu paciente: evaluación, seguimiento y resultados, eliminando por completo el papel y las planillas.
-            </p>
-          </header>
-
-          <div className="hm-bento-grid">
-            {stackFeatures.map((feat) => {
-              const Icon = feat.icon;
-              return (
-                <article key={feat.number} className="hm-bento-card">
-                  <div className="hm-bento-content">
-                    <div className="hm-card-icon" style={{ color: `var(${feat.accentToken})` }}>
-                      <Icon size={20} aria-hidden="true" />
-                    </div>
-                    <div>
-                      <p className="hm-card-step">{feat.label}</p>
-                      <h3 className="hm-card-title">{feat.title}</h3>
-                    </div>
-                    <p className="hm-card-desc">{feat.desc}</p>
-                    {feat.tags.length > 0 && (
-                      <div className="hm-card-tags">
-                        {feat.tags.slice(0, 3).map(tag => (
-                          <span key={tag} className="hm-card-tag">{tag}</span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="hm-bento-image-wrapper">
-                    <Image
-                      src={feat.imageSrc}
-                      alt={feat.imageAlt}
-                      fill
-                      className="hm-mockup-img"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-          
-          {/* ─── Bottom CTA ─── */}
+      <section id="features">
+        <FeatureSteps
+          label="Tu día, paso a paso"
+          title="De la admisión al alta"
+          description="Cada paso del tratamiento kinésico — admisión, evaluación, evolución, alta — en una sola plataforma. Sin papel, sin planillas, sin duplicar datos."
+          features={stackFeatures.map(feat => ({
+            step: feat.label,
+            title: feat.title,
+            content: feat.desc,
+            image: feat.imageSrc
+          }))}
+          autoPlayInterval={5000}
+        />
+            
+        {/* ─── Bottom CTA ─── */}
           <div className="hm-bento-cta" style={{ marginTop: 'var(--space-5xl)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <span className="hm-bento-label">¿Listo para empezar?</span>
             <h2 className="hm-bento-heading" style={{ marginBottom: 'var(--space-xl)', maxWidth: '20ch' }}>
@@ -349,7 +316,6 @@ export function SolucionTeaser() {
               </Link>
             </div>
           </div>
-        </div>
       </section>
     </>
   )

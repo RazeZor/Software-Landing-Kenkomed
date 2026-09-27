@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { MessageCircle, X } from 'lucide-react'
+import { RiWhatsappLine as MessageCircle, RiCloseLine as X } from 'react-icons/ri'
 
 export function FloatingWhatsApp() {
   const [isVisible, setIsVisible] = useState(false)

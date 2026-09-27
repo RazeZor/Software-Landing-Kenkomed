@@ -8,7 +8,7 @@
  */
 
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { RiArrowRightLine as ArrowRight } from 'react-icons/ri'
 import { useReveal } from '@/hooks/use-scroll-animation'
 
 import { SITE_CONSTANTS } from '@/lib/site-constants'

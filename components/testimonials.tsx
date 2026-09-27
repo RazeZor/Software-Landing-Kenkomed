@@ -1,30 +1,34 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+  RiStarFill as Star,
+  RiArrowLeftSLine as ChevronLeft,
+  RiArrowRightSLine as ChevronRight
+} from 'react-icons/ri'
 
 const testimonials = [
   {
     quote: 'Kenkomed ordenó mi clínica. La admisión QR ahorra 15 minutos por paciente y la ficha es 100% kinesiológica.',
     name: 'Andrés Soto',
-    role: 'Kinesiólogo, Clínica Deportiva',
-    initials: 'F',
+    role: 'Kinesiólogo · Clínica Deportiva, Santiago',
+    initials: 'AS',
     rating: 5,
   },
   {
     quote: 'El panel DSS y las alertas de banderas rojas son increíbles. Da mucha tranquilidad tener un soporte clínico basado en evidencia.',
     name: 'María Paz Silva',
-    role: 'Kinesióloga Integrativa',
-    initials: 'F',
+    role: 'Kinesióloga Integrativa, Concepción',
+    initials: 'MS',
     rating: 5,
   },
   {
     quote: 'Pasamos de un caos de papeles a tener toda la evolución en gráficos. Los pacientes valoran mucho ver su progreso.',
     name: 'Roberto Gómez',
-    role: 'Centro de Rehabilitación Física',
-    initials: 'F',
+    role: 'Director · Centro de Rehabilitación Física, Valparaíso',
+    initials: 'RG',
     rating: 5,
-  }
+  },
 ]
 
 export function Testimonials() {

@@ -1,7 +1,39 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Check, Zap, X, Send, User, Mail, Phone, Building2, Users, ChevronRight, Stethoscope, Clock, MessageSquare, ShieldCheck, Sparkles, Activity, FileText, Brain, CreditCard, Receipt, Layers, Wallet } from 'lucide-react'
+import { motion } from 'framer-motion'
+import confetti from 'canvas-confetti'
+import NumberFlow from '@number-flow/react'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { cn } from '@/lib/utils'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import {
+  RiCheckLine as Check,
+  RiFlashlightLine as Zap,
+  RiCloseLine as X,
+  RiSendPlaneLine as Send,
+  RiUserLine as User,
+  RiMailLine as Mail,
+  RiPhoneLine as Phone,
+  RiBuilding4Line as Building2,
+  RiTeamLine as Users,
+  RiArrowRightSLine as ChevronRight,
+  RiStethoscopeLine as Stethoscope,
+  RiTimeLine as Clock,
+  RiChat1Line as MessageSquare,
+  RiShieldCheckLine as ShieldCheck,
+  RiSparklingLine as Sparkles,
+  RiPulseLine as Activity,
+  RiFileTextLine as FileText,
+  RiBrainLine as Brain,
+  RiBankCardLine as CreditCard,
+  RiReceiptLine as Receipt,
+  RiStackLine as Layers,
+  RiWallet3Line as Wallet
+} from 'react-icons/ri'
 
 /* ── Plan data (Opción B aprobada) ─────────────────────────────── */
 
@@ -38,7 +70,7 @@ const plans = [
     semiAnnualPrice: 26990,
     annualPrice: 23990,
     description: 'Para kinesiólogos que quieren más potencia o trabajan con un asistente.',
-    badge: 'Más popular',
+    badge: 'Lo que eligen los kines',
     highlighted: true,
     users: '1 kine + 1 asistente',
     features: [
@@ -65,7 +97,7 @@ const plans = [
     semiAnnualPrice: 62990,
     annualPrice: 55990,
     description: 'Para centros con 3 a 4 kinesiólogos. Todo incluido.',
-    badge: 'Máximo poder',
+    badge: 'Para centros multi-kine',
     highlighted: false,
     users: '3–4 kinesiólogos + staff',
     extraKinePrice: 12990,
@@ -225,7 +257,7 @@ function LeadModal({
 ==================================================
 
 👤 DATOS DEL PROFESIONAL:
-- Nombre Completo: ${form.name}
+- Nombre completo: ${form.name}
 - Email Acceso: ${form.email}
 - Teléfono / WhatsApp: ${form.phone}
 
@@ -251,7 +283,7 @@ Plan: Individual (${priceText})
 ==================================================
 
 👤 DATOS DE CONTACTO:
-- Nombre Completo: ${form.name}
+- Nombre completo: ${form.name}
 - Email Profesional: ${form.email}
 - Teléfono / WhatsApp: ${form.phone}
 - Clínica / Consulta: ${form.clinic || 'Consulta Particular'}
@@ -281,7 +313,7 @@ Plan: Clínico Pro (${priceText})
 - Nombre y Apellidos: ${form.name}
 - Cargo / Rol: ${form.role}
 - Email Corporativo: ${form.email}
-- Teléfono Directo: ${form.phone}
+- Número de teléfono: ${form.phone}
 
 🏥 DATOS INSTITUCIONALES DEL CENTRO:
 - Nombre de la Clínica / Red: ${form.clinic}
@@ -453,7 +485,13 @@ Plan: Clínica (${priceText})
             </div>
           ) : (
             /* ── Formulario Diferenciado según Slug ── */
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <motion.form 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              onSubmit={handleSubmit} 
+              className="space-y-6"
+            >
               
               {/* MODAL 1: PLAN INDIVIDUAL */}
               {isIndividual && (
@@ -464,11 +502,11 @@ Plan: Clínica (${priceText})
                       Datos del Kinesiólogo
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="lead-name" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                      <Label htmlFor="lead-name" className="text-sm font-medium text-foreground">
                         <User size={13} className="text-emerald" />
                         Nombre y Apellidos <span className="text-destructive">*</span>
-                      </label>
-                      <input
+                      </Label>
+                      <Input
                         type="text"
                         id="lead-name"
                         name="name"
@@ -481,11 +519,11 @@ Plan: Clínica (${priceText})
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-email" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                        <Label htmlFor="lead-email" className="text-sm font-medium text-foreground">
                           <Mail size={13} className="text-emerald" />
                           Email (para recibir tus accesos) <span className="text-destructive">*</span>
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="email"
                           id="lead-email"
                           name="email"
@@ -497,11 +535,11 @@ Plan: Clínica (${priceText})
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-phone" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                        <Label htmlFor="lead-phone" className="text-sm font-medium text-foreground">
                           <Phone size={13} className="text-emerald" />
                           WhatsApp de contacto <span className="text-destructive">*</span>
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="tel"
                           id="lead-phone"
                           name="phone"
@@ -522,10 +560,10 @@ Plan: Clínica (${priceText})
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-specialty" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                        <Label htmlFor="lead-specialty" className="text-sm font-medium text-foreground">
                           <Stethoscope size={13} className="text-emerald" />
                           Especialidad Principal
-                        </label>
+                        </Label>
                         <select
                           id="lead-specialty"
                           name="specialty"
@@ -542,10 +580,10 @@ Plan: Clínica (${priceText})
                         </select>
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-modality" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                        <Label htmlFor="lead-modality" className="text-sm font-medium text-foreground">
                           <Activity size={13} className="text-emerald" />
                           Modalidad de Atención
-                        </label>
+                        </Label>
                         <select
                           id="lead-modality"
                           name="modality"
@@ -561,10 +599,10 @@ Plan: Clínica (${priceText})
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-currentSystem" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                        <Label htmlFor="lead-currentSystem" className="text-sm font-medium text-foreground">
                           <FileText size={13} className="text-emerald" />
                           ¿Cómo gestionas tus fichas hoy?
-                        </label>
+                        </Label>
                         <select
                           id="lead-currentSystem"
                           name="currentSystem"
@@ -579,10 +617,10 @@ Plan: Clínica (${priceText})
                         </select>
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-startTimeline" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                        <Label htmlFor="lead-startTimeline" className="text-sm font-medium text-foreground">
                           <Clock size={13} className="text-emerald" />
                           ¿Cuándo deseas comenzar?
-                        </label>
+                        </Label>
                         <select
                           id="lead-startTimeline"
                           name="startTimeline"
@@ -609,11 +647,10 @@ Plan: Clínica (${priceText})
                       Información de Contacto & Consulta
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="lead-name" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                        <User size={13} className="text-brand" />
+                      <Label htmlFor="lead-name" className="text-sm font-medium text-foreground">
                         Nombre y Apellidos <span className="text-destructive">*</span>
-                      </label>
-                      <input
+                      </Label>
+                      <Input
                         type="text"
                         id="lead-name"
                         name="name"
@@ -621,16 +658,15 @@ Plan: Clínica (${priceText})
                         value={form.name}
                         onChange={handleChange}
                         placeholder="Ej. Dr. Andrés Soto"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                        className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-email" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Mail size={13} className="text-brand" />
+                        <Label htmlFor="lead-email" className="text-sm font-medium text-foreground">
                           Email Profesional <span className="text-destructive">*</span>
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="email"
                           id="lead-email"
                           name="email"
@@ -638,15 +674,14 @@ Plan: Clínica (${priceText})
                           value={form.email}
                           onChange={handleChange}
                           placeholder="contacto@kinepro.cl"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-phone" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Phone size={13} className="text-brand" />
+                        <Label htmlFor="lead-phone" className="text-sm font-medium text-foreground">
                           Teléfono / WhatsApp <span className="text-destructive">*</span>
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="tel"
                           id="lead-phone"
                           name="phone"
@@ -654,23 +689,22 @@ Plan: Clínica (${priceText})
                           value={form.phone}
                           onChange={handleChange}
                           placeholder="+56 9 8765 4321"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                       </div>
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="lead-clinic" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                        <Building2 size={13} className="text-brand" />
+                      <Label htmlFor="lead-clinic" className="text-sm font-medium text-foreground">
                         Nombre de la Consulta o Centro
-                      </label>
-                      <input
+                      </Label>
+                      <Input
                         type="text"
                         id="lead-clinic"
                         name="clinic"
                         value={form.clinic}
                         onChange={handleChange}
                         placeholder="Ej. Centro de Kinesiología y Rehabilitación Soto"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                        className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       />
                     </div>
                   </div>
@@ -682,16 +716,15 @@ Plan: Clínica (${priceText})
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-demoPlatform" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Sparkles size={13} className="text-brand" />
+                        <Label htmlFor="lead-demoPlatform" className="text-sm font-medium text-foreground">
                           Plataforma de Videollamada
-                        </label>
+                        </Label>
                         <select
                           id="lead-demoPlatform"
                           name="demoPlatform"
                           value={form.demoPlatform}
                           onChange={handleChange}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <option value="Google Meet">Google Meet</option>
                           <option value="Zoom">Zoom</option>
@@ -700,16 +733,15 @@ Plan: Clínica (${priceText})
                         </select>
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-preferredSchedule" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Clock size={13} className="text-brand" />
+                        <Label htmlFor="lead-preferredSchedule" className="text-sm font-medium text-foreground">
                           Horario Preferido
-                        </label>
+                        </Label>
                         <select
                           id="lead-preferredSchedule"
                           name="preferredSchedule"
                           value={form.preferredSchedule}
                           onChange={handleChange}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <option value="Mañana (9:00 - 12:00)">Mañana (9:00 - 12:00)</option>
                           <option value="Tarde (14:00 - 18:00)">Tarde (14:00 - 18:00)</option>
@@ -718,16 +750,15 @@ Plan: Clínica (${priceText})
                       </div>
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="lead-demoFocus" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                        <Brain size={13} className="text-brand" />
+                      <Label htmlFor="lead-demoFocus" className="text-sm font-medium text-foreground">
                         ¿Qué te interesa profundizar en la demo?
-                      </label>
+                      </Label>
                       <select
                         id="lead-demoFocus"
                         name="demoFocus"
                         value={form.demoFocus}
                         onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                        className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         <option value="Admisión QR y Ficha Digital DSS">Admisión QR y Ficha Digital DSS</option>
                         <option value="Escalas Validadas (EVA, PSFS, Barthel)">Escalas Validadas (EVA, PSFS, Barthel)</option>
@@ -752,11 +783,10 @@ Plan: Clínica (${priceText})
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-name" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <User size={13} className="text-brand" />
-                          Nombre Completo <span className="text-destructive">*</span>
-                        </label>
-                        <input
+                        <Label htmlFor="lead-name" className="text-sm font-medium text-foreground">
+                          Nombre completo <span className="text-destructive">*</span>
+                        </Label>
+                        <Input
                           type="text"
                           id="lead-name"
                           name="name"
@@ -764,32 +794,30 @@ Plan: Clínica (${priceText})
                           value={form.name}
                           onChange={handleChange}
                           placeholder="Ej. Dra. Valeria Fuentes"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-role" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Building2 size={13} className="text-brand" />
+                        <Label htmlFor="lead-role" className="text-sm font-medium text-foreground">
                           Cargo o Rol en el Centro
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="text"
                           id="lead-role"
                           name="role"
                           value={form.role}
                           onChange={handleChange}
                           placeholder="Ej. Directora Clínica / Dueña"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-email" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Mail size={13} className="text-brand" />
+                        <Label htmlFor="lead-email" className="text-sm font-medium text-foreground">
                           Email Corporativo <span className="text-destructive">*</span>
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="email"
                           id="lead-email"
                           name="email"
@@ -797,15 +825,14 @@ Plan: Clínica (${priceText})
                           value={form.email}
                           onChange={handleChange}
                           placeholder="direccion@clinica.cl"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-phone" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Phone size={13} className="text-brand" />
-                          Teléfono Directo <span className="text-destructive">*</span>
-                        </label>
-                        <input
+                        <Label htmlFor="lead-phone" className="text-sm font-medium text-foreground">
+                          Número de teléfono <span className="text-destructive">*</span>
+                        </Label>
+                        <Input
                           type="tel"
                           id="lead-phone"
                           name="phone"
@@ -813,7 +840,7 @@ Plan: Clínica (${priceText})
                           value={form.phone}
                           onChange={handleChange}
                           placeholder="+56 9 8765 4321"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                       </div>
                     </div>
@@ -825,11 +852,10 @@ Plan: Clínica (${priceText})
                       Estructura Institucional del Centro
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="lead-clinic" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                        <Building2 size={13} className="text-brand" />
+                      <Label htmlFor="lead-clinic" className="text-sm font-medium text-foreground">
                         Nombre de la Clínica o Red de Centros <span className="text-destructive">*</span>
-                      </label>
-                      <input
+                      </Label>
+                      <Input
                         type="text"
                         id="lead-clinic"
                         name="clinic"
@@ -837,21 +863,20 @@ Plan: Clínica (${priceText})
                         value={form.clinic}
                         onChange={handleChange}
                         placeholder="Ej. Red de Clínicas Kinesiología Biobío"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                        className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-kines" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Users size={13} className="text-brand" />
+                        <Label htmlFor="lead-kines" className="text-sm font-medium text-foreground">
                           Cantidad de Kinesiólogos
-                        </label>
+                        </Label>
                         <select
                           id="lead-kines"
                           name="kines"
                           value={form.kines}
                           onChange={handleChange}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <option value="3-4">3 a 4 profesionales</option>
                           <option value="5-8">5 a 8 profesionales</option>
@@ -860,16 +885,15 @@ Plan: Clínica (${priceText})
                         </select>
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="lead-branches" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <Building2 size={13} className="text-brand" />
+                        <Label htmlFor="lead-branches" className="text-sm font-medium text-foreground">
                           Número de Sedes
-                        </label>
+                        </Label>
                         <select
                           id="lead-branches"
                           name="branches"
                           value={form.branches}
                           onChange={handleChange}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border/80 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                          className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <option value="1 sede">1 sede</option>
                           <option value="2 a 3 sedes">2 a 3 sedes</option>
@@ -879,9 +903,9 @@ Plan: Clínica (${priceText})
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold text-foreground block">
+                      <Label className="text-xs font-semibold text-foreground block">
                         Requerimientos Especiales (Selecciona los que apliquen):
-                      </label>
+                      </Label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         {[
                           'Branding y Logo personalizado en reportes',
@@ -889,15 +913,15 @@ Plan: Clínica (${priceText})
                           'Capacitación inicial para todo el equipo',
                           'Acuerdo de confidencialidad / DPA corporativo',
                         ].map((item) => (
-                          <label key={item} className="flex items-center gap-2 p-2 rounded-lg bg-background border border-border/60 hover:bg-surface cursor-pointer transition-colors">
-                            <input
+                          <Label key={item} className="flex items-center gap-2 p-2 rounded-lg bg-background border border-border/60 hover:bg-surface cursor-pointer transition-colors">
+                            <Input
                               type="checkbox"
                               checked={form.enterpriseNeeds.includes(item)}
                               onChange={() => handleCheckboxChange(item)}
                               className="rounded border-border text-brand focus:ring-brand"
                             />
                             <span className="text-foreground-muted">{item}</span>
-                          </label>
+                          </Label>
                         ))}
                       </div>
                     </div>
@@ -907,11 +931,10 @@ Plan: Clínica (${priceText})
 
               {/* Comentarios / Observaciones en común */}
               <div className="space-y-1.5">
-                <label htmlFor="lead-comments" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                  <MessageSquare size={13} className="text-brand" />
+                <Label htmlFor="lead-comments" className="text-sm font-medium text-foreground">
                   Observaciones o Consultas Específicas <span className="text-foreground-subtle font-normal">(Opcional)</span>
-                </label>
-                <textarea
+                </Label>
+                <Textarea
                   id="lead-comments"
                   name="comments"
                   rows={2}
@@ -961,7 +984,7 @@ Plan: Clínica (${priceText})
                   <span>Información resguardada bajo la Ley N° 19.628 de Protección de Datos Personales en Chile.</span>
                 </div>
               </div>
-            </form>
+            </motion.form>
           )}
         </div>
       </div>
@@ -973,310 +996,200 @@ Plan: Clínica (${priceText})
 
 
 export function Pricing() {
-  const [billingCycle, setBillingCycle] = useState<BillingCycle>('annual')
-  const sectionRef = useRef<HTMLElement>(null)
-  const [revealed, setRevealed] = useState(false)
+  const [isMonthly, setIsMonthly] = useState(false) // Default to annual as before
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const switchRef = useRef<HTMLButtonElement>(null)
   const [modalPlan, setModalPlan] = useState<(typeof plans)[number] | null>(null)
 
   const closeModal = useCallback(() => setModalPlan(null), [])
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const handleToggle = (checked: boolean) => {
+    setIsMonthly(!checked)
+    if (checked && switchRef.current) {
+      const rect = switchRef.current.getBoundingClientRect()
+      const x = rect.left + rect.width / 2
+      const y = rect.top + rect.height / 2
+
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: {
+          x: x / window.innerWidth,
+          y: y / window.innerHeight,
+        },
+        colors: [
+          "hsl(var(--primary))",
+          "hsl(var(--accent))",
+          "hsl(var(--secondary))",
+          "hsl(var(--muted))",
+        ],
+        ticks: 200,
+        gravity: 1.2,
+        decay: 0.94,
+        startVelocity: 30,
+        shapes: ["circle"],
+      })
+    }
+  }
+
+  const billingCycle: BillingCycle = isMonthly ? 'monthly' : 'annual'
 
   return (
     <>
       <section
         id="pricing"
-        ref={sectionRef}
-        className="py-28 md:py-36 bg-background"
+        className="py-28 md:py-36 bg-background overflow-hidden perspective-[2000px]"
         aria-labelledby="pricing-heading"
       >
         <div className="max-w-7xl mx-auto px-6">
-          {/* Header */}
-          <div className={`max-w-xl mx-auto text-center mb-14 scroll-reveal ${revealed ? 'is-visible' : ''}`}>
-            <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.5 }}
+            className="text-center space-y-4 mb-12"
+          >
+            <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-2">
               Hecho por y para kinesiología
             </span>
-            <h2
-              id="pricing-heading"
-              className="font-display font-bold text-4xl md:text-5xl text-foreground mb-5 text-balance"
-            >
-              Precio transparente,{' '}
-              <span className="text-gradient">sin sorpresas.</span>
+            <h2 id="pricing-heading" className="text-4xl font-bold tracking-tight sm:text-5xl font-display text-balance">
+              Tus costos, claros <span className="text-brand">desde el día uno.</span>
             </h2>
-            <p className="text-foreground-muted leading-relaxed mb-8">
-              Sin cobros extra por módulos ni límites ocultos. Demo guiada sin costo en cualquier plan.
+            <p className="text-muted-foreground text-lg whitespace-pre-line">
+              Sin cobros extra por módulos ni límites ocultos.
+              Demo guiada sin costo en cualquier plan.
             </p>
+          </motion.div>
 
-            {/* Toggle 3 Opciones (Mensual / 6 Meses / Anual) */}
-            <div className="inline-flex items-center gap-1 sm:gap-1.5 p-1.5 bg-surface border border-border rounded-full shadow-inner max-w-full overflow-x-auto">
-              <button
-                onClick={() => setBillingCycle('monthly')}
-                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer whitespace-nowrap ${
-                  billingCycle === 'monthly'
-                    ? 'bg-card text-foreground shadow-sm font-semibold'
-                    : 'text-foreground-muted hover:text-foreground'
-                }`}
-              >
-                Mensual
-              </button>
-              <button
-                onClick={() => setBillingCycle('semi-annual')}
-                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
-                  billingCycle === 'semi-annual'
-                    ? 'bg-card text-foreground shadow-sm font-semibold'
-                    : 'text-foreground-muted hover:text-foreground'
-                }`}
-              >
-                6 Meses
-                <span className="text-[10px] sm:text-xs bg-brand/10 text-brand border border-brand/20 px-2 py-0.5 rounded-full font-bold">
-                  -10%
-                </span>
-              </button>
-              <button
-                onClick={() => setBillingCycle('annual')}
-                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
-                  billingCycle === 'annual'
-                    ? 'bg-card text-foreground shadow-sm font-semibold'
-                    : 'text-foreground-muted hover:text-foreground'
-                }`}
-              >
-                Anual
-                <span className="text-[10px] sm:text-xs bg-emerald text-primary-foreground px-2 py-0.5 rounded-full font-bold">
-                  2 meses gratis
-                </span>
-              </button>
-            </div>
+          <div className="flex justify-center mb-10">
+            <Label className="relative inline-flex items-center cursor-pointer">
+              <Label>
+                <Switch
+                  ref={switchRef as any}
+                  checked={!isMonthly}
+                  onCheckedChange={handleToggle}
+                  className="relative data-[state=checked]:bg-brand"
+                />
+              </Label>
+            </Label>
+            <span className="ml-2 font-semibold text-foreground text-sm sm:text-base">
+              Facturación Anual <span className="text-emerald">(Ahorra hasta 20%)</span>
+            </span>
           </div>
 
-          {/* Explanatory banner for Pagos & Packs */}
-          <div className={`mb-12 max-w-5xl mx-auto rounded-3xl bg-surface/90 border border-brand/20 p-6 md:p-8 shadow-xl shadow-brand/5 backdrop-blur-sm scroll-reveal ${revealed ? 'is-visible' : ''}`}>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-border/60">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center text-brand shrink-0">
-                  <CreditCard className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-brand bg-brand/10 px-2.5 py-0.5 rounded-full mb-0.5">
-                    Módulos Financieros Exclusivos
-                  </div>
-                  <h3 className="font-display font-bold text-xl text-foreground">
-                    ¿Cómo funcionan los Pagos y los Packs de Sesiones?
-                  </h3>
-                </div>
-              </div>
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald/10 border border-emerald/20 text-emerald shrink-0">
-                Solo en Clínico Pro y Clínica
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              {/* Card 1: Pagos */}
-              <div className="p-5 rounded-2xl bg-card border border-border/70 space-y-3">
-                <div className="flex items-center gap-2 text-brand font-bold text-sm">
-                  <Receipt className="w-4 h-4" />
-                  <span>1. Módulo de Pagos y Caja</span>
-                </div>
-                <p className="text-xs text-foreground-muted leading-relaxed">
-                  Gestiona la tesorería de tu consulta o centro sin planillas separadas. Registra abonos, cuotas pendientes, emite comprobantes de pago en PDF y monitorea la recaudación diaria o mensual.
-                </p>
-                <ul className="space-y-1.5 text-xs text-foreground-subtle pt-1">
-                  <li className="flex items-center gap-2">
-                    <Check size={12} className="text-emerald shrink-0" />
-                    <span>Control de deudas y saldos pendientes por paciente</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={12} className="text-emerald shrink-0" />
-                    <span>Comprobantes de pago digitales descargables</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={12} className="text-emerald shrink-0" />
-                    <span>Arqueo de caja y reportes de cobros por profesional</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Card 2: Packs */}
-              <div className="p-5 rounded-2xl bg-card border border-border/70 space-y-3">
-                <div className="flex items-center gap-2 text-brand font-bold text-sm">
-                  <Layers className="w-4 h-4" />
-                  <span>2. Módulo de Packs de Sesiones</span>
-                </div>
-                <p className="text-xs text-foreground-muted leading-relaxed">
-                  Vende paquetes globales (ej: 10 sesiones) a precio libre Fonasa ($80.000) o Particular ($120.000). El paciente obtiene un <strong>&quot;bolsillo de sesiones prepagadas&quot;</strong> que la secretaria o kine descuenta en 1 clic al asistir.
-                </p>
-                <ul className="space-y-1.5 text-xs text-foreground-subtle pt-1">
-                  <li className="flex items-center gap-2">
-                    <Check size={12} className="text-emerald shrink-0" />
-                    <span>Precio total libre (sin tarifas unitarias rígidas)</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={12} className="text-emerald shrink-0" />
-                    <span>Descuento automático de saldo de sesiones en cada cita</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={12} className="text-emerald shrink-0" />
-                    <span>Trazabilidad de consumo y alertas de saldo por agotar</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Plans grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-            {plans.map((plan, i) => (
-              <div
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-4 max-w-6xl mx-auto">
+            {plans.map((plan, index) => (
+              <motion.div
                 key={plan.slug}
-                className={`relative flex flex-col rounded-2xl border p-8 transition-all duration-500 scroll-reveal-scale stagger-${i + 1} ${revealed ? 'is-visible' : ''
-                  } ${plan.highlighted
-                    ? 'bg-brand border-brand shadow-2xl shadow-brand/20 scale-[1.02]'
-                    : 'bg-card border-border/60 hover:border-teal-200 hover:shadow-lg hover:shadow-teal-500/5'
-                  }`}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={
+                  isDesktop
+                    ? {
+                        y: plan.highlighted ? -20 : 0,
+                        opacity: 1,
+                        x: index === 2 ? -30 : index === 0 ? 30 : 0,
+                        scale: index === 0 || index === 2 ? 0.94 : 1.0,
+                      }
+                    : { y: 0, opacity: 1 }
+                }
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 1.6,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 30,
+                  delay: 0.2 + (index * 0.1),
+                  opacity: { duration: 0.5 },
+                }}
+                className={cn(
+                  `rounded-3xl border p-6 sm:p-8 bg-card text-center lg:flex lg:flex-col lg:justify-center relative shadow-lg`,
+                  plan.highlighted ? "border-brand border-2 shadow-brand/10 shadow-2xl" : "border-border/60",
+                  "flex flex-col",
+                  !plan.highlighted && "mt-5",
+                  (index === 0 || index === 2) && isDesktop
+                    ? "z-0 transform translate-x-0 translate-y-0 rotate-y-[10deg]" // Fallback for 3d if needed
+                    : "z-10",
+                  index === 0 && isDesktop && "origin-right",
+                  index === 2 && isDesktop && "origin-left"
+                )}
+                style={isDesktop && index === 0 ? { transform: 'perspective(1000px) rotateY(5deg)' } : isDesktop && index === 2 ? { transform: 'perspective(1000px) rotateY(-5deg)' } : {}}
               >
-                {/* Badge */}
                 {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-4 py-1.5 rounded-full border shadow-sm ${plan.highlighted
-                        ? 'bg-background text-brand border-teal-200'
-                        : 'bg-background text-foreground border-border'
-                      }`}>
-                      <Zap size={11} className={plan.highlighted ? 'fill-amber-400 text-amber-400' : 'fill-brand text-brand'} />
-                      {plan.badge}
-                    </span>
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand text-white text-[11px] uppercase tracking-widest font-bold py-1 px-3 rounded-full flex items-center shadow-md">
+                    <Zap className="h-3 w-3 fill-current mr-1" />
+                    {plan.badge}
                   </div>
                 )}
-
-                {/* Plan name & description */}
-                <div className="mb-6">
-                  <h3
-                    className={`font-display font-bold text-xl mb-1 ${plan.highlighted ? 'text-primary-foreground' : 'text-foreground'
-                      }`}
-                  >
+                <div className="flex-1 flex flex-col text-left">
+                  <p className="text-xl font-bold font-display text-foreground">
                     {plan.name}
-                  </h3>
-                  <p
-                    className={`text-xs font-medium mb-2 ${plan.highlighted ? 'text-primary-foreground/60' : 'text-foreground-subtle'
-                      }`}
-                  >
-                    {plan.users}
                   </p>
-                  <p
-                    className={`text-sm leading-relaxed ${plan.highlighted ? 'text-primary-foreground/70' : 'text-foreground-muted'
-                      }`}
+                  <p className="text-sm font-medium text-brand mt-1">{plan.users}</p>
+                  
+                  <div className="mt-6 flex items-end gap-x-2">
+                    <span className="text-4xl font-bold tracking-tight text-foreground flex items-center">
+                      $
+                      <NumberFlow
+                        value={isMonthly ? plan.monthlyPrice : plan.annualPrice}
+                        format={{
+                          style: "decimal",
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        }}
+                        transformTiming={{
+                          duration: 600,
+                          easing: "ease-out",
+                        }}
+                        willChange
+                        className="font-variant-numeric: tabular-nums"
+                      />
+                    </span>
+                    <span className="text-sm font-semibold leading-6 tracking-wide text-foreground-muted mb-1">
+                      / mes
+                    </span>
+                  </div>
+
+                  <p className="text-xs leading-5 text-foreground-subtle mt-1 mb-6">
+                    {isMonthly ? "Facturado mensualmente" : `Facturado anualmente ($${new Intl.NumberFormat('es-CL').format(plan.annualPrice * 12)})`}
+                  </p>
+
+                  <ul className="gap-3 flex flex-col flex-1">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <Check className="h-4 w-4 text-emerald mt-0.5 flex-shrink-0 stroke-[3]" />
+                        <span className="text-sm text-foreground-muted leading-snug">{feature}</span>
+                      </li>
+                    ))}
+                    {'extraKinePrice' in plan && plan.extraKinePrice && (
+                      <li className="flex items-start gap-3 mt-2 border-t border-border pt-3">
+                        <User className="h-4 w-4 text-brand mt-0.5 flex-shrink-0" />
+                        <span className="text-sm text-brand font-medium leading-snug">
+                          +${new Intl.NumberFormat('es-CL').format(plan.extraKinePrice)}/mes por kinesiólogo adicional
+                        </span>
+                      </li>
+                    )}
+                  </ul>
+
+                  <button
+                    onClick={() => setModalPlan(plan)}
+                    className={cn(
+                      "mt-8 group relative w-full flex items-center justify-center gap-2 overflow-hidden text-sm font-semibold tracking-wide py-3.5 rounded-full transition-all duration-300 ease-out hover:shadow-lg",
+                      plan.highlighted
+                        ? "bg-brand text-white hover:bg-brand-dark hover:shadow-brand/25"
+                        : "bg-surface border border-border/80 text-foreground hover:bg-foreground hover:text-background"
+                    )}
                   >
+                    {plan.cta}
+                    <ChevronRight size={16} className="opacity-70 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                  <p className="mt-4 text-xs text-foreground-muted text-center min-h-[40px]">
                     {plan.description}
                   </p>
                 </div>
-
-                {/* Price */}
-                <div className="mb-8">
-                  <div className="flex items-end gap-1.5">
-                    <span
-                      className={`font-display font-bold text-4xl ${plan.highlighted ? 'text-primary-foreground' : 'text-foreground'
-                        }`}
-                    >
-                      {formatPrice(
-                        billingCycle === 'annual'
-                          ? plan.annualPrice
-                          : billingCycle === 'semi-annual'
-                          ? plan.semiAnnualPrice
-                          : plan.monthlyPrice
-                      )}
-                    </span>
-                    <span
-                      className={`text-sm mb-1.5 ${plan.highlighted ? 'text-primary-foreground/70' : 'text-foreground-muted'
-                        }`}
-                    >
-                      /mes + IVA
-                    </span>
-                  </div>
-                  {billingCycle === 'annual' && (
-                    <p
-                      className={`text-xs mt-1 ${plan.highlighted ? 'text-primary-foreground/60' : 'text-foreground-subtle'
-                        }`}
-                    >
-                      Facturado anualmente · {formatPrice(plan.annualPrice * 12)} /año
-                    </p>
-                  )}
-                  {billingCycle === 'semi-annual' && (
-                    <p
-                      className={`text-xs mt-1 ${plan.highlighted ? 'text-primary-foreground/60' : 'text-foreground-subtle'
-                        }`}
-                    >
-                      Facturado semestralmente · {formatPrice(plan.semiAnnualPrice * 6)} cada 6 meses
-                    </p>
-                  )}
-                  {billingCycle === 'monthly' && (
-                    <p
-                      className={`text-xs mt-1 ${plan.highlighted ? 'text-primary-foreground/60' : 'text-foreground-subtle'
-                        }`}
-                    >
-                      Facturado mes a mes sin permanencia
-                    </p>
-                  )}
-                  {/* Extra kine pricing for Clínica */}
-                  {'extraKinePrice' in plan && plan.extraKinePrice && (
-                    <p
-                      className={`text-xs mt-2 font-medium ${plan.highlighted ? 'text-primary-foreground/70' : 'text-brand'
-                        }`}
-                    >
-                      +{formatPrice(plan.extraKinePrice)}/mes por kinesiólogo adicional
-                    </p>
-                  )}
-                </div>
-
-                {/* Features */}
-                <ul className="flex flex-col gap-3 mb-8 flex-1">
-                  {plan.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-2.5">
-                      <div
-                        className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${plan.highlighted ? 'bg-primary-foreground/20' : 'bg-teal-50'
-                          }`}
-                      >
-                        <Check
-                          size={10}
-                          className={plan.highlighted ? 'text-primary-foreground' : 'text-brand'}
-                          strokeWidth={3}
-                        />
-                      </div>
-                      <span
-                        className={`text-sm ${plan.highlighted ? 'text-primary-foreground/85' : 'text-foreground-muted'
-                          }`}
-                      >
-                        {feat}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <button
-                  onClick={() => setModalPlan(plan)}
-                  className={`w-full flex items-center justify-center gap-2 text-center py-3.5 rounded-full font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 cursor-pointer ${plan.highlighted
-                    ? 'bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-md'
-                    : 'bg-primary text-primary-foreground hover:bg-brand-dark shadow-sm hover:shadow-md hover:shadow-primary/20'
-                    }`}
-                >
-                  {plan.cta}
-                  <ChevronRight size={15} className="opacity-60" />
-                </button>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          {/* IVA notice + Guarantee */}
           <div className="mt-14 text-center space-y-2">
             <p className="text-sm text-foreground-muted">
               Todos los precios son neto + IVA (19%). Sabemos que cambiar de software es una decisión importante, por eso te ofrecemos{' '}

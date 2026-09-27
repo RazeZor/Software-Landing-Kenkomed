@@ -8,8 +8,8 @@
  */
 
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { useReveal } from '@/hooks/use-scroll-animation'
+import { RiArrowRightLine as ArrowRight } from 'react-icons/ri'
+import { motion } from 'framer-motion'
 
 const proof = [
   { text: 'Demo en 24 h' },
@@ -18,8 +18,6 @@ const proof = [
 ]
 
 export function HomeMidCta() {
-  const { ref, isVisible } = useReveal<HTMLDivElement>({ threshold: 0.2 })
-
   return (
     <>
       <style>{`
@@ -146,25 +144,6 @@ export function HomeMidCta() {
           }
         }
 
-        /* Reveal */
-        .hm-cta-strip-inner {
-          opacity: 0;
-          transform: translateY(16px);
-          transition-property: opacity, transform;
-          transition-duration: 400ms;
-          transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-        }
-        .hm-cta-strip-inner.is-visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .hm-cta-strip-inner {
-            opacity: 1;
-            transform: none;
-            transition: none;
-          }
-        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -181,13 +160,16 @@ export function HomeMidCta() {
         className="hm-cta-strip"
         aria-labelledby="mid-cta-heading"
       >
-        <div
-          ref={ref}
-          className={`hm-cta-strip-inner ${isVisible ? 'is-visible' : ''}`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.5 }}
+          className="hm-cta-strip-inner"
         >
           {/* Left: heading + sub + proof chips */}
           <div>
-            <p className="hm-cta-strip-label" aria-hidden="true">¿Te convenció?</p>
+            <p className="hm-cta-strip-label" aria-hidden="true">¿Quieres verlo funcionando?</p>
             <h2 id="mid-cta-heading" className="hm-cta-strip-heading">
               Agenda tu demo gratuita ahora.
             </h2>
@@ -209,7 +191,7 @@ export function HomeMidCta() {
               <ArrowRight size={15} aria-hidden="true" />
             </a>
           </div>
-        </div>
+        </motion.div>
       </section>
     </>
   )

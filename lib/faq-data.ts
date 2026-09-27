@@ -12,7 +12,7 @@ export const homeFaqItems: FaqItem[] = [
   {
     question: '¿En qué se diferencia Kenkomed de un software genérico de salud?',
     answer:
-      'A diferencia de un ERP o agenda médica genérica, Kenkomed está especializado en kinesiología: incluye anamnesis completa, admisión remota por QR, escalas clínicas validadas y un algoritmo DSS que recomienda evaluaciones según los síntomas del paciente, basado en guías NICE, IASP y OMS.',
+      'Kenkomed no es una agenda médica ni un ERP adaptado: es un DSS (Sistema de Soporte a la Decisión Clínica) construido desde cero para kinesiología. Incluye 13 escalas validadas integradas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS y screening de comorbilidades), admisión remota vía QR con anamnesis de 14 páginas, evolución en formato SOAP enlazada a objetivos funcionales, gráficos automáticos de resultados para demostrar la evolución al paciente y al médico derivador, y un módulo de Packs de Sesiones compatible con tarifas Fonasa y Particular. Además, cumple con la Ley 21.719 de protección de datos personales: trazabilidad de accesos, cifrado, exportación ARCO y auditoría PDF por período.',
   },
   {
     question: '¿Kenkomed cumple con la protección de datos de pacientes?',

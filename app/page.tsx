@@ -15,19 +15,14 @@ const BeforeAfter = dynamic(
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
 )
 
-const ProductShowcase = dynamic(
-  () => import('@/components/features').then((m) => m.ProductShowcase),
-  { loading: () => <SectionSkeleton className="h-[40rem]" /> }
+const Testimonials = dynamic(
+  () => import('@/components/ui/marquee-01').then((m) => m.default),
+  { loading: () => <SectionSkeleton className="h-[24rem]" /> }
 )
 
 const HomeMidCta = dynamic(
   () => import('@/components/home-mid-cta').then((m) => m.HomeMidCta),
   { loading: () => <SectionSkeleton className="h-48" /> }
-)
-
-const HomeExploreStrip = dynamic(
-  () => import('@/components/home-explore-strip').then((m) => m.HomeExploreStrip),
-  { loading: () => <SectionSkeleton className="h-80" /> }
 )
 
 const Pricing = dynamic(
@@ -52,9 +47,8 @@ export default function Home() {
       <Hero />
       <BeforeAfter />
       <SolucionTeaser />
-      <ProductShowcase />
+      <Testimonials />
       <HomeMidCta />
-      <HomeExploreStrip />
       <Pricing />
       <FaqSection />
       <ContactForm />

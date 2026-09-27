@@ -29,6 +29,11 @@
   --kenko-pulse:     oklch(0.80 0.17 163);   /* #00d98b latido néon */
   --kenko-forest:    oklch(0.45 0.17 163);   /* verde oscuro */
 
+  /* Ámbar cálido — calidez humana, rehabilitación, diferenciación */
+  --kenko-amber:     oklch(0.78 0.14 75);    /* #d4a030 acento cálido */
+  --kenko-amber-light: oklch(0.88 0.10 75);  /* #e8c870 badges y highlights */
+  --kenko-amber-dark:  oklch(0.62 0.14 55);  /* #b07820 urgencia suave */
+
   /* ── TOKENS PRIMARIOS (alias semánticos) ── */
   --brand:           var(--kenko-sapphire);
   --brand-light:     var(--kenko-sky);
@@ -38,6 +43,9 @@
   --emerald-light:   var(--kenko-pulse);
   --emerald-lighter: oklch(0.94 0.06 163);
   --emerald-dark:    var(--kenko-forest);
+  --amber:           var(--kenko-amber);
+  --amber-light:     var(--kenko-amber-light);
+  --amber-dark:      var(--kenko-amber-dark);
 
   /* ── SUPERFICIE Y FONDOS (modo claro) ── */
   --background:          oklch(0.99 0.002 246);
@@ -225,6 +233,18 @@
   --color-sidebar-accent-foreground:  var(--sidebar-accent-foreground);
   --color-sidebar-border:             var(--sidebar-border);
   --color-sidebar-ring:               var(--sidebar-ring);
+
+  --animate-marquee: marquee var(--duration) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap))); }
+  }
+  @keyframes marquee-vertical {
+    from { transform: translateY(0); }
+    to { transform: translateY(calc(-100% - var(--gap))); }
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -290,6 +310,11 @@
   .text-emerald-light  { color: var(--emerald-light); }
   .border-emerald      { border-color: var(--emerald); }
   .border-emerald-light{ border-color: var(--emerald-light); }
+  .text-amber          { color: var(--amber); }
+  .bg-amber            { background-color: var(--amber); }
+  .bg-amber-light      { background-color: var(--amber-light); }
+  .text-amber-dark     { color: var(--amber-dark); }
+  .border-amber        { border-color: var(--amber); }
 
   /* Blue scale utilities */
   .bg-blue-50  { background-color: var(--blue-50); }

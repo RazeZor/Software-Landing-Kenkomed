@@ -6,7 +6,14 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { motion } from 'framer-motion'
+import {
+  RiInstagramLine as Instagram,
+  RiLinkedinBoxLine as Linkedin,
+  RiMailLine as Mail,
+  RiPhoneLine as Phone,
+  RiMapPinLine as MapPin
+} from 'react-icons/ri'
 
 const navLinks = [
   { label: 'Funcionalidades', href: '/funcionalidades' },
@@ -189,7 +196,13 @@ export function Footer() {
       `}</style>
 
       <footer className="hm-footer" role="contentinfo">
-        <div className="hm-footer-inner">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.5 }}
+          className="hm-footer-inner"
+        >
           {/* Top Statement Block */}
           <div className="hm-footer-statement-block">
             <div>
@@ -256,7 +269,7 @@ export function Footer() {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </footer>
     </>
   )

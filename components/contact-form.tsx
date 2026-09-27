@@ -1,12 +1,22 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { Send, User, Mail, Phone, Building2, MessageSquare, CheckCircle2 } from 'lucide-react'
+import { useState } from 'react'
+import {
+  RiSendPlaneLine as Send,
+  RiUserLine as User,
+  RiMailLine as Mail,
+  RiPhoneLine as Phone,
+  RiBuilding4Line as Building2,
+  RiChat1Line as MessageSquare,
+  RiCheckboxCircleLine as CheckCircle2
+} from 'react-icons/ri'
+import { motion } from 'framer-motion'
 import { SectionEyebrow } from '@/components/brand-elements'
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 
 export function ContactForm() {
-    const sectionRef = useRef<HTMLElement>(null)
-    const [revealed, setRevealed] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -17,20 +27,6 @@ export function ContactForm() {
         clinic: '',
         message: '',
     })
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setRevealed(true)
-                    observer.disconnect()
-                }
-            },
-            { threshold: 0.1 }
-        )
-        if (sectionRef.current) observer.observe(sectionRef.current)
-        return () => observer.disconnect()
-    }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -107,123 +103,95 @@ Origen: Seccion Contacto General Landing
     return (
         <section
             id="contact"
-            ref={sectionRef}
-            className="py-28 md:py-36 kenko-band-mist overflow-hidden"
+            className="py-24 md:py-32 bg-background overflow-hidden"
             aria-labelledby="contact-heading"
         >
-            <div className="max-w-7xl mx-auto px-6">
-                {/* Header */}
-                <div
-                    className={`text-center max-w-2xl mx-auto mb-14 scroll-reveal ${revealed ? 'is-visible' : ''}`}
-                >
-                    <SectionEyebrow>Contacto</SectionEyebrow>
-                    <h2
-                        id="contact-heading"
-                        className="font-display font-bold text-4xl md:text-5xl text-foreground text-balance mb-4"
-                    >
-                        Solicita tu{' '}
-                        <span className="text-gradient">software.</span>
-                    </h2>
-                    <p className="text-foreground-muted text-lg leading-relaxed">
-                        Completa el formulario y nuestro equipo se pondrá en contacto contigo
-                        para mostrarte cómo Kenkomed puede transformar tu clínica.
-                    </p>
-                </div>
-
-                {/* Form Card */}
-                <div
-                    className={`max-w-2xl mx-auto scroll-reveal stagger-2 ${revealed ? 'is-visible' : ''}`}
-                >
-                    <div className="bg-card rounded-2xl border border-border/60 p-8 md:p-10 shadow-sm relative overflow-hidden">
-                        {/* Decorative gradient */}
-                        <div
-                            className="absolute top-0 right-0 w-64 h-64 opacity-[0.04] pointer-events-none"
-                            aria-hidden="true"
-                            style={{
-                                background:
-                                    'radial-gradient(circle at top right, oklch(0.48 0.18 246), transparent 70%)',
+            <div className="max-w-6xl mx-auto px-6">
+                {isSubmitted ? (
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                        <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mb-6">
+                            <CheckCircle2 size={32} className="text-emerald-500" />
+                        </div>
+                        <h3 className="font-display font-bold text-2xl text-foreground mb-3">
+                            ¡Mensaje enviado!
+                        </h3>
+                        <p className="text-muted-foreground max-w-md mb-8">
+                            Gracias por tu interés en Kenkomed. Nuestro equipo te contactará
+                            dentro de las próximas 24 horas hábiles.
+                        </p>
+                        <button
+                            onClick={() => {
+                                setIsSubmitted(false)
+                                setForm({ name: '', email: '', phone: '', clinic: '', message: '' })
                             }}
-                        />
-
-                        {isSubmitted ? (
-                            /* Success state */
-                            <div className="flex flex-col items-center justify-center py-12 text-center">
-                                <div className="w-16 h-16 rounded-full bg-emerald/10 flex items-center justify-center mb-6">
-                                    <CheckCircle2 size={32} className="text-emerald" />
-                                </div>
-                                <h3 className="font-display font-bold text-2xl text-foreground mb-3">
-                                    ¡Mensaje enviado!
-                                </h3>
-                                <p className="text-foreground-muted max-w-md mb-8">
-                                    Gracias por tu interés en Kenkomed. Nuestro equipo te contactará
-                                    dentro de las próximas 24 horas hábiles.
+                            className="text-sm font-medium text-brand hover:underline transition-all"
+                        >
+                            Enviar otro mensaje
+                        </button>
+                    </div>
+                ) : (
+                    <motion.form 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-10%" }}
+                        transition={{ duration: 0.5 }}
+                        onSubmit={handleSubmit}
+                    >
+                        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+                            {/* Text Sidebar */}
+                            <div>
+                                <h2 id="contact-heading" className="text-2xl font-semibold text-foreground">
+                                    Solicita tu software
+                                </h2>
+                                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                                    Completa el formulario y nuestro equipo se pondrá en contacto contigo
+                                    para mostrarte cómo Kenkomed puede transformar tu clínica.
                                 </p>
-                                <button
-                                    onClick={() => {
-                                        setIsSubmitted(false)
-                                        setForm({ name: '', email: '', phone: '', clinic: '', message: '' })
-                                    }}
-                                    className="text-sm font-medium text-brand hover:text-brand-dark transition-colors"
-                                >
-                                    Enviar otro mensaje
-                                </button>
                             </div>
-                        ) : (
-                            /* Form */
-                            <form onSubmit={handleSubmit} className="relative space-y-6">
-                                {/* Name & Email row */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <div className="space-y-2">
-                                        <label
-                                            htmlFor="contact-name"
-                                            className="text-sm font-medium text-foreground flex items-center gap-1.5"
-                                        >
-                                            <User size={14} className="text-foreground-muted" />
+
+                            {/* Form Fields */}
+                            <div className="sm:max-w-3xl md:col-span-2">
+                                <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
+                                    {/* Name */}
+                                    <div className="col-span-full sm:col-span-3">
+                                        <Label htmlFor="contact-name" className="text-sm font-medium text-foreground">
                                             Nombre completo
-                                        </label>
-                                        <input
+                                        </Label>
+                                        <Input
                                             type="text"
                                             id="contact-name"
                                             name="name"
                                             required
                                             value={form.name}
                                             onChange={handleChange}
-                                            placeholder="Tu nombre"
-                                            className="w-full px-4 py-3 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                                            placeholder="Ej. Camila Rojas"
+                                            className="mt-2"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label
-                                            htmlFor="contact-email"
-                                            className="text-sm font-medium text-foreground flex items-center gap-1.5"
-                                        >
-                                            <Mail size={14} className="text-foreground-muted" />
+                                    
+                                    {/* Email */}
+                                    <div className="col-span-full sm:col-span-3">
+                                        <Label htmlFor="contact-email" className="text-sm font-medium text-foreground">
                                             Email
-                                        </label>
-                                        <input
+                                        </Label>
+                                        <Input
                                             type="email"
                                             id="contact-email"
                                             name="email"
                                             required
                                             value={form.email}
                                             onChange={handleChange}
-                                            placeholder="tu@email.com"
-                                            className="w-full px-4 py-3 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                                            placeholder="camila@clinica.com"
+                                            className="mt-2"
                                         />
                                     </div>
-                                </div>
 
-                                {/* Phone & Clinic row */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <div className="space-y-2">
-                                        <label
-                                            htmlFor="contact-phone"
-                                            className="text-sm font-medium text-foreground flex items-center gap-1.5"
-                                        >
-                                            <Phone size={14} className="text-foreground-muted" />
+                                    {/* Phone */}
+                                    <div className="col-span-full sm:col-span-3">
+                                        <Label htmlFor="contact-phone" className="text-sm font-medium text-foreground">
                                             Número de teléfono
-                                        </label>
-                                        <input
+                                        </Label>
+                                        <Input
                                             type="tel"
                                             id="contact-phone"
                                             name="phone"
@@ -231,18 +199,16 @@ Origen: Seccion Contacto General Landing
                                             value={form.phone}
                                             onChange={handleChange}
                                             placeholder="+56 9 1234 5678"
-                                            className="w-full px-4 py-3 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                                            className="mt-2"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label
-                                            htmlFor="contact-clinic"
-                                            className="text-sm font-medium text-foreground flex items-center gap-1.5"
-                                        >
-                                            <Building2 size={14} className="text-foreground-muted" />
+
+                                    {/* Clinic */}
+                                    <div className="col-span-full sm:col-span-3">
+                                        <Label htmlFor="contact-clinic" className="text-sm font-medium text-foreground">
                                             Clínica / Centro
-                                        </label>
-                                        <input
+                                        </Label>
+                                        <Input
                                             type="text"
                                             id="contact-clinic"
                                             name="clinic"
@@ -250,65 +216,54 @@ Origen: Seccion Contacto General Landing
                                             value={form.clinic}
                                             onChange={handleChange}
                                             placeholder="Nombre de tu clínica"
-                                            className="w-full px-4 py-3 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all"
+                                            className="mt-2"
                                         />
                                     </div>
-                                </div>
 
-                                {/* Message */}
-                                <div className="space-y-2">
-                                    <label
-                                        htmlFor="contact-message"
-                                        className="text-sm font-medium text-foreground flex items-center gap-1.5"
+                                    {/* Message */}
+                                    <div className="col-span-full">
+                                        <Label htmlFor="contact-message" className="text-sm font-medium text-foreground">
+                                            Mensaje
+                                        </Label>
+                                        <Textarea
+                                            id="contact-message"
+                                            name="message"
+                                            rows={4}
+                                            required
+                                            value={form.message}
+                                            onChange={handleChange}
+                                            placeholder="Cuéntanos sobre tu clínica, cuántos profesionales trabajan y qué necesidades tienes..."
+                                            className="mt-2 resize-none"
+                                        />
+                                        <p className="mt-2 text-xs text-muted-foreground">
+                                            Responderemos dentro de 24 horas hábiles. Sin compromiso.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div className="mt-8 flex items-center justify-end space-x-4 border-t border-border/50 pt-8">
+                                    <p className="text-xs text-muted-foreground mr-auto hidden sm:block">
+                                        Al enviar aceptas nuestra <a href="/privacidad" className="text-brand hover:underline">Política de Privacidad</a>.
+                                    </p>
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-brand px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-brand/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                                     >
-                                        <MessageSquare size={14} className="text-foreground-muted" />
-                                        Mensaje
-                                    </label>
-                                    <textarea
-                                        id="contact-message"
-                                        name="message"
-                                        rows={4}
-                                        required
-                                        value={form.message}
-                                        onChange={handleChange}
-                                        placeholder="Cuéntanos sobre tu clínica, cuántos profesionales trabajan y qué necesidades tienes..."
-                                        className="w-full px-4 py-3 rounded-xl bg-background border border-border/80 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-all resize-none"
-                                    />
+                                        {isSubmitting ? (
+                                            <>
+                                                <span className="w-4 h-4 mr-2 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                Enviando...
+                                            </>
+                                        ) : (
+                                            'Solicitar Software'
+                                        )}
+                                    </button>
                                 </div>
-
-                                {/* Submit */}
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="group w-full justify-center btn-kenko-primary disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-md"
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                                            Enviando...
-                                        </>
-                                    ) : (
-                                        <>
-                                            Solicitar Software
-                                            <Send size={16} className="group-hover:translate-x-1 transition-transform" />
-                                        </>
-                                    )}
-                                </button>
-
-                                <p className="text-xs text-center text-foreground-muted">
-                                    Responderemos dentro de 24 horas hábiles. Sin compromiso.
-                                </p>
-                                <p className="text-xs text-center text-foreground-muted">
-                                    Al enviar este formulario aceptas nuestra{' '}
-                                    <a href="/privacidad" className="text-brand hover:underline">
-                                        Política de Privacidad
-                                    </a>{' '}
-                                    y el tratamiento de tus datos para responder tu solicitud.
-                                </p>
-                            </form>
-                        )}
-                    </div>
-                </div>
+                            </div>
+                        </div>
+                    </motion.form>
+                )}
             </div>
         </section>
     )
