@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
     "generate:favicons": "powershell -ExecutionPolicy Bypass -File scripts/generate-favicons.ps1"
   },
   "dependencies": {
