@@ -79,7 +79,7 @@ export default function TestimonialMarqueeDemo() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
+        viewport={{ once: true, margin: "200px" }}
         transition={{ duration: 0.5 }}
         className="max-w-7xl mx-auto px-6 mb-12 text-center"
       >
@@ -91,7 +91,7 @@ export default function TestimonialMarqueeDemo() {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-10%" }}
+        viewport={{ once: true, margin: "200px" }}
         transition={{ duration: 0.6, delay: 0.2 }}
         className="relative flex w-full flex-col items-center justify-center overflow-hidden"
       >

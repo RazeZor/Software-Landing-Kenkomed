@@ -42,7 +42,7 @@ export const Comparison03 = () => {
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "200px" }}
           variants={container}
           className="mx-auto max-w-2xl text-center"
         >
@@ -68,7 +68,7 @@ export const Comparison03 = () => {
           <motion.div
             initial={{ opacity: 0, y: 20, rotate: -1 }}
             whileInView={{ opacity: 1, y: 0, rotate: -1 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "200px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="rounded-[2rem] border border-rose-100 bg-rose-50/60 p-8 shadow-[0_20px_50px_-25px_rgba(244,63,94,0.35)] dark:bg-rose-950/20 dark:border-rose-900/50"
           >
@@ -95,7 +95,7 @@ export const Comparison03 = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.6 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "200px" }}
             transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="absolute left-1/2 top-1/2 z-10 hidden h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-white shadow-lg shadow-brand/30 sm:flex"
           >
@@ -105,7 +105,7 @@ export const Comparison03 = () => {
           <motion.div
             initial={{ opacity: 0, y: 20, rotate: 1 }}
             whileInView={{ opacity: 1, y: 0, rotate: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "200px" }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="rounded-[2rem] border border-emerald-200 bg-emerald-50/60 p-8 shadow-[0_20px_50px_-25px_rgba(16,185,129,0.35)] dark:bg-emerald-950/20 dark:border-emerald-900/50"
           >
@@ -133,7 +133,7 @@ export const Comparison03 = () => {
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: true, margin: "200px" }}
           variants={container}
           className="mt-10 flex flex-col gap-4 sm:flex-row"
         >
@@ -153,7 +153,7 @@ export const Comparison03 = () => {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: true, margin: "200px" }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="mt-12 flex justify-center"
         >

@@ -1045,7 +1045,7 @@ export function Pricing() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true, margin: "200px" }}
             transition={{ duration: 0.5 }}
             className="text-center space-y-4 mb-12"
           >
@@ -1092,7 +1092,7 @@ export function Pricing() {
                       }
                     : { y: 0, opacity: 1 }
                 }
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "200px" }}
                 transition={{
                   duration: 1.6,
                   type: "spring",

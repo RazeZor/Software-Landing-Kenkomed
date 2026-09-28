@@ -12,7 +12,7 @@ interface UseRevealOptions {
 export function useReveal<T extends HTMLElement = HTMLElement>(
     options: UseRevealOptions = {}
 ) {
-    const { threshold = 0.15, rootMargin = '0px', once = true } = options
+    const { threshold = 0, rootMargin = '200px', once = true } = options
     const ref = useRef<T>(null)
     const [isVisible, setIsVisible] = useState(false)
 
