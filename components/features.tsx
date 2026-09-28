@@ -5,10 +5,8 @@
  * gates fixed: 3 (no 3-col equal grid), 8 (new section rhythm), 9 (varied section dividers),
  *              24 (specific transitions), 27 (prefers-reduced-motion), 47 (no fake browser chrome),
  *              48 (tokens only)
- * Enrichment: E1 CSS-art mockup — UI del software Kenkomed en figure + hairline border
  */
 
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   RiBrainLine as Brain,
@@ -103,175 +101,108 @@ const stackFeatures = [
   },
 ]
 
-/* ── Bento Grid Component ── */
 export function SolucionTeaser() {
   return (
     <>
       <style>{`
-        /* Hallmark · macrostructure: Bento Grid (01) · genre: modern-minimal · theme: Cobalt
-         * 2-column uniform grid — each card has full breathing room for image + text.
-         */
-
-        .hm-bento-section {
-          padding-block: var(--space-4xl) var(--space-6xl);
-          background: var(--color-paper-2);
-          border-top: var(--hairline);
-        }
-
-        .hm-bento-container {
-          max-width: 88rem;
+        .hm-cta-wrap {
+          max-width: 60rem;
           margin-inline: auto;
+          margin-top: var(--space-5xl);
           padding-inline: var(--space-lg);
         }
-
-        .hm-bento-header {
+        .hm-cta-panel {
+          position: relative;
+          border-radius: 1.75rem;
+          border: var(--hairline);
+          background: var(--color-paper);
+          padding: var(--space-3xl) var(--space-xl);
           text-align: center;
-          margin-bottom: var(--space-4xl);
-          max-width: 60ch;
-          margin-inline: auto;
+          overflow: hidden;
         }
-
-        .hm-bento-label {
+        .hm-cta-glow {
+          position: absolute;
+          top: -40%;
+          left: 50%;
+          width: 32rem;
+          height: 20rem;
+          transform: translateX(-50%);
+          background: radial-gradient(circle, oklch(0.48 0.18 246 / 0.08) 0%, transparent 70%);
+          pointer-events: none;
+        }
+        .hm-cta-eyebrow {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
           font-family: var(--font-outlier);
           font-size: 0.75rem;
-          letter-spacing: 0.12em;
+          font-weight: 500;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
           color: var(--color-accent);
+          padding: 0.375rem 0.875rem;
+          border-radius: 999px;
+          background: oklch(0.48 0.18 246 / 0.06);
           margin-bottom: var(--space-md);
-          display: block;
         }
-
-        .hm-bento-heading {
+        .hm-cta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
+        .hm-cta-heading {
+          position: relative;
           font-family: var(--font-display);
-          font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+          font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
           font-weight: 700;
           color: var(--color-ink);
-          line-height: 1.1;
-          letter-spacing: -0.04em;
-          margin-bottom: var(--space-lg);
+          line-height: 1.15;
+          letter-spacing: -0.03em;
+          max-width: 22ch;
+          margin-inline: auto;
+          margin-bottom: var(--space-xl);
         }
-
-        .hm-bento-intro {
-          font-family: var(--font-body);
-          font-size: 1.125rem;
-          color: var(--color-ink-2);
-          line-height: 1.6;
-        }
-
-        /* Grid layout — 1 col mobile, 2 col desktop */
-        .hm-bento-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--space-xl);
-        }
-
-        @media (min-width: 768px) {
-          .hm-bento-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        /* Cards */
-        .hm-bento-card {
+        .hm-cta-actions {
           position: relative;
-          background: var(--color-paper);
-          border-radius: var(--radius-xl);
-          border: var(--hairline);
-          overflow: hidden;
           display: flex;
-          flex-direction: column;
-          transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
-        }
-        .hm-bento-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--color-accent);
-        }
-
-        /* Content Wrapper */
-        .hm-bento-content {
-          padding: var(--space-2xl);
-          display: flex;
-          flex-direction: column;
           gap: var(--space-md);
-        }
-
-        /* Typography inside card */
-        .hm-card-icon {
-          width: 2.5rem;
-          height: 2.5rem;
-          border-radius: var(--radius-md);
-          background: oklch(0.48 0.18 246 / 0.06);
-          color: var(--color-accent);
-          display: flex;
+          flex-wrap: wrap;
           align-items: center;
           justify-content: center;
-          margin-bottom: var(--space-xs);
         }
-
-        .hm-card-title {
-          font-family: var(--font-display);
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--color-ink);
-          line-height: 1.2;
-          letter-spacing: -0.02em;
-        }
-
-        .hm-card-desc {
+        .hm-cta-primary {
+          display: inline-flex;
+          align-items: center;
+          gap: var(--space-2xs);
           font-family: var(--font-body);
-          font-size: 1rem;
-          color: var(--color-ink-2);
-          line-height: 1.6;
-        }
-
-        /* Tag list */
-        .hm-card-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: var(--space-xs);
-          margin-top: var(--space-sm);
-        }
-        .hm-card-tag {
-          font-family: var(--font-body);
-          font-size: 0.75rem;
+          font-size: 0.9375rem;
           font-weight: 600;
-          color: var(--color-ink-3);
-          background: var(--color-paper-3);
-          padding: 0.25rem 0.625rem;
+          color: white;
+          background: var(--color-accent);
+          padding: 0.875rem 1.75rem;
           border-radius: 999px;
-          border: var(--hairline);
+          text-decoration: none;
+          box-shadow: 0 10px 26px oklch(0.48 0.18 246 / 0.25);
+          transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
         }
-
-        /* Image wrapper — fixed height, always visible, not cropped */
-        .hm-bento-image-wrapper {
-          position: relative;
-          width: 100%;
-          height: 280px;
-          border-top: var(--hairline);
-          overflow: hidden;
-          background: var(--color-paper-3);
-          flex-shrink: 0;
+        .hm-cta-primary:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 30px oklch(0.48 0.18 246 / 0.32);
         }
-
-        @media (min-width: 768px) {
-          .hm-bento-image-wrapper {
-            height: 320px;
-          }
+        .hm-cta-ghost {
+          display: inline-flex;
+          align-items: center;
+          gap: var(--space-2xs);
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          font-weight: 600;
+          color: var(--color-ink-2);
+          padding: 0.875rem 1.5rem;
+          border-radius: 999px;
+          text-decoration: none;
+          transition: color var(--dur-base) var(--ease-out);
         }
+        .hm-cta-ghost:hover { color: var(--color-accent); }
 
-        .hm-mockup-img {
-          object-fit: cover;
-          object-position: top center;
-        }
-
-        /* Step label */
-        .hm-card-step {
-          font-family: var(--font-outlier);
-          font-size: 0.7rem;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: var(--color-ink-3);
-          margin-bottom: 0.25rem;
+        @media (prefers-reduced-motion: reduce) {
+          .hm-cta-primary { transition: none; }
         }
       `}</style>
 
@@ -280,42 +211,38 @@ export function SolucionTeaser() {
           label="Tu día, paso a paso"
           title="De la admisión al alta"
           description="Cada paso del tratamiento kinésico — admisión, evaluación, evolución, alta — en una sola plataforma. Sin papel, sin planillas, sin duplicar datos."
-          features={stackFeatures.map(feat => ({
+          features={stackFeatures.map((feat) => ({
             step: feat.label,
             title: feat.title,
             content: feat.desc,
-            image: feat.imageSrc
+            image: feat.imageSrc,
           }))}
           autoPlayInterval={5000}
         />
-            
+
         {/* ─── Bottom CTA ─── */}
-          <div className="hm-bento-cta" style={{ marginTop: 'var(--space-5xl)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span className="hm-bento-label">¿Listo para empezar?</span>
-            <h2 className="hm-bento-heading" style={{ marginBottom: 'var(--space-xl)', maxWidth: '20ch' }}>
+        <div className="hm-cta-wrap">
+          <div className="hm-cta-panel">
+            <div className="hm-cta-glow" aria-hidden="true" />
+            <span className="hm-cta-eyebrow">
+              <span className="hm-cta-dot" aria-hidden="true" />
+              ¿Listo para empezar?
+            </span>
+            <h2 className="hm-cta-heading">
               Solicita una demo gratuita. Te mostramos todo en 30 minutos.
             </h2>
-            <div style={{ display: 'flex', gap: 'var(--space-lg)', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
-              <a href="#contact" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2xs)',
-                fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontWeight: 600,
-                color: 'var(--color-accent)', textDecoration: 'none',
-                borderBottom: '1px solid oklch(0.48 0.18 246 / 0.30)', paddingBottom: '1px'
-              }}>
-                Solicitar Demo
-                <ArrowRight size={14} aria-hidden="true" />
+            <div className="hm-cta-actions">
+              <a href="#contact" className="hm-cta-primary">
+                Solicitar demo
+                <ArrowRight size={15} aria-hidden="true" />
               </a>
-              <Link href="/funcionalidades" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2xs)',
-                fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontWeight: 600,
-                color: 'var(--color-ink-2)', textDecoration: 'none',
-                borderBottom: '1px solid oklch(0.12 0.02 246 / 0.20)', paddingBottom: '1px'
-              }}>
+              <Link href="/funcionalidades" className="hm-cta-ghost">
                 Ver funcionalidades completas
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
           </div>
+        </div>
       </section>
     </>
   )

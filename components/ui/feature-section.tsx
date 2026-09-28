@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import React, { useEffect, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -29,7 +29,6 @@ export function FeatureSteps({
   label,
   description,
   autoPlayInterval = 3000,
-  imageHeight = "h-[400px]",
 }: FeatureStepsProps) {
   const [currentFeature, setCurrentFeature] = useState(0)
   const [progress, setProgress] = useState(0)
@@ -50,7 +49,14 @@ export function FeatureSteps({
   return (
     <div className={cn("py-20 md:py-32", className)}>
       <div className="max-w-7xl mx-auto w-full px-6">
-        {label && <p className="text-sm uppercase tracking-widest text-brand font-bold text-center mb-3">{label}</p>}
+        {label && (
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center gap-2 rounded-full bg-brand/6 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-brand">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+              {label}
+            </span>
+          </div>
+        )}
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 text-foreground text-center text-balance">
           {title}
         </h2>
@@ -61,65 +67,112 @@ export function FeatureSteps({
         )}
 
         <div className="flex flex-col md:grid md:grid-cols-2 gap-10 md:gap-16">
-          <div className="order-2 md:order-1 space-y-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                className="flex items-start gap-6 md:gap-8 cursor-pointer group"
-                initial={{ opacity: 0.3 }}
-                animate={{ opacity: index === currentFeature ? 1 : 0.4 }}
-                transition={{ duration: 0.5 }}
-                onClick={() => {
-                  setCurrentFeature(index)
-                  setProgress(0)
-                }}
-              >
-                <motion.div
+          <div className="order-2 md:order-1 space-y-2">
+            {features.map((feature, index) => {
+              const isActive = index === currentFeature
+              const isDone = index < currentFeature
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => {
+                    setCurrentFeature(index)
+                    setProgress(0)
+                  }}
                   className={cn(
-                    "w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center border-2 shrink-0 transition-colors",
-                    index === currentFeature
-                      ? "bg-brand border-brand text-primary-foreground scale-110"
-                      : "bg-transparent border-border/80 text-foreground-muted group-hover:border-foreground/30",
+                    "w-full text-left rounded-2xl p-4 md:p-5 transition-colors",
+                    isActive ? "bg-card border border-border/60 shadow-sm" : "border border-transparent hover:bg-card/50"
                   )}
                 >
-                  {index <= currentFeature ? (
-                    <span className="text-lg font-bold text-white">✓</span>
-                  ) : (
-                    <span className="text-lg font-semibold">{index + 1}</span>
-                  )}
-                </motion.div>
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={cn(
+                        "w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-sm font-semibold transition-colors",
+                        isActive
+                          ? "bg-brand text-white"
+                          : isDone
+                          ? "bg-brand/10 text-brand"
+                          : "bg-transparent border border-border/70 text-foreground-muted"
+                      )}
+                    >
+                      {isDone ? "✓" : index + 1}
+                    </div>
 
-                <div className="flex-1 pt-1">
-                  <p className="text-xs uppercase tracking-wider font-semibold text-brand mb-1">{feature.step}</p>
-                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-foreground-muted leading-relaxed">
-                    {feature.content}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                    <div className="flex-1 min-w-0 pt-0.5">
+                      <p
+                        className={cn(
+                          "text-xs uppercase tracking-wider font-semibold mb-1 transition-colors",
+                          isActive ? "text-brand" : "text-foreground-muted/70"
+                        )}
+                      >
+                        {feature.step}
+                      </p>
+                      <h3
+                        className={cn(
+                          "text-lg md:text-xl font-bold mb-1 transition-colors",
+                          isActive ? "text-foreground" : "text-foreground-muted"
+                        )}
+                      >
+                        {feature.title}
+                      </h3>
+
+                      <AnimatePresence>
+                        {isActive && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <p className="text-sm md:text-base text-foreground-muted leading-relaxed pb-3">
+                              {feature.content}
+                            </p>
+                            
+                            {/* MOBILE IMAGE PREVIEW */}
+                            <div className="md:hidden mt-2 mb-4 w-full h-[220px] sm:h-[280px] relative rounded-xl overflow-hidden border border-border/60 bg-card shadow-sm">
+                              <Image
+                                src={feature.image}
+                                alt={feature.title || feature.step}
+                                className="w-full h-full object-contain object-center"
+                                fill
+                                sizes="(max-width: 768px) 100vw, 0vw"
+                              />
+                            </div>
+                            
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  {isActive && (
+                    <div className="mt-1 ml-[3.25rem] h-1 rounded-full bg-border/60 overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-brand"
+                        style={{ width: `${progress}%`, transition: "width 0.1s linear" }}
+                      />
+                    </div>
+                  )}
+                </button>
+              )
+            })}
           </div>
 
-          <div
-            className={cn(
-              "order-1 md:order-2 relative h-[300px] md:h-auto overflow-hidden rounded-2xl border border-border/60 bg-card/50 shadow-lg lg:min-h-[480px] flex items-center justify-center"
-            )}
-          >
+          <div className="hidden md:flex order-1 md:order-2 relative h-[300px] md:h-auto overflow-hidden rounded-[1.75rem] border border-border/60 bg-card shadow-[0_30px_60px_-30px_rgba(15,23,42,0.25)] lg:min-h-[480px] items-center justify-center">
             <AnimatePresence mode="wait">
               {features.map(
                 (feature, index) =>
                   index === currentFeature && (
                     <motion.div
                       key={index}
-                      className="absolute inset-0 rounded-2xl overflow-hidden flex items-center justify-center p-3 md:p-6"
-                      initial={{ y: 50, opacity: 0, rotateX: -10 }}
-                      animate={{ y: 0, opacity: 1, rotateX: 0 }}
-                      exit={{ y: -50, opacity: 0, rotateX: 10 }}
-                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      className="absolute inset-0 flex items-center justify-center p-3 md:p-6"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <div className="relative w-full h-full rounded-xl overflow-hidden border border-border/30 shadow-md">
+                      <div className="relative w-full h-full rounded-xl overflow-hidden">
                         <Image
                           src={feature.image}
                           alt={feature.title || feature.step}
@@ -129,7 +182,7 @@ export function FeatureSteps({
                         />
                       </div>
                     </motion.div>
-                  ),
+                  )
               )}
             </AnimatePresence>
           </div>
