@@ -1,276 +1,168 @@
 'use client'
 
-/* Hallmark · component: Statement Footer (Ft5) · genre: modern-minimal · theme: Cobalt (Paper Light)
- * Clean light paper background, dark typography, vibrant emerald & cobalt accents
- */
-
-import Link from 'next/link'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
+import * as React from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
 import {
-  RiInstagramLine as Instagram,
-  RiLinkedinBoxLine as Linkedin,
-  RiMailLine as Mail,
-  RiPhoneLine as Phone,
-  RiMapPinLine as MapPin
-} from 'react-icons/ri'
-
-const navLinks = [
-  { label: 'Funcionalidades', href: '/funcionalidades' },
-  { label: 'Nuestra Solución', href: '/solucion' },
-  { label: 'Ver Demo', href: '/demo' },
-  { label: 'Investigación', href: '/investigacion' },
-  { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Privacidad', href: '/privacidad' },
-  { label: 'Términos de Uso', href: '/terminos' },
-  { label: 'Seguridad', href: '/seguridad' },
-]
-
-const socialLinks = [
-  { icon: Instagram, label: 'Instagram de Kenkomed', href: 'https://www.instagram.com/_kenkomed_/' },
-  { icon: Linkedin, label: 'LinkedIn de Kenkomed', href: '#' },
-]
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { Instagram, Linkedin, Moon, Send, Sun, Mail, Phone, MapPin } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { useTheme } from "next-themes"
 
 export function Footer() {
+  const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted && resolvedTheme === "dark"
+
   return (
-    <>
-      <style>{`
-        /* Hallmark · Statement Footer (Ft5) · Paper Light */
-        .hm-footer {
-          background: var(--surface);
-          color: var(--foreground);
-          border-top: var(--hairline);
-          overflow-x: clip;
-          position: relative;
-        }
-
-        .hm-footer-inner {
-          max-width: 88rem;
-          margin-inline: auto;
-          padding-inline: var(--space-lg);
-          padding-block: var(--space-4xl) var(--space-2xl);
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-3xl);
-        }
-
-        /* ── Top Statement Block ── */
-        .hm-footer-statement-block {
-          display: grid;
-          grid-template-columns: 1fr auto;
-          gap: var(--space-2xl);
-          align-items: start;
-        }
-
-        .hm-footer-brand-heading {
-          font-family: var(--font-display);
-          font-size: clamp(2rem, 4.5vw + 0.5rem, 3.75rem);
-          font-weight: 800;
-          font-style: normal;
-          line-height: 1.05;
-          letter-spacing: -0.04em;
-          color: var(--foreground);
-          max-width: 20ch;
-          overflow-wrap: anywhere;
-          min-width: 0;
-        }
-
-        .hm-footer-accent-text {
-          color: var(--kenko-sapphire);
-        }
-
-        .hm-footer-contact-box {
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-sm);
-          font-family: var(--font-body);
-          font-size: 0.875rem;
-          color: var(--foreground-muted);
-        }
-
-        .hm-footer-contact-link {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--space-xs);
-          color: var(--foreground);
-          text-decoration: none;
-          outline: 2px solid transparent;
-          outline-offset: 2px;
-          border-radius: var(--radius-sm);
-          transition-property: color;
-          transition-duration: 150ms;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .hm-footer-contact-link:hover {
-          color: var(--kenko-sapphire);
-        }
-        .hm-footer-contact-link:focus-visible {
-          outline-color: var(--color-focus);
-        }
-
-        /* ── Middle: Single horizontal nav row ── */
-        .hm-footer-nav-row {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          gap: var(--space-md) var(--space-lg);
-          padding-block: var(--space-lg);
-          border-top: var(--hairline);
-          border-bottom: var(--hairline);
-        }
-
-        .hm-footer-link {
-          font-family: var(--font-body);
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: var(--foreground-muted);
-          text-decoration: none;
-          outline: 2px solid transparent;
-          outline-offset: 2px;
-          border-radius: var(--radius-sm);
-          transition-property: color;
-          transition-duration: 150ms;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .hm-footer-link:hover {
-          color: var(--foreground);
-        }
-        .hm-footer-link:focus-visible {
-          outline-color: var(--color-focus);
-        }
-
-        /* ── Bottom row: Copyright & Social ── */
-        .hm-footer-bottom {
-          display: flex;
-          flex-wrap: wrap;
-          items-center: center;
-          justify-content: space-between;
-          gap: var(--space-md);
-          font-family: var(--font-body);
-          font-size: 0.8125rem;
-          color: var(--foreground-subtle);
-        }
-
-        .hm-footer-social-group {
-          display: flex;
-          align-items: center;
-          gap: var(--space-xs);
-        }
-
-        .hm-footer-social-btn {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 2.25rem;
-          height: 2.25rem;
-          border-radius: var(--radius-md);
-          border: var(--hairline);
-          color: var(--foreground-muted);
-          background: var(--background);
-          text-decoration: none;
-          outline: 2px solid transparent;
-          outline-offset: 2px;
-          transition-property: color, border-color, background-color;
-          transition-duration: 150ms;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .hm-footer-social-btn:hover {
-          color: var(--kenko-sapphire);
-          border-color: oklch(0.48 0.18 246 / 0.40);
-          background: oklch(0.48 0.18 246 / 0.06);
-        }
-        .hm-footer-social-btn:focus-visible {
-          outline-color: var(--color-focus);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-          .hm-footer-statement-block {
-            grid-template-columns: 1fr;
-            gap: var(--space-xl);
-          }
-          .hm-footer-inner {
-            padding-inline: var(--space-md);
-          }
-        }
-      `}</style>
-
-      <footer className="hm-footer" role="contentinfo">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "200px" }}
-          transition={{ duration: 0.5 }}
-          className="hm-footer-inner"
-        >
-          {/* Top Statement Block */}
-          <div className="hm-footer-statement-block">
-            <div>
-              <Link href="/" className="inline-flex items-center gap-2 mb-6 group">
-                <Image
-                  src="/images/LogoKenko.png"
-                  alt="Kenkomed logo"
-                  width={36}
-                  height={36}
-                  className="object-contain"
-                />
-                <span className="font-display font-extrabold text-xl tracking-tight text-foreground">
-                  Kenko<span className="text-emerald">med</span>
-                </span>
-              </Link>
-              <h2 className="hm-footer-brand-heading">
-                El software clínico que los{' '}
-                <span className="hm-footer-accent-text">kinesiólogos</span> de Chile merecían.
-              </h2>
-            </div>
-
-            {/* Contact info box */}
-            <div className="hm-footer-contact-box">
-              <span className="font-mono text-xs uppercase tracking-widest text-emerald font-semibold">Contacto directo</span>
-              <a href="mailto:kenkomedplus@gmail.com" className="hm-footer-contact-link">
-                <Mail size={14} aria-hidden="true" />
-                kenkomedplus@gmail.com
-              </a>
-              <a href="tel:+56940966266" className="hm-footer-contact-link">
-                <Phone size={14} aria-hidden="true" />
-                +56 9 4096 6266
-              </a>
-              <span className="inline-flex items-center gap-1.5 text-xs text-foreground-muted">
-                <MapPin size={13} aria-hidden="true" />
-                Concepción, Chile
+    <footer className="relative border-t border-border/40 bg-surface text-foreground transition-colors duration-300">
+      <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8 max-w-7xl">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+          
+          <div className="relative">
+            <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
+              <Image
+                src="/images/LogoKenko.png"
+                alt="Kenkomed logo"
+                width={36}
+                height={36}
+                className="object-contain"
+              />
+              <span className="font-display font-extrabold text-xl tracking-tight text-foreground">
+                Kenko<span className="text-emerald">med</span>
               </span>
-            </div>
+            </Link>
+            <p className="mb-6 text-foreground-muted text-sm">
+              El software clínico que los kinesiólogos de Chile merecían. Únete a nuestro newsletter para recibir actualizaciones.
+            </p>
+            <form className="relative" onSubmit={(e) => e.preventDefault()}>
+              <Input
+                type="email"
+                placeholder="Ingresa tu correo"
+                className="pr-12 backdrop-blur-sm bg-background/50 border-border"
+              />
+              <Button
+                type="submit"
+                size="icon"
+                className="absolute right-1 top-1 h-8 w-8 rounded-full transition-transform hover:scale-105"
+              >
+                <Send className="h-4 w-4" />
+                <span className="sr-only">Suscribirse</span>
+              </Button>
+            </form>
+            <div className="absolute -right-4 top-0 h-24 w-24 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
           </div>
 
-          {/* Single horizontal link row */}
-          <nav className="hm-footer-nav-row" aria-label="Navegación del pie de página">
-            {navLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="hm-footer-link">
-                {link.label}
-              </Link>
-            ))}
+          <div>
+            <h3 className="mb-4 text-lg font-bold font-display">Enlaces Rápidos</h3>
+            <nav className="space-y-3 text-sm text-foreground-muted">
+              <Link href="/funcionalidades" className="block transition-colors hover:text-primary">Funcionalidades</Link>
+              <Link href="/solucion" className="block transition-colors hover:text-primary">Nuestra Solución</Link>
+              <Link href="/demo" className="block transition-colors hover:text-primary">Ver Demo</Link>
+              <Link href="/investigacion" className="block transition-colors hover:text-primary">Investigación</Link>
+              <Link href="/nosotros" className="block transition-colors hover:text-primary">Nosotros</Link>
+            </nav>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-lg font-bold font-display">Contacto</h3>
+            <address className="space-y-3 text-sm not-italic text-foreground-muted">
+              <p className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary" />
+                Concepción, Chile
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary" />
+                <a href="tel:+56940966266" className="hover:text-primary transition-colors">+56 9 4096 6266</a>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary" />
+                <a href="mailto:kenkomedplus@gmail.com" className="hover:text-primary transition-colors">kenkomedplus@gmail.com</a>
+              </p>
+            </address>
+          </div>
+
+          <div className="relative">
+            <h3 className="mb-4 text-lg font-bold font-display">Síguenos</h3>
+            <div className="mb-6 flex space-x-4">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" className="rounded-full bg-background border-border hover:bg-primary/10 hover:text-primary hover:border-primary/30">
+                      <a href="https://www.instagram.com/_kenkomed_/" target="_blank" rel="noopener noreferrer">
+                        <Instagram className="h-4 w-4" />
+                        <span className="sr-only">Instagram</span>
+                      </a>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Síguenos en Instagram</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" className="rounded-full bg-background border-border hover:bg-primary/10 hover:text-primary hover:border-primary/30">
+                      <a href="#" target="_blank" rel="noopener noreferrer">
+                        <Linkedin className="h-4 w-4" />
+                        <span className="sr-only">LinkedIn</span>
+                      </a>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Conecta en LinkedIn</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            
+            <div className="flex items-center space-x-2 text-foreground-muted">
+              <Sun className="h-4 w-4" />
+              {mounted && (
+                <Switch
+                  id="dark-mode"
+                  checked={isDark}
+                  onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+                />
+              )}
+              <Moon className="h-4 w-4" />
+              <Label htmlFor="dark-mode" className="sr-only">
+                Modo oscuro
+              </Label>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 text-center md:flex-row">
+          <p className="text-sm text-foreground-muted">
+            © {new Date().getFullYear()} Kenkomed. Todos los derechos reservados. Hecho en Chile.
+          </p>
+          <nav className="flex gap-4 text-sm text-foreground-muted">
+            <Link href="/privacidad" className="transition-colors hover:text-primary">
+              Privacidad
+            </Link>
+            <Link href="/terminos" className="transition-colors hover:text-primary">
+              Términos de Uso
+            </Link>
+            <Link href="/seguridad" className="transition-colors hover:text-primary">
+              Seguridad
+            </Link>
           </nav>
-
-          {/* Bottom Copyright & Social */}
-          <div className="hm-footer-bottom">
-            <p>© {new Date().getFullYear()} Kenkomed. Todos los derechos reservados. Hecho en Chile.</p>
-            <div className="hm-footer-social-group">
-              {socialLinks.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="hm-footer-social-btn"
-                >
-                  <Icon size={15} aria-hidden="true" />
-                </a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </footer>
-    </>
+        </div>
+      </div>
+    </footer>
   )
 }

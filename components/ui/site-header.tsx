@@ -236,10 +236,7 @@ export function SiteHeader() {
 
           {/* Desktop CTAs */}
           <div className="hidden items-center gap-2 md:flex">
-            <Button
-              asChild
-              className="bg-brand hover:bg-brand-dark text-white font-semibold text-sm shadow-md shadow-brand/15 transition-all hover:shadow-brand/25"
-            >
+            <Button asChild>
               <Link href="/#contact">Solicitar Demo</Link>
             </Button>
           </div>
@@ -311,10 +308,7 @@ export function SiteHeader() {
                   ))}
 
                   <div className="flex flex-col gap-2 border-t border-border pt-4">
-                    <Button
-                      asChild
-                      className="w-full bg-brand font-semibold text-white hover:bg-brand-dark"
-                    >
+                    <Button asChild className="w-full">
                       <Link href="/#contact">Solicitar Demo Gratuita</Link>
                     </Button>
                   </div>
