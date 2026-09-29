@@ -244,7 +244,7 @@ function LeadModal({
         ? 'Facturación Semestral (6 meses)'
         : 'Facturación Mensual'
 
-    const priceText = priceValue ? `${formatPrice(priceValue)} CLP/mes (${cycleLabel})` : 'A convenir'
+    const priceText = priceValue ? `${formatPrice(priceValue)} CLP/mes + IVA (${cycleLabel})` : 'A convenir'
 
     let structuredMessage = ''
     let emailSubject = ''
@@ -417,7 +417,7 @@ Plan: Clínica (${priceText})
               isIndividual ? 'bg-emerald/10 border-emerald/30 text-emerald' : isClinicoPro ? 'bg-brand/10 border-brand/30 text-brand' : 'bg-sapphire/20 border-sapphire/40 text-foreground'
             }`}>
               <Zap size={11} className={isIndividual ? 'fill-emerald text-emerald' : 'fill-brand text-brand'} />
-              Plan {plan?.name} {selectedPrice ? `· ${formatPrice(selectedPrice)} CLP/mes` : ''}
+              Plan {plan?.name} {selectedPrice ? `· ${formatPrice(selectedPrice)} CLP/mes + IVA` : ''}
             </div>
             
             <h3 className="font-display font-bold text-xl sm:text-2xl text-foreground">
@@ -1144,8 +1144,8 @@ export function Pricing() {
                         className="font-variant-numeric: tabular-nums"
                       />
                     </span>
-                    <span className="text-sm font-semibold leading-6 tracking-wide text-foreground-muted mb-1">
-                      / mes
+                    <span className="text-sm font-semibold leading-6 tracking-wide text-foreground-muted mb-1 flex items-baseline gap-1">
+                      / mes <span className="text-[10px] uppercase font-bold text-brand ml-0.5">+ IVA</span>
                     </span>
                   </div>
 
@@ -1164,7 +1164,7 @@ export function Pricing() {
                       <li className="flex items-start gap-3 mt-2 border-t border-border pt-3">
                         <User className="h-4 w-4 text-brand mt-0.5 flex-shrink-0" />
                         <span className="text-sm text-brand font-medium leading-snug">
-                          +${new Intl.NumberFormat('es-CL').format(plan.extraKinePrice)}/mes por kinesiólogo adicional
+                          +${new Intl.NumberFormat('es-CL').format(plan.extraKinePrice)}/mes <span className="text-[10px] uppercase font-bold">+ IVA</span> por kinesiólogo adicional
                         </span>
                       </li>
                     )}
