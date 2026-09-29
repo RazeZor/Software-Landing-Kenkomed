@@ -15,6 +15,7 @@ import {
     Compass,
     Sparkles,
 } from 'lucide-react'
+import { TeamSection } from './ui/team-section'
 
 /* ─── Reveal on scroll (local, mismo patrón que el resto del sitio) ─── */
 function useReveal() {
@@ -39,41 +40,46 @@ function useReveal() {
 }
 
 /* ─── Team data ─── */
-const team = [
+const teamMembersData = [
     {
         name: 'Ignacio Castillo',
-        role: 'Jefe de Proyecto',
-        bio: 'Planifica, organiza y supervisa el proyecto. Gestiona tiempos, recursos, presupuesto y riesgos para que Kenkomed avance con foco.',
-        image: '/images/fotonacho.jpeg',
-        linkedin: 'https://www.linkedin.com/in/ignacio-castillo-jaramillo-831811295/',
+        designation: 'Jefe de Proyecto',
+        imageSrc: '/images/fotonacho.jpeg',
+        socialLinks: [
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/ignacio-castillo-jaramillo-831811295/' },
+        ],
     },
     {
         name: 'Ignacio Cabrera',
-        role: 'Arquitecto de Software',
-        bio: 'Define la arquitectura general, selecciona tecnologías y establece los patrones de diseño que aseguran escalabilidad y seguridad.',
-        image: '/images/fotopelao.jpeg',
-        linkedin: 'https://www.linkedin.com/in/icabrerabalmaceda/',
+        designation: 'Arquitecto de Software',
+        imageSrc: '/images/fotopelao.jpeg',
+        socialLinks: [
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/icabrerabalmaceda/' },
+        ],
     },
     {
         name: 'Nicolás Jeldres',
-        role: 'Desarrollador Frontend',
-        bio: 'Construye la interfaz del sistema cuidando la compatibilidad entre navegadores y una experiencia de usuario fluida.',
-        image: '/images/fotoNico.jpeg',
-        linkedin: '#',
+        designation: 'Desarrollador Frontend',
+        imageSrc: '/images/fotoNico.jpeg',
+        socialLinks: [
+            { icon: Linkedin, href: '#' },
+        ],
     },
     {
         name: 'Sebastián Molina',
-        role: 'Desarrollador Backend',
-        bio: 'Responsable de la lógica del servidor, la gestión de bases de datos y las APIs. Enfocado en seguridad y estabilidad.',
-        image: '/images/fotoseba.jpeg',
-        linkedin: '',
+        designation: 'Desarrollador Backend',
+        imageSrc: '/images/fotoseba.jpeg',
+        socialLinks: [
+            { icon: Linkedin, href: '#' },
+        ],
     },
     {
         name: 'Maximiliano Cuevas',
-        role: 'DevOps & QA',
-        bio: 'Despliega el sistema en producción, gestiona la infraestructura y ejecuta las pruebas de calidad que mantienen todo en pie.',
-        image: '/images/fotomaxi.jpeg',
-        linkedin: '',
+        designation: 'DevOps & QA',
+        imageSrc: '/images/fotomaxi.jpeg',
+        socialLinks: [
+            { icon: Linkedin, href: '#' },
+        ],
     },
 ]
 
@@ -112,75 +118,85 @@ export default function NosotrosContent() {
         <main className="bg-background text-foreground">
 
             {/* ═══════════════════════════════════════════════
-                HERO — Manifiesto navy
+                HERO — Less generic with image composition
                 ═══════════════════════════════════════════════ */}
             <section
-                className="relative pt-32 pb-24 md:pt-44 md:pb-32 overflow-hidden"
+                className="relative min-h-[90vh] flex items-center pt-32 pb-24 md:pt-44 md:pb-32 overflow-hidden"
                 style={{
-                    background:
-                        'linear-gradient(160deg, #05111e 0%, #081b35 32%, #0d2a50 56%, #091e3a 80%, #05111e 100%)',
+                    background: 'radial-gradient(ellipse at 50% -20%, #0d2a50 0%, #05111e 60%, #03080f 100%)',
                 }}
             >
-                <div className="absolute inset-0 pointer-events-none kenko-grid opacity-[0.05]" aria-hidden="true" />
-                <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <div
-                        className="absolute -top-40 left-1/2 w-[1100px] h-[1100px] -translate-x-1/2 rounded-full opacity-[0.14]"
-                        style={{ background: 'radial-gradient(circle, oklch(0.48 0.18 246) 0%, transparent 65%)', filter: 'blur(110px)' }}
-                    />
-                    <div
-                        className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.10]"
-                        style={{ background: 'radial-gradient(circle, oklch(0.66 0.19 163) 0%, transparent 65%)', filter: 'blur(90px)' }}
-                    />
+                <div className="absolute inset-0 pointer-events-none kenko-grid opacity-[0.08]" aria-hidden="true" />
+                
+                {/* Floating Image Elements for less generic look */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                    <div className="absolute -right-20 top-20 w-[400px] h-[500px] rounded-[3rem] rotate-12 opacity-40 overflow-hidden mix-blend-overlay">
+                        <img src="/images/kinesio-hero-2.png" alt="Clínica" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="absolute -left-32 bottom-10 w-[500px] h-[400px] rounded-[4rem] -rotate-6 opacity-30 overflow-hidden mix-blend-overlay">
+                        <img src="/images/kinesio-session.jpg" alt="Kinesiólogo" className="w-full h-full object-cover" />
+                    </div>
                 </div>
 
                 <div
                     ref={heroSection.ref}
-                    className={`relative z-10 max-w-5xl mx-auto px-6 text-center scroll-reveal ${heroSection.visible ? 'is-visible' : ''}`}
+                    className={`relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center scroll-reveal ${heroSection.visible ? 'is-visible' : ''}`}
                 >
-                    <div className="inline-flex items-center gap-2.5 glass-mint rounded-full px-5 py-2 mb-8">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: 'var(--kenko-pulse)' }} />
-                            <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: 'var(--kenko-mint)' }} />
-                        </span>
-                        <Sparkles size={12} style={{ color: 'var(--kenko-pulse)' }} />
-                        <span className="text-xs font-bold font-display tracking-[0.18em] uppercase" style={{ color: 'oklch(0.97 0.003 246 / 0.7)' }}>
-                            Nosotros
-                        </span>
+                    <div className="text-left">
+                        <div className="inline-flex items-center gap-2.5 glass-mint rounded-full px-5 py-2 mb-8">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: 'var(--kenko-pulse)' }} />
+                                <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: 'var(--kenko-mint)' }} />
+                            </span>
+                            <Sparkles size={12} style={{ color: 'var(--kenko-pulse)' }} />
+                            <span className="text-xs font-bold font-display tracking-[0.18em] uppercase" style={{ color: 'oklch(0.97 0.003 246 / 0.7)' }}>
+                                Sobre Nosotros
+                            </span>
+                        </div>
+
+                        <h1 className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight text-on-brand mb-7 text-balance">
+                            No hacemos software.{' '}
+                            <span
+                                style={{
+                                    background: 'linear-gradient(135deg, var(--kenko-sapphire), var(--kenko-sky), var(--kenko-pulse))',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    backgroundClip: 'text',
+                                }}
+                            >
+                                Devolvemos tiempo.
+                            </span>
+                        </h1>
+
+                        <p className="text-lg md:text-xl text-on-brand-muted leading-relaxed max-w-2xl mb-10">
+                            Somos un equipo que decidió meterse a las clínicas, entender el trabajo real del kinesiólogo y construir la herramienta que siempre debió existir. Kenkomed es el resultado de esa obsesión.
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-4">
+                            <Link href="/#contact" className="btn-kenko-primary shadow-lg shadow-brand/20">
+                                Conoce el equipo <ArrowRight size={16} />
+                            </Link>
+                        </div>
                     </div>
 
-                    <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-on-brand mb-7 text-balance">
-                        No hacemos software.{' '}
-                        <span
-                            style={{
-                                background: 'linear-gradient(135deg, var(--kenko-sapphire), var(--kenko-sky), var(--kenko-pulse))',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text',
-                            }}
-                        >
-                            Devolvemos tiempo clínico.
-                        </span>
-                    </h1>
-
-                    <p className="text-lg md:text-xl text-on-brand-muted leading-relaxed max-w-3xl mx-auto">
-                        Somos un equipo chileno que decidió meterse a las clínicas, entender el trabajo real del
-                        kinesiólogo y construir la herramienta que siempre debió existir. Kenkomed es el resultado
-                        de esa obsesión.
-                    </p>
-
-                    {/* Mini-stats */}
-                    <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-px max-w-3xl mx-auto rounded-2xl overflow-hidden border border-white/10">
-                        {[
-                            { value: '5', label: 'Profesionales' },
-                            { value: '9', label: 'Escalas validadas' },
-                            { value: '100%', label: 'Hecho en Chile' },
-                            { value: '1', label: 'Misión clara' },
-                        ].map((stat) => (
-                            <div key={stat.label} className="bg-white/[0.03] px-4 py-6 text-center backdrop-blur-sm">
-                                <p className="font-display font-bold text-3xl md:text-4xl text-on-brand mb-1">{stat.value}</p>
-                                <p className="text-xs text-on-brand-subtle uppercase tracking-wider">{stat.label}</p>
+                    <div className="relative w-full aspect-square md:aspect-video lg:aspect-square lg:max-w-md mx-auto mt-8 lg:mt-0">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-brand/30 to-transparent rounded-[2rem] transform rotate-3 scale-105 blur-xl"></div>
+                        <div className="relative h-full w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+                            <img src="/images/kinesio-hero-1.png" alt="Kenkomed equipo trabajando" className="w-full h-full object-cover" />
+                            
+                            {/* Overlay Stats Card */}
+                            <div className="absolute bottom-6 -left-4 lg:-left-8 bg-surface/90 backdrop-blur-md border border-border/50 p-5 rounded-2xl shadow-xl max-w-[200px] transform hover:scale-105 transition-transform duration-300">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 shrink-0 rounded-full bg-brand/10 flex items-center justify-center text-brand">
+                                        <HeartPulse size={24} />
+                                    </div>
+                                    <div>
+                                        <p className="text-xl font-bold text-foreground">100%</p>
+                                        <p className="text-xs text-foreground-muted leading-tight mt-0.5">Enfocados en clínica</p>
+                                    </div>
+                                </div>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -302,76 +318,16 @@ export default function NosotrosContent() {
             </section>
 
             {/* ═══════════════════════════════════════════════
-                EQUIPO — presentación editorial (no cards genéricas)
+                EQUIPO — Componente TeamSection Integrado
                 ═══════════════════════════════════════════════ */}
-            <section className="py-24 md:py-32 bg-surface">
-                <div ref={teamSection.ref} className="max-w-6xl mx-auto px-6">
-                    <div className={`max-w-2xl mb-16 scroll-reveal ${teamSection.visible ? 'is-visible' : ''}`}>
-                        <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
-                            Las personas
-                        </span>
-                        <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-5 text-balance">
-                            Cinco personas detrás de cada detalle.
-                        </h2>
-                        <p className="text-foreground-muted leading-relaxed">
-                            Un equipo multidisciplinario que combina gestión, arquitectura, desarrollo y calidad para
-                            que Kenkomed funcione de verdad.
-                        </p>
-                    </div>
-
-                    <div className="flex flex-col divide-y divide-border/60 border-y border-border/60">
-                        {team.map((member, i) => (
-                            <article
-                                key={member.name}
-                                className={`group grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center gap-6 py-7 transition-colors scroll-reveal stagger-${i + 1} ${teamSection.visible ? 'is-visible' : ''}`}
-                            >
-                                {/* Foto + nombre */}
-                                <div className="flex items-center gap-5">
-                                    <div className="relative w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-2xl overflow-hidden ring-1 ring-border/60">
-                                        <Image
-                                            src={member.image}
-                                            alt={`Fotografía de ${member.name}`}
-                                            fill
-                                            className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-                                        />
-                                    </div>
-                                    <div className="md:hidden">
-                                        <h3 className="font-display font-semibold text-lg text-foreground">{member.name}</h3>
-                                        <p className="text-sm text-brand font-medium">{member.role}</p>
-                                    </div>
-                                </div>
-
-                                {/* Info (desktop) */}
-                                <div className="hidden md:block">
-                                    <div className="flex items-baseline gap-3 mb-1.5">
-                                        <h3 className="font-display font-semibold text-xl text-foreground">{member.name}</h3>
-                                        <span className="text-sm text-brand font-medium">· {member.role}</span>
-                                    </div>
-                                    <p className="text-sm text-foreground-muted leading-relaxed max-w-2xl">{member.bio}</p>
-                                </div>
-
-                                {/* Bio en mobile */}
-                                <p className="md:hidden text-sm text-foreground-muted leading-relaxed">{member.bio}</p>
-
-                                {/* LinkedIn */}
-                                {member.linkedin ? (
-                                    <a
-                                        href={member.linkedin}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={`LinkedIn de ${member.name}`}
-                                        className="justify-self-start md:justify-self-end inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border/60 text-foreground-subtle hover:text-brand hover:border-brand/40 hover:bg-brand/5 transition-all"
-                                    >
-                                        <Linkedin size={16} />
-                                    </a>
-                                ) : (
-                                    <div className="justify-self-start md:justify-self-end w-10 h-10"></div>
-                                )}
-                            </article>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <div ref={teamSection.ref} className={`scroll-reveal ${teamSection.visible ? 'is-visible' : ''}`}>
+                <TeamSection
+                    title="EQUIPO"
+                    description="Un equipo multidisciplinario que combina gestión, arquitectura, desarrollo y calidad para que Kenkomed funcione de verdad. No son frases de marketing. Somos las cinco personas detrás de cada detalle."
+                    members={teamMembersData}
+                    className="bg-surface"
+                />
+            </div>
 
             {/* ═══════════════════════════════════════════════
                 CTA final
