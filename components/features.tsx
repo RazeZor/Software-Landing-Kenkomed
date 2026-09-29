@@ -19,6 +19,7 @@ import {
   RiWallet3Line as Wallet,
 } from 'react-icons/ri'
 import { FeatureSteps } from '@/components/ui/feature-section'
+import { InteractiveSystemDemo } from '@/components/interactive-system-demo'
 
 /* ── Feature data — real product content, no invented metrics ── */
 const stackFeatures = [
@@ -207,18 +208,23 @@ export function SolucionTeaser() {
       `}</style>
 
       <section id="features">
-        <FeatureSteps
-          label="Tu día, paso a paso"
-          title="De la admisión al alta"
-          description="Cada paso del tratamiento kinésico — admisión, evaluación, evolución, alta — en una sola plataforma. Sin papel, sin planillas, sin duplicar datos."
-          features={stackFeatures.map((feat) => ({
-            step: feat.label,
-            title: feat.title,
-            content: feat.desc,
-            image: feat.imageSrc,
-          }))}
-          autoPlayInterval={5000}
-        />
+        <div className="py-20 md:py-32 px-6">
+          <div className="max-w-7xl mx-auto w-full">
+            <div className="flex justify-center mb-4">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#0284c7]/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#0284c7]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0284c7]" />
+                Tu día, paso a paso
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 text-foreground text-center text-balance">
+              De la admisión al alta
+            </h2>
+            <p className="text-foreground-muted text-center max-w-2xl mx-auto mb-16 text-balance text-base md:text-lg">
+              Cada paso del tratamiento kinésico — admisión, evaluación, evolución, alta — en una sola plataforma. Sin papel, sin planillas, sin duplicar datos.
+            </p>
+            <InteractiveSystemDemo />
+          </div>
+        </div>
 
         {/* ─── Bottom CTA ─── */}
         <div className="hm-cta-wrap">

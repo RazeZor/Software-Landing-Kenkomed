@@ -20,6 +20,8 @@ interface FeatureStepsProps {
   description?: string
   autoPlayInterval?: number
   imageHeight?: string
+  renderCustomDesktopPane?: (currentFeature: number) => React.ReactNode
+  renderCustomMobilePane?: (feature: Feature, index: number) => React.ReactNode
 }
 
 export function FeatureSteps({
@@ -29,6 +31,8 @@ export function FeatureSteps({
   label,
   description,
   autoPlayInterval = 3000,
+  renderCustomDesktopPane,
+  renderCustomMobilePane,
 }: FeatureStepsProps) {
   const [currentFeature, setCurrentFeature] = useState(0)
   const [progress, setProgress] = useState(0)
@@ -131,13 +135,17 @@ export function FeatureSteps({
                             
                             {/* MOBILE IMAGE PREVIEW */}
                             <div className="md:hidden mt-2 mb-4 w-full h-[220px] sm:h-[280px] relative rounded-xl overflow-hidden border border-border/60 bg-card shadow-sm">
-                              <Image
-                                src={feature.image}
-                                alt={feature.title || feature.step}
-                                className="w-full h-full object-contain object-center"
-                                fill
-                                sizes="(max-width: 768px) 100vw, 0vw"
-                              />
+                              {renderCustomMobilePane ? (
+                                renderCustomMobilePane(feature, index)
+                              ) : (
+                                <Image
+                                  src={feature.image}
+                                  alt={feature.title || feature.step}
+                                  className="w-full h-full object-contain object-center"
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, 0vw"
+                                />
+                              )}
                             </div>
                             
                           </motion.div>
@@ -160,31 +168,35 @@ export function FeatureSteps({
           </div>
 
           <div className="hidden md:flex order-1 md:order-2 relative h-[300px] md:h-auto overflow-hidden rounded-[1.75rem] border border-border/60 bg-card shadow-[0_30px_60px_-30px_rgba(15,23,42,0.25)] lg:min-h-[480px] items-center justify-center">
-            <AnimatePresence mode="wait">
-              {features.map(
-                (feature, index) =>
-                  index === currentFeature && (
-                    <motion.div
-                      key={index}
-                      className="absolute inset-0 flex items-center justify-center p-3 md:p-6"
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      <div className="relative w-full h-full rounded-xl overflow-hidden">
-                        <Image
-                          src={feature.image}
-                          alt={feature.title || feature.step}
-                          className="w-full h-full object-contain object-center"
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
-                      </div>
-                    </motion.div>
-                  )
-              )}
-            </AnimatePresence>
+            {renderCustomDesktopPane ? (
+              renderCustomDesktopPane(currentFeature)
+            ) : (
+              <AnimatePresence mode="wait">
+                {features.map(
+                  (feature, index) =>
+                    index === currentFeature && (
+                      <motion.div
+                        key={index}
+                        className="absolute inset-0 flex items-center justify-center p-3 md:p-6"
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="relative w-full h-full rounded-xl overflow-hidden">
+                          <Image
+                            src={feature.image}
+                            alt={feature.title || feature.step}
+                            className="w-full h-full object-contain object-center"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                        </div>
+                      </motion.div>
+                    )
+                )}
+              </AnimatePresence>
+            )}
           </div>
         </div>
       </div>
