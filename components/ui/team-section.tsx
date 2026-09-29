@@ -14,7 +14,7 @@ export interface TeamMember {
   socialLinks?: SocialLink[];
 }
 
-export interface TeamSectionProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TeamSectionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   title: React.ReactNode;
   description: React.ReactNode;
   members: TeamMember[];
