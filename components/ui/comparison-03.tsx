@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { RiCheckLine as Check } from "react-icons/ri";
 
 const traditional = [
   "Riesgo de perder o traspapelar la ficha clínica",
@@ -111,7 +112,7 @@ export const Comparison03 = () => {
           >
             <div className="flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400">
-                ✓
+                <Check className="h-3.5 w-3.5" />
               </span>
               Con Kenkomed
             </div>
@@ -121,7 +122,7 @@ export const Comparison03 = () => {
                   key={text}
                   className="flex items-start gap-3 rounded-xl bg-white dark:bg-emerald-950/40 p-3 text-foreground shadow-sm"
                 >
-                  <span className="mt-0.5 text-emerald-500 font-bold">✓</span>
+                  <Check className="mt-0.5 text-emerald-500 font-bold h-4 w-4 shrink-0" />
                   <span className="font-medium">{text}</span>
                 </li>
               ))}

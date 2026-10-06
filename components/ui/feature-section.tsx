@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { RiCheckLine as Check } from "react-icons/ri"
 
 interface Feature {
   step: string
@@ -99,7 +100,7 @@ export function FeatureSteps({
                           : "bg-transparent border border-border/70 text-foreground-muted"
                       )}
                     >
-                      {isDone ? "✓" : index + 1}
+                      {isDone ? <Check className="h-3 w-3" /> : index + 1}
                     </div>
 
                     <div className="flex-1 min-w-0 pt-0.5">
