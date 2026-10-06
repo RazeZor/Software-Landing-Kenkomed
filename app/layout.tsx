@@ -45,14 +45,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://kenkomed.cl'),
 
   title: {
-    default: 'Kenkomed — Software para Kinesiólogos | Sistema DSS de Gestión Clínica',
+    default: 'Kenkomed — Software y App para Kinesiólogos | Ficha Clínica Digital & Escalas DSS',
     template: '%s | Kenkomed',
   },
 
   description:
-    'Kenkomed: Sistema de Soporte a la Decisión Clínica (DSS) para kinesiólogos y fisioterapeutas. Historias clínicas digitales, cuestionarios automatizados (EVA, PSFS, Barthel, GROC), agenda inteligente y gestión integral de tu centro kinesiológico en Chile.',
-
-
+    'Kenkomed: El software y app para kinesiólogos en Chile. Ficha clínica digital unificada, cuestionarios y escalas clínicas digitales (EVA, PSFS, Barthel, GROC), admisión QR y gestión clínica integral.',
 
   authors: [{ name: 'Kenkomed', url: 'https://kenkomed.cl' }],
   creator: 'Kenkomed',
@@ -80,9 +78,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: 'Kenkomed — Software para Kinesiólogos | DSS Clínico',
+    title: 'Kenkomed — Software y App para Kinesiólogos | Ficha Clínica Digital',
     description:
-      'Sistema DSS avanzado para kinesiólogos: historias clínicas digitales, cuestionarios automatizados y gestión integral de tu centro kinesiológico.',
+      'App y software especializado para kinesiólogos: fichas clínicas digitales, cuestionarios y escalas clínicas automatizadas.',
     type: 'website',
     locale: 'es_CL',
     url: 'https://kenkomed.cl',
@@ -92,9 +90,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Kenkomed — Software para Kinesiólogos | DSS Clínico',
+    title: 'Kenkomed — Software y App para Kinesiólogos | Ficha Clínica Digital',
     description:
-      'Sistema de Soporte a la Decisión Clínica para kinesiólogos y fisioterapeutas. Digitaliza tu clínica con Kenkomed.',
+      'Software y App de Ficha Clínica Digital para kinesiólogos y fisioterapeutas en Chile. Escalas DSS automatizadas.',
     images: [defaultOgImage.url],
   },
 

@@ -18,6 +18,81 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'app-para-kinesiologos-chile',
+    title: 'App para Kinesiólogos en Chile: Gestión Móvil, Ficha Digital y Admisión QR',
+    subtitle: 'Cómo una aplicación web progresiva (PWA) permite gestionar tu consulta desde el celular, tablet o computador sin instalar programas.',
+    description: 'Descubre por qué elegir una App para kinesiólogos en Chile facilita la admisión QR, el llenado de fichas SOAP y la prescripción remota de ejercicios.',
+    category: 'Práctica Clínica',
+    author: {
+      name: 'Equipo de Producto Kenkomed',
+      role: 'Desarrollo & Experiencia Clínica',
+      avatar: '/images/LogoKenko.png',
+    },
+    publishedAt: '2026-10-06',
+    readTime: '7 min de lectura',
+    featured: true,
+    tags: ['App para Kinesiólogos', 'App Ficha Clínica', 'Movilidad', 'Admisión QR', 'Chile'],
+    content: `
+## ¿Por qué necesitas una App para Kinesiólogos en tu Consulta?
+
+El ejercicio de la kinesiología en Chile es dinámico: atención en gimnasio de rehabilitación, consulta presencial, visita domiciliaria o teleatención. Depender de un software antiguo instalado en un computador de escritorio limita tu libertad y retrasa el registro clínico.
+
+Una **App para kinesiólogos** basada en tecnología Web Progresiva (PWA) como **Kenkomed** te permite acceder a tus expedientes clínicos, agendamiento y prescripción de ejercicios desde cualquier dispositivo (smartphone iPhone/Android, iPad, tablet o laptop) sin descargar ejecutables pesados.
+
+---
+
+## Principales Funciones de una App Kinésica Moderna
+
+1. **Ficha Clínica de Acceso Instantáneo**: Revisa el historial de evoluciones, rango de movimiento (ROM) y dolor (EVA) mientras acompañas al paciente en su pauta de ejercicios en el box o gimnasio.
+2. **Admisión Express por Código QR**: Muestra un código QR en tu recepción o envía un enlace WhatsApp para que el paciente complete su anamnesis desde su propio celular antes de entrar.
+3. **Prescripción Fotográfica y en Video**: Asigna pautas de ejercicios con dosificación (series, repeticiones, descanso) y envía la pauta directo al WhatsApp o correo del paciente.
+4. **Firma Digital y Trazabilidad**: Firma evoluciones al instante desde la pantalla táctil de tu teléfono o tablet cumpliendo con la normativa chilena de salud.
+
+---
+
+## Kenkomed: La App de Ficha Clínica que los Kinesiólogos Preferían
+
+Con **Kenkomed**, no estás amarrado a un box ni a planillas Excel. Mantén tu consulta organizada en tiempo real desde $15.990 CLP/mes neto.
+`,
+  },
+  {
+    slug: 'escalas-clinicas-digitales-kinesiologia',
+    title: 'Escalas Clínicas Digitales y Cuestionarios Automatizados en Kinesiología',
+    subtitle: 'Cómo el motor DSS automatiza el cálculo de EVA, PSFS, Barthel, GROC, WOMAC y Oswestry con alertas clínicas.',
+    description: 'Guía sobre la aplicación de escalas clínicas digitales en fisioterapia y kinesiología. Automatización de puntajes, curvas de progreso y toma de decisiones DSS.',
+    category: 'Escalas & Evidencia',
+    author: {
+      name: 'Dra. María Paz Silva',
+      role: 'Investigación & Outcome Measures',
+      avatar: '/images/LogoKenko.png',
+    },
+    publishedAt: '2026-10-06',
+    readTime: '8 min de lectura',
+    featured: false,
+    tags: ['Escalas Clínicas Digitales', 'Cuestionarios Kinesiología', 'DSS', 'EVA', 'PSFS'],
+    content: `
+## La Revolución de las Escalas Clínicas Digitales
+
+Tradicionalmente, aplicar cuestionarios funcionales como **Oswestry** (columna lumbar), **DASH** (miembro superior), **WOMAC** (artrosis de cadera/rodilla) o **Barthel** implicaba imprimir hojas de papel, pedir al paciente que marcara con lápiz y luego calcular manualmente los porcentajes de incapacidad.
+
+Este proceso consumía hasta 15 minutos por sesión y generaba errores de suma.
+
+---
+
+## Beneficios de Digitalizar tus Cuestionarios Kinésicos
+
+- **Cálculo Automático de Puntajes**: El sistema suma, pondera y convierte los puntajes brutos a porcentajes o índices funcionales al instante.
+- **Gráficos Longitudinales de Evolución**: Visualiza la curva de recuperación sesión a sesión para mostrar al paciente su progreso objetivo o adjuntarlo al informe médico de alta.
+- **Alertas de Banderas Rojas y Amarillas**: El motor **DSS (Clinical Decision Support System)** detecta patrones de riesgo o estancamiento terapéutico notificando al profesional.
+
+---
+
+## Escalas Disponibles en el Motor DSS de Kenkomed
+
+Kenkomed incluye **13 escalas clínicas digitales validadas** listas para usar en cada evaluación kinésica.
+`,
+  },
+  {
     slug: 'ficha-kinesica-digital',
     title: 'Ficha Kinésica Digital en Chile: Guía Completa, Normativa Ley 20.584 y Ley 21.719',
     subtitle: 'Requisitos legales, protección de datos sensibles y estructura recomendada para expedientes clínicos en kinesiología.',

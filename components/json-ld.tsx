@@ -61,9 +61,10 @@ export const softwareSchema = {
   '@type': 'SoftwareApplication',
   name: 'Kenkomed',
   applicationCategory: 'HealthApplication, MedicalApplication',
-  operatingSystem: 'Web, Mobile',
+  operatingSystem: 'Web, Mobile, iOS, Android',
+  keywords: 'software para kinesiologos, app para kinesiologos, app de ficha clinica, ficha clinica digital chile, escalas clinicas digitales, cuestionarios kinesiologia',
   description:
-    'Sistema de Soporte a la Decisión Clínica (DSS) para kinesiólogos en Chile. Fichas clínicas digitales, cuestionarios automatizados EVA, PSFS, Barthel, GROC, agenda inteligente y reportes clínicos.',
+    'Software y App de Ficha Clínica Digital y Sistema de Soporte a la Decisión Clínica (DSS) para kinesiólogos en Chile. Cuestionarios y escalas clínicas digitales EVA, PSFS, Barthel, GROC, admisión QR y agenda inteligente.',
   offers: {
     '@type': 'AggregateOffer',
     priceCurrency: 'CLP',
