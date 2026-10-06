@@ -18,23 +18,26 @@ export const organizationSchema = {
   '@type': 'Organization',
   name: 'Kenkomed',
   url: 'https://kenkomed.cl',
-  logo: 'https://kenkomed.cl/images/logo.jpeg',
+  logo: 'https://kenkomed.cl/images/LogoKenko.png',
   description:
     'Software clínico profesional para kinesiólogos y fisioterapeutas en Chile. Sistema de Soporte a la Decisión Clínica (DSS).',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Santiago',
+    addressLocality: 'Concepción',
+    addressRegion: 'Región del Bío-Bío',
+    postalCode: '4030000',
     addressCountry: 'CL',
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    email: 'contacto@kenkomed.cl',
+    email: 'kenkomedplus@gmail.com',
     telephone: '+56940966266',
     contactType: 'customer service',
     availableLanguage: 'Spanish',
   },
   sameAs: [
-    'https://www.instagram.com/kenkomed.cl/',
+    'https://www.instagram.com/_kenkomed_/',
+    'https://www.linkedin.com/company/kenkomed/',
   ],
 }
 
@@ -57,19 +60,84 @@ export const softwareSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'Kenkomed',
-  applicationCategory: 'HealthApplication',
-  operatingSystem: 'Web',
+  applicationCategory: 'HealthApplication, MedicalApplication',
+  operatingSystem: 'Web, Mobile',
   description:
-    'Sistema de Soporte a la Decisión Clínica (DSS) para kinesiólogos. Fichas clínicas digitales, cuestionarios automatizados EVA, PSFS, Barthel, GROC, agenda inteligente y reportes clínicos.',
+    'Sistema de Soporte a la Decisión Clínica (DSS) para kinesiólogos en Chile. Fichas clínicas digitales, cuestionarios automatizados EVA, PSFS, Barthel, GROC, agenda inteligente y reportes clínicos.',
   offers: {
-    '@type': 'Offer',
-    price: '15990',
+    '@type': 'AggregateOffer',
     priceCurrency: 'CLP',
-    description: 'Desde $15.990 CLP/mes (plan anual). Demo guiada sin costo.',
+    lowPrice: '15990',
+    highPrice: '54990',
+    offerCount: '3',
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Plan Solo / Independiente',
+        price: '15990',
+        priceCurrency: 'CLP',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '15990',
+          priceCurrency: 'CLP',
+          valueAddedTaxIncluded: 'false',
+          referenceQuantity: {
+            '@type': 'QuantitativeValue',
+            value: '1',
+            unitCode: 'MON',
+          },
+        },
+        description: 'Plan anual para 1 kinesiólogo independiente. $15.990 CLP/mes neto ($19.028 IVA incluido).',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Plan Clínico Pro',
+        price: '27990',
+        priceCurrency: 'CLP',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '27990',
+          priceCurrency: 'CLP',
+          valueAddedTaxIncluded: 'false',
+          referenceQuantity: {
+            '@type': 'QuantitativeValue',
+            value: '1',
+            unitCode: 'MON',
+          },
+        },
+        description: 'Plan anual para hasta 2 kinesiólogos o Kine + Secretaria. $27.990 CLP/mes neto ($33.308 IVA incluido).',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Plan Clínica Pro',
+        price: '43990',
+        priceCurrency: 'CLP',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '43990',
+          priceCurrency: 'CLP',
+          valueAddedTaxIncluded: 'false',
+          referenceQuantity: {
+            '@type': 'QuantitativeValue',
+            value: '1',
+            unitCode: 'MON',
+          },
+        },
+        description: 'Plan anual para centros de rehabilitación con 3 kinesiólogos incluidos. $43.990 CLP/mes neto ($52.348 IVA incluido).',
+      },
+    ],
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '48',
+    bestRating: '5',
+    worstRating: '1',
   },
   author: {
     '@type': 'Organization',
     name: 'Kenkomed',
+    url: 'https://kenkomed.cl',
   },
 }
 
@@ -100,3 +168,4 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
     })),
   }
 }
+

@@ -79,6 +79,7 @@ const solucionSubMenu = [
 ]
 
 const recursosSubMenu = [
+  { title: 'Blog & Guías Clínicas', href: '/blog' },
   { title: 'Preguntas Frecuentes', href: '/#preguntas-frecuentes' },
   { title: 'Seguridad & Datos', href: '/seguridad' },
   { title: 'Privacidad', href: '/privacidad' },
@@ -124,15 +125,20 @@ const NAV_ITEMS: NavItem[] = [
   {
     id: 3,
     label: "Precios",
-    link: "/#pricing"
+    link: "/precios"
   },
   {
     id: 4,
+    label: "Blog",
+    link: "/blog"
+  },
+  {
+    id: 5,
     label: "Nosotros",
     link: "/nosotros"
   },
   {
-    id: 5,
+    id: 6,
     label: "Recursos",
     subMenus: [
       {
@@ -276,10 +282,10 @@ export function SiteHeader() {
                 <nav className="mt-6 flex flex-col gap-6" aria-label="Navegación móvil">
                   <div className="flex flex-col gap-1">
                     <Link
-                      href="/#pricing"
+                      href="/precios"
                       className="rounded-lg px-3 py-2 text-sm font-semibold text-foreground hover:text-brand transition-colors flex items-center justify-between"
                     >
-                      Precios
+                      Precios & Planes
                       <ArrowRight size={14} className="text-foreground-muted" />
                     </Link>
                   </div>

@@ -101,7 +101,6 @@ const plans = [
     features: [
       'Todo lo del Plan Clínico Pro',
       '3 licencias de Kinesiólogo incluidas',
-      '+$12.990/mes (+ IVA) por kinesiólogo adicional',
       'Módulo de Pagos y Caja Centralizado (Multi-kine y auditoría)',
       'Gestión de Packs de Sesiones Multi-Kinesiólogo',
       'Multi-sede con migración de pacientes',
@@ -1058,24 +1057,29 @@ export function Pricing() {
             </p>
           </motion.div>
 
-          <div className="flex justify-center mb-10">
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <span className={cn("text-xs sm:text-sm font-semibold transition-colors", isMonthly ? "text-foreground font-bold" : "text-foreground-muted")}>
+              Facturación Mensual
+            </span>
             <Label className="relative inline-flex items-center cursor-pointer">
-              <Label>
-                <Switch
-                  ref={switchRef as any}
-                  checked={!isMonthly}
-                  onCheckedChange={handleToggle}
-                  className="relative data-[state=checked]:bg-brand"
-                />
-              </Label>
+              <Switch
+                ref={switchRef as any}
+                checked={!isMonthly}
+                onCheckedChange={handleToggle}
+                className="relative data-[state=checked]:bg-brand"
+              />
             </Label>
-            <span className="ml-2 font-semibold text-foreground text-sm sm:text-base">
-              Facturación Anual <span className="text-emerald">(Ahorra hasta 20%)</span>
+            <span className={cn("text-xs sm:text-sm font-semibold transition-colors", !isMonthly ? "text-foreground font-bold" : "text-foreground-muted")}>
+              Facturación Anual <span className="text-emerald font-bold">(Ahorra hasta 20%)</span>
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-4 max-w-6xl mx-auto">
-            {plans.map((plan, index) => (
+            {plans.map((plan, index) => {
+              const basePrice = isMonthly ? plan.monthlyPrice : plan.annualPrice
+              const priceWithIva = Math.round(basePrice * 1.19)
+
+              return (
               <motion.div
                 key={plan.slug}
                 initial={{ y: 50, opacity: 0 }}
@@ -1104,7 +1108,7 @@ export function Pricing() {
                   "flex flex-col",
                   !plan.highlighted && "mt-5",
                   (index === 0 || index === 2) && isDesktop
-                    ? "z-0 transform translate-x-0 translate-y-0 rotate-y-[10deg]" // Fallback for 3d if needed
+                    ? "z-0 transform translate-x-0 translate-y-0 rotate-y-[10deg]"
                     : "z-10",
                   index === 0 && isDesktop && "origin-right",
                   index === 2 && isDesktop && "origin-left"
@@ -1123,31 +1127,38 @@ export function Pricing() {
                   </p>
                   <p className="text-sm font-medium text-brand mt-1">{plan.users}</p>
                   
-                  <div className="mt-6 flex items-end gap-x-2">
-                    <span className="text-4xl font-bold tracking-tight text-foreground flex items-center">
-                      $
-                      <NumberFlow
-                        value={isMonthly ? plan.monthlyPrice : plan.annualPrice}
-                        format={{
-                          style: "decimal",
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        }}
-                        transformTiming={{
-                          duration: 600,
-                          easing: "ease-out",
-                        }}
-                        willChange
-                        className="font-variant-numeric: tabular-nums"
-                      />
-                    </span>
-                    <span className="text-sm font-semibold leading-6 tracking-wide text-foreground-muted mb-1 flex items-baseline gap-1">
-                      / mes <span className="text-[10px] uppercase font-bold text-brand ml-0.5">+ IVA</span>
-                    </span>
+                  <div className="mt-6 flex flex-col gap-1">
+                    <div className="flex items-end gap-x-2">
+                      <span className="text-4xl font-bold tracking-tight text-foreground flex items-center">
+                        $
+                        <NumberFlow
+                          value={basePrice}
+                          format={{
+                            style: "decimal",
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          }}
+                          transformTiming={{
+                            duration: 600,
+                            easing: "ease-out",
+                          }}
+                          willChange
+                          className="font-variant-numeric: tabular-nums"
+                        />
+                      </span>
+                      <span className="text-xs font-semibold text-foreground-muted mb-1 flex items-baseline gap-1">
+                        / mes <span className="text-[10px] uppercase font-bold text-brand ml-0.5">neto</span>
+                      </span>
+                    </div>
+
+                    <div className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald bg-emerald/10 border border-emerald/20 px-2.5 py-1 rounded-md w-fit">
+                      <ShieldCheck size={13} className="text-emerald" />
+                      <span>Total con IVA (19%): <strong>${formatPrice(priceWithIva)} / mes</strong></span>
+                    </div>
                   </div>
 
-                  <p className="text-xs leading-5 text-foreground-subtle mt-1 mb-6">
-                    {isMonthly ? "Facturado mensualmente" : `Facturado anualmente ($${new Intl.NumberFormat('es-CL').format(plan.annualPrice * 12)})`}
+                  <p className="text-xs leading-5 text-foreground-subtle mt-2 mb-6">
+                    {isMonthly ? "Facturado mensualmente" : `Facturado anualmente ($${formatPrice(basePrice * 12)} neto / $${formatPrice(priceWithIva * 12)} IVA incl.)`}
                   </p>
 
                   <ul className="gap-3 flex flex-col flex-1">
@@ -1184,7 +1195,7 @@ export function Pricing() {
                   </p>
                 </div>
               </motion.div>
-            ))}
+            )})}
           </div>
 
           <div className="mt-14 text-center space-y-2">

@@ -95,14 +95,14 @@ export default function TestimonialMarqueeDemo() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="relative flex w-full flex-col items-center justify-center overflow-hidden"
       >
-        <Marquee pauseOnHover className="[--duration:40s]">
+        <Marquee pauseOnHover repeat={2} className="[--duration:40s]">
           {firstRow.map((review, idx) => (
-            <ReviewCard key={`${review.username}-${idx}`} {...review} />
+            <ReviewCard key={`r1-${review.username}-${idx}`} {...review} />
           ))}
         </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:40s] mt-4">
+        <Marquee reverse pauseOnHover repeat={2} className="[--duration:40s] mt-4">
           {secondRow.map((review, idx) => (
-            <ReviewCard key={`${review.username}-${idx}`} {...review} />
+            <ReviewCard key={`r2-${review.username}-${idx}`} {...review} />
           ))}
         </Marquee>
         <div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r z-10"></div>

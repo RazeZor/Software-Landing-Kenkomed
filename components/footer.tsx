@@ -68,8 +68,10 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-lg font-bold font-display">Enlaces Rápidos</h3>
             <nav className="space-y-3 text-sm text-foreground-muted">
+              <Link href="/precios" className="block transition-colors hover:text-primary font-medium text-foreground">Precios & Planes</Link>
               <Link href="/funcionalidades" className="block transition-colors hover:text-primary">Funcionalidades</Link>
               <Link href="/solucion" className="block transition-colors hover:text-primary">Nuestra Solución</Link>
+              <Link href="/blog" className="block transition-colors hover:text-primary">Blog & Guías SEO</Link>
               <Link href="/demo" className="block transition-colors hover:text-primary">Ver Demo</Link>
               <Link href="/investigacion" className="block transition-colors hover:text-primary">Investigación</Link>
               <Link href="/nosotros" className="block transition-colors hover:text-primary">Nosotros</Link>
@@ -116,7 +118,7 @@ export function Footer() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button variant="outline" size="icon" className="rounded-full bg-background border-border hover:bg-primary/10 hover:text-primary hover:border-primary/30">
-                      <a href="#" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.linkedin.com/company/kenkomed/" target="_blank" rel="noopener noreferrer">
                         <Linkedin className="h-4 w-4" />
                         <span className="sr-only">LinkedIn</span>
                       </a>

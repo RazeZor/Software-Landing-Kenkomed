@@ -47,7 +47,8 @@ export function useCountUp(
     prefix = '',
     suffix = ''
 ) {
-    const [display, setDisplay] = useState(`${prefix}0${suffix}`)
+    // Default to the target value so SSR and initial renders display actual numbers instead of 0
+    const [display, setDisplay] = useState(`${prefix}${end}${suffix}`)
 
     useEffect(() => {
         if (!isActive) return
