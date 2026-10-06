@@ -16,15 +16,7 @@ import {
 import { cn } from '@/lib/utils'
 import { useScrollProgress } from '@/hooks/use-scroll-animation'
 import {
-  RiArrowDownSLine as ChevronDown,
   RiArrowRightLine as ArrowRight,
-  RiBrainLine as Brain,
-  RiQrCodeLine as QrCode,
-  RiFileTextLine as FileText,
-  RiBarChartBoxLine as BarChart3,
-  RiShieldCheckLine as ShieldCheck,
-  RiSparklingLine as Sparkles,
-  RiTeamLine as Users
 } from 'react-icons/ri'
 import { DropdownNavigation, NavItem } from '@/components/ui/dropdown-navigation'
 
@@ -35,25 +27,21 @@ const funcionesSubMenu = [
     title: 'DSS Clínico & Algoritmos',
     href: '/funcionalidades#plataforma',
     desc: 'Escalas EVA, PSFS, Barthel y banderas rojas.',
-    icon: Brain,
   },
   {
     title: 'Admisión Express QR',
     href: '/funcionalidades#admision-remota',
     desc: 'Anamnesis inteligente desde el celular.',
-    icon: QrCode,
   },
   {
     title: 'Ficha Digital Unificada',
     href: '/funcionalidades#funcionalidades',
     desc: 'Historial clínico, sesiones y evoluciones.',
-    icon: FileText,
   },
   {
     title: 'Monitoreo & Outcomes',
     href: '/funcionalidades#monitoreo',
     desc: 'Gráficos de recuperación en tiempo real.',
-    icon: BarChart3,
   },
 ]
 
@@ -62,19 +50,16 @@ const solucionSubMenu = [
     title: 'Nuestra Solución',
     href: '/solucion',
     desc: 'Transformación digital clínica integral.',
-    icon: Sparkles,
   },
   {
     title: 'Investigación Científica',
     href: '/investigacion',
     desc: 'Evidencia clínica y base de datos DSS.',
-    icon: Brain,
   },
   {
     title: 'Sobre Nosotros',
     href: '/nosotros',
     desc: 'El equipo detrás de Kenkomed.',
-    icon: Users,
   },
 ]
 
@@ -95,7 +80,6 @@ const NAV_ITEMS: NavItem[] = [
         items: solucionSubMenu.map(item => ({
           label: item.title,
           description: item.desc,
-          icon: item.icon,
           href: item.href,
         }))
       }
@@ -110,12 +94,10 @@ const NAV_ITEMS: NavItem[] = [
           ...funcionesSubMenu.map(item => ({
             label: item.title,
             description: item.desc,
-            icon: item.icon,
             href: item.href,
           })),
           {
             label: "Ver todas las funcionalidades",
-            icon: ArrowRight,
             href: "/funcionalidades",
           }
         ]
