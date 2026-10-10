@@ -24,7 +24,6 @@ import {
   RiLineChartLine as LineChart,
   RiSparklingLine as Sparkles,
   RiFlaskLine as Flask,
-  RiTeamLine as Team,
   RiBookOpenLine as BookOpen,
   RiQuestionnaireLine as Questionnaire,
   RiShieldCheckLine as ShieldCheck,
@@ -81,12 +80,6 @@ const solucionSubMenu = [
     desc: 'Evidencia clínica y base de datos DSS.',
     icon: Flask,
   },
-  {
-    title: 'Sobre Nosotros',
-    href: '/nosotros',
-    desc: 'El equipo detrás de Kenkomed.',
-    icon: Team,
-  },
 ]
 
 const recursosSubMenu = [
@@ -140,11 +133,6 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 5,
-    label: "Nosotros",
-    link: "/nosotros"
-  },
-  {
-    id: 6,
     label: "Recursos",
     subMenus: [
       {
@@ -247,7 +235,17 @@ export function SiteHeader() {
           </nav>
 
           {/* Desktop CTAs */}
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-2.5 md:flex">
+            <a
+              href="https://wa.me/56937105872"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-emerald bg-emerald/10 hover:bg-emerald/20 border border-emerald/20 transition-all hover:scale-105 active:scale-95"
+              aria-label="Contactar por WhatsApp (+56 9 3710 5872)"
+            >
+              <Whatsapp className="h-4 w-4" />
+              <span>WhatsApp</span>
+            </a>
             <Button asChild>
               <Link href="/#contact">Solicitar Demo</Link>
             </Button>
@@ -441,7 +439,7 @@ export function SiteHeader() {
                   </Button>
 
                   <a
-                    href="https://wa.me/56940966266"
+                    href="https://wa.me/56937105872"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald/30 bg-emerald/5 px-4 py-2.5 text-xs font-semibold text-emerald transition-all hover:bg-emerald/10 active:scale-[0.98]"

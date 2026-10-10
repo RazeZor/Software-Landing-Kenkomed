@@ -28,7 +28,7 @@ const sections = [
         </p>
         <p>
           Contacto para consultas de privacidad:{' '}
-          <a href="mailto:kenkomedplus@gmail.com">kenkomedplus@gmail.com</a> · +56 9 4096 6266 ·
+          <a href="mailto:kenkomedplus@gmail.com">kenkomedplus@gmail.com</a> · +56 9 3710 5872 ·
           Concepción, Chile.
         </p>
       </>

@@ -31,7 +31,7 @@ export const organizationSchema = {
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'kenkomedplus@gmail.com',
-    telephone: '+56940966266',
+    telephone: '+56937105872',
     contactType: 'customer service',
     availableLanguage: 'Spanish',
   },

@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Instagram, Linkedin, Moon, Send, Sun, Mail, Phone, MapPin } from "lucide-react"
+import { RiWhatsappFill } from "react-icons/ri"
 import Image from "next/image"
 import Link from "next/link"
 import { useTheme } from "next-themes"
@@ -74,7 +75,6 @@ export function Footer() {
               <Link href="/blog" className="block transition-colors hover:text-primary">Blog & Guías SEO</Link>
               <Link href="/demo" className="block transition-colors hover:text-primary">Ver Demo</Link>
               <Link href="/investigacion" className="block transition-colors hover:text-primary">Investigación</Link>
-              <Link href="/nosotros" className="block transition-colors hover:text-primary">Nosotros</Link>
             </nav>
           </div>
 
@@ -82,15 +82,26 @@ export function Footer() {
             <h3 className="mb-4 text-lg font-bold font-display">Contacto</h3>
             <address className="space-y-3 text-sm not-italic text-foreground-muted">
               <p className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary" />
+                <MapPin className="h-4 w-4 text-primary shrink-0" />
                 Concepción, Chile
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <a href="tel:+56940966266" className="hover:text-primary transition-colors">+56 9 4096 6266</a>
+                <RiWhatsappFill className="h-4 w-4 text-[#25D366] shrink-0" />
+                <a
+                  href="https://wa.me/56937105872"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors font-medium text-foreground"
+                >
+                  +56 9 3710 5872 (WhatsApp)
+                </a>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-primary" />
+                <Phone className="h-4 w-4 text-primary shrink-0" />
+                <a href="tel:+56937105872" className="hover:text-primary transition-colors">+56 9 3710 5872</a>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary shrink-0" />
                 <a href="mailto:kenkomedplus@gmail.com" className="hover:text-primary transition-colors">kenkomedplus@gmail.com</a>
               </p>
             </address>
@@ -98,7 +109,22 @@ export function Footer() {
 
           <div className="relative">
             <h3 className="mb-4 text-lg font-bold font-display">Síguenos</h3>
-            <div className="mb-6 flex space-x-4">
+            <div className="mb-6 flex space-x-3">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" className="rounded-full bg-background border-border hover:bg-[#25D366]/10 hover:text-[#25D366] hover:border-[#25D366]/30">
+                      <a href="https://wa.me/56937105872" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Empresa (+56 9 3710 5872)">
+                        <RiWhatsappFill className="h-4 w-4 text-[#25D366]" />
+                        <span className="sr-only">WhatsApp Empresa</span>
+                      </a>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>WhatsApp Empresa (+56 9 3710 5872)</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>

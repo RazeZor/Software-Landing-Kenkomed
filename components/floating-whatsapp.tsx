@@ -1,25 +1,25 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { RiWhatsappLine as MessageCircle, RiCloseLine as X } from 'react-icons/ri'
+import { RiWhatsappFill, RiCloseLine as X } from 'react-icons/ri'
 
 export function FloatingWhatsApp() {
   const [isVisible, setIsVisible] = useState(false)
   const [isTooltipVisible, setIsTooltipVisible] = useState(false)
 
-  const phoneNumber = '56940966266'
-  const message = 'Hola, quiero ver una demo de Kenkomed'
+  const phoneNumber = '56937105872'
+  const message = 'Hola, me gustaría obtener más información sobre el software Kenkomed'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
 
   // Show button after a short delay
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 1000)
+    const timer = setTimeout(() => setIsVisible(true), 800)
     
     // Show tooltip intermittently to attract attention
     const tooltipTimer = setInterval(() => {
       setIsTooltipVisible(true)
-      setTimeout(() => setIsTooltipVisible(false), 5000)
-    }, 20000) // Every 20 seconds, show for 5 seconds
+      setTimeout(() => setIsTooltipVisible(false), 6000)
+    }, 25000)
 
     return () => {
       clearTimeout(timer)
@@ -30,29 +30,37 @@ export function FloatingWhatsApp() {
   if (!isVisible) return null
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-none">
-      
-      {/* Tooltip Assistant Bubble */}
+    <aside
+      aria-label="Contacto directo por WhatsApp"
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-none"
+    >
+      {/* Tooltip WhatsApp Bubble */}
       <div 
-        className={`bg-white dark:bg-card text-foreground px-4 py-3 rounded-2xl shadow-lg border border-border/50 max-w-[220px] transition-all duration-500 origin-bottom-right pointer-events-auto flex items-start gap-2 ${
+        className={`bg-white dark:bg-card text-foreground px-4 py-3 rounded-2xl shadow-xl border border-emerald/20 max-w-[240px] transition-all duration-300 origin-bottom-right pointer-events-auto flex items-start gap-2.5 ${
           isTooltipVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-2 pointer-events-none'
         }`}
       >
         <div className="flex-1">
-          <p className="text-sm font-medium leading-tight mb-1">¡Hola! 👋</p>
+          <div className="flex items-center gap-1.5 mb-1">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#25D366]" />
+            </span>
+            <p className="text-xs font-bold text-foreground">WhatsApp Empresa</p>
+          </div>
           <p className="text-xs text-foreground-muted leading-snug">
-            Soy el <strong>asistente virtual</strong> de Kenkomed. ¿En qué te puedo ayudar?
+            ¿Dudas o quieres ver una demo? Háblanos directamente aquí.
           </p>
         </div>
         <button 
           onClick={() => setIsTooltipVisible(false)}
           className="text-foreground-muted hover:text-foreground transition-colors p-0.5"
-          aria-label="Cerrar mensaje"
+          aria-label="Cerrar notificación"
         >
           <X size={14} />
         </button>
         {/* Tail triangle */}
-        <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white dark:bg-card border-b border-r border-border/50 rotate-45" />
+        <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-white dark:bg-card border-b border-r border-emerald/20 rotate-45" />
       </div>
 
       {/* Main WhatsApp Button */}
@@ -60,16 +68,16 @@ export function FloatingWhatsApp() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#25D366]/20 transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-[#25D366]/30 pointer-events-auto"
-        aria-label="Contactar por WhatsApp"
+        className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#25D366]/30 transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#25D366]/30 pointer-events-auto"
+        aria-label="Contactar por WhatsApp (+56 9 3710 5872)"
         onMouseEnter={() => setIsTooltipVisible(true)}
         onMouseLeave={() => setIsTooltipVisible(false)}
       >
-        <MessageCircle size={28} className="fill-current" />
+        <RiWhatsappFill size={30} className="fill-current drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
         
         {/* Pulse effect */}
         <span className="absolute inset-0 rounded-full border border-[#25D366] animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-75" />
       </a>
-    </div>
+    </aside>
   )
 }

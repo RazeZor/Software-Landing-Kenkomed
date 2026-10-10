@@ -8,7 +8,7 @@ import {
   softwareSchema,
 } from '@/components/json-ld'
 import { defaultOgImage } from '@/lib/seo-assets'
-import { VirtualAssistantLazy } from '@/components/virtual-assistant-lazy'
+import { FloatingWhatsApp } from '@/components/floating-whatsapp'
 import { SiteHeader } from '@/components/ui/site-header'
 import './globals.css'
 
@@ -147,7 +147,7 @@ export default function RootLayout({
           </noscript>
           <SiteHeader />
           {children}
-          <VirtualAssistantLazy />
+          <FloatingWhatsApp />
         </ThemeProvider>
       </body>
     </html>
