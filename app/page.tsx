@@ -10,6 +10,11 @@ const SolucionTeaser = dynamic(
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
 )
 
+const KenkomedBentoShowcase = dynamic(
+  () => import('@/components/kenkomed-bento-showcase').then((m) => m.KenkomedBentoShowcase),
+  { loading: () => <SectionSkeleton className="h-[38rem]" /> }
+)
+
 const BeforeAfter = dynamic(
   () => import('@/components/before-after').then((m) => m.BeforeAfter),
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
@@ -47,6 +52,7 @@ export default function Home() {
       <Hero />
       <BeforeAfter />
       <SolucionTeaser />
+      <KenkomedBentoShowcase />
       <Testimonials />
       <HomeMidCta />
       <Pricing />
