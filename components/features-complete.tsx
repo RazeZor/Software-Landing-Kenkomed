@@ -297,7 +297,7 @@ const clinicianGroups = [
             'Venta y gestión de Packs de Atención',
             'Cruce automático de deuda clínica vs pagos',
             'Dashboard financiero y control de ingresos por mes',
-            'Soporte dual para pacientes Isapre/Particular y Fonasa',
+            'Soporte para tarifas diferenciadas y pacientes particulares',
             'Listado en tiempo real de pacientes morosos',
         ],
     },

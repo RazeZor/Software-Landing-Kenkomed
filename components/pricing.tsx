@@ -76,7 +76,7 @@ const plans = [
     features: [
       'Hasta 2 cuentas profesionales independientes (o 1 Kine + 1 Asistente)',
       'Módulo de Pagos y Caja (Cobros, saldos y recibos)',
-      'Gestión de Packs de Sesiones (Bolsillo Fonasa / Particular)',
+      'Gestión de Packs de Sesiones (Cobros por sesión y packs)',
       'Agenda avanzada (Presencial · Domicilio · Telemedicina)',
       'Anamnesis remota QR de 14 páginas',
       'Ciclos clínicos con alta y diagnóstico final',

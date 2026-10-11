@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { KenkomedBentoPan } from "@/components/ui/kenkomed-bento-pan";
-import { Activity, Sparkles, Play, Pause } from "lucide-react";
+import { Activity, Sparkles, Play, Pause, FileCheck } from "lucide-react";
 
 // Remotion Player cargado dinámicamente con ssr: false para evitar discrepancias de hidratación en Next.js App Router
 const Player = dynamic(
@@ -123,12 +123,12 @@ export function KenkomedBentoShowcase() {
 
           <div className="flex items-start gap-3 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
             <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-              <Activity size={18} />
+              <FileCheck size={18} />
             </div>
             <div>
               <div className="text-sm font-semibold text-white">Cumplimiento Legal Chile</div>
               <div className="text-xs text-zinc-400 mt-1">
-                Ley de Derechos y Deberes 20.584, boletas SII y convenios FONASA/Isapre.
+                Ley 20.584 de Derechos y Deberes. Emisión directa de boletas y facturas SII.
               </div>
             </div>
           </div>

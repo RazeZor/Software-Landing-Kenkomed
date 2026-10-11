@@ -201,9 +201,9 @@ const CARDS: CardDef[] = [
     h: 260,
     kind: "convenios",
     accent: KENKO_SKY,
-    label: "Convenios de Salud Chile",
-    title: "FONASA + Isapres + SII",
-    sub: "Cruce automático de bonos y copagos",
+    label: "Cumplimiento Tributario & SII",
+    title: "Boletas y Facturas SII",
+    sub: "Emisión electrónica oficial y Ley 20.584",
   },
   {
     x: 560,
@@ -449,7 +449,7 @@ function RedFlagsCard({ title, sub, accent }: { title?: string; sub?: string; ac
   );
 }
 
-// Convenios Fonasa e Isapres
+// Facturación y Boletas SII
 function ConveniosCard({ title, sub, accent }: { title?: string; sub?: string; accent: string }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
@@ -459,17 +459,17 @@ function ConveniosCard({ title, sub, accent }: { title?: string; sub?: string; a
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, margin: "8px 0" }}>
         <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 10px", borderRadius: 8, background: "rgba(255,255,255,0.05)", fontSize: 12 }}>
-          <span style={{ color: "rgba(255,255,255,0.8)" }}>Bono FONASA MLE</span>
-          <span style={{ color: "#34d399", fontWeight: 700, fontFamily: "monospace" }}>Aprobado</span>
+          <span style={{ color: "rgba(255,255,255,0.8)" }}>Factura Electrónica SII</span>
+          <span style={{ color: "#34d399", fontWeight: 700, fontFamily: "monospace" }}>Válida SII</span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 10px", borderRadius: 8, background: "rgba(255,255,255,0.05)", fontSize: 12 }}>
-          <span style={{ color: "rgba(255,255,255,0.8)" }}>Isapres / I-Med</span>
-          <span style={{ color: "#38bdf8", fontWeight: 700, fontFamily: "monospace" }}>En línea</span>
+          <span style={{ color: "rgba(255,255,255,0.8)" }}>Boleta Electrónica SII</span>
+          <span style={{ color: "#38bdf8", fontWeight: 700, fontFamily: "monospace" }}>Directa</span>
         </div>
       </div>
       <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 6, display: "flex", justifyContent: "space-between" }}>
         <span>{sub}</span>
-        <span style={{ color: accent, fontWeight: 600 }}>Boletas SII</span>
+        <span style={{ color: accent, fontWeight: 600 }}>100% Legal Chile</span>
       </div>
     </div>
   );

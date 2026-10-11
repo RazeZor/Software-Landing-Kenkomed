@@ -18,7 +18,9 @@ import {
   QrCode,
   CheckSquare,
   ChevronRight,
-  Info
+  Info,
+  Clock,
+  Plus
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -63,7 +65,7 @@ export function InteractiveSystemDemo() {
   const isClinical = activeTab === 'clinical' && activeStep >= 0 && activeStep <= 5
 
   const renderContent = () => {
-    if (activeTab === 'inicio') return <InicioMock />
+    if (activeTab === 'inicio') return <InicioMock onNavigateToAgenda={() => setActiveTab('agenda')} />
     if (activeTab === 'agenda') return <AgendaMock />
     if (activeTab === 'estadisticas') return <EstadisticasMock />
     
@@ -203,7 +205,7 @@ export function InteractiveSystemDemo() {
             )}
 
             {/* Dashboard Content */}
-            <div className="flex-1 p-5 sm:p-8 pb-20 sm:pb-8 overflow-hidden relative">
+            <div className="flex-1 p-2.5 sm:p-8 pb-16 sm:pb-8 overflow-hidden relative">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeTab}-${activeStep}`}
@@ -213,7 +215,7 @@ export function InteractiveSystemDemo() {
                   transition={{ duration: 0.3 }}
                   className={cn(
                     "h-full overflow-y-auto",
-                    activeTab === 'inicio' ? "" : "bg-white rounded-2xl border border-slate-200/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)] p-6"
+                    activeTab === 'inicio' ? "" : "bg-white rounded-xl sm:rounded-2xl border border-slate-200/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)] p-3 sm:p-6"
                   )}
                 >
                   {renderContent()}
@@ -255,7 +257,7 @@ export function InteractiveSystemDemo() {
  * MOCK COMPONENTS
  * ───────────────────────────────────────────────────────── */
 
-function InicioMock() {
+function InicioMock({ onNavigateToAgenda }: { onNavigateToAgenda?: () => void }) {
   return (
     <div className="flex flex-col gap-6 max-w-5xl mx-auto pb-8">
       {/* Hero Welcome */}
@@ -269,7 +271,7 @@ function InicioMock() {
               <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
               En línea
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-2">Hola, Dr. Arias 👋</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">Hola, Dr. Arias</h2>
             <p className="text-white/70 text-sm mb-6">Bienvenido al panel de control de KenkoMed</p>
             
             <div className="flex flex-wrap gap-3">
@@ -326,7 +328,13 @@ function InicioMock() {
           <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
             <Calendar size={18} className="text-[#0284c7]" /> Próximos Agendamientos
           </h3>
-          <span className="text-xs font-bold text-[#0284c7] cursor-pointer hover:underline">Ver calendario</span>
+          <button
+            type="button"
+            onClick={onNavigateToAgenda}
+            className="text-xs font-bold text-[#0284c7] cursor-pointer hover:underline"
+          >
+            Ver calendario
+          </button>
         </div>
         <div className="space-y-3">
           {[
@@ -685,61 +693,326 @@ function PagosMock() {
 }
 
 function AgendaMock() {
+  const [viewMode, setViewMode] = useState<'dia' | 'semana'>('dia')
+  const [selectedDay, setSelectedDay] = useState(2) // 2 corresponds to Mié 28
+
+  const days = [
+    { day: 'Lun', date: '26', count: 2 },
+    { day: 'Mar', date: '27', count: 4 },
+    { day: 'Mié', date: '28', count: 3, isToday: true },
+    { day: 'Jue', date: '29', count: 5 },
+    { day: 'Vie', date: '30', count: 3 },
+    { day: 'Sáb', date: '01', count: 1 },
+  ]
+
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-4">
-          <h2 className="text-xl font-bold text-slate-800">Hoy, 28 de Septiembre</h2>
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
-            <button className="px-3 py-1 bg-white shadow-sm rounded-md text-xs font-bold text-slate-800">Día</button>
-            <button className="px-3 py-1 text-slate-500 hover:text-slate-800 text-xs font-bold">Semana</button>
+      {/* Top Header */}
+      <div className="flex flex-col gap-2.5 sm:gap-3 mb-3 sm:mb-5">
+        <div className="flex items-center justify-between gap-2">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-sm sm:text-lg font-bold text-slate-800 truncate">
+                {selectedDay === 2 ? 'Hoy, 28 de Septiembre' : `${days[selectedDay].day} ${days[selectedDay].date} de Septiembre`}
+              </h2>
+              <span className="inline-flex px-2 py-0.5 rounded-full bg-blue-50 text-[#0284c7] text-[10px] font-bold border border-blue-100">
+                {days[selectedDay].count} citas
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-400 font-medium hidden sm:block mt-0.5">
+              Agenda sincronizada · Kinesiología Integral
+            </p>
+          </div>
+
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* View switcher */}
+            <div className="flex items-center bg-slate-100 p-0.5 sm:p-1 rounded-lg">
+              <button
+                type="button"
+                onClick={() => setViewMode('dia')}
+                className={cn(
+                  "px-2 sm:px-3 py-1 rounded-md text-[11px] sm:text-xs font-bold transition-all",
+                  viewMode === 'dia'
+                    ? "bg-white shadow-xs text-slate-800"
+                    : "text-slate-500 hover:text-slate-800"
+                )}
+              >
+                Día
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('semana')}
+                className={cn(
+                  "px-2 sm:px-3 py-1 rounded-md text-[11px] sm:text-xs font-bold transition-all",
+                  viewMode === 'semana'
+                    ? "bg-white shadow-xs text-slate-800"
+                    : "text-slate-500 hover:text-slate-800"
+                )}
+              >
+                Semana
+              </button>
+            </div>
+
+            <button
+              type="button"
+              className="px-2.5 sm:px-3.5 py-1.5 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold flex items-center gap-1 shadow-xs transition-colors shrink-0"
+            >
+              <Plus size={13} strokeWidth={2.5} />
+              <span className="hidden sm:inline">Nueva Cita</span>
+              <span className="sm:hidden">Cita</span>
+            </button>
           </div>
         </div>
-        <button className="px-4 py-2 bg-[#0284c7] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm hover:bg-[#0369a1]">
-          <Calendar size={14} /> Nueva Cita
-        </button>
-      </div>
 
-      <div className="flex-1 overflow-y-auto pr-2 relative">
-        <div className="relative border-l border-slate-200 ml-16 space-y-8 py-4">
-          {/* Timeline markers */}
-          <div className="absolute top-0 -left-16 w-12 text-right text-xs font-bold text-slate-400">08:00</div>
-          <div className="absolute top-24 -left-16 w-12 text-right text-xs font-bold text-slate-400">09:00</div>
-          <div className="absolute top-48 -left-16 w-12 text-right text-xs font-bold text-slate-400">10:00</div>
-          <div className="absolute top-72 -left-16 w-12 text-right text-xs font-bold text-slate-400">11:00</div>
-
-          {/* Grid lines */}
-          <div className="absolute top-0 left-0 right-0 border-t border-slate-100"></div>
-          <div className="absolute top-24 left-0 right-0 border-t border-slate-100"></div>
-          <div className="absolute top-48 left-0 right-0 border-t border-slate-100"></div>
-          <div className="absolute top-72 left-0 right-0 border-t border-slate-100"></div>
-
-          {/* Appointments */}
-          <div className="absolute top-4 left-4 right-4 h-16 bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex flex-col justify-center">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs font-bold text-emerald-800">08:15 - 09:00</span>
-              <span className="text-[10px] uppercase font-bold text-emerald-600 tracking-wider">Confirmada</span>
-            </div>
-            <span className="text-sm font-semibold text-emerald-900">Tomás Herrera • Evaluación Inicial</span>
-          </div>
-
-          <div className="absolute top-28 left-4 right-4 h-16 bg-blue-50 border border-blue-200 rounded-xl p-3 flex flex-col justify-center shadow-sm z-10 scale-[1.01]">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs font-bold text-[#0284c7]">09:15 - 10:00</span>
-              <span className="text-[10px] uppercase font-bold text-[#0284c7] tracking-wider">En Sala</span>
-            </div>
-            <span className="text-sm font-semibold text-slate-800">Miguel Arias Silva • Sesión 3/10</span>
-          </div>
-
-          <div className="absolute top-52 left-4 right-4 h-16 bg-amber-50 border border-amber-200 rounded-xl p-3 flex flex-col justify-center">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs font-bold text-amber-800">10:15 - 11:00</span>
-              <span className="text-[10px] uppercase font-bold text-amber-600 tracking-wider">Pendiente</span>
-            </div>
-            <span className="text-sm font-semibold text-amber-900">Laura Montes • Punción Seca</span>
-          </div>
+        {/* Days of week strip selector */}
+        <div className="grid grid-cols-6 gap-1 sm:gap-2 p-1 bg-slate-50 border border-slate-100 rounded-xl">
+          {days.map((d, idx) => {
+            const isSelected = selectedDay === idx
+            return (
+              <button
+                key={d.day}
+                type="button"
+                onClick={() => setSelectedDay(idx)}
+                className={cn(
+                  "flex flex-col items-center justify-center py-1 sm:py-2 px-1 rounded-lg transition-all text-center relative",
+                  isSelected
+                    ? "bg-white text-[#0284c7] shadow-xs border border-slate-200/80 font-bold"
+                    : "text-slate-500 hover:bg-white/60 hover:text-slate-800"
+                )}
+              >
+                <span className="text-[10px] uppercase tracking-wider font-semibold opacity-75">
+                  {d.day}
+                </span>
+                <span className={cn("text-xs sm:text-sm font-black leading-tight", isSelected ? "text-[#0284c7]" : "text-slate-700")}>
+                  {d.date}
+                </span>
+                {d.isToday && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] mt-0.5" />
+                )}
+              </button>
+            )
+          })}
         </div>
       </div>
+
+      {/* Main Content Area */}
+      {viewMode === 'dia' ? (
+        <div className="flex-1 overflow-y-auto pr-1 space-y-2.5 sm:space-y-3.5">
+          {/* Timeline Slots */}
+          {[
+            {
+              hour: '08:00',
+              apt: {
+                time: '08:15 - 09:00',
+                patient: 'Tomás Herrera',
+                treatment: 'Evaluación Inicial Kinésica',
+                box: 'Box 1',
+                status: 'Confirmada',
+                statusStyle: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+                tagStyle: 'bg-emerald-100/70 text-emerald-800',
+                cardBorder: 'border-l-4 border-l-emerald-500 border-emerald-200/80 bg-emerald-50/30',
+                extra: 'Cuestionario QR respondido',
+              },
+            },
+            {
+              hour: '09:00',
+              apt: {
+                time: '09:15 - 10:00',
+                patient: 'Miguel Arias Silva',
+                treatment: 'Reeducación Motora Lumbar L4-L5',
+                box: 'Box 2',
+                status: 'En Sala',
+                statusStyle: 'bg-sky-50 text-[#0284c7] border-sky-200',
+                tagStyle: 'bg-sky-100/80 text-sky-800',
+                cardBorder: 'border-l-4 border-l-[#0284c7] border-blue-200 bg-blue-50/50 shadow-xs ring-1 ring-[#0284c7]/10',
+                extra: 'Sesión 3/10 · EVA 4/10',
+              },
+            },
+            {
+              hour: '10:00',
+              apt: {
+                time: '10:15 - 11:00',
+                patient: 'Laura Montes',
+                treatment: 'Punción Seca & Terapia Manual',
+                box: 'Box 1',
+                status: 'Pendiente',
+                statusStyle: 'bg-amber-50 text-amber-700 border-amber-200',
+                tagStyle: 'bg-amber-100/70 text-amber-800',
+                cardBorder: 'border-l-4 border-l-amber-500 border-amber-200/80 bg-amber-50/30',
+                extra: 'Epicondilalgia Derecha',
+              },
+            },
+            {
+              hour: '11:00',
+              apt: {
+                time: '11:15 - 12:00',
+                patient: 'Valentina Castro',
+                treatment: 'Reevaluación Funcional TUG & WOMAC',
+                box: 'Box 3',
+                status: 'Confirmada',
+                statusStyle: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+                tagStyle: 'bg-emerald-100/70 text-emerald-800',
+                cardBorder: 'border-l-4 border-l-emerald-500 border-emerald-200/80 bg-emerald-50/30',
+                extra: 'Sesión 6/10',
+              },
+            },
+            {
+              hour: '12:00',
+              free: true,
+              label: 'Bloque disponible · Sobrecupo o Pausa',
+            },
+          ].map((slot, i) => (
+            <div key={i} className="flex items-start gap-2 sm:gap-3 group">
+              {/* Hour gutter */}
+              <div className="w-9 sm:w-12 shrink-0 text-right pt-2 font-mono text-[10px] sm:text-xs font-bold text-slate-400">
+                {slot.hour}
+              </div>
+
+              {/* Slot content */}
+              <div className="flex-1 min-w-0">
+                {slot.apt ? (
+                  <div className={cn(
+                    "rounded-xl border p-2.5 sm:p-3.5 transition-all hover:shadow-xs",
+                    slot.apt.cardBorder
+                  )}>
+                    <div className="flex items-center justify-between gap-1.5 mb-1">
+                      <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                        <span className="text-[11px] sm:text-xs font-bold text-slate-800 font-mono">
+                          {slot.apt.time}
+                        </span>
+                        <span className="hidden sm:inline text-slate-300">•</span>
+                        <span className="text-[9px] sm:text-[10px] font-semibold text-slate-500 bg-white/90 px-1.5 py-0.2 rounded border border-slate-200/70">
+                          {slot.apt.box}
+                        </span>
+                      </div>
+                      <span className={cn(
+                        "text-[9px] sm:text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border shrink-0",
+                        slot.apt.statusStyle
+                      )}>
+                        {slot.apt.status}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mt-1">
+                      <div className="min-w-0">
+                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 truncate">
+                          {slot.apt.patient}
+                        </h4>
+                        <p className="text-[10px] sm:text-[11px] text-slate-600 truncate">
+                          {slot.apt.treatment}
+                        </p>
+                      </div>
+                      {slot.apt.extra && (
+                        <span className={cn(
+                          "self-start sm:self-auto text-[9px] sm:text-[10px] font-medium px-1.5 py-0.5 rounded whitespace-nowrap shrink-0 mt-0.5 sm:mt-0",
+                          slot.apt.tagStyle
+                        )}>
+                          {slot.apt.extra}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="border border-dashed border-slate-200 rounded-xl p-2.5 flex items-center justify-between text-slate-400 hover:border-slate-300 hover:text-slate-600 transition-colors">
+                    <span className="text-[10px] sm:text-xs font-medium truncate">
+                      {slot.label}
+                    </span>
+                    <button
+                      type="button"
+                      className="text-[10px] font-bold text-[#0284c7] hover:underline shrink-0 ml-2"
+                    >
+                      + Agendar
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        /* Week View Grid with safe responsive horizontal scrolling */
+        <div className="flex-1 overflow-x-auto overflow-y-auto rounded-xl border border-slate-200/80 bg-slate-50/50">
+          <div className="min-w-[460px] h-full flex flex-col">
+            {/* Week Columns Header */}
+            <div className="grid grid-cols-5 border-b border-slate-200 bg-white text-center divide-x divide-slate-100 shrink-0">
+              {['Lun 26', 'Mar 27', 'Mié 28 (Hoy)', 'Jue 29', 'Vie 30'].map((day, i) => (
+                <div
+                  key={day}
+                  className={cn(
+                    "py-2 px-1 text-[11px] font-bold",
+                    i === 2 ? "bg-blue-50/70 text-[#0284c7]" : "text-slate-600"
+                  )}
+                >
+                  {day}
+                </div>
+              ))}
+            </div>
+
+            {/* Week Columns Content */}
+            <div className="grid grid-cols-5 flex-1 divide-x divide-slate-100 p-1.5 gap-1.5 bg-white">
+              {/* Lun */}
+              <div className="space-y-1.5">
+                <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 text-[10px]">
+                  <span className="font-bold text-emerald-800 block truncate">09:00 · Carlos M.</span>
+                  <span className="text-emerald-600 text-[9px] block truncate">Hombro</span>
+                </div>
+                <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 text-[10px]">
+                  <span className="font-bold text-emerald-800 block truncate">11:00 · Andrea R.</span>
+                  <span className="text-emerald-600 text-[9px] block truncate">Rodilla</span>
+                </div>
+              </div>
+
+              {/* Mar */}
+              <div className="space-y-1.5">
+                <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 text-[10px]">
+                  <span className="font-bold text-emerald-800 block truncate">08:30 · Felipe P.</span>
+                  <span className="text-emerald-600 text-[9px] block truncate">Tobillo</span>
+                </div>
+                <div className="p-1.5 rounded-lg bg-blue-50 border border-blue-100 text-[10px]">
+                  <span className="font-bold text-[#0284c7] block truncate">10:00 · Sofía G.</span>
+                  <span className="text-slate-500 text-[9px] block truncate">Lumbar</span>
+                </div>
+              </div>
+
+              {/* Mié (Today) */}
+              <div className="space-y-1.5 bg-blue-50/40 p-1 rounded-lg">
+                <div className="p-1.5 rounded-lg bg-emerald-100/70 border border-emerald-200 text-[10px]">
+                  <span className="font-bold text-emerald-900 block truncate">08:15 · Tomás H.</span>
+                  <span className="text-emerald-700 text-[9px] block truncate">Eval Inicial</span>
+                </div>
+                <div className="p-1.5 rounded-lg bg-blue-100/80 border border-blue-300 text-[10px] shadow-xs">
+                  <span className="font-bold text-[#0284c7] block truncate">09:15 · Miguel A.</span>
+                  <span className="text-blue-700 text-[9px] block truncate">En Sala · L4-L5</span>
+                </div>
+                <div className="p-1.5 rounded-lg bg-amber-50 border border-amber-200 text-[10px]">
+                  <span className="font-bold text-amber-800 block truncate">10:15 · Laura M.</span>
+                  <span className="text-amber-600 text-[9px] block truncate">Punción Seca</span>
+                </div>
+              </div>
+
+              {/* Jue */}
+              <div className="space-y-1.5">
+                <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 text-[10px]">
+                  <span className="font-bold text-emerald-800 block truncate">09:00 · Daniela S.</span>
+                  <span className="text-emerald-600 text-[9px] block truncate">Cadera</span>
+                </div>
+                <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 text-[10px]">
+                  <span className="font-bold text-emerald-800 block truncate">11:30 · Roberto V.</span>
+                  <span className="text-emerald-600 text-[9px] block truncate">Manguito R.</span>
+                </div>
+              </div>
+
+              {/* Vie */}
+              <div className="space-y-1.5">
+                <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 text-[10px]">
+                  <span className="font-bold text-emerald-800 block truncate">10:00 · Paula N.</span>
+                  <span className="text-emerald-600 text-[9px] block truncate">Reevaluación</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
