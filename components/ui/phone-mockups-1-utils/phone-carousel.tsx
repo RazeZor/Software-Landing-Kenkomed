@@ -3,10 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ChevronLeft,
-  ChevronRight,
-  Pause,
-  Play,
   QrCode,
   Activity,
   FileText,
@@ -20,7 +16,6 @@ import {
   AlertTriangle,
   Users,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export interface ImageItem {
@@ -568,10 +563,10 @@ function PhoneDevice({
     <div
       onClick={onClick}
       className={cn(
-        "relative rounded-[44px] p-[8px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.12)] border border-zinc-700/60 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 flex flex-col transition-all duration-500",
+        "relative rounded-[38px] sm:rounded-[44px] p-[6px] sm:p-[8px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.12)] border border-zinc-700/60 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 flex flex-col transition-all duration-500 select-none",
         isMain
-          ? "w-[275px] sm:w-[295px] md:w-[310px] h-[550px] sm:h-[580px] md:h-[600px] z-20 cursor-default ring-1 ring-white/20"
-          : "w-[235px] sm:w-[255px] md:w-[270px] h-[470px] sm:h-[500px] md:h-[520px] z-10 cursor-pointer opacity-80 hover:opacity-100 filter brightness-95 hover:brightness-100",
+          ? "w-[245px] xs:w-[265px] sm:w-[295px] md:w-[310px] h-[490px] xs:h-[530px] sm:h-[580px] md:h-[600px] z-20 cursor-default ring-1 ring-white/20"
+          : "w-[215px] xs:w-[235px] sm:w-[255px] md:w-[270px] h-[430px] xs:h-[470px] sm:h-[500px] md:h-[520px] z-10 cursor-pointer opacity-60 hover:opacity-100 filter brightness-95 hover:brightness-100",
         className
       )}
     >
@@ -582,7 +577,7 @@ function PhoneDevice({
       <div className="absolute -right-[10px] top-[140px] w-[2px] h-[55px] bg-zinc-700 rounded-r-sm" />
 
       {/* Pantalla interior con bordes curvos y fondo blanco clínico */}
-      <div className="relative w-full h-full bg-[#f8fafc] rounded-[36px] overflow-hidden flex flex-col border border-zinc-800/80 shadow-inner">
+      <div className="relative w-full h-full bg-[#f8fafc] rounded-[32px] sm:rounded-[36px] overflow-hidden flex flex-col border border-zinc-800/80 shadow-inner">
         {/* Barra de estado iOS limpia */}
         <div className="relative z-30 h-8 w-full px-5 flex items-center justify-between text-[10px] font-semibold text-slate-800 select-none pt-0.5 bg-white border-b border-slate-100">
           <span className="font-mono tracking-tight text-[9px] font-bold">09:41</span>
@@ -633,7 +628,6 @@ export function PhoneCarousel({
   const totalItems = activeScreens.length;
 
   const [currentIndex, setCurrentIndex] = useState(initialActiveIndex);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -646,7 +640,7 @@ export function PhoneCarousel({
   }, [totalItems]);
 
   useEffect(() => {
-    if (!isPlaying || isHovered) {
+    if (isHovered) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
@@ -658,7 +652,7 @@ export function PhoneCarousel({
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPlaying, isHovered, nextSlide, autoPlayInterval]);
+  }, [isHovered, nextSlide, autoPlayInterval]);
 
   const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
   const nextIndex = (currentIndex + 1) % totalItems;
@@ -675,7 +669,7 @@ export function PhoneCarousel({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Tabs / píldoras rápidas de navegación por etapas clínicas */}
-      <div className="flex flex-wrap items-center justify-center gap-1 mb-4 max-w-lg px-2">
+      <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4 max-w-full px-2">
         {activeScreens.map((item, idx) => {
           const isActive = idx === currentIndex;
           return (
@@ -684,7 +678,7 @@ export function PhoneCarousel({
               type="button"
               onClick={() => setCurrentIndex(idx)}
               className={cn(
-                "px-2.5 py-0.5 rounded-full text-[10px] font-medium transition-all cursor-pointer",
+                "px-2.5 py-0.5 rounded-full text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap",
                 isActive
                   ? "bg-blue-50 border border-blue-200 text-[#0284c7] font-semibold shadow-sm"
                   : "bg-white/80 border border-slate-200/60 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
@@ -702,9 +696,19 @@ export function PhoneCarousel({
         <div className="absolute -inset-6 bg-gradient-to-tr from-blue-500/10 via-emerald-500/10 to-sky-400/10 rounded-[60px] blur-3xl opacity-70 pointer-events-none" />
 
         {variant === "trio" ? (
-          <div className="relative flex items-center justify-center w-full max-w-2xl min-h-[560px] sm:min-h-[590px]">
-            {/* 1. CELULAR IZQUIERDO (Etapa Anterior) */}
-            <div className="hidden md:block absolute -left-4 lg:-left-8 top-1/2 -translate-y-1/2 transform -rotate-6 scale-95 transition-transform duration-500 hover:-rotate-3 hover:scale-100 z-10">
+          <div className="relative flex items-center justify-center w-full max-w-2xl min-h-[500px] sm:min-h-[560px] md:min-h-[590px]">
+            {/* 1. CELULAR IZQUIERDO (Etapa Anterior)
+                - Mobile: visible, plano (rotate-0, sin círculo), al lado del central
+                - Desktop: preservado idéntico (-rotate-6, absolute en borde izquierdo) */}
+            <div
+              className={cn(
+                "absolute top-1/2 -translate-y-1/2 z-10 transition-all duration-500",
+                // Mobile: plano al lado del celular central, sin rotación circular
+                "right-[calc(50%+65px)] xs:right-[calc(50%+75px)] sm:right-[calc(50%+90px)] rotate-0 scale-[0.88] sm:scale-95 opacity-60 hover:opacity-100",
+                // Desktop: preservado intacto con su ángulo -rotate-6
+                "md:right-auto md:-left-4 lg:md:-left-8 md:-rotate-6 md:scale-95 md:opacity-80 md:hover:-rotate-3 md:hover:scale-100"
+              )}
+            >
               <PhoneDevice
                 content={renderItemContent(prevIndex)}
                 isMain={false}
@@ -712,7 +716,8 @@ export function PhoneCarousel({
               />
             </div>
 
-            {/* 2. CELULAR CENTRAL (Activo / Principal) */}
+            {/* 2. CELULAR CENTRAL (Activo / Principal)
+                - Con soporte de swipe/drag táctil en móvil para navegar */}
             <div className="relative z-20 shadow-2xl transition-transform duration-500">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -721,6 +726,17 @@ export function PhoneCarousel({
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={(_, info) => {
+                    if (info.offset.x < -35 || info.velocity.x < -300) {
+                      nextSlide();
+                    } else if (info.offset.x > 35 || info.velocity.x > 300) {
+                      prevSlide();
+                    }
+                  }}
+                  className="touch-pan-y cursor-grab active:cursor-grabbing"
                 >
                   <PhoneDevice
                     content={renderItemContent(currentIndex)}
@@ -730,8 +746,18 @@ export function PhoneCarousel({
               </AnimatePresence>
             </div>
 
-            {/* 3. CELULAR DERECHO (Siguiente Etapa) */}
-            <div className="hidden md:block absolute -right-4 lg:-right-8 top-1/2 -translate-y-1/2 transform rotate-6 scale-95 transition-transform duration-500 hover:rotate-3 hover:scale-100 z-10">
+            {/* 3. CELULAR DERECHO (Siguiente Etapa)
+                - Mobile: visible, plano (rotate-0, sin círculo), al lado del central
+                - Desktop: preservado idéntico (rotate-6, absolute en borde derecho) */}
+            <div
+              className={cn(
+                "absolute top-1/2 -translate-y-1/2 z-10 transition-all duration-500",
+                // Mobile: plano al lado del celular central, sin rotación circular
+                "left-[calc(50%+65px)] xs:left-[calc(50%+75px)] sm:left-[calc(50%+90px)] rotate-0 scale-[0.88] sm:scale-95 opacity-60 hover:opacity-100",
+                // Desktop: preservado intacto con su ángulo rotate-6
+                "md:left-auto md:-right-4 lg:md:-right-8 md:rotate-6 md:scale-95 md:opacity-80 md:hover:rotate-3 md:hover:scale-100"
+              )}
+            >
               <PhoneDevice
                 content={renderItemContent(nextIndex)}
                 isMain={false}
@@ -760,45 +786,6 @@ export function PhoneCarousel({
         )}
       </div>
 
-      {/* ── CONTROLES INFERIORES DEL CAROUSEL ── */}
-      {showControls && (
-        <div className="flex items-center gap-2.5 mt-5">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={prevSlide}
-            aria-label="Pantalla anterior"
-            className="rounded-full w-8 h-8 bg-white border-slate-200 text-slate-700 hover:bg-slate-100 hover:text-slate-900 shadow-sm"
-          >
-            <ChevronLeft size={15} />
-          </Button>
-
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsPlaying(!isPlaying)}
-            aria-label={isPlaying ? "Pausar rotación" : "Iniciar rotación"}
-            className="rounded-full px-3 h-8 bg-white border-slate-200 text-slate-700 hover:bg-slate-100 hover:text-slate-900 text-[11px] gap-1.5 shadow-sm"
-          >
-            {isPlaying ? <Pause size={12} /> : <Play size={12} />}
-            <span>{isPlaying ? "Pausar" : "Auto-rotar"}</span>
-          </Button>
-
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={nextSlide}
-            aria-label="Siguiente pantalla"
-            className="rounded-full w-8 h-8 bg-white border-slate-200 text-slate-700 hover:bg-slate-100 hover:text-slate-900 shadow-sm"
-          >
-            <ChevronRight size={15} />
-          </Button>
-
-          <span className="text-[11px] font-mono text-slate-500 ml-1">
-            {currentIndex + 1} / {totalItems}
-          </span>
-        </div>
-      )}
     </div>
   );
 }
