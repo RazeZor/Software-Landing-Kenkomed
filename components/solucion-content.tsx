@@ -35,6 +35,8 @@ import {
     Check,
 } from 'lucide-react'
 import { Footer } from '@/components/footer'
+import { KenkomedChatShowcase } from '@/components/kenkomed-chat-showcase'
+import { SolucionDssPlayground } from '@/components/solucion-dss-playground'
 
 /* ─── Reveal on scroll hook ─── */
 function useReveal() {
@@ -431,6 +433,9 @@ export default function SolucionContent() {
                 </div>
             </section>
 
+            {/* ═══ SIMULADOR INTERACTIVO DSS — Prueba en vivo ═══ */}
+            <SolucionDssPlayground />
+
             {/* ═══ ESCALAS CLÍNICAS — 13 escalas ═══ */}
             <section className="py-20 md:py-28">
                 <div ref={scalesSection.ref} className="max-w-7xl mx-auto px-6">
@@ -516,6 +521,9 @@ export default function SolucionContent() {
                     </div>
                 </div>
             </section>
+
+            {/* ═══ COMUNICACIÓN Y SEGUIMIENTO WHATSAPP — Mockup MacBook ═══ */}
+            <KenkomedChatShowcase />
 
             {/* ═══ VALIDACIÓN — Trust signals ═══ */}
             <section className="py-20 md:py-28">

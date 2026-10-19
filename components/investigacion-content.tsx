@@ -29,6 +29,7 @@ import {
     BrainCircuit
 } from 'lucide-react'
 import { Footer } from '@/components/footer'
+import { InvestigacionEvidenceVisualizer } from '@/components/investigacion-evidence-visualizer'
 
 /* ─── Reveal on scroll hook ─── */
 function useReveal() {
@@ -420,6 +421,9 @@ export default function InvestigacionContent() {
                     </div>
                 </div>
             </section>
+
+            {/* ═══ CONSOLA INTERACTIVA DE EVIDENCIA — De la literatura al algoritmo ═══ */}
+            <InvestigacionEvidenceVisualizer />
 
             {/* ═══ CLINICAL SCALES ═══ */}
             <section className="py-20 md:py-28 bg-surface">

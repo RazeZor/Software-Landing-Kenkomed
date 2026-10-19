@@ -15,6 +15,11 @@ const KenkomedBentoShowcase = dynamic(
   { loading: () => <SectionSkeleton className="h-[38rem]" /> }
 )
 
+const KenkomedChatShowcase = dynamic(
+  () => import('@/components/kenkomed-chat-showcase').then((m) => m.KenkomedChatShowcase),
+  { loading: () => <SectionSkeleton className="h-[36rem]" /> }
+)
+
 const BeforeAfter = dynamic(
   () => import('@/components/before-after').then((m) => m.BeforeAfter),
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
@@ -53,6 +58,7 @@ export default function Home() {
       <BeforeAfter />
       <SolucionTeaser />
       <KenkomedBentoShowcase />
+      <KenkomedChatShowcase />
       <Testimonials />
       <HomeMidCta />
       <Pricing />

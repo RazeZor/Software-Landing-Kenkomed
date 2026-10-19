@@ -6,6 +6,7 @@ import { Footer } from '@/components/footer'
 import { PlatformOverview } from '@/components/platform-overview'
 import { FeaturesComplete } from '@/components/features-complete'
 import { QRAdmission } from '@/components/qr-admission'
+import { KenkomedChatShowcase } from '@/components/kenkomed-chat-showcase'
 import { StatsMonitor } from '@/components/stats-monitor'
 import { SectionEyebrow } from '@/components/brand-elements'
 
@@ -35,6 +36,7 @@ export function FuncionalidadesContent() {
 
         <PlatformOverview />
         <QRAdmission />
+        <KenkomedChatShowcase />
         <StatsMonitor />
         <FeaturesComplete />
 
