@@ -10,6 +10,7 @@ import {
 } from '@/components/json-ld'
 import { defaultOgImage } from '@/lib/seo-assets'
 import { FloatingWhatsApp } from '@/components/floating-whatsapp'
+import { CookieBanner } from '@/components/cookie-banner'
 import { SiteHeader } from '@/components/ui/site-header'
 import './globals.css'
 
@@ -134,6 +135,35 @@ export default function RootLayout({
         suppressHydrationWarning
         className="font-sans antialiased bg-background text-foreground"
       >
+        {/* Google Consent Mode v2 Default Settings */}
+        <Script
+          id="google-consent-mode"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+
+              var defaultConsent = 'denied';
+              try {
+                var saved = localStorage.getItem('kenkomed_cookie_consent');
+                if (saved) {
+                  var parsed = JSON.parse(saved);
+                  if (parsed.analytics) defaultConsent = 'granted';
+                }
+              } catch (e) {}
+
+              gtag('consent', 'default', {
+                'analytics_storage': defaultConsent,
+                'ad_storage': defaultConsent,
+                'ad_user_data': defaultConsent,
+                'ad_personalization': defaultConsent,
+                'wait_for_update': 500
+              });
+            `,
+          }}
+        />
+
         {/* Google Tag Manager */}
         <Script
           id="google-tag-manager"
@@ -170,6 +200,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <SiteHeader />
           {children}
           <FloatingWhatsApp />
+          <CookieBanner />
         </ThemeProvider>
       </body>
     </html>

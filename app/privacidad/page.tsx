@@ -141,6 +141,31 @@ const sections = [
     ),
   },
   {
+    id: 'cookies',
+    title: 'Cookies y Tecnologías de Seguimiento',
+    content: (
+      <>
+        <p>
+          Utilizamos cookies y tecnologías similares (como Google Tag Manager) para garantizar el funcionamiento técnico del sitio, analizar el tráfico y evaluar la eficacia de nuestras comunicaciones:
+        </p>
+        <ul>
+          <li>
+            <strong>Cookies esenciales:</strong> Necesarias para la navegación, seguridad y carga de recursos. No se pueden desactivar.
+          </li>
+          <li>
+            <strong>Cookies analíticas:</strong> Recopilan datos anónimos de interacción (páginas visitadas, tiempos de permanencia) para mejorar la usabilidad clínica de la plataforma.
+          </li>
+          <li>
+            <strong>Cookies de marketing:</strong> Permiten medir conversiones asociadas a campañas de difusión sobre el software.
+          </li>
+        </ul>
+        <p>
+          Puedes modificar o revocar tus preferencias de cookies en cualquier momento utilizando nuestro panel de configuración accesible desde el enlace "Cookies" en el pie de página de la web.
+        </p>
+      </>
+    ),
+  },
+  {
     id: 'derechos',
     title: 'Tus derechos',
     content: (

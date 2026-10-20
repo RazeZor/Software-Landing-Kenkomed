@@ -267,8 +267,13 @@ La landing aplica una dirección de arte minimalista y médica basada en **Cobal
 
 ---
 
-## 🔍 SEO, Schema.org y Rendimiento
+## 🔍 SEO, Schema.org, Analítica y Privacidad
 
+- **Google Tag Manager & Google Consent Mode v2**:
+  - Contenedor oficial: `GTM-5LPCDJM9`.
+  - Integrado con **Google Consent Mode v2**: Inicializa por defecto en estado denegado (`analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization`) y se actualiza en tiempo real mediante `gtag('consent', 'update', ...)` cuando el usuario guarda sus preferencias.
+  - Componente `<CookieBanner />`: Banner flotante no invasivo, con vista resumida y vista detallada para configurar cookies técnicas, analíticas y de marketing conforme a la **Ley N° 19.628 de Protección de Datos Personales en Chile** y estándares internacionales.
+  - Re-apertura accesible: Enlace "Cookies" en el pie de página que permite modificar o revocar consentimientos en cualquier momento.
 - **Metadatos completos**: OpenGraph, Twitter Cards, Canonical URLs y Viewport optimizado.
 - **Datos estructurados (JSON-LD)**:
   - `SoftwareApplication`: Identificación del software de kinesiología.

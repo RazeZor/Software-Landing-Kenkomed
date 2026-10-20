@@ -188,6 +188,17 @@ export function Footer() {
             <Link href="/seguridad" className="transition-colors hover:text-primary">
               Seguridad
             </Link>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('open-cookie-banner'))
+                }
+              }}
+              className="transition-colors hover:text-primary cursor-pointer"
+            >
+              Cookies
+            </button>
           </nav>
         </div>
       </div>
