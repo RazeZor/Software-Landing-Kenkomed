@@ -31,6 +31,7 @@ import {
   RiWhatsappLine as Whatsapp,
   RiArrowRightSLine as ChevronRight,
   RiCheckLine as Check,
+  RiCloseLine as CloseIcon,
 } from 'react-icons/ri'
 import { DropdownNavigation, NavItem } from '@/components/ui/dropdown-navigation'
 
@@ -172,11 +173,13 @@ function useScrolled(threshold = 15) {
 export function SiteHeader() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [funcionalidadesOpen, setFuncionalidadesOpen] = React.useState(false)
   const scrolled = useScrolled(15)
   const progress = useScrollProgress()
 
   React.useEffect(() => {
     setMobileOpen(false)
+    setFuncionalidadesOpen(false)
   }, [pathname])
 
   return (
@@ -258,7 +261,7 @@ export function SiteHeader() {
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-foreground hover:bg-foreground/5 relative z-50"
+                  className="text-foreground hover:bg-foreground/5 relative z-50 rounded-xl"
                   aria-label="Abrir menú de navegación"
                 >
                   <MenuToggleIcon open={mobileOpen} className="size-5" duration={300} />
@@ -267,10 +270,10 @@ export function SiteHeader() {
               <SheetContent
                 side="right"
                 hideCloseButton={true}
-                className="w-full sm:max-w-md h-[100dvh] max-h-[100dvh] p-0 border-l border-border/60 bg-background/95 backdrop-blur-2xl text-foreground flex flex-col justify-between shadow-2xl overflow-hidden"
+                className="w-[88vw] sm:max-w-sm h-[100dvh] max-h-[100dvh] p-0 border-l border-border/40 bg-background/98 backdrop-blur-2xl text-foreground flex flex-col justify-between shadow-2xl overflow-hidden"
               >
                 {/* Header in drawer */}
-                <SheetHeader className="flex flex-row items-center justify-between border-b border-border/50 px-5 py-4 bg-card/50 backdrop-blur-md shrink-0 space-y-0 text-left">
+                <SheetHeader className="flex flex-row items-center justify-between border-b border-border/40 px-6 py-4.5 bg-background/80 shrink-0 space-y-0 text-left">
                   <SheetTitle className="flex items-center gap-2.5 text-foreground text-left font-normal m-0 p-0">
                     <Image
                       src="/images/LogoKenko.png"
@@ -282,175 +285,160 @@ export function SiteHeader() {
                     <span className="font-display font-extrabold text-lg tracking-tight text-foreground">
                       Ken<span className="text-emerald">ko</span>med
                     </span>
-                    <span className="rounded-full bg-emerald/10 border border-emerald/20 text-emerald text-[10px] font-bold px-2 py-0.5">
-                      DSS 2.0
-                    </span>
                   </SheetTitle>
                   <SheetDescription className="sr-only">
-                    Navegación principal y accesos a servicios de Kenkomed
+                    Navegación principal de Kenkomed
                   </SheetDescription>
                   <Button
-                    size="sm"
+                    size="icon"
                     variant="ghost"
                     onClick={() => setMobileOpen(false)}
-                    className="rounded-full h-8 px-3 text-xs text-foreground-muted hover:text-foreground hover:bg-foreground/5"
+                    className="rounded-full h-8 w-8 text-foreground-muted hover:text-foreground hover:bg-foreground/5"
+                    aria-label="Cerrar menú"
                   >
-                    Cerrar
+                    <CloseIcon className="h-5 w-5" />
                   </Button>
                 </SheetHeader>
 
-                {/* Scrollable Nav Content */}
-                <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6 scrollbar-thin">
-                  {/* Featured Pricing Card */}
-                  <Link
-                    href="/precios"
-                    onClick={() => setMobileOpen(false)}
-                    className="group relative block overflow-hidden rounded-2xl border border-emerald/30 bg-gradient-to-br from-emerald/15 via-primary/10 to-transparent p-4 transition-all duration-300 hover:border-emerald/50 active:scale-[0.98] shadow-sm"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-1">
-                        <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald/20 border border-emerald/30 px-2.5 py-0.5 text-[11px] font-bold text-emerald">
-                          <PriceTag className="h-3 w-3" />
-                          <span>Desde $15.990 CLP/mes</span>
+                {/* Editorial Nav Content */}
+                <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+                  <nav className="flex flex-col divide-y divide-border/30">
+                    <Link
+                      href="/solucion"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between py-3.5 text-base font-display font-semibold text-foreground/90 hover:text-emerald transition-colors"
+                    >
+                      <span>Solución</span>
+                      <ChevronRight className="h-4 w-4 text-foreground-muted/50" />
+                    </Link>
+
+                    {/* Funcionalidades con despliegue limpio */}
+                    <div className="py-2">
+                      <div className="flex items-center justify-between py-1.5">
+                        <Link
+                          href="/funcionalidades"
+                          onClick={() => setMobileOpen(false)}
+                          className="text-base font-display font-semibold text-foreground/90 hover:text-emerald transition-colors"
+                        >
+                          Funcionalidades
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => setFuncionalidadesOpen(!funcionalidadesOpen)}
+                          className="p-1.5 text-foreground-muted hover:text-foreground rounded-lg transition-colors"
+                          aria-label="Expandir funcionalidades"
+                        >
+                          <ChevronRight
+                            className={cn(
+                              "h-4 w-4 transition-transform duration-200",
+                              funcionalidadesOpen && "rotate-90 text-emerald"
+                            )}
+                          />
+                        </button>
+                      </div>
+
+                      {funcionalidadesOpen && (
+                        <div className="pl-3.5 mt-1 mb-2 space-y-2 border-l-2 border-emerald/30">
+                          {funcionesSubMenu.map((item) => (
+                            <Link
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="block py-1 text-xs text-foreground-muted hover:text-foreground transition-colors"
+                            >
+                              <span className="font-medium text-foreground/90 block">{item.title}</span>
+                              <span className="text-[11px] text-foreground-muted/70">{item.desc}</span>
+                            </Link>
+                          ))}
+                          <Link
+                            href="/funcionalidades"
+                            onClick={() => setMobileOpen(false)}
+                            className="inline-flex items-center gap-1 pt-1 text-xs font-semibold text-emerald hover:underline"
+                          >
+                            <span>Ver todas las funcionalidades</span>
+                            <ArrowRight className="h-3 w-3" />
+                          </Link>
                         </div>
-                        <h4 className="font-display text-base font-bold text-foreground group-hover:text-emerald transition-colors pt-1">
-                          Precios & Planes Transparentes
-                        </h4>
-                        <p className="text-xs text-foreground-muted leading-relaxed">
-                          Sin costos ocultos ni permanencia. Incluye 14 días de prueba sin compromiso.
+                      )}
+                    </div>
+
+                    <Link
+                      href="/precios"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between py-3.5 text-base font-display font-semibold text-foreground/90 hover:text-emerald transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span>Precios</span>
+                        <span className="text-[10px] font-semibold text-emerald bg-emerald/10 border border-emerald/20 px-2 py-0.5 rounded-full">
+                          Desde $15.990 CLP
+                        </span>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-foreground-muted/50" />
+                    </Link>
+
+                    <Link
+                      href="/investigacion"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between py-3.5 text-base font-display font-semibold text-foreground/90 hover:text-emerald transition-colors"
+                    >
+                      <span>Investigación Científica</span>
+                      <ChevronRight className="h-4 w-4 text-foreground-muted/50" />
+                    </Link>
+
+                    <Link
+                      href="/blog"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between py-3.5 text-base font-display font-semibold text-foreground/90 hover:text-emerald transition-colors"
+                    >
+                      <span>Blog & Guías Clínicas</span>
+                      <ChevronRight className="h-4 w-4 text-foreground-muted/50" />
+                    </Link>
+
+                    <Link
+                      href="/seguridad"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between py-3.5 text-base font-display font-semibold text-foreground/90 hover:text-emerald transition-colors"
+                    >
+                      <span>Seguridad & Ley 21.719</span>
+                      <ChevronRight className="h-4 w-4 text-foreground-muted/50" />
+                    </Link>
+                  </nav>
+
+                  {/* WhatsApp Support Row */}
+                  <div className="pt-2">
+                    <a
+                      href="https://wa.me/56937105872"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 rounded-xl border border-border/50 bg-card/60 hover:border-emerald/40 hover:bg-card transition-colors group"
+                    >
+                      <div className="h-8 w-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center shrink-0">
+                        <Whatsapp className="h-4.5 w-4.5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-foreground group-hover:text-emerald transition-colors">
+                          Soporte por WhatsApp
+                        </p>
+                        <p className="text-[11px] text-foreground-muted truncate">
+                          +56 9 3710 5872 · Respuesta rápida
                         </p>
                       </div>
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald/20 text-emerald group-hover:scale-110 transition-transform">
-                        <ChevronRight className="h-5 w-5" />
-                      </div>
-                    </div>
-                  </Link>
-
-                  {/* Funcionalidades */}
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between px-1">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-foreground-muted">
-                        Funcionalidades Clínicas
-                      </p>
-                      <span className="text-[10px] font-medium text-emerald bg-emerald/10 px-2 py-0.5 rounded-full">
-                        DSS Incluido
-                      </span>
-                    </div>
-                    <div className="grid gap-2">
-                      {funcionesSubMenu.map((item) => {
-                        const Icon = item.icon
-                        return (
-                          <Link
-                            key={item.title}
-                            href={item.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-3 rounded-xl border border-border/40 bg-card/40 p-3 transition-all hover:bg-card hover:border-border active:scale-[0.98] group"
-                          >
-                            <div className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border", item.color)}>
-                              <Icon className="h-4.5 w-4.5" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-semibold text-foreground group-hover:text-emerald transition-colors truncate">
-                                {item.title}
-                              </p>
-                              <p className="text-[11px] text-foreground-muted truncate">
-                                {item.desc}
-                              </p>
-                            </div>
-                            <ChevronRight className="h-4 w-4 text-foreground-muted opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
-                          </Link>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Solución & Empresa */}
-                  <div className="space-y-2.5">
-                    <p className="px-1 text-[11px] font-bold uppercase tracking-wider text-foreground-muted">
-                      Nuestra Solución & Empresa
-                    </p>
-                    <div className="grid gap-2">
-                      {solucionSubMenu.map((item) => {
-                        const Icon = item.icon
-                        return (
-                          <Link
-                            key={item.title}
-                            href={item.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-3 rounded-xl border border-border/40 bg-card/30 p-2.5 transition-all hover:bg-card hover:border-border active:scale-[0.98] group"
-                          >
-                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foreground/5 text-foreground-muted group-hover:text-primary group-hover:bg-primary/10 transition-colors">
-                              <Icon className="h-4 w-4" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
-                                {item.title}
-                              </p>
-                              <p className="text-[11px] text-foreground-muted truncate">
-                                {item.desc}
-                              </p>
-                            </div>
-                            <ChevronRight className="h-4 w-4 text-foreground-muted opacity-40 group-hover:opacity-100 transition-all" />
-                          </Link>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Recursos & Blog */}
-                  <div className="space-y-2.5">
-                    <p className="px-1 text-[11px] font-bold uppercase tracking-wider text-foreground-muted">
-                      Recursos & Guías SEO
-                    </p>
-                    <div className="grid gap-1.5">
-                      {recursosSubMenu.map((item) => {
-                        const Icon = item.icon
-                        return (
-                          <Link
-                            key={item.title}
-                            href={item.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium text-foreground/85 transition-colors hover:bg-foreground/5 hover:text-primary group"
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <Icon className="h-4 w-4 text-foreground-muted group-hover:text-primary transition-colors shrink-0" />
-                              <span className="truncate">{item.title}</span>
-                              {item.badge && (
-                                <span className="rounded bg-primary/10 text-primary text-[9px] font-bold px-1.5 py-0.2 shrink-0">
-                                  {item.badge}
-                                </span>
-                              )}
-                            </div>
-                            <ChevronRight className="h-3.5 w-3.5 text-foreground-muted opacity-40 group-hover:opacity-100 transition-all" />
-                          </Link>
-                        )
-                      })}
-                    </div>
+                      <ArrowRight className="h-3.5 w-3.5 text-foreground-muted group-hover:text-emerald transition-transform group-hover:translate-x-0.5" />
+                    </a>
                   </div>
                 </div>
 
-                {/* Sticky Action Footer */}
-                <div className="border-t border-border/60 p-5 bg-card/80 backdrop-blur-xl space-y-2.5 shrink-0">
-                  <Button asChild size="lg" className="w-full font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 text-sm rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                {/* Clean Bottom Action */}
+                <div className="border-t border-border/40 p-5 bg-background/95 backdrop-blur-md space-y-2.5 shrink-0">
+                  <Button asChild size="lg" className="w-full font-semibold text-sm rounded-full bg-emerald hover:bg-emerald/90 text-white shadow-md shadow-emerald/20 flex items-center justify-center gap-2 transition-all">
                     <Link href="/#contact" onClick={() => setMobileOpen(false)}>
                       <span>Solicitar Demo Gratuita</span>
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
 
-                  <a
-                    href="https://wa.me/56937105872"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald/30 bg-emerald/5 px-4 py-2.5 text-xs font-semibold text-emerald transition-all hover:bg-emerald/10 active:scale-[0.98]"
-                  >
-                    <Whatsapp className="h-4 w-4" />
-                    <span>¿Dudas? Hablar por WhatsApp</span>
-                  </a>
-
-                  <p className="text-[10px] text-center text-foreground-muted font-medium pt-1 flex items-center justify-center gap-1">
-                    <Check className="h-3.5 w-3.5 text-emerald shrink-0" />
-                    <span>Sin tarjeta de crédito · Configuración guiada en 5 min</span>
+                  <p className="text-[11px] text-center text-foreground-muted">
+                    Sin tarjeta de crédito · Prueba de 14 días
                   </p>
                 </div>
               </SheetContent>
