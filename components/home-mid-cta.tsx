@@ -10,11 +10,15 @@
 import Link from 'next/link'
 import { RiArrowRightLine as ArrowRight } from 'react-icons/ri'
 import { motion } from 'framer-motion'
+import { AnimatedIcon } from '@/components/ui/animated-icon'
+import activity from 'react-useanimations/lib/activity'
+import shield from 'react-useanimations/lib/shield'
+import checkmark from 'react-useanimations/lib/checkmark'
 
 const proof = [
-  { text: 'Demo en 24 h' },
-  { text: 'Sin tarjeta de crédito' },
-  { text: 'Datos encriptados' },
+  { text: 'Demo en 24 h', animation: activity },
+  { text: 'Sin tarjeta de crédito', animation: shield },
+  { text: 'Datos encriptados', animation: checkmark },
 ]
 
 export function HomeMidCta() {
@@ -178,8 +182,11 @@ export function HomeMidCta() {
               Sin obligaciones.
             </p>
             <div className="hm-cta-proof" role="list" aria-label="Garantías">
-              {proof.map(({ text }) => (
-                <span key={text} className="hm-cta-proof-chip" role="listitem">{text}</span>
+              {proof.map(({ text, animation }) => (
+                <span key={text} className="hm-cta-proof-chip flex items-center gap-1.5" role="listitem">
+                  <AnimatedIcon animation={animation} size={15} strokeColor="currentColor" autoplay />
+                  <span>{text}</span>
+                </span>
               ))}
             </div>
           </div>

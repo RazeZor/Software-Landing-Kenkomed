@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RiArrowDownSLine as ChevronDown } from "react-icons/ri";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { AnimatedIcon } from "@/components/ui/animated-icon";
 
 export type NavItem = {
   id: number;
@@ -15,6 +16,7 @@ export type NavItem = {
       label: string;
       description?: string;
       icon?: React.ElementType;
+      animation?: any;
       href?: string;
     }[];
   }[];
@@ -112,8 +114,12 @@ export function DropdownNavigation({ navItems }: Props) {
                                   href={item.href || "#"}
                                   className="flex items-start space-x-3 group p-2 rounded-lg hover:bg-foreground/5 transition-colors duration-200"
                                 >
-                                  {Icon && (
-                                    <div className="mt-0.5 text-foreground group-hover:text-brand transition-colors duration-200">
+                                  {item.animation ? (
+                                    <div className="mt-0.5 text-emerald group-hover:scale-110 transition-transform duration-200">
+                                      <AnimatedIcon animation={item.animation} size={18} strokeColor="#10b981" autoplay loop />
+                                    </div>
+                                  ) : Icon && (
+                                    <div className="mt-0.5 text-foreground group-hover:text-emerald transition-colors duration-200">
                                       <Icon size={18} />
                                     </div>
                                   )}

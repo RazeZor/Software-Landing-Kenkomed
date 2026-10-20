@@ -22,6 +22,8 @@ import { FeatureSteps } from '@/components/ui/feature-section'
 import { InteractiveSystemDemo } from '@/components/interactive-system-demo'
 
 import { MedicalLottie } from '@/components/medical-lottie'
+import { AnimatedIcon } from '@/components/ui/animated-icon'
+import checkmark from 'react-useanimations/lib/checkmark'
 
 /* ── Feature data — real product content, no invented metrics ── */
 const stackFeatures = [
@@ -348,15 +350,15 @@ export function SolucionTeaser() {
 
                 <ul className="hm-cta-bullets">
                   <li className="hm-cta-bullet-item">
-                    <CheckCircle2 className="hm-cta-bullet-icon" size={18} aria-hidden="true" />
+                    <AnimatedIcon animation={checkmark} size={22} strokeColor="#0284c7" autoplay />
                     <span>Configuración personalizada a tu centro o consulta</span>
                   </li>
                   <li className="hm-cta-bullet-item">
-                    <CheckCircle2 className="hm-cta-bullet-icon" size={18} aria-hidden="true" />
+                    <AnimatedIcon animation={checkmark} size={22} strokeColor="#0284c7" autoplay />
                     <span>Migración de datos y acompañamiento clínico continuo</span>
                   </li>
                   <li className="hm-cta-bullet-item">
-                    <CheckCircle2 className="hm-cta-bullet-icon" size={18} aria-hidden="true" />
+                    <AnimatedIcon animation={checkmark} size={22} strokeColor="#0284c7" autoplay />
                     <span>Sin costo de instalación ni permanencia forzada</span>
                   </li>
                 </ul>
