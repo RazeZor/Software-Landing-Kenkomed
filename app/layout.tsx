@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { Inter, Space_Grotesk, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import {
@@ -129,6 +130,19 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
     >
       <head>
+        {/* Google Tag Manager */}
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5LPCDJM9');`,
+          }}
+        />
+        {/* End Google Tag Manager */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1a6fc4" />
         <JsonLd data={organizationSchema} />
@@ -139,6 +153,16 @@ export default function RootLayout({
         suppressHydrationWarning
         className="font-sans antialiased bg-background text-foreground"
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5LPCDJM9"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
           <noscript>
             <div style={{ padding: '1rem', background: '#fee2e2', color: '#991b1b', textAlign: 'center', fontFamily: 'system-ui, sans-serif' }}>

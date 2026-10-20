@@ -3,7 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { MacbookMockup } from "@/components/ui/great-ui-macbook-mockup";
-import { QrCode, Mic, ShieldCheck, ArrowRight, Sparkles, MessageSquareHeart } from "lucide-react";
+import { QrCode, Mic, ArrowRight, Sparkles, MessageSquareHeart } from "lucide-react";
+import { RobotLottie } from "@/components/robot-lottie";
 
 export interface KenkomedChatShowcaseProps {
   className?: string;
@@ -69,10 +70,10 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-amber-500/35 transition-all duration-300 shadow-sm">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-amber-500/35 transition-all duration-300 shadow-sm group">
               <div className="flex items-center gap-3 mb-2.5">
-                <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400">
-                  <ShieldCheck size={20} />
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center p-0.5 shrink-0 overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                  <RobotLottie className="w-full h-full" />
                 </div>
                 <h3 className="font-semibold text-white text-base">DSS & Alertas de Dolor</h3>
               </div>
