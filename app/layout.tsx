@@ -110,6 +110,7 @@ export const metadata: Metadata = {
   },
 
   category: 'health',
+  manifest: '/manifest.json',
 }
 
 export const viewport = {
@@ -129,7 +130,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
     >
-      <head>
+      <body
+        suppressHydrationWarning
+        className="font-sans antialiased bg-background text-foreground"
+      >
         {/* Google Tag Manager */}
         <Script
           id="google-tag-manager"
@@ -142,17 +146,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5LPCDJM9');`,
           }}
         />
-        {/* End Google Tag Manager */}
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#1a6fc4" />
-        <JsonLd data={organizationSchema} />
-        <JsonLd data={websiteSchema} />
-        <JsonLd data={softwareSchema} />
-      </head>
-      <body
-        suppressHydrationWarning
-        className="font-sans antialiased bg-background text-foreground"
-      >
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
@@ -162,7 +155,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
+        {/* End Google Tag Manager */}
+
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
+        <JsonLd data={softwareSchema} />
+
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
           <noscript>
             <div style={{ padding: '1rem', background: '#fee2e2', color: '#991b1b', textAlign: 'center', fontFamily: 'system-ui, sans-serif' }}>
