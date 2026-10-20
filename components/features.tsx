@@ -21,6 +21,8 @@ import {
 import { FeatureSteps } from '@/components/ui/feature-section'
 import { InteractiveSystemDemo } from '@/components/interactive-system-demo'
 
+import { MedicalLottie } from '@/components/medical-lottie'
+
 /* ── Feature data — real product content, no invented metrics ── */
 const stackFeatures = [
   {
@@ -107,29 +109,41 @@ export function SolucionTeaser() {
     <>
       <style>{`
         .hm-cta-wrap {
-          max-width: 60rem;
+          max-width: 78rem;
           margin-inline: auto;
           margin-top: var(--space-5xl);
           padding-inline: var(--space-lg);
         }
         .hm-cta-panel {
           position: relative;
-          border-radius: 1.75rem;
+          border-radius: 2rem;
           border: var(--hairline);
           background: var(--color-paper);
-          padding: var(--space-3xl) var(--space-xl);
-          text-align: center;
+          box-shadow: 0 20px 48px -12px oklch(0.48 0.18 246 / 0.08);
           overflow: hidden;
+          padding: clamp(2rem, 4vw, 3.5rem);
         }
         .hm-cta-glow {
           position: absolute;
-          top: -40%;
-          left: 50%;
-          width: 32rem;
-          height: 20rem;
-          transform: translateX(-50%);
-          background: radial-gradient(circle, oklch(0.48 0.18 246 / 0.08) 0%, transparent 70%);
+          top: -25%;
+          right: -10%;
+          width: 36rem;
+          height: 28rem;
+          background: radial-gradient(circle, oklch(0.48 0.18 246 / 0.10) 0%, transparent 70%);
           pointer-events: none;
+        }
+        .hm-cta-grid {
+          position: relative;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: var(--space-2xl);
+          align-items: center;
+        }
+        @media (min-width: 1024px) {
+          .hm-cta-grid {
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: clamp(2.5rem, 4vw, 4.5rem);
+          }
         }
         .hm-cta-eyebrow {
           position: relative;
@@ -138,27 +152,60 @@ export function SolucionTeaser() {
           gap: 0.5rem;
           font-family: var(--font-outlier);
           font-size: 0.75rem;
-          font-weight: 500;
+          font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           color: var(--color-accent);
           padding: 0.375rem 0.875rem;
           border-radius: 999px;
-          background: oklch(0.48 0.18 246 / 0.06);
+          background: oklch(0.48 0.18 246 / 0.08);
           margin-bottom: var(--space-md);
         }
-        .hm-cta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
+        .hm-cta-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--color-accent);
+          box-shadow: 0 0 8px var(--color-accent);
+        }
         .hm-cta-heading {
           position: relative;
           font-family: var(--font-display);
-          font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+          font-size: clamp(2rem, 3.2vw, 2.75rem);
           font-weight: 700;
           color: var(--color-ink);
-          line-height: 1.15;
-          letter-spacing: -0.03em;
-          max-width: 22ch;
-          margin-inline: auto;
+          line-height: 1.12;
+          letter-spacing: -0.035em;
+          margin-bottom: var(--space-md);
+        }
+        .hm-cta-description {
+          font-family: var(--font-body);
+          font-size: clamp(1rem, 1.2vw, 1.0625rem);
+          color: var(--color-ink-2);
+          line-height: 1.6;
           margin-bottom: var(--space-xl);
+          max-width: 48ch;
+        }
+        .hm-cta-bullets {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          margin-bottom: var(--space-xl);
+          padding: 0;
+          list-style: none;
+        }
+        .hm-cta-bullet-item {
+          display: flex;
+          align-items: center;
+          gap: 0.625rem;
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          font-weight: 500;
+          color: var(--color-ink);
+        }
+        .hm-cta-bullet-icon {
+          color: var(--color-accent);
+          flex-shrink: 0;
         }
         .hm-cta-actions {
           position: relative;
@@ -166,7 +213,6 @@ export function SolucionTeaser() {
           gap: var(--space-md);
           flex-wrap: wrap;
           align-items: center;
-          justify-content: center;
         }
         .hm-cta-primary {
           display: inline-flex;
@@ -184,8 +230,8 @@ export function SolucionTeaser() {
           transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
         }
         .hm-cta-primary:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 12px 30px oklch(0.48 0.18 246 / 0.32);
+          transform: translateY(-2px);
+          box-shadow: 0 14px 32px oklch(0.48 0.18 246 / 0.35);
         }
         .hm-cta-ghost {
           display: inline-flex;
@@ -198,12 +244,68 @@ export function SolucionTeaser() {
           padding: 0.875rem 1.5rem;
           border-radius: 999px;
           text-decoration: none;
-          transition: color var(--dur-base) var(--ease-out);
+          border: var(--hairline);
+          background: oklch(0.48 0.18 246 / 0.03);
+          transition: color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out);
         }
-        .hm-cta-ghost:hover { color: var(--color-accent); }
-
+        .hm-cta-ghost:hover {
+          color: var(--color-accent);
+          border-color: var(--color-accent);
+          background: oklch(0.48 0.18 246 / 0.06);
+        }
+        .hm-cta-visual-wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+        .hm-cta-visual-card {
+          position: relative;
+          width: 100%;
+          max-width: 440px;
+          aspect-ratio: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 1.75rem;
+          background: radial-gradient(circle at center, oklch(0.48 0.18 246 / 0.08) 0%, oklch(0.48 0.18 246 / 0.02) 65%, transparent 100%);
+          border: var(--hairline);
+          padding: 1.25rem;
+          box-shadow: inset 0 0 20px oklch(0.48 0.18 246 / 0.04);
+        }
+        .hm-cta-lottie-ambient {
+          position: absolute;
+          inset: 15%;
+          background: radial-gradient(circle, oklch(0.48 0.18 246 / 0.14) 0%, transparent 70%);
+          filter: blur(28px);
+          pointer-events: none;
+        }
+        .hm-cta-floating-badge {
+          position: absolute;
+          bottom: 1.25rem;
+          right: 1.25rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.4rem 0.85rem;
+          border-radius: 999px;
+          background: var(--color-paper);
+          border: var(--hairline);
+          box-shadow: 0 4px 16px -2px oklch(0 0 0 / 0.08);
+          font-family: var(--font-outlier);
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: var(--color-ink);
+        }
+        .hm-cta-badge-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #10b981;
+          box-shadow: 0 0 8px #10b981;
+        }
         @media (prefers-reduced-motion: reduce) {
-          .hm-cta-primary { transition: none; }
+          .hm-cta-primary, .hm-cta-ghost { transition: none; }
         }
       `}</style>
 
@@ -226,26 +328,62 @@ export function SolucionTeaser() {
           </div>
         </div>
 
-        {/* ─── Bottom CTA ─── */}
+        {/* ─── Bottom CTA (Izquierda a Derecha) ─── */}
         <div className="hm-cta-wrap">
           <div className="hm-cta-panel">
             <div className="hm-cta-glow" aria-hidden="true" />
-            <span className="hm-cta-eyebrow">
-              <span className="hm-cta-dot" aria-hidden="true" />
-              ¿Listo para empezar?
-            </span>
-            <h2 className="hm-cta-heading">
-              Solicita una demo gratuita. Te mostramos todo en 30 minutos.
-            </h2>
-            <div className="hm-cta-actions">
-              <a href="#contact" className="hm-cta-primary">
-                Solicitar demo
-                <ArrowRight size={15} aria-hidden="true" />
-              </a>
-              <Link href="/funcionalidades" className="hm-cta-ghost">
-                Ver funcionalidades completas
-                <ArrowRight size={14} aria-hidden="true" />
-              </Link>
+            <div className="hm-cta-grid">
+              {/* Left Column: Copy & Actions */}
+              <div>
+                <span className="hm-cta-eyebrow">
+                  <span className="hm-cta-dot" aria-hidden="true" />
+                  ¿Listo para empezar?
+                </span>
+                <h2 className="hm-cta-heading">
+                  Solicita una demo gratuita. Te mostramos todo en 30 minutos.
+                </h2>
+                <p className="hm-cta-description">
+                  Descubre cómo Kenkomed simplifica tu práctica clínica diaria: menos tiempo en papeleo, fichas completas con escalas automáticas y trazabilidad total de tus pacientes.
+                </p>
+
+                <ul className="hm-cta-bullets">
+                  <li className="hm-cta-bullet-item">
+                    <CheckCircle2 className="hm-cta-bullet-icon" size={18} aria-hidden="true" />
+                    <span>Configuración personalizada a tu centro o consulta</span>
+                  </li>
+                  <li className="hm-cta-bullet-item">
+                    <CheckCircle2 className="hm-cta-bullet-icon" size={18} aria-hidden="true" />
+                    <span>Migración de datos y acompañamiento clínico continuo</span>
+                  </li>
+                  <li className="hm-cta-bullet-item">
+                    <CheckCircle2 className="hm-cta-bullet-icon" size={18} aria-hidden="true" />
+                    <span>Sin costo de instalación ni permanencia forzada</span>
+                  </li>
+                </ul>
+
+                <div className="hm-cta-actions">
+                  <a href="#contact" className="hm-cta-primary">
+                    Solicitar demo
+                    <ArrowRight size={15} aria-hidden="true" />
+                  </a>
+                  <Link href="/funcionalidades" className="hm-cta-ghost">
+                    Ver funcionalidades completas
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right Column: Medical Lottie Animation */}
+              <div className="hm-cta-visual-wrap">
+                <div className="hm-cta-visual-card">
+                  <div className="hm-cta-lottie-ambient" aria-hidden="true" />
+                  <MedicalLottie className="w-full h-full" />
+                  <div className="hm-cta-floating-badge">
+                    <span className="hm-cta-badge-dot" aria-hidden="true" />
+                    <span>Especializado en Kinesiología</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

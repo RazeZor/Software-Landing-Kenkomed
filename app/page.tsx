@@ -10,11 +10,6 @@ const SolucionTeaser = dynamic(
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
 )
 
-const KenkomedBentoShowcase = dynamic(
-  () => import('@/components/kenkomed-bento-showcase').then((m) => m.KenkomedBentoShowcase),
-  { loading: () => <SectionSkeleton className="h-[38rem]" /> }
-)
-
 const KenkomedChatShowcase = dynamic(
   () => import('@/components/kenkomed-chat-showcase').then((m) => m.KenkomedChatShowcase),
   { loading: () => <SectionSkeleton className="h-[36rem]" /> }
@@ -26,7 +21,7 @@ const BeforeAfter = dynamic(
 )
 
 const Testimonials = dynamic(
-  () => import('@/components/ui/marquee-01').then((m) => m.default),
+  () => import('@/components/ui/testimonial').then((m) => m.default),
   { loading: () => <SectionSkeleton className="h-[24rem]" /> }
 )
 
@@ -57,7 +52,6 @@ export default function Home() {
       <Hero />
       <BeforeAfter />
       <SolucionTeaser />
-      <KenkomedBentoShowcase />
       <KenkomedChatShowcase />
       <Testimonials />
       <HomeMidCta />
