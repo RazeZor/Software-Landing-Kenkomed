@@ -19,7 +19,7 @@ export const defaultTestimonials: TestimonialItem[] = [
     },
     {
         quote: "“Llevo 2 meses con el software de gestión clínica Kenkomed y sin duda ha sido un gran acierto ya que me ha ayudado bastante a simplificar el trabajo administrativo con un sistema de registro clínico completo y detallado que me permite agendar pacientes, registrar evaluaciones y evoluciones clínicas facilitando el proceso y haciendo más ligero el trabajo de gestión de una manera mucho más organizada. Además debo agradecer la excelente disposición del equipo de soporte para resolver dudas y solucionar problemas que puedan surgir. Recomendado 100%.”",
-        author: "David",
+        author: "Klgo. David Barraza Oliveros",
         role: "Kinesiólogo especializado en movilidad funcional y envejecimiento saludable",
         image: "/images/fotodavid.jpeg",
     },
