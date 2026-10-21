@@ -18,10 +18,10 @@ export const defaultTestimonials: TestimonialItem[] = [
         image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop",
     },
     {
-        quote: "“Las evoluciones SOAP son rapidísimas y los gráficos de resultados le dan total claridad al paciente y al médico derivador sobre el progreso.”",
-        author: "Klga. María González",
-        role: "Directora Clínica KineMove",
-        image: "https://images.unsplash.com/photo-1594824436998-d1d86d5257e8?q=80&w=800&auto=format&fit=crop",
+        quote: "“Llevo 2 meses con el software de gestión clínica Kenkomed y sin duda ha sido un gran acierto ya que me ha ayudado bastante a simplificar el trabajo administrativo con un sistema de registro clínico completo y detallado que me permite agendar pacientes, registrar evaluaciones y evoluciones clínicas facilitando el proceso y haciendo más ligero el trabajo de gestión de una manera mucho más organizada. Además debo agradecer la excelente disposición del equipo de soporte para resolver dudas y solucionar problemas que puedan surgir. Recomendado 100%.”",
+        author: "David",
+        role: "Kinesiólogo especializado en movilidad funcional y envejecimiento saludable",
+        image: "/images/fotodavid.jpeg",
     },
     {
         quote: "“Toda la clínica en un solo lugar: agenda, fichas clínicas, escalas validadas y cobranza. Redujimos el ausentismo más de un 40%.”",

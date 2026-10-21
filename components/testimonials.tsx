@@ -1,13 +1,23 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import {
   RiStarFill as Star,
   RiArrowLeftSLine as ChevronLeft,
   RiArrowRightSLine as ChevronRight
 } from 'react-icons/ri'
 
-const testimonials = [
+interface Testimonial {
+  quote: string
+  name: string
+  role: string
+  initials: string
+  rating: number
+  image?: string
+}
+
+const testimonials: Testimonial[] = [
   {
     quote: 'Kenkomed ordenó mi clínica. La admisión QR ahorra 15 minutos por paciente y la ficha es 100% kinesiológica.',
     name: 'Andrés Soto',
@@ -16,11 +26,13 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: 'El panel DSS y las alertas de banderas rojas son increíbles. Da mucha tranquilidad tener un soporte clínico basado en evidencia.',
-    name: 'María Paz Silva',
-    role: 'Kinesióloga Integrativa, Concepción',
-    initials: 'MS',
+    quote:
+      'Llevo 2 meses con el software de gestión clínica Kenkomed y sin duda ha sido un gran acierto ya que me ha ayudado bastante a simplificar el trabajo administrativo con un sistema de registro clínico completo y detallado que me permite agendar pacientes, registrar evaluaciones y evoluciones clínicas facilitando el proceso y haciendo más ligero el trabajo de gestión de una manera mucho más organizada. Además debo agradecer la excelente disposición del equipo de soporte para resolver dudas y solucionar problemas que puedan surgir. Recomendado 100%.',
+    name: 'David',
+    role: 'Kinesiólogo especializado en movilidad funcional y envejecimiento saludable',
+    initials: 'D',
     rating: 5,
+    image: '/images/fotodavid.jpeg',
   },
   {
     quote: 'Pasamos de un caos de papeles a tener toda la evolución en gráficos. Los pacientes valoran mucho ver su progreso.',
@@ -136,9 +148,19 @@ export function Testimonials() {
 
                 {/* Author */}
                 <div className="flex items-center gap-3 pt-4 border-t border-border/50">
-                  <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-brand flex-shrink-0">
-                    {t.initials}
-                  </div>
+                  {t.image ? (
+                    <Image
+                      src={t.image}
+                      alt={t.name}
+                      width={40}
+                      height={40}
+                      className="w-10 h-10 rounded-full object-cover flex-shrink-0 border border-teal-100 dark:border-teal-900 shadow-xs"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-brand flex-shrink-0">
+                      {t.initials}
+                    </div>
+                  )}
                   <div>
                     <p className="text-sm font-semibold text-foreground">{t.name}</p>
                     <p className="text-xs text-foreground-muted">{t.role}</p>
