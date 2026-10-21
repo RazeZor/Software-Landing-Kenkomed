@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 
 const DotLottieReact = dynamic(
@@ -9,29 +9,43 @@ const DotLottieReact = dynamic(
 )
 
 export function MedicalLottie({ className = '' }: { className?: string }) {
-  const [mounted, setMounted] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
+    const el = containerRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
   }, [])
 
-  if (!mounted) {
-    return (
-      <div
-        className={`w-full aspect-square max-w-[400px] flex items-center justify-center rounded-2xl ${className}`}
-        aria-hidden="true"
-      />
-    )
-  }
-
   return (
-    <div className={`relative w-full flex items-center justify-center ${className}`}>
-      <DotLottieReact
-        src="/medical.lottie"
-        loop
-        autoplay
-        style={{ width: '100%', height: '100%', maxWidth: '440px', maxHeight: '440px' }}
-      />
+    <div
+      ref={containerRef}
+      className={`relative w-full flex items-center justify-center ${className}`}
+    >
+      {inView ? (
+        <DotLottieReact
+          src="/medical.lottie"
+          loop
+          autoplay
+          style={{ width: '100%', height: '100%', maxWidth: '440px', maxHeight: '440px' }}
+        />
+      ) : (
+        <div
+          className="w-full aspect-square max-w-[400px]"
+          aria-hidden="true"
+        />
+      )}
     </div>
   )
 }

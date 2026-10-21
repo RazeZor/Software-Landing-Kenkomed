@@ -40,14 +40,6 @@ export default function Testimonial({
 }) {
     return (
         <section className={cn("py-20 px-4 md:px-8 relative overflow-hidden", className)}>
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-            
-                .testimonial-font, .testimonial-font * {
-                    font-family: 'Poppins', sans-serif;
-                }
-            `}</style>
-
             <div className="max-w-6xl mx-auto mb-12 text-center">
                 <span className="inline-flex items-center gap-2 rounded-full bg-[#0284c7]/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#0284c7] mb-3">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#0284c7]" />
@@ -61,7 +53,7 @@ export default function Testimonial({
                 </p>
             </div>
 
-            <div className="testimonial-font flex flex-wrap items-stretch justify-center gap-6 max-w-6xl mx-auto">
+            <div className="flex flex-wrap items-stretch justify-center gap-6 max-w-6xl mx-auto">
                 {items.map((item, idx) => (
                     <div
                         key={idx}

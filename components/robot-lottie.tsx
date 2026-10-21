@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 
 const DotLottieReact = dynamic(
@@ -21,33 +21,39 @@ export function RobotLottie({
   loop = true,
   autoplay = true,
 }: RobotLottieProps) {
-  const [mounted, setMounted] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return (
-      <div
-        className={`inline-flex items-center justify-center ${className}`}
-        style={style}
-        aria-hidden="true"
-      />
+    const el = containerRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
     )
-  }
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div
+      ref={containerRef}
       className={`relative inline-flex items-center justify-center overflow-hidden ${className}`}
       style={style}
     >
-      <DotLottieReact
-        src="/robot.lottie"
-        loop={loop}
-        autoplay={autoplay}
-        style={{ width: '100%', height: '100%' }}
-      />
+      {inView ? (
+        <DotLottieReact
+          src="/images/robot.lottie"
+          loop={loop}
+          autoplay={autoplay}
+          style={{ width: '100%', height: '100%' }}
+        />
+      ) : null}
     </div>
   )
 }

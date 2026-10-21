@@ -449,6 +449,7 @@ export function MacbookMockup({
                                   onClick={() =>
                                     setIsPlayingAudio(!isPlayingAudio)
                                   }
+                                  aria-label={isPlayingAudio ? "Pausar nota de voz" : "Reproducir nota de voz"}
                                   className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white transition-colors hover:bg-emerald-700"
                                 >
                                   <Play className="ml-0.5 h-3 w-3 fill-current" />
@@ -482,8 +483,8 @@ export function MacbookMockup({
                                 className={cn(
                                   "text-[9px]",
                                   msg.isCurrentUser
-                                    ? "text-emerald-800/70 dark:text-emerald-200/60"
-                                    : "text-neutral-400 dark:text-neutral-400",
+                                    ? "text-emerald-950 dark:text-emerald-100 font-medium"
+                                    : "text-neutral-600 dark:text-neutral-300",
                                 )}
                               >
                                 {msg.timestamp}

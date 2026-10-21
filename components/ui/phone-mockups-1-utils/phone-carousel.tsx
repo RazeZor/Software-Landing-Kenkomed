@@ -109,7 +109,7 @@ function ScreenAnamnesis() {
         <div className="flex items-center justify-between pb-1.5 border-b border-slate-200/60">
           <div>
             <span className="text-[8px] font-black uppercase tracking-wider text-[#0284c7]">Paso 2 de 15</span>
-            <h4 className="text-xs font-bold text-slate-800">Sobre tu molestia o dolor</h4>
+            <p className="text-xs font-bold text-slate-800">Sobre tu molestia o dolor</p>
           </div>
           <span className="text-[8px] px-1.5 py-0.5 rounded bg-blue-50 text-[#0284c7] font-semibold border border-blue-100">
             Formulario Remoto
@@ -125,6 +125,7 @@ function ScreenAnamnesis() {
               <button
                 key={t}
                 type="button"
+                aria-label={`Seleccionar duración: ${t}`}
                 onClick={() => setSelectedTime(t)}
                 className={cn(
                   "py-1 text-center text-[9px] font-semibold rounded-lg border transition-colors cursor-pointer",
@@ -149,6 +150,7 @@ function ScreenAnamnesis() {
               <button
                 key={val}
                 type="button"
+                aria-label={`Nivel de dolor EVA ${val}`}
                 onClick={() => setEva(val)}
                 className={cn(
                   "flex-1 py-1 text-center text-[8px] font-bold rounded cursor-pointer transition-all",
