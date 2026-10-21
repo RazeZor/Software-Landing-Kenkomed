@@ -27,13 +27,13 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
         <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/25 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-5">
             <Sparkles size={13} className="text-emerald-400" />
-            Comunicación y Seguimiento Clínico
+            WhatsApp Clínico + Correo Integrado
           </div>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-5 leading-tight text-balance">
-            Conecta la ficha clínica con WhatsApp en tiempo real
+            WhatsApp como canal directo de avisos, QR y ejercicios
           </h2>
           <p className="text-base sm:text-lg text-zinc-300 leading-relaxed text-balance">
-            Tus pacientes responden la anamnesis por código QR y reciben sus pautas de ejercicios con notas de voz explicativas. Tú monitoreas todo desde tu MacBook o escritorio con Kenkomed sin perder el contexto clínico.
+            WhatsApp actúa como el intermediario ágil entre tu software y el paciente: avisa al instante que el QR de admisión fue completado, confirma que la pauta de ejercicios llegó a su correo y envía recordatorios automáticos de cita.
           </p>
         </div>
 
@@ -51,10 +51,10 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
                 <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400">
                   <QrCode size={20} />
                 </div>
-                <h3 className="font-semibold text-white text-base">Admisión Digital por QR</h3>
+                <h3 className="font-semibold text-white text-base">Aviso de QR Completado</h3>
               </div>
               <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
-                El paciente recibe el enlace directo a su WhatsApp y responde la anamnesis antes de pisar el box de atención.
+                El paciente recibe su enlace QR antes de llegar, lo completa desde el celular y WhatsApp le confirma al instante que sus antecedentes ya están en su ficha clínica.
               </p>
             </div>
 
@@ -63,10 +63,10 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
                 <div className="p-2.5 rounded-xl bg-blue-500/20 text-blue-400">
                   <Mic size={20} />
                 </div>
-                <h3 className="font-semibold text-white text-base">Pautas y Notas de Voz</h3>
+                <h3 className="font-semibold text-white text-base">Ejercicios al Correo + Alerta WhatsApp</h3>
               </div>
               <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
-                Envía dosificaciones de ejercicios y explicaciones grabadas sin salir de tu flujo de trabajo kinésico.
+                La pauta detallada con videos se despacha al correo del paciente, mientras WhatsApp le avisa de inmediato con nota de voz para asegurar su cumplimiento.
               </p>
             </div>
 
@@ -75,10 +75,10 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
                 <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center p-0.5 shrink-0 overflow-hidden group-hover:scale-105 transition-transform duration-300">
                   <RobotLottie className="w-full h-full" />
                 </div>
-                <h3 className="font-semibold text-white text-base">DSS & Alertas de Dolor</h3>
+                <h3 className="font-semibold text-white text-base">Recordatorios Automáticos de Cita</h3>
               </div>
               <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
-                Escalas EVA, banderas rojas y mapas corporales quedan archivados automáticamente en el historial SOAP.
+                Avisos previos por WhatsApp para confirmar la sesión kinésica. En Chile los pacientes responden al minuto, reduciendo drásticamente las inasistencias.
               </p>
             </div>
 

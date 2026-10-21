@@ -34,6 +34,22 @@ export const homeFaqItems: FaqItem[] = [
     answer:
       'Incluye 13 escalas clínicas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS), screening de comorbilidades (fibromialgia, neuropatía, ansiedad, depresión) y generación automática de informes clínicos al completar la anamnesis, sin papel ni Excel.',
   },
+  // ─── Preguntas clave del mercado chileno (Isapre, WhatsApp, SII) ───
+  {
+    question: '¿Kenkomed genera el detalle de sesiones para reembolso en Isapre y seguros complementarios?',
+    answer:
+      'Sí. Con un solo clic emites el certificado y detalle de sesiones en PDF con fechas asistidas, diagnóstico kinésico y códigos de arancel FONASA exigidos por todas las Isapres (Colmena, Banmédica, Consalud, CruzBlanca, Vida Tres, Nueva Masvida, etc.) y seguros complementarios en Chile para reembolsar sin trabas.',
+  },
+  {
+    question: '¿Cómo funcionan los recordatorios por WhatsApp y correo electrónico?',
+    answer:
+      'Kenkomed sincroniza la comunicación con el paciente a través de WhatsApp y correo: envía confirmaciones y recordatorios de cita por WhatsApp con el enlace QR para completar su anamnesis previa, notifica al kinesiólogo cuando los datos han sido cargados a la ficha, y avisa al paciente por WhatsApp cuando su pauta de ejercicios con video ha llegado a su correo electrónico.',
+  },
+  {
+    question: '¿Permite gestionar cobros para emitir Boleta de Honorarios en el SII o factura?',
+    answer:
+      'Sí. Incluye módulo de control de caja y registro de pagos por sesión individual o pack (transferencia, tarjeta o efectivo), entregando el desglose con RUT y datos fiscales del paciente para facilitar la emisión de tu Boleta de Honorarios Electrónica en el portal del SII o la facturación médica de tu centro.',
+  },
   // ─── Nuevas preguntas de objeciones ───
   {
     question: '¿Ya uso Excel u otra agenda, puedo migrar mis datos?',
@@ -53,6 +69,6 @@ export const homeFaqItems: FaqItem[] = [
   {
     question: '¿Cuánto cuesta y hay permanencia?',
     answer:
-      'Los planes parten desde $15.990 CLP/mes (plan anual). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual, semestral y anual. Solicita una demo para conocer el plan que mejor se adapta a tu clínica.',
+      'Los planes parten desde $15.990 CLP/mes neto (plan anual). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual, semestral y anual con IVA incluido. Solicita una demo para conocer el plan que mejor se adapta a tu consulta o clínica.',
   },
 ]

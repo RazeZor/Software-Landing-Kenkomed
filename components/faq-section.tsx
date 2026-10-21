@@ -30,6 +30,14 @@ const faqData = {
       answer: 'Kenkomed no es una agenda médica ni un ERP adaptado: es un DSS (Sistema de Soporte a la Decisión Clínica) construido desde cero para kinesiología. Incluye 13 escalas validadas integradas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS y screening de comorbilidades), admisión remota vía QR con anamnesis de 14 páginas, evolución en formato SOAP enlazada a objetivos funcionales, gráficos automáticos de resultados para demostrar la evolución al paciente y al médico derivador, y un módulo de Packs de Sesiones flexible para cobros por sesión y tarifas particulares. Además, incorpora arquitectura orientada a la privacidad y trazabilidad clínica (Ley 20.584 y estándares de datos de salud): trazabilidad de accesos, cifrado, control por profesional y auditoría PDF por período.'
     },
     {
+      question: '¿Kenkomed genera el detalle de sesiones para reembolso en Isapres y seguros?',
+      answer: 'Sí. Con un solo clic emites el certificado oficial y detalle de sesiones en formato PDF con las fechas de atención, diagnóstico kinésico y códigos de arancel FONASA exigidos por todas las Isapres (Colmena, Banmédica, Consalud, CruzBlanca, Vida Tres, Nueva Masvida, etc.) y seguros complementarios de salud en Chile para que tus pacientes reembolsen de inmediato.'
+    },
+    {
+      question: '¿Cómo funcionan los recordatorios por WhatsApp y correo electrónico?',
+      answer: 'Kenkomed conecta WhatsApp y correo para que no pierdas citas ni tiempo: envía recordatorios y confirmaciones automáticas por WhatsApp con el enlace QR para completar la anamnesis previa, te avisa en cuanto el paciente llena sus datos, y notifica por WhatsApp cuando su pauta de ejercicios clínicos con videos ha sido enviada a su correo.'
+    },
+    {
       question: '¿Qué escalas y cuestionarios clínicos incluye?',
       answer: 'Incluye 13 escalas clínicas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS), screening de comorbilidades (fibromialgia, neuropatía, ansiedad, depresión) y generación automática de informes clínicos al completar la anamnesis, sin papel ni Excel.'
     },
@@ -59,7 +67,11 @@ const faqData = {
   "precios": [
     {
       question: '¿Cuánto cuesta y hay permanencia?',
-      answer: 'Los planes parten desde $15.990 CLP/mes (plan anual). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual, semestral y anual. Solicita una demo para conocer el plan que mejor se adapta a tu clínica.'
+      answer: 'Los planes parten desde $15.990 CLP/mes neto ($19.028 CLP/mes con IVA incluido en plan anual). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual, semestral y anual con boleta o factura legal.'
+    },
+    {
+      question: '¿Permite gestionar cobros para emitir Boleta de Honorarios en el SII o factura?',
+      answer: 'Sí. Incluye un módulo de registro de cobros por sesión o packs de tratamiento con desglose por medio de pago (efectivo, transferencia o tarjeta) y datos fiscales (RUT, nombre y correo) del paciente para emitir sin errores tu Boleta de Honorarios Electrónica en el portal del SII o la factura de tu centro de salud.'
     },
     {
       question: '¿Ya uso Excel u otra agenda, puedo migrar mis datos?',

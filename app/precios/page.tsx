@@ -64,33 +64,57 @@ export default function PreciosPage() {
 
         {/* Guarantee Banner */}
         <section className="py-16 bg-surface/50 border-y border-border/40">
-          <div className="max-w-5xl mx-auto px-6 text-center space-y-6">
+          <div className="max-w-6xl mx-auto px-6 text-center space-y-6">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald/10 text-emerald mb-2">
               <ShieldCheck size={28} />
             </div>
             <h2 className="font-display font-bold text-2xl md:text-3xl text-foreground">
-              ¿Por qué los kinesiólogos eligen Kenkomed?
+              Todo lo que necesitas para tu consulta kinésica en Chile
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left pt-4">
+            <p className="text-foreground-muted text-sm max-w-2xl mx-auto">
+              Diseñado específicamente para la práctica clínica, tributaria y operativa de los kinesiólogos en el país.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left pt-4">
               <div className="p-6 rounded-2xl bg-card border border-border/60">
-                <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center mb-3 font-bold">1</div>
-                <h3 className="font-bold text-foreground mb-1">Precios 100% Claros</h3>
+                <div className="w-8 h-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <h3 className="font-bold text-foreground mb-1">Reembolso Isapre y Seguros</h3>
                 <p className="text-xs text-foreground-muted leading-relaxed">
-                  Valores expresados en CLP tanto en precio neto como total con IVA incluido (19%). Sin costos sorpresas ni cobros extra por módulo.
+                  Emisión en 1 clic del certificado oficial y detalle de sesiones con códigos de arancel FONASA, requerido por Isapres (Colmena, Banmédica, Consalud, CruzBlanca, etc.) y seguros complementarios.
                 </p>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border/60">
-                <div className="w-8 h-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center mb-3 font-bold">2</div>
-                <h3 className="font-bold text-foreground mb-1">Cumplimiento Legal Chile</h3>
+                <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <h3 className="font-bold text-foreground mb-1">Boleta de Honorarios SII y Caja</h3>
                 <p className="text-xs text-foreground-muted leading-relaxed">
-                  Fichas clínicas digitales alineadas con la Ley N° 20.584 de Deberes y Derechos del Paciente y la normativa de protección de datos de salud en Chile.
+                  Control de pagos por sesión o packs de tratamiento (transferencia, tarjeta o efectivo) con RUT del paciente para facilitar la emisión en el SII y facturación médica.
                 </p>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border/60">
-                <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center mb-3 font-bold">3</div>
-                <h3 className="font-bold text-foreground mb-1">Onboarding Asistido</h3>
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 text-green-600 flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <h3 className="font-bold text-foreground mb-1">WhatsApp + Correo Integrado</h3>
                 <p className="text-xs text-foreground-muted leading-relaxed">
-                  Te ayudamos a migrar tus datos y configurar tus plantillas clínicas en tiempo récord con asistencia personalizada por WhatsApp.
+                  Recordatorios automáticos de cita por WhatsApp con enlace QR de anamnesis previa, aviso inmediato al completar datos y envío de pautas de ejercicios al correo con alerta.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-card border border-border/60">
+                <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <h3 className="font-bold text-foreground mb-1">Precios 100% Claros en CLP</h3>
+                <p className="text-xs text-foreground-muted leading-relaxed">
+                  Valores expresados en pesos chilenos tanto en precio neto como total con IVA incluido (19%). Sin costos sorpresa ni cobros adicionales por paciente registrado.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-card border border-border/60">
+                <div className="w-8 h-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <h3 className="font-bold text-foreground mb-1">Cumplimiento Ley N° 20.584</h3>
+                <p className="text-xs text-foreground-muted leading-relaxed">
+                  Fichas clínicas digitales alineadas con los derechos y deberes del paciente, trazabilidad completa de accesos, consentimiento informado y seguridad de datos de salud en Chile.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-card border border-border/60">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <h3 className="font-bold text-foreground mb-1">Onboarding y Migración Asistida</h3>
+                <p className="text-xs text-foreground-muted leading-relaxed">
+                  Te ayudamos a migrar tus fichas históricas desde Excel u otro software y a configurar tus plantillas clínicas en tiempo récord con asistencia personalizada por WhatsApp.
                 </p>
               </div>
             </div>
