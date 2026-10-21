@@ -1,87 +1,163 @@
 'use client'
 
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { cn } from "@/lib/utils"
+import Image from "next/image"
+import { Star, Quote, CheckCircle2, ShieldCheck, Clock } from "lucide-react"
 
 export interface TestimonialItem {
-    quote: string;
-    author: string;
-    role: string;
-    image: string;
+  quote: string
+  secondaryQuote?: string
+  author: string
+  role: string
+  image: string
+  period?: string
+  highlights?: string[]
 }
 
-export const defaultTestimonials: TestimonialItem[] = [
-    {
-        quote: "“Kenkomed transformó la forma en que atiendo a mis pacientes. La ficha digital y las evaluaciones automatizadas me ahorran más de 45 minutos al día.”",
-        author: "Klgo. Juan Pérez",
-        role: "Kinesiología Traumatológica",
-        image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-        quote: "“Llevo 2 meses con el software de gestión clínica Kenkomed y sin duda ha sido un gran acierto ya que me ha ayudado bastante a simplificar el trabajo administrativo con un sistema de registro clínico completo y detallado que me permite agendar pacientes, registrar evaluaciones y evoluciones clínicas facilitando el proceso y haciendo más ligero el trabajo de gestión de una manera mucho más organizada. Además debo agradecer la excelente disposición del equipo de soporte para resolver dudas y solucionar problemas que puedan surgir. Recomendado 100%.”",
-        author: "Klgo. David Barraza Oliveros",
-        role: "Kinesiólogo especializado en movilidad funcional y envejecimiento saludable",
-        image: "/images/fotodavid.jpeg",
-    },
-    {
-        quote: "“Toda la clínica en un solo lugar: agenda, fichas clínicas, escalas validadas y cobranza. Redujimos el ausentismo más de un 40%.”",
-        author: "Klgo. Matías López",
-        role: "Kinesiólogo Deportivo",
-        image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=800&auto=format&fit=crop",
-    },
-];
+export const davidTestimonial: TestimonialItem = {
+  quote:
+    "Llevo 2 meses con el software de gestión clínica Kenkomed y sin duda ha sido un gran acierto ya que me ha ayudado bastante a simplificar el trabajo administrativo con un sistema de registro clínico completo y detallado que me permite agendar pacientes, registrar evaluaciones y evoluciones clínicas facilitando el proceso y haciendo más ligero el trabajo de gestión de una manera mucho más organizada.",
+  secondaryQuote:
+    "Además debo agradecer la excelente disposición del equipo de soporte para resolver dudas y solucionar problemas que puedan surgir. Recomendado 100%.",
+  author: "Klgo. David Barraza Oliveros",
+  role: "Kinesiólogo especializado en movilidad funcional y envejecimiento saludable",
+  image: "/images/fotodavid.jpeg",
+  period: "Usuario activo · 2 meses de uso clínico",
+  highlights: [
+    "Registro clínico completo y ordenado",
+    "Agendamiento y evoluciones en un solo lugar",
+    "Soporte clínico con excelente disposición",
+  ],
+}
 
 export default function Testimonial({
-    items = defaultTestimonials,
-    className,
+  item = davidTestimonial,
+  className,
 }: {
-    items?: TestimonialItem[];
-    className?: string;
+  item?: TestimonialItem
+  items?: TestimonialItem[]
+  className?: string
 }) {
-    return (
-        <section className={cn("py-20 px-4 md:px-8 relative overflow-hidden", className)}>
-            <div className="max-w-6xl mx-auto mb-12 text-center">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#0284c7]/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#0284c7] mb-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#0284c7]" />
-                    Casos Reales
+  return (
+    <section className={cn("py-20 md:py-28 px-4 md:px-8 relative overflow-hidden", className)}>
+      <div className="max-w-4xl mx-auto mb-10 text-center">
+        <span className="inline-flex items-center gap-2 rounded-full bg-emerald/10 border border-emerald/20 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-emerald mb-3">
+          <span className="h-2 w-2 rounded-full bg-emerald animate-pulse" />
+          Caso Real · Testimonio Verificado
+        </span>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground text-balance">
+          La experiencia de un kinesiólogo con Kenkomed
+        </h2>
+        <p className="text-foreground-muted mt-3 max-w-2xl mx-auto text-base md:text-lg">
+          Opinión directa de un profesional de la salud en Chile que gestiona su práctica clínica diaria con nuestra plataforma.
+        </p>
+      </div>
+
+      <div className="max-w-4xl mx-auto">
+        <div className="relative rounded-3xl border border-border/80 bg-card p-6 sm:p-10 md:p-12 shadow-xl shadow-brand/5 overflow-hidden">
+          {/* Subtle decorative glow */}
+          <div
+            className="absolute -top-24 -right-24 w-72 h-72 rounded-full pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, oklch(0.48 0.18 246 / 0.08) 0%, transparent 70%)",
+              filter: "blur(40px)",
+            }}
+            aria-hidden="true"
+          />
+
+          <Quote
+            className="absolute right-6 top-6 h-20 w-20 md:h-28 md:w-28 text-brand/5 pointer-events-none stroke-1"
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-10 items-center md:items-start">
+            {/* Author photo & verification column */}
+            <div className="flex flex-col items-center text-center shrink-0 w-full md:w-56">
+              <div className="relative">
+                <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border-2 border-brand/20 shadow-lg relative bg-surface">
+                  <Image
+                    src={item.image}
+                    alt={item.author}
+                    fill
+                    sizes="(max-width: 640px) 128px, 160px"
+                    className="object-cover object-top"
+                    priority={false}
+                  />
+                </div>
+                <div
+                  className="absolute -bottom-2.5 -right-2.5 bg-emerald text-white p-1.5 rounded-full shadow-md border-2 border-card"
+                  title="Testimonio verificado"
+                >
+                  <ShieldCheck className="h-4 w-4" />
+                </div>
+              </div>
+
+              <div className="mt-4 flex flex-col items-center gap-1.5">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald bg-emerald/10 border border-emerald/20 px-2.5 py-0.5 rounded-full">
+                  <CheckCircle2 className="h-3 w-3 text-emerald" /> Kinesiólogo Clínico
                 </span>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground text-balance">
-                    Kinesiólogos y centros que confían en Kenkomed
-                </h2>
-                <p className="text-foreground-muted mt-3 max-w-2xl mx-auto text-base md:text-lg">
-                    Conoce cómo profesionales de la salud en Chile optimizan su tiempo clínico y mejoran la adherencia de sus pacientes.
-                </p>
+                {item.period && (
+                  <span className="inline-flex items-center gap-1 text-[11px] text-foreground-muted font-medium">
+                    <Clock className="h-3 w-3 text-foreground-muted/70" /> {item.period}
+                  </span>
+                )}
+              </div>
             </div>
 
-            <div className="flex flex-wrap items-stretch justify-center gap-6 max-w-6xl mx-auto">
-                {items.map((item, idx) => (
-                    <div
-                        key={idx}
-                        className="max-w-80 w-full bg-black text-white rounded-2xl flex flex-col justify-between shadow-xl border border-white/10 hover:border-white/20 transition-all duration-300"
+            {/* Testimonial body column */}
+            <div className="flex-1 flex flex-col justify-between text-left">
+              {/* Rating stars */}
+              <div className="flex items-center gap-1.5 mb-4">
+                <div className="flex text-amber-400" aria-label="Calificación 5 de 5 estrellas">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <span className="text-xs font-semibold text-foreground-muted ml-1.5">
+                  5.0 · Recomendado 100%
+                </span>
+              </div>
+
+              {/* Quote text */}
+              <blockquote className="space-y-3.5 text-foreground/90 text-sm sm:text-base leading-relaxed font-normal">
+                <p>
+                  “{item.quote}”
+                </p>
+                {item.secondaryQuote && (
+                  <p className="font-medium text-foreground bg-surface/70 border-l-2 border-brand pl-3 py-1 rounded-r-md">
+                    “{item.secondaryQuote}”
+                  </p>
+                )}
+              </blockquote>
+
+              {/* Author signature */}
+              <div className="mt-6 pt-5 border-t border-border/60">
+                <p className="font-display font-bold text-base sm:text-lg text-foreground">
+                  {item.author}
+                </p>
+                <p className="text-xs sm:text-sm font-medium text-brand mt-0.5">
+                  {item.role}
+                </p>
+              </div>
+
+              {/* Verified Highlights */}
+              {item.highlights && item.highlights.length > 0 && (
+                <div className="mt-5 flex flex-wrap gap-2 pt-1">
+                  {item.highlights.map((highlight, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium bg-surface border border-border/70 text-foreground-muted px-3 py-1 rounded-full shadow-2xs"
                     >
-                        <div className="relative -mt-px overflow-hidden rounded-2xl">
-                            <img
-                                src={item.image}
-                                alt={item.author}
-                                className="h-[270px] w-full rounded-2xl hover:scale-105 transition-all duration-300 object-cover object-top"
-                                loading="lazy"
-                            />
-                            <div className="absolute bottom-0 z-10 h-60 w-full bg-gradient-to-t pointer-events-none from-black to-transparent" />
-                        </div>
-                        <div className="px-5 pb-5 pt-1 flex flex-col justify-between flex-1">
-                            <p className="font-medium text-white/90 border-b border-gray-700/80 pb-5 text-sm leading-relaxed">
-                                {item.quote}
-                            </p>
-                            <div className="mt-4">
-                                <p className="font-semibold text-white tracking-tight">— {item.author}</p>
-                                <p className="text-xs font-medium bg-gradient-to-r from-[#8B5CF6] via-[#E0724A] to-[#9938CA] text-transparent bg-clip-text mt-0.5">
-                                    {item.role}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald shrink-0" />
+                      {highlight}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
-        </section>
-    );
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
