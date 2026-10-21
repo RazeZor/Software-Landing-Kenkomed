@@ -467,41 +467,79 @@ function ScreenReevaluacion() {
  * LISTAS PREESTABLECIDAS DE PANTALLAS INTERACTIVAS
  * ───────────────────────────────────────────────────────────── */
 
+function MobileScreenImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="relative w-full h-full bg-[#f8fafc] overflow-hidden flex flex-col">
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover object-top select-none pointer-events-none"
+        loading="eager"
+      />
+    </div>
+  );
+}
+
 export const DEFAULT_KENKOMED_SCREENS: InteractiveScreenItem[] = [
   {
-    id: "anamnesis",
-    title: "Anamnesis Móvil",
-    category: "Admisión",
-    badge: "Paso 2 de 15",
-    render: () => <ScreenAnamnesis />,
+    id: "panel",
+    title: "Panel de Control",
+    category: "Gestión",
+    badge: "Dashboard",
+    render: () => (
+      <MobileScreenImage
+        src="/software/panelphone_clean.png"
+        alt="Panel de control Kenkomed móvil"
+      />
+    ),
   },
   {
-    id: "evaluacion",
-    title: "Evaluación & Banderas Rojas",
+    id: "agenda",
+    title: "Agenda Semanal",
+    category: "Citas",
+    badge: "Calendario",
+    render: () => (
+      <MobileScreenImage
+        src="/software/agendaphone_clean.png"
+        alt="Agenda semanal de atenciones kinésicas Kenkomed"
+      />
+    ),
+  },
+  {
+    id: "estadisticas",
+    title: "Estadísticas & EVA",
+    category: "Outcomes",
+    badge: "Resultados",
+    render: () => (
+      <MobileScreenImage
+        src="/software/estadisticasphone_clean.png"
+        alt="Estadísticas de dolor EVA y conducta kinésica Kenkomed"
+      />
+    ),
+  },
+  {
+    id: "sesion",
+    title: "Escalas Clínicas",
     category: "Evaluación",
-    badge: "Screening",
-    render: () => <ScreenEvaluacion />,
+    badge: "QuickDASH",
+    render: () => (
+      <MobileScreenImage
+        src="/software/sesionphone_clean.png"
+        alt="Escalas clínicas validadas y seguimiento Kenkomed"
+      />
+    ),
   },
   {
-    id: "plan",
-    title: "Plan & Prescripción",
-    category: "Tratamiento",
-    badge: "10 Sesiones",
-    render: () => <ScreenPlanTratamiento />,
-  },
-  {
-    id: "soap",
-    title: "Evolución SOAP",
+    id: "historial",
+    title: "Historial Clínico",
     category: "Tratamiento",
     badge: "Ley 20.584",
-    render: () => <ScreenFichaSOAP />,
-  },
-  {
-    id: "outcomes",
-    title: "Resultados & Gráficos",
-    category: "Outcomes",
-    badge: "-87% Dolor",
-    render: () => <ScreenReevaluacion />,
+    render: () => (
+      <MobileScreenImage
+        src="/software/historialphone_clean.png"
+        alt="Historial clínico y seguimiento kinésico Kenkomed"
+      />
+    ),
   },
 ];
 
