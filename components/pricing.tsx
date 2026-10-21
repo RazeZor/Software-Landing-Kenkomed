@@ -81,7 +81,7 @@ const plans = [
       'Anamnesis remota QR de 14 páginas',
       'Ciclos clínicos con alta y diagnóstico final',
       'Reportes clínicos y análisis DSS por profesional',
-      'Trazabilidad y firmas independientes (Cumple Ley 21.719)',
+      'Trazabilidad y firmas independientes (Alineado con Ley 20.584 y datos de salud)',
       'Branding personalizado (Logo en correos, informes y PDF)',
       'Soporte prioritario por WhatsApp (24h)',
     ],
@@ -117,11 +117,7 @@ const plans = [
 ]
 
 function formatPrice(price: number) {
-  return new Intl.NumberFormat('es-CL', {
-    style: 'currency',
-    currency: 'CLP',
-    minimumFractionDigits: 0,
-  }).format(price)
+  return `$${new Intl.NumberFormat('es-CL', { maximumFractionDigits: 0 }).format(price)}`
 }
 
 /* ── Lead Capture Modal Formal & Personalizado ───────────────── */
@@ -1046,7 +1042,7 @@ export function Pricing() {
             className="text-center space-y-4 mb-12"
           >
             <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-2">
-              Hecho por y para kinesiología
+              Diseñado para kinesiología
             </span>
             <h2 id="pricing-heading" className="text-4xl font-bold tracking-tight sm:text-5xl font-display text-balance">
               Tus costos, claros <span className="text-brand">desde el día uno.</span>
@@ -1133,6 +1129,7 @@ export function Pricing() {
                         $
                         <NumberFlow
                           value={basePrice}
+                          locales="es-CL"
                           format={{
                             style: "decimal",
                             minimumFractionDigits: 0,
@@ -1153,12 +1150,12 @@ export function Pricing() {
 
                     <div className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald bg-emerald/10 border border-emerald/20 px-2.5 py-1 rounded-md w-fit">
                       <ShieldCheck size={13} className="text-emerald" />
-                      <span>Total con IVA (19%): <strong>${formatPrice(priceWithIva)} / mes</strong></span>
+                      <span>Total con IVA (19%): <strong>{formatPrice(priceWithIva)} / mes</strong></span>
                     </div>
                   </div>
 
                   <p className="text-xs leading-5 text-foreground-subtle mt-2 mb-6">
-                    {isMonthly ? "Facturado mensualmente" : `Facturado anualmente ($${formatPrice(basePrice * 12)} neto / $${formatPrice(priceWithIva * 12)} IVA incl.)`}
+                    {isMonthly ? "Facturado mensualmente" : `Facturado anualmente (${formatPrice(basePrice * 12)} neto / ${formatPrice(priceWithIva * 12)} IVA incl.)`}
                   </p>
 
                   <ul className="gap-3 flex flex-col flex-1">

@@ -27,7 +27,7 @@ const faqData = {
   "caracteristicas": [
     {
       question: '¿En qué se diferencia Kenkomed de un software genérico de salud?',
-      answer: 'Kenkomed no es una agenda médica ni un ERP adaptado: es un DSS (Sistema de Soporte a la Decisión Clínica) construido desde cero para kinesiología. Incluye 13 escalas validadas integradas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS y screening de comorbilidades), admisión remota vía QR con anamnesis de 14 páginas, evolución en formato SOAP enlazada a objetivos funcionales, gráficos automáticos de resultados para demostrar la evolución al paciente y al médico derivador, y un módulo de Packs de Sesiones flexible para cobros por sesión y tarifas particulares. Además, cumple con la Ley 21.719 de protección de datos personales: trazabilidad de accesos, cifrado, exportación ARCO y auditoría PDF por período.'
+      answer: 'Kenkomed no es una agenda médica ni un ERP adaptado: es un DSS (Sistema de Soporte a la Decisión Clínica) construido desde cero para kinesiología. Incluye 13 escalas validadas integradas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS y screening de comorbilidades), admisión remota vía QR con anamnesis de 14 páginas, evolución en formato SOAP enlazada a objetivos funcionales, gráficos automáticos de resultados para demostrar la evolución al paciente y al médico derivador, y un módulo de Packs de Sesiones flexible para cobros por sesión y tarifas particulares. Además, incorpora arquitectura orientada a la privacidad y trazabilidad clínica (Ley 20.584 y estándares de datos de salud): trazabilidad de accesos, cifrado, control por profesional y auditoría PDF por período.'
     },
     {
       question: '¿Qué escalas y cuestionarios clínicos incluye?',
@@ -45,7 +45,7 @@ const faqData = {
   "seguridad": [
     {
       question: '¿Kenkomed cumple con la protección de datos de pacientes?',
-      answer: 'Sí. La plataforma utiliza cifrado de datos, respaldos automáticos y control de roles (administrador vs clínico). Cada profesional accede solo a la información de sus pacientes asignados. El sistema incluye herramientas de trazabilidad pensadas para la Ley 21.719 de protección de datos personales.'
+      answer: 'Sí. La plataforma utiliza cifrado de datos, respaldos automáticos y control de roles (administrador vs clínico). Cada profesional accede solo a la información de sus pacientes asignados. El sistema incluye herramientas de trazabilidad y seguridad alineadas con la Ley N° 20.584 y preparadas para la normativa de datos personales en salud.'
     },
     {
       question: '¿Dónde están mis datos y quién los ve?',

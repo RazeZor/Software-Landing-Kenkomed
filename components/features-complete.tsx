@@ -248,7 +248,7 @@ const clinicianGroups = [
         icon: Scale,
         color: 'bg-red-50 text-red-600',
         accent: 'border-red-200',
-        title: 'Trazabilidad Clínica — Ley 21.719',
+        title: 'Trazabilidad y Auditoría Clínica',
         count: 5,
         badge: 'Trazabilidad',
         features: [

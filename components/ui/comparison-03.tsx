@@ -18,7 +18,7 @@ const kenkomed = [
 ];
 
 const stats = [
-  { value: "-80%", label: "tiempo en tareas administrativas" },
+  { value: "100% digital", label: "fichas y evolución sin papel ni desorden" },
   { value: "0 papel", label: "información clínica segura y ordenada" },
   { value: "1 solo lugar", label: "para evolución, escalas y gráficas" },
 ];

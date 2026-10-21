@@ -5,4 +5,4 @@ Disallow: /_next/
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://kenkomed.cl/sitemap.xml
+Sitemap: https://www.kenkomed.cl/sitemap.xml

@@ -249,7 +249,7 @@ export function Hero() {
                 Solicitar software
                 <ArrowRight size={15} aria-hidden="true" />
               </Link>
-              <Link href="/#pricing" className="hm-btn-ghost">
+              <Link href="/precios/" className="hm-btn-ghost">
                 Ver precios
               </Link>
             </motion.div>
@@ -277,7 +277,7 @@ export function Hero() {
               </span>
               <span className="hm-trust-item">
                 <CheckCircle2 size={16} className="text-emerald" />
-                Hecho por kinesiólogos, precio transparente
+                Diseñado para kinesiólogos, precio transparente
               </span>
             </motion.div>
           </motion.div>
@@ -316,8 +316,8 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div>
-                <p className="hm-float-title">-80%</p>
-                <p className="hm-float-sub">tiempo administrativo</p>
+                <p className="hm-float-title">Ficha lista</p>
+                <p className="hm-float-sub">antes de cada consulta</p>
               </div>
             </motion.div>
 

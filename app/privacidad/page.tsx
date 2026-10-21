@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 }
 
 const breadcrumbs = breadcrumbSchema([
-  { name: 'Inicio', url: 'https://kenkomed.cl' },
-  { name: 'Política de Privacidad', url: 'https://kenkomed.cl/privacidad' },
+  { name: 'Inicio', url: 'https://www.kenkomed.cl' },
+  { name: 'Política de Privacidad', url: 'https://www.kenkomed.cl/privacidad' },
 ])
 
 const sections = [

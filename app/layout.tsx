@@ -44,17 +44,17 @@ const geistMono = Geist_Mono({
 
 /* ─── SEO Metadata ─── */
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kenkomed.cl'),
+  metadataBase: new URL('https://www.kenkomed.cl'),
 
   title: {
-    default: 'Kenkomed — Software y App para Kinesiólogos | Ficha Clínica Digital & Escalas DSS',
+    default: 'Kenkomed — Software y Ficha Clínica para Kinesiólogos',
     template: '%s | Kenkomed',
   },
 
   description:
-    'Kenkomed: El software y app para kinesiólogos en Chile. Ficha clínica digital unificada, cuestionarios y escalas clínicas digitales (EVA, PSFS, Barthel, GROC), admisión QR y gestión clínica integral.',
+    'Software y app para kinesiólogos en Chile. Ficha clínica digital SOAP, 13 escalas validadas, admisión QR y agenda clínica integral.',
 
-  authors: [{ name: 'Kenkomed', url: 'https://kenkomed.cl' }],
+  authors: [{ name: 'Kenkomed', url: 'https://www.kenkomed.cl' }],
   creator: 'Kenkomed',
   publisher: 'Kenkomed',
 
@@ -80,21 +80,21 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: 'Kenkomed — Software y App para Kinesiólogos | Ficha Clínica Digital',
+    title: 'Kenkomed — Software y Ficha Clínica para Kinesiólogos',
     description:
-      'App y software especializado para kinesiólogos: fichas clínicas digitales, cuestionarios y escalas clínicas automatizadas.',
+      'Ficha clínica digital SOAP, 13 escalas validadas (EVA, Barthel), admisión QR y agenda integral para kinesiólogos en Chile.',
     type: 'website',
     locale: 'es_CL',
-    url: 'https://kenkomed.cl',
+    url: 'https://www.kenkomed.cl',
     siteName: 'Kenkomed',
     images: [defaultOgImage],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Kenkomed — Software y App para Kinesiólogos | Ficha Clínica Digital',
+    title: 'Kenkomed — Software y Ficha Clínica para Kinesiólogos',
     description:
-      'Software y App de Ficha Clínica Digital para kinesiólogos y fisioterapeutas en Chile. Escalas DSS automatizadas.',
+      'Ficha clínica digital SOAP, 13 escalas validadas (EVA, Barthel), admisión QR y agenda integral para kinesiólogos en Chile.',
     images: [defaultOgImage.url],
   },
 

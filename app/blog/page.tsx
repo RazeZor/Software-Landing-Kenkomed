@@ -1,23 +1,31 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { SiteHeader } from '@/components/ui/site-header'
 import { Footer } from '@/components/footer'
 import { JsonLd, breadcrumbSchema } from '@/components/json-ld'
 import { BLOG_POSTS } from '@/lib/blog-data'
+import { defaultOgImage } from '@/lib/seo-assets'
 import { RiBookOpenLine as BookOpen, RiArrowRightLine as ArrowRight, RiTimeLine as Clock, RiUserLine as User, RiPriceTag3Line as Tag } from 'react-icons/ri'
 
 export const metadata: Metadata = {
-  title: 'Blog y Guías para Kinesiólogos — Normativa, Escalas y Gestión | Kenkomed',
+  title: 'Blog y Guías para Kinesiólogos — Normativa, Escalas y Gestión',
   description:
     'Artículos especializados para kinesiólogos en Chile: ficha kinésica digital, plantilla SOAP, escala EVA, detalle de sesiones para Isapre, boleta de honorarios y comparativas de software.',
   alternates: {
     canonical: '/blog',
   },
   openGraph: {
-    title: 'Blog y Guías para Kinesiólogos | Kenkomed',
+    title: 'Blog y Guías para Kinesiólogos',
     description:
-      'Guías clínicas, normativa sanitaria Ley 20.584/21.719, formato SOAP y gestión de centros de kinesiología en Chile.',
-    url: 'https://kenkomed.cl/blog',
+      'Guías clínicas, normativa sanitaria, formato SOAP y gestión de centros de kinesiología en Chile.',
+    url: 'https://www.kenkomed.cl/blog',
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog y Guías para Kinesiólogos',
+    description:
+      'Guías clínicas, normativa sanitaria, formato SOAP y gestión de centros de kinesiología en Chile.',
+    images: [defaultOgImage.url],
   },
 }
 
@@ -26,8 +34,8 @@ export default function BlogPage() {
   const otherPosts = BLOG_POSTS.filter((p) => p.slug !== featuredPost.slug)
 
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://kenkomed.cl/' },
-    { name: 'Blog', url: 'https://kenkomed.cl/blog' },
+    { name: 'Inicio', url: 'https://www.kenkomed.cl/' },
+    { name: 'Blog', url: 'https://www.kenkomed.cl/blog' },
   ]
 
   const blogListSchema = {
@@ -35,12 +43,12 @@ export default function BlogPage() {
     '@type': 'Blog',
     name: 'Blog de Kinesiología y Salud Digital Kenkomed',
     description: 'Guías clínicas, normativas legales en Chile y gestión de centros kinesiológicos.',
-    url: 'https://kenkomed.cl/blog',
+    url: 'https://www.kenkomed.cl/blog',
     blogPost: BLOG_POSTS.map((post) => ({
       '@type': 'BlogPosting',
       headline: post.title,
       description: post.description,
-      url: `https://kenkomed.cl/blog/${post.slug}`,
+      url: `https://www.kenkomed.cl/blog/${post.slug}`,
       datePublished: post.publishedAt,
       author: {
         '@type': 'Organization',
@@ -53,8 +61,6 @@ export default function BlogPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
       <JsonLd data={blogListSchema} />
-
-      <SiteHeader />
 
       <main className="flex-1 pt-28 pb-24">
         {/* Page Header */}

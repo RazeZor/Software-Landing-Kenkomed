@@ -72,7 +72,7 @@ export function Footer() {
               <Link href="/precios" className="block transition-colors hover:text-primary font-medium text-foreground">Precios & Planes</Link>
               <Link href="/funcionalidades" className="block transition-colors hover:text-primary">Funcionalidades</Link>
               <Link href="/solucion" className="block transition-colors hover:text-primary">Nuestra Solución</Link>
-              <Link href="/blog" className="block transition-colors hover:text-primary">Blog & Guías SEO</Link>
+              <Link href="/blog" className="block transition-colors hover:text-primary">Blog Clínico & Guías</Link>
               <Link href="/demo" className="block transition-colors hover:text-primary">Ver Demo</Link>
               <Link href="/investigacion" className="block transition-colors hover:text-primary">Investigación</Link>
             </nav>

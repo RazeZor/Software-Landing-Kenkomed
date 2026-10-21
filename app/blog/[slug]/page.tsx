@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { SiteHeader } from '@/components/ui/site-header'
 import { Footer } from '@/components/footer'
 import { JsonLd, breadcrumbSchema } from '@/components/json-ld'
 import { BLOG_POSTS, BlogPost } from '@/lib/blog-data'
+import { defaultOgImage } from '@/lib/seo-assets'
 import { RiArrowLeftLine as ArrowLeft, RiTimeLine as Clock, RiUserLine as User, RiCalendarLine as Calendar, RiShieldCheckLine as ShieldCheck, RiFlashlightLine as Zap } from 'react-icons/ri'
 
 interface Props {
@@ -23,12 +23,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: 'Artículo No Encontrado | Kenkomed',
+      title: 'Artículo No Encontrado',
     }
   }
 
   return {
-    title: `${post.title} | Kenkomed`,
+    title: post.title,
     description: post.description,
     alternates: {
       canonical: `/blog/${post.slug}`,
@@ -39,12 +39,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       publishedTime: post.publishedAt,
       authors: [post.author.name],
-      url: `https://kenkomed.cl/blog/${post.slug}`,
+      url: `https://www.kenkomed.cl/blog/${post.slug}`,
+      images: [defaultOgImage],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
+      images: [defaultOgImage.url],
     },
   }
 }
@@ -58,9 +60,9 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://kenkomed.cl/' },
-    { name: 'Blog', url: 'https://kenkomed.cl/blog' },
-    { name: post.title, url: `https://kenkomed.cl/blog/${post.slug}` },
+    { name: 'Inicio', url: 'https://www.kenkomed.cl/' },
+    { name: 'Blog', url: 'https://www.kenkomed.cl/blog' },
+    { name: post.title, url: `https://www.kenkomed.cl/blog/${post.slug}` },
   ]
 
   const articleSchema = {
@@ -70,7 +72,7 @@ export default async function BlogPostPage({ params }: Props) {
     description: post.description,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://kenkomed.cl/blog/${post.slug}`,
+      '@id': `https://www.kenkomed.cl/blog/${post.slug}`,
     },
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
@@ -82,10 +84,10 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       '@type': 'Organization',
       name: 'Kenkomed',
-      url: 'https://kenkomed.cl',
+      url: 'https://www.kenkomed.cl',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://kenkomed.cl/images/LogoKenko.png',
+        url: 'https://www.kenkomed.cl/images/LogoKenko.png',
       },
     },
   }
@@ -94,8 +96,6 @@ export default async function BlogPostPage({ params }: Props) {
     <div className="flex min-h-screen flex-col bg-background">
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
       <JsonLd data={articleSchema} />
-
-      <SiteHeader />
 
       <main className="flex-1 pt-28 pb-24">
         {/* Article Header */}

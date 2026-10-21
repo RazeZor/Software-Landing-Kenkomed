@@ -17,8 +17,8 @@ export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Kenkomed',
-  url: 'https://kenkomed.cl',
-  logo: 'https://kenkomed.cl/images/LogoKenko.png',
+  url: 'https://www.kenkomed.cl',
+  logo: 'https://www.kenkomed.cl/images/LogoKenko.png',
   description:
     'Software clínico profesional para kinesiólogos y fisioterapeutas en Chile. Sistema de Soporte a la Decisión Clínica (DSS).',
   address: {
@@ -45,14 +45,14 @@ export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Kenkomed',
-  url: 'https://kenkomed.cl',
+  url: 'https://www.kenkomed.cl',
   description:
     'Software para kinesiólogos con sistema DSS de apoyo a la decisión clínica.',
   inLanguage: 'es',
   publisher: {
     '@type': 'Organization',
     name: 'Kenkomed',
-    url: 'https://kenkomed.cl',
+    url: 'https://www.kenkomed.cl',
   },
 }
 
@@ -138,7 +138,7 @@ export const softwareSchema = {
   author: {
     '@type': 'Organization',
     name: 'Kenkomed',
-    url: 'https://kenkomed.cl',
+    url: 'https://www.kenkomed.cl',
   },
 }
 

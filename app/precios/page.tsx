@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { SiteHeader } from '@/components/ui/site-header'
 import { Footer } from '@/components/footer'
 import { Pricing } from '@/components/pricing'
 import { FaqSection } from '@/components/faq-section'
@@ -10,24 +9,24 @@ import { homeFaqItems } from '@/lib/faq-data'
 import { RiShieldCheckLine as ShieldCheck, RiFlashlightLine as Zap, RiCheckLine as Check } from 'react-icons/ri'
 
 export const metadata: Metadata = {
-  title: 'Precios y Planes — Software para Kinesiólogos | Kenkomed',
+  title: 'Precios y Planes — Software para Kinesiólogos',
   description:
-    'Planes transparentes para kinesiólogos independientes y clínicas en Chile. Desde $15.990 CLP/mes neto ($19.028 IVA incluido). Ficha digital DSS, cuestionarios automatizados y demo guiada sin costo.',
+    'Planes transparentes para kinesiólogos independientes y clínicas en Chile. Desde $15.990 CLP/mes neto ($19.028 IVA incluido). Ficha digital DSS y demo sin costo.',
   alternates: {
     canonical: '/precios',
   },
   openGraph: {
-    title: 'Precios y Planes — Software para Kinesiólogos | Kenkomed',
+    title: 'Precios y Planes — Software para Kinesiólogos',
     description:
       'Conoce los planes de Kenkomed para kinesiología. Transparencia total, precios con IVA incluido y prueba sin compromiso.',
-    url: 'https://kenkomed.cl/precios',
+    url: 'https://www.kenkomed.cl/precios',
   },
 }
 
 export default function PreciosPage() {
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://kenkomed.cl/' },
-    { name: 'Precios', url: 'https://kenkomed.cl/precios' },
+    { name: 'Inicio', url: 'https://www.kenkomed.cl/' },
+    { name: 'Precios', url: 'https://www.kenkomed.cl/precios' },
   ]
 
   return (
@@ -35,8 +34,6 @@ export default function PreciosPage() {
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
       <JsonLd data={faqSchema(homeFaqItems)} />
       <JsonLd data={softwareSchema} />
-
-      <SiteHeader />
 
       <main className="flex-1 pt-28">
         {/* Page Header & Breadcrumb */}
@@ -86,7 +83,7 @@ export default function PreciosPage() {
                 <div className="w-8 h-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center mb-3 font-bold">2</div>
                 <h3 className="font-bold text-foreground mb-1">Cumplimiento Legal Chile</h3>
                 <p className="text-xs text-foreground-muted leading-relaxed">
-                  Fichas clínicas digitales alineadas con la Ley N° 20.584 de Deberes y Derechos del Paciente y Ley N° 21.719 de Protección de Datos.
+                  Fichas clínicas digitales alineadas con la Ley N° 20.584 de Deberes y Derechos del Paciente y la normativa de protección de datos de salud en Chile.
                 </p>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border/60">

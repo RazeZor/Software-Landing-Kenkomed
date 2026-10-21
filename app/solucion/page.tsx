@@ -27,8 +27,8 @@ export const metadata: Metadata = {
 }
 
 const breadcrumbs = breadcrumbSchema([
-  { name: 'Inicio', url: 'https://kenkomed.cl' },
-  { name: 'Nuestra Solución', url: 'https://kenkomed.cl/solucion' },
+  { name: 'Inicio', url: 'https://www.kenkomed.cl' },
+  { name: 'Nuestra Solución', url: 'https://www.kenkomed.cl/solucion' },
 ])
 
 export default function SolucionPage() {

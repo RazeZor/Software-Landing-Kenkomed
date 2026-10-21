@@ -97,9 +97,9 @@ const solucionSubMenu = [
 ]
 
 const recursosSubMenu = [
-  { title: 'Blog & Guías Clínicas', href: '/blog', desc: 'Guías de Ficha Digital, SOAP e Isapre', animation: clipboard, icon: BookOpen, badge: 'SEO' },
+  { title: 'Blog & Guías Clínicas', href: '/blog', desc: 'Guías de Ficha Digital, SOAP e Isapre', animation: clipboard, icon: BookOpen, badge: 'Guías' },
   { title: 'Preguntas Frecuentes', href: '/#preguntas-frecuentes', desc: 'Respuestas a dudas comunes', icon: Questionnaire },
-  { title: 'Seguridad & Datos', href: '/seguridad', desc: 'Cumplimiento Ley 21.719 y cifrado', animation: shield, icon: ShieldCheck },
+  { title: 'Seguridad & Datos', href: '/seguridad', desc: 'Privacidad y cifrado de datos', animation: shield, icon: ShieldCheck },
 ]
 
 const NAV_ITEMS: NavItem[] = [
@@ -426,7 +426,7 @@ export function SiteHeader() {
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center justify-between py-3.5 text-base font-display font-semibold text-foreground/90 hover:text-emerald transition-colors"
                     >
-                      <span>Seguridad & Ley 21.719</span>
+                      <span>Seguridad & Privacidad</span>
                       <ChevronRight className="h-4 w-4 text-foreground-muted/50" />
                     </Link>
                   </nav>

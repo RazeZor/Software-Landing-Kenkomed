@@ -79,8 +79,8 @@ export function DemoFeatures() {
                                       ))}
                                     </div>
                                     <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-4">
-                                      <span className="text-xs font-bold text-slate-400 uppercase">Evolución ROM</span>
-                                      <span className="text-xs font-bold text-emerald-600">+42%</span>
+                                      <span className="text-xs font-bold text-slate-400 uppercase">Rango Articular (ROM)</span>
+                                      <span className="text-xs font-bold text-emerald-600">Flexión 120°</span>
                                     </div>
                                 </div>
                             </CardContent>
