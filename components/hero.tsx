@@ -68,6 +68,7 @@ export function Hero() {
           padding-bottom: 4rem;
           background: linear-gradient(180deg, oklch(0.48 0.18 246 / 0.05) 0%, var(--background) 65%);
           overflow: hidden;
+          overflow-x: clip;
         }
         .hm-hero-section::after {
           content: '';
@@ -87,6 +88,17 @@ export function Hero() {
           grid-template-columns: 1fr 1fr;
           gap: var(--space-3xl);
           align-items: center;
+        }
+        @media (max-width: 640px) {
+          .hm-hero-grid {
+            padding-inline: var(--space-sm);
+            padding-block: var(--space-xl) var(--space-2xl);
+            gap: var(--space-lg);
+          }
+          .hm-hero-section {
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+          }
         }
         .hm-hero-outlier {
           font-family: var(--font-outlier);
@@ -203,7 +215,17 @@ export function Hero() {
         }
         @media (max-width: 640px) {
           .hm-hero-actions { flex-direction: column; align-items: stretch; }
-          .hm-proof-strip { grid-template-columns: 1fr; }
+          .hm-proof-strip {
+            grid-template-columns: repeat(2, 1fr);
+            padding-inline: var(--space-sm);
+            gap: var(--space-xs);
+          }
+          .hm-proof-strip .hm-proof-stat:last-child {
+            grid-column: 1 / -1;
+          }
+          .hm-proof-stat {
+            padding: var(--space-sm);
+          }
           .hc-pills { grid-template-columns: 1fr; }
           .hc-pill { border-right: none; border-top: 1px solid var(--border); }
           .hc-pill:first-child { border-top: none; }
@@ -305,8 +327,8 @@ export function Hero() {
                 </svg>
               </div>
               <div>
-                <p className="hm-float-title">Aviso por WhatsApp</p>
-                <p className="hm-float-sub">Cita confirmada · María G.</p>
+                <p className="hm-float-title">Anamnesis por WhatsApp</p>
+                <p className="hm-float-sub">Envío vía QR o link directo</p>
               </div>
             </motion.div>
 

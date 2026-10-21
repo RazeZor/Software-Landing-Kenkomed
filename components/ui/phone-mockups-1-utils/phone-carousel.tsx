@@ -605,8 +605,8 @@ function PhoneDevice({
       className={cn(
         "relative rounded-[38px] sm:rounded-[44px] p-[6px] sm:p-[8px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.12)] border border-zinc-700/60 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 flex flex-col transition-all duration-500 select-none",
         isMain
-          ? "w-[245px] xs:w-[265px] sm:w-[295px] md:w-[310px] h-[490px] xs:h-[530px] sm:h-[580px] md:h-[600px] z-20 cursor-default ring-1 ring-white/20"
-          : "w-[215px] xs:w-[235px] sm:w-[255px] md:w-[270px] h-[430px] xs:h-[470px] sm:h-[500px] md:h-[520px] z-10 cursor-pointer opacity-60 hover:opacity-100 filter brightness-95 hover:brightness-100",
+          ? "w-[220px] xs:w-[240px] sm:w-[275px] md:w-[310px] h-[420px] xs:h-[460px] sm:h-[540px] md:h-[600px] z-20 cursor-default ring-1 ring-white/20"
+          : "w-[195px] xs:w-[215px] sm:w-[240px] md:w-[270px] h-[380px] xs:h-[420px] sm:h-[470px] md:h-[520px] z-10 cursor-pointer opacity-60 hover:opacity-100 filter brightness-95 hover:brightness-100",
         className
       )}
     >
@@ -709,25 +709,30 @@ export function PhoneCarousel({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Tabs / píldoras rápidas de navegación por etapas clínicas */}
-      <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4 max-w-full px-2">
-        {activeScreens.map((item, idx) => {
-          const isActive = idx === currentIndex;
-          return (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => setCurrentIndex(idx)}
-              className={cn(
-                "px-2.5 py-0.5 rounded-full text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap",
-                isActive
-                  ? "bg-blue-50 border border-blue-200 text-[#0284c7] font-semibold shadow-sm"
-                  : "bg-white/80 border border-slate-200/60 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              )}
-            >
-              {item.title}
-            </button>
-          );
-        })}
+      <div className="relative w-full mb-4 md:w-auto">
+        {/* Fade edges on mobile to hint scroll */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-white/90 to-transparent z-10 md:hidden" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white/90 to-transparent z-10 md:hidden" />
+        <div className="flex items-center gap-1.5 max-w-full px-3 overflow-x-auto scrollbar-hide md:flex-wrap md:justify-center md:overflow-visible">
+          {activeScreens.map((item, idx) => {
+            const isActive = idx === currentIndex;
+            return (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setCurrentIndex(idx)}
+                className={cn(
+                  "px-2.5 py-0.5 rounded-full text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0",
+                  isActive
+                    ? "bg-blue-50 border border-blue-200 text-[#0284c7] font-semibold shadow-sm"
+                    : "bg-white/80 border border-slate-200/60 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                )}
+              >
+                {item.title}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* ── SHOWCASE DE LOS TRES CELULARES (TRIO PHONES) ── */}
@@ -736,17 +741,13 @@ export function PhoneCarousel({
         <div className="absolute -inset-6 bg-gradient-to-tr from-blue-500/10 via-emerald-500/10 to-sky-400/10 rounded-[60px] blur-3xl opacity-70 pointer-events-none" />
 
         {variant === "trio" ? (
-          <div className="relative flex items-center justify-center w-full max-w-2xl min-h-[500px] sm:min-h-[560px] md:min-h-[590px]">
-            {/* 1. CELULAR IZQUIERDO (Etapa Anterior)
-                - Mobile: visible, plano (rotate-0, sin círculo), al lado del central
-                - Desktop: preservado idéntico (-rotate-6, absolute en borde izquierdo) */}
+          <div className="relative flex items-center justify-center w-full max-w-2xl min-h-[430px] sm:min-h-[520px] md:min-h-[590px]">
+            {/* 1. CELULAR IZQUIERDO — solo visible en md+ */}
             <div
               className={cn(
                 "absolute top-1/2 -translate-y-1/2 z-10 transition-all duration-500",
-                // Mobile: plano al lado del celular central, sin rotación circular
-                "right-[calc(50%+65px)] xs:right-[calc(50%+75px)] sm:right-[calc(50%+90px)] rotate-0 scale-[0.88] sm:scale-95 opacity-60 hover:opacity-100",
-                // Desktop: preservado intacto con su ángulo -rotate-6
-                "md:right-auto md:-left-4 lg:md:-left-8 md:-rotate-6 md:scale-95 md:opacity-80 md:hover:-rotate-3 md:hover:scale-100"
+                "hidden md:block",
+                "md:-left-4 lg:md:-left-8 md:-rotate-6 md:scale-95 md:opacity-80 md:hover:-rotate-3 md:hover:scale-100"
               )}
             >
               <PhoneDevice
@@ -786,15 +787,11 @@ export function PhoneCarousel({
               </AnimatePresence>
             </div>
 
-            {/* 3. CELULAR DERECHO (Siguiente Etapa)
-                - Mobile: visible, plano (rotate-0, sin círculo), al lado del central
-                - Desktop: preservado idéntico (rotate-6, absolute en borde derecho) */}
+            {/* 3. CELULAR DERECHO — solo visible en md+ */}
             <div
               className={cn(
                 "absolute top-1/2 -translate-y-1/2 z-10 transition-all duration-500",
-                // Mobile: plano al lado del celular central, sin rotación circular
-                "left-[calc(50%+65px)] xs:left-[calc(50%+75px)] sm:left-[calc(50%+90px)] rotate-0 scale-[0.88] sm:scale-95 opacity-60 hover:opacity-100",
-                // Desktop: preservado intacto con su ángulo rotate-6
+                "hidden md:block",
                 "md:left-auto md:-right-4 lg:md:-right-8 md:rotate-6 md:scale-95 md:opacity-80 md:hover:rotate-3 md:hover:scale-100"
               )}
             >

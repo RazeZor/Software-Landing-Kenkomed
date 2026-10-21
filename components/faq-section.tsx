@@ -34,8 +34,8 @@ const faqData = {
       answer: 'Sí. Con un solo clic emites el certificado oficial y detalle de sesiones en formato PDF con las fechas de atención, diagnóstico kinésico y códigos de arancel FONASA exigidos por todas las Isapres (Colmena, Banmédica, Consalud, CruzBlanca, Vida Tres, Nueva Masvida, etc.) y seguros complementarios de salud en Chile para que tus pacientes reembolsen de inmediato.'
     },
     {
-      question: '¿Cómo funcionan los recordatorios por WhatsApp y correo electrónico?',
-      answer: 'Kenkomed conecta WhatsApp y correo para que no pierdas citas ni tiempo: envía recordatorios y confirmaciones automáticas por WhatsApp con el enlace QR para completar la anamnesis previa, te avisa en cuanto el paciente llena sus datos, y notifica por WhatsApp cuando su pauta de ejercicios clínicos con videos ha sido enviada a su correo.'
+      question: '¿Cómo se utiliza WhatsApp para la comunicación con los pacientes?',
+      answer: 'Kenkomed facilita la comunicación directa entre el kinesiólogo y el paciente: al tener la información clínica centralizada y automatizada, puedes enviarle la anamnesis previa directamente a su WhatsApp mediante código QR o un link directo para que la complete en su celular. Además, para cualquier consulta sobre el software, nuestro equipo de Kenkomed te atiende directamente a través de WhatsApp con un equipo preparado para ello.'
     },
     {
       question: '¿Qué escalas y cuestionarios clínicos incluye?',

@@ -27,13 +27,13 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
         <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/25 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-5">
             <Sparkles size={13} className="text-emerald-400" />
-            WhatsApp Clínico + Correo Integrado
+            Comunicación Directa Kinesiólogo – Paciente
           </div>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-5 leading-tight text-balance">
-            WhatsApp como canal directo de avisos, QR y ejercicios
+            Kenkomed facilita la comunicación directa con tu paciente
           </h2>
           <p className="text-base sm:text-lg text-zinc-300 leading-relaxed text-balance">
-            WhatsApp actúa como el intermediario ágil entre tu software y el paciente: avisa al instante que el QR de admisión fue completado, confirma que la pauta de ejercicios llegó a su correo y envía recordatorios automáticos de cita.
+            Al estar todo automatizado y centralizado, el clínico tiene a mano toda la información para comunicarse fluidamente con su paciente. Puedes enviarle la anamnesis previa directamente a su WhatsApp mediante código QR o un link directo para que responda desde su celular.
           </p>
         </div>
 
@@ -51,34 +51,34 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
                 <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400">
                   <QrCode size={20} />
                 </div>
-                <h3 className="font-semibold text-white text-base">Aviso de QR Completado</h3>
+                <h3 className="font-semibold text-white text-base">Anamnesis por QR o Link</h3>
               </div>
               <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
-                El paciente recibe su enlace QR antes de llegar, lo completa desde el celular y WhatsApp le confirma al instante que sus antecedentes ya están en su ficha clínica.
+                Mándale la anamnesis por WhatsApp a tu paciente: ya sea enviándole el enlace directo o compartiéndole el código QR. La completa desde su celular y su ficha queda lista antes de llegar.
               </p>
             </div>
 
             <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-blue-500/35 transition-all duration-300 shadow-sm">
               <div className="flex items-center gap-3 mb-2.5">
                 <div className="p-2.5 rounded-xl bg-blue-500/20 text-blue-400">
-                  <Mic size={20} />
+                  <Sparkles size={20} />
                 </div>
-                <h3 className="font-semibold text-white text-base">Ejercicios al Correo + Alerta WhatsApp</h3>
+                <h3 className="font-semibold text-white text-base">Información Clínica al Instante</h3>
               </div>
               <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
-                La pauta detallada con videos se despacha al correo del paciente, mientras WhatsApp le avisa de inmediato con nota de voz para asegurar su cumplimiento.
+                Al estar todo automatizado en la plataforma, el kinesiólogo tiene centralizados los datos y evolución de su paciente, facilitando una comunicación directa, rápida y personalizada.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-amber-500/35 transition-all duration-300 shadow-sm group">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-emerald-500/35 transition-all duration-300 shadow-sm group">
               <div className="flex items-center gap-3 mb-2.5">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center p-0.5 shrink-0 overflow-hidden group-hover:scale-105 transition-transform duration-300">
-                  <RobotLottie className="w-full h-full" />
+                <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400">
+                  <MessageSquareHeart size={20} />
                 </div>
-                <h3 className="font-semibold text-white text-base">Recordatorios Automáticos de Cita</h3>
+                <h3 className="font-semibold text-white text-base">Atención con el Equipo Kenkomed</h3>
               </div>
               <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
-                Avisos previos por WhatsApp para confirmar la sesión kinésica. En Chile los pacientes responden al minuto, reduciendo drásticamente las inasistencias.
+                La comunicación y soporte con nosotros se realiza directamente a través de WhatsApp de manera efectiva, con un equipo humano especializado y listo para asistirte en lo que necesites.
               </p>
             </div>
 
@@ -88,7 +88,7 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
                 className="inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-sm transition-all duration-200 shadow-lg shadow-emerald-500/20 hover:scale-[1.01]"
               >
                 <MessageSquareHeart size={16} />
-                Solicitar demo clínica
+                Hablar con el equipo Kenkomed
                 <ArrowRight size={15} />
               </Link>
             </div>

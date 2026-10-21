@@ -55,8 +55,8 @@ const steps = [
         step: 1,
         icon: QrCode,
         color: 'bg-blue-500',
-        title: 'El kinesiólogo comparte el QR',
-        desc: 'Al agendar la cita, se envía automáticamente un link o código QR al paciente por WhatsApp, email o SMS.',
+        title: 'El kinesiólogo comparte el QR o link',
+        desc: 'El kinesiólogo le envía el código QR o link directo a su WhatsApp o email para que complete su anamnesis antes de la sesión.',
         badge: '1 clic',
     },
     {
