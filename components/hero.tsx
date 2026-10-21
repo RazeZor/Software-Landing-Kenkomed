@@ -68,7 +68,6 @@ export function Hero() {
           padding-bottom: 4rem;
           background: linear-gradient(180deg, oklch(0.48 0.18 246 / 0.05) 0%, var(--background) 65%);
           overflow: hidden;
-          overflow-x: clip;
         }
         .hm-hero-section::after {
           content: '';
@@ -81,24 +80,15 @@ export function Hero() {
         }
         .hm-hero-grid {
           max-width: 84rem;
+          width: 100%;
           margin-inline: auto;
           padding-inline: var(--space-lg);
           padding-block: var(--space-3xl) var(--space-4xl);
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
           gap: var(--space-3xl);
           align-items: center;
-        }
-        @media (max-width: 640px) {
-          .hm-hero-grid {
-            padding-inline: var(--space-sm);
-            padding-block: var(--space-xl) var(--space-2xl);
-            gap: var(--space-lg);
-          }
-          .hm-hero-section {
-            padding-top: 3rem;
-            padding-bottom: 2rem;
-          }
+          box-sizing: border-box;
         }
         .hm-hero-outlier {
           font-family: var(--font-outlier);
@@ -114,8 +104,9 @@ export function Hero() {
           border-radius: 999px;
           background: oklch(0.48 0.18 246 / 0.06);
           margin-bottom: var(--space-md);
+          max-width: 100%;
         }
-        .hm-outlier-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--kenko-mint); }
+        .hm-outlier-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--kenko-mint); flex-shrink: 0; }
         .hm-hero-h1 {
           font-family: var(--font-display);
           font-size: clamp(2.5rem, 4.5vw + 0.5rem, 4.25rem);
@@ -124,6 +115,7 @@ export function Hero() {
           letter-spacing: -0.045em;
           color: var(--foreground);
           margin-bottom: var(--space-md);
+          word-break: break-word;
         }
         .hm-hero-h1-highlight { color: var(--kenko-sapphire); }
         .hm-hero-lede {
@@ -133,6 +125,7 @@ export function Hero() {
           line-height: 1.65;
           margin-bottom: var(--space-xl);
           max-width: 50ch;
+          word-break: break-word;
         }
         .hm-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); }
         .hm-btn-primary {
@@ -157,7 +150,7 @@ export function Hero() {
           display: flex; align-items: center; gap: 0.625rem;
           margin-bottom: var(--space-xl);
         }
-        .hm-social-stars { display: flex; gap: 1px; color: #F5A623; }
+        .hm-social-stars { display: flex; gap: 1px; color: #F5A623; flex-shrink: 0; }
         .hm-social-text { font-size: 0.8125rem; color: var(--foreground-muted); }
         .hm-social-text strong { color: var(--foreground); font-weight: 600; }
 
@@ -171,6 +164,9 @@ export function Hero() {
           justify-content: center;
           align-items: center;
           width: 100%;
+          min-width: 0;
+          max-width: 100%;
+          overflow: hidden;
         }
 
         /* floating cards */
@@ -210,14 +206,66 @@ export function Hero() {
         .hm-proof-label { font-size: 0.8125rem; color: var(--foreground-muted); margin-top: 0.25rem; }
 
         @media (max-width: 960px) {
-          .hm-hero-grid { grid-template-columns: 1fr; gap: var(--space-2xl); }
-          .hm-float-card { display: none; }
+          .hm-hero-grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--space-2xl);
+          }
+          .hm-float-card { display: none !important; }
         }
         @media (max-width: 640px) {
-          .hm-hero-actions { flex-direction: column; align-items: stretch; }
+          .hm-hero-section {
+            padding-top: 3.5rem;
+            padding-bottom: 2rem;
+          }
+          .hm-hero-grid {
+            padding-inline: 1.25rem;
+            padding-block: var(--space-xl) var(--space-2xl);
+            gap: var(--space-xl);
+          }
+          .hm-hero-outlier {
+            font-size: 0.6875rem;
+            letter-spacing: 0.04em;
+            padding: 0.3rem 0.75rem;
+          }
+          .hm-hero-h1 {
+            font-size: clamp(1.85rem, 7.5vw, 2.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+          }
+          .hm-hero-lede {
+            font-size: 0.9375rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+            max-width: 100%;
+          }
+          .hm-hero-actions {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.625rem;
+            margin-bottom: 1.25rem;
+          }
+          .hm-btn-primary, .hm-btn-ghost {
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+          }
+          .hm-social-proof {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+          }
+          .hm-social-text {
+            font-size: 0.8rem;
+            line-height: 1.4;
+          }
+          .hm-trust-item {
+            font-size: 0.8125rem;
+            align-items: flex-start;
+          }
           .hm-proof-strip {
             grid-template-columns: repeat(2, 1fr);
-            padding-inline: var(--space-sm);
+            padding-inline: 1.25rem;
             gap: var(--space-xs);
           }
           .hm-proof-strip .hm-proof-stat:last-child {
@@ -250,7 +298,7 @@ export function Hero() {
         )}
 
         <div className="hm-hero-grid relative z-10">
-          <motion.div variants={containerVariants} initial="hidden" animate="show">
+          <motion.div variants={containerVariants} initial="hidden" animate="show" className="w-full min-w-0 max-w-full">
             <motion.div variants={itemVariants} className="hm-hero-outlier">
               <span className="hm-outlier-dot" aria-hidden="true" />
               Plataforma clínica de kinesiología

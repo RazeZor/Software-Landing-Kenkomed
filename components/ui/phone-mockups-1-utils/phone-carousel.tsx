@@ -704,16 +704,16 @@ export function PhoneCarousel({
 
   return (
     <div
-      className={cn("flex flex-col items-center justify-center w-full select-none", className)}
+      className={cn("flex flex-col items-center justify-center w-full max-w-full min-w-0 select-none overflow-hidden", className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Tabs / píldoras rápidas de navegación por etapas clínicas */}
-      <div className="relative w-full mb-4 md:w-auto">
+      <div className="relative w-full max-w-full min-w-0 mb-4 overflow-hidden md:w-auto md:overflow-visible">
         {/* Fade edges on mobile to hint scroll */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-white/90 to-transparent z-10 md:hidden" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white/90 to-transparent z-10 md:hidden" />
-        <div className="flex items-center gap-1.5 max-w-full px-3 overflow-x-auto scrollbar-hide md:flex-wrap md:justify-center md:overflow-visible">
+        <div className="flex items-center gap-1.5 w-full max-w-full min-w-0 px-2 overflow-x-auto scrollbar-hide md:flex-wrap md:justify-center md:overflow-visible">
           {activeScreens.map((item, idx) => {
             const isActive = idx === currentIndex;
             return (
@@ -736,12 +736,12 @@ export function PhoneCarousel({
       </div>
 
       {/* ── SHOWCASE DE LOS TRES CELULARES (TRIO PHONES) ── */}
-      <div className="relative w-full flex items-center justify-center py-2 px-2">
+      <div className="relative w-full max-w-full min-w-0 flex items-center justify-center py-2 px-1 overflow-hidden">
         {/* Resplandor ambiental suave de fondo */}
-        <div className="absolute -inset-6 bg-gradient-to-tr from-blue-500/10 via-emerald-500/10 to-sky-400/10 rounded-[60px] blur-3xl opacity-70 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 via-emerald-500/10 to-sky-400/10 rounded-[60px] blur-3xl opacity-70 pointer-events-none" />
 
         {variant === "trio" ? (
-          <div className="relative flex items-center justify-center w-full max-w-2xl min-h-[430px] sm:min-h-[520px] md:min-h-[590px]">
+          <div className="relative flex items-center justify-center w-full max-w-full min-w-0 min-h-[430px] sm:min-h-[520px] md:min-h-[590px]">
             {/* 1. CELULAR IZQUIERDO — solo visible en md+ */}
             <div
               className={cn(
