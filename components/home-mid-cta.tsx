@@ -14,6 +14,7 @@ import { AnimatedIcon } from '@/components/ui/animated-icon'
 import activity from 'react-useanimations/lib/activity'
 import shield from 'react-useanimations/lib/shield'
 import checkmark from 'react-useanimations/lib/checkmark'
+import { AgendaLottie } from '@/components/agenda-lottie'
 
 const proof = [
   { text: 'Demo en 24 h', animation: activity },
@@ -32,15 +33,17 @@ export function HomeMidCta() {
           background: var(--color-paper);
           border-top: var(--hairline);
           border-bottom: var(--hairline);
+          position: relative;
+          overflow: hidden;
         }
 
         .hm-cta-strip-inner {
           max-width: 88rem;
           margin-inline: auto;
           padding-inline: var(--space-lg);
-          padding-block: var(--space-4xl);
+          padding-block: var(--space-3xl);
           display: grid;
-          grid-template-columns: 1fr auto;
+          grid-template-columns: minmax(0, 1fr) auto auto;
           gap: var(--space-2xl);
           align-items: center;
         }
@@ -93,6 +96,28 @@ export function HomeMidCta() {
           border-radius: 999px;
           padding: 0.25rem 0.75rem;
           line-height: 1;
+        }
+
+        /* Center: Agenda Lottie animation */
+        .hm-cta-lottie-wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          width: 160px;
+          height: 160px;
+          flex-shrink: 0;
+        }
+
+        .hm-cta-lottie-glow {
+          position: absolute;
+          width: 140%;
+          height: 140%;
+          border-radius: 50%;
+          background: radial-gradient(circle, oklch(0.48 0.18 246 / 0.12) 0%, transparent 70%);
+          pointer-events: none;
+          z-index: 0;
+          filter: blur(12px);
         }
 
         /* Right: single CTA button */
@@ -148,15 +173,37 @@ export function HomeMidCta() {
           }
         }
 
-
         /* Responsive */
+        @media (max-width: 960px) {
+          .hm-cta-strip-inner {
+            grid-template-columns: 1fr auto;
+            gap: var(--space-xl);
+          }
+          .hm-cta-lottie-wrap {
+            width: 130px;
+            height: 130px;
+          }
+        }
+
         @media (max-width: 768px) {
           .hm-cta-strip-inner {
             grid-template-columns: 1fr;
-            gap: var(--space-xl);
+            gap: var(--space-lg);
+            padding-inline: var(--space-md);
+            padding-block: var(--space-2xl);
           }
-          .hm-cta-strip-action { align-items: flex-start; }
-          .hm-cta-strip-inner { padding-inline: var(--space-md); }
+          .hm-cta-lottie-wrap {
+            width: 140px;
+            height: 140px;
+            margin-inline: auto;
+          }
+          .hm-cta-strip-action {
+            align-items: stretch;
+            width: 100%;
+          }
+          .hm-cta-btn-primary {
+            justify-content: center;
+          }
         }
       `}</style>
 
@@ -172,7 +219,7 @@ export function HomeMidCta() {
           className="hm-cta-strip-inner"
         >
           {/* Left: heading + sub + proof chips */}
-          <div>
+          <div className="hm-cta-strip-content">
             <p className="hm-cta-strip-label" aria-hidden="true">¿Quieres verlo funcionando?</p>
             <h2 id="mid-cta-heading" className="hm-cta-strip-heading">
               Agenda tu demo gratuita ahora.
@@ -189,6 +236,12 @@ export function HomeMidCta() {
                 </span>
               ))}
             </div>
+          </div>
+
+          {/* Center: Agenda Lottie */}
+          <div className="hm-cta-lottie-wrap" aria-hidden="true">
+            <div className="hm-cta-lottie-glow" />
+            <AgendaLottie className="w-full h-full relative z-10" />
           </div>
 
           {/* Right: single CTA — not two buttons */}
