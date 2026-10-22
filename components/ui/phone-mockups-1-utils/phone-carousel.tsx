@@ -662,7 +662,7 @@ export function PhoneCarousel({
   initialActiveIndex = 0,
   showControls = true,
   className,
-  variant = "trio",
+  variant = "single",
 }: PhoneCarouselProps) {
   const activeScreens = screens || DEFAULT_KENKOMED_SCREENS;
   const totalItems = activeScreens.length;
@@ -704,7 +704,7 @@ export function PhoneCarousel({
 
   return (
     <div
-      className={cn("flex flex-col items-center justify-center w-full max-w-full min-w-0 select-none overflow-hidden", className)}
+      className={cn("flex flex-col items-center justify-center w-full max-w-full min-w-0 select-none", className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -735,10 +735,16 @@ export function PhoneCarousel({
         </div>
       </div>
 
-      {/* ── SHOWCASE DE LOS TRES CELULARES (TRIO PHONES) ── */}
-      <div className="relative w-full max-w-full min-w-0 flex items-center justify-center py-2 px-1 overflow-hidden">
-        {/* Resplandor ambiental suave de fondo */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 via-emerald-500/10 to-sky-400/10 rounded-[60px] blur-3xl opacity-70 pointer-events-none" />
+      {/* ── SHOWCASE DEL CELULAR INTERACTIVO ── */}
+      <div className="relative w-full max-w-full min-w-0 flex items-center justify-center py-2 px-1">
+        {/* Resplandor ambiental suave de fondo: halo radial difuminado al 100% transparente para evitar cualquier borde o corte cuadrado */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[460px] h-[340px] sm:h-[460px] rounded-full pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, oklch(0.48 0.18 246 / 0.12) 0%, oklch(0.65 0.15 160 / 0.05) 45%, transparent 70%)",
+            filter: "blur(50px)",
+          }}
+        />
 
         {variant === "trio" ? (
           <div className="relative flex items-center justify-center w-full max-w-full min-w-0 min-h-[430px] sm:min-h-[520px] md:min-h-[590px]">
@@ -804,14 +810,25 @@ export function PhoneCarousel({
           </div>
         ) : (
           /* Modo Single */
-          <div className="relative z-20">
+          <div className="relative z-20 shadow-2xl transition-transform duration-500">
             <AnimatePresence mode="wait">
               <motion.div
                 key={`single-${currentIndex}`}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.02 }}
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -35 || info.velocity.x < -300) {
+                    nextSlide();
+                  } else if (info.offset.x > 35 || info.velocity.x > 300) {
+                    prevSlide();
+                  }
+                }}
+                className="touch-pan-y cursor-grab active:cursor-grabbing"
               >
                 <PhoneDevice
                   content={renderItemContent(currentIndex)}

@@ -166,7 +166,6 @@ export function Hero() {
           width: 100%;
           min-width: 0;
           max-width: 100%;
-          overflow: hidden;
         }
 
         /* floating cards */
@@ -359,7 +358,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
             >
-              <PhoneCarousel />
+              <PhoneCarousel variant="single" />
             </motion.div>
 
             {/* Floating card #1 — WhatsApp reminder */}
