@@ -300,7 +300,7 @@ export function Hero() {
           <motion.div variants={containerVariants} initial="hidden" animate="show" className="w-full min-w-0 max-w-full">
             <motion.div variants={itemVariants} className="hm-hero-outlier">
               <span className="hm-outlier-dot" aria-hidden="true" />
-              Plataforma clínica de kinesiología
+              El primer sistema kinésico de soporte a la decisión clínica en Chile
             </motion.div>
 
             <motion.h1 variants={itemVariants} className="hm-hero-h1">
