@@ -216,6 +216,11 @@ export function SiteHeader() {
     setFuncionalidadesOpen(false)
   }, [pathname])
 
+  // En la página de demo interactiva, no mostramos el header general para dar experiencia 100% full-screen de software
+  if (pathname === '/demo' || pathname === '/demo/') {
+    return null
+  }
+
   return (
     <>
       {/* Scroll progress bar */}
