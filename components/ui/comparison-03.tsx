@@ -12,17 +12,17 @@ const traditional = [
 ];
 
 const kenkomed = [
-  "Agenda Multi-Box inteligente con bloqueo atómico (0% sobrecupos)",
-  "Pautas de ejercicios con catálogo anatómico enviadas a WhatsApp y PDF",
-  "13 escalas validadas calculadas solas con gráficos comparativos de evolución",
-  "Blindaje normativo total: Ley 21.719, Ley 20.584 y trazabilidad inmutable ARCO",
-  "Admisión remota vía QR: el paciente llena su historial antes de entrar al box",
+  "Agenda online inteligente: tus citas nunca chocan ni se duplican (0% sobrecupos)",
+  "Pautas de ejercicios claras y ordenadas enviadas a WhatsApp y PDF",
+  "13 cuestionarios y escalas calculadas solas con gráficos de mejoría",
+  "Fichas 100% legales y protegidas ante la normativa de salud en Chile",
+  "Admisión remota vía QR: el paciente llena sus datos antes de entrar al box",
 ];
 
 const stats = [
-  { value: "0% sobrecupos", label: "bloqueo pesimista multi-box en tiempo real" },
-  { value: "1 clic", label: "para prescribir y enviar pautas a WhatsApp y PDF" },
-  { value: "100% conforme", label: "cumplimiento de Ley 21.719, 20.584 y derechos ARCO" },
+  { value: "0% sobrecupos", label: "cero choques de horarios entre tus boxes" },
+  { value: "1 clic", label: "para enviar pautas de ejercicios por WhatsApp" },
+  { value: "100% legal", label: "cumple con la ley chilena de ficha médica" },
 ];
 
 const container: Variants = {

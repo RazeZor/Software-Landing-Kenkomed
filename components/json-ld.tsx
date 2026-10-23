@@ -88,7 +88,7 @@ export const softwareSchema = {
             unitCode: 'MON',
           },
         },
-        description: 'Plan anual para 1 kinesiólogo independiente. $15.990 CLP/mes neto ($19.028 IVA incluido).',
+        description: 'Plan anual para 1 kinesiólogo independiente. 0,4 UF / mes neto (aprox. $15.990 CLP neto / $19.028 IVA incluido).',
       },
       {
         '@type': 'Offer',
@@ -106,7 +106,7 @@ export const softwareSchema = {
             unitCode: 'MON',
           },
         },
-        description: 'Plan anual para hasta 2 kinesiólogos o Kine + Secretaria. $27.990 CLP/mes neto ($33.308 IVA incluido).',
+        description: 'Plan anual para hasta 2 kinesiólogos o Kine + Secretaria. 0,7 UF / mes neto (aprox. $27.990 CLP neto / $33.308 IVA incluido).',
       },
       {
         '@type': 'Offer',
@@ -124,7 +124,7 @@ export const softwareSchema = {
             unitCode: 'MON',
           },
         },
-        description: 'Plan anual para centros de rehabilitación con 3 kinesiólogos incluidos. $43.990 CLP/mes neto ($52.348 IVA incluido).',
+        description: 'Plan anual para centros de rehabilitación con 3 kinesiólogos incluidos. 1,1 UF / mes neto (aprox. $43.990 CLP neto / $52.348 IVA incluido).',
       },
     ],
   },

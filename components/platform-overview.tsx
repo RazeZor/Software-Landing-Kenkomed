@@ -41,15 +41,15 @@ function useReveal() {
 }
 
 const capabilities = [
-    { icon: CalendarCheck, text: 'Agendamiento Online & Multi-Box inteligente', detail: 'Portal público con co-branding dual, doble factor seguro y bloqueo atómico sin sobrecupos.' },
-    { icon: Dumbbell,      text: 'Pautas de ejercicios en casa por WhatsApp',     detail: 'Catálogo anatómico curado con dosificación exacta, despacho en 1 clic y PDF membretado.' },
-    { icon: ClipboardList, text: '13 escalas clínicas validadas internacionalmente', detail: 'Oswestry, LEFS, WOMAC, QuickDASH, Berg, TUG, Tinetti, EVA/ENA, PSFS, Barthel, GROC, EQ-5D y screening.' },
-    { icon: Brain,         text: 'Sistema inteligente de apoyo a decisiones (DSS)', detail: 'Alertas tempranas de banderas rojas/amarillas, comorbilidades e informes automáticos.' },
-    { icon: FileText,      text: 'Ficha kinésica y ciclos clínicos estructurados',   detail: 'Episodios de atención por patología, evoluciones SOAP y alta médica con deltas funcionales.' },
-    { icon: QrCode,        text: 'Admisión remota vía QR — formulario de 14 páginas', detail: 'El paciente completa antecedentes, dolor y estilo de vida desde casa antes de ingresar al box.' },
-    { icon: Wallet,        text: 'Finanzas, pagos y packs de sesiones',          detail: 'Control de caja, saldos pendientes y packs con descuento automático de sesiones por asistencia.' },
-    { icon: ShieldCheck,   text: 'Blindaje normativo Ley 21.719, 20.584 y 19.628', detail: 'Auditoría médica inmutable (AuditoriaAcceso), consentimiento IP, portabilidad ARCO y bloqueo de pantalla.' },
-    { icon: Network,       text: 'Multiclínica y roles: Director, Kine y Recepción', detail: 'Aislamiento estricto de pacientes por centro, cambio de sede en 1 clic y permisos avanzados.' },
+    { icon: CalendarCheck, text: 'Agendamiento Online & Multi-Box inteligente', detail: 'Tus pacientes reservan por internet con tu logo y es imposible que dos citas se topen.' },
+    { icon: Dumbbell,      text: 'Pautas de ejercicios en casa por WhatsApp',     detail: 'Ejercicios con fotos e indicaciones claras, enviadas directo al WhatsApp del paciente en 1 clic.' },
+    { icon: ClipboardList, text: '13 escalas clínicas validadas internacionalmente', detail: 'Oswestry, LEFS, WOMAC, QuickDASH, Berg, TUG, Tinetti, EVA, PSFS, Barthel y más (se calculan solas).' },
+    { icon: Brain,         text: 'Sistema inteligente de apoyo a decisiones (DSS)', detail: 'Detecta banderas rojas, síntomas de alarma y genera el informe de evaluación al instante.' },
+    { icon: FileText,      text: 'Ficha kinésica y ciclos de tratamiento',          detail: 'Evoluciones rápidas en formato SOAP y altas médicas con gráficos que demuestran la mejoría.' },
+    { icon: QrCode,        text: 'Admisión remota vía QR — formulario de 14 páginas', detail: 'El paciente completa antecedentes, dolor y estilo de vida desde su celular antes de entrar al box.' },
+    { icon: Wallet,        text: 'Control de pagos y paquetes de sesiones',        detail: 'Registro de ingresos, control de deudas y descuento automático de sesiones por asistencia.' },
+    { icon: ShieldCheck,   text: 'Fichas 100% legales y protegidas en Chile',     detail: 'Cumple con la ley chilena de ficha médica y privacidad, con bloqueo automático de pantalla.' },
+    { icon: Network,       text: 'Multiclínica y roles: Director, Kine y Recepción', detail: 'Pacientes y agendas separados por centro, cambio de sede con 1 clic y permisos claros.' },
 ]
 
 const idealFor = [

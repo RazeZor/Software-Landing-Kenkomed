@@ -67,7 +67,7 @@ const faqData = {
   "precios": [
     {
       question: '¿Cuánto cuesta y hay permanencia?',
-      answer: 'Los planes parten desde $15.990 CLP/mes neto ($19.028 CLP/mes con IVA incluido en plan anual). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual, semestral y anual con boleta o factura legal.'
+      answer: 'Los planes parten desde 0,4 UF / mes neto (+ IVA en plan anual, aprox. $15.990 CLP neto / $19.028 IVA incluido). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual y anual con boleta o factura legal.'
     },
     {
       question: '¿Permite gestionar cobros para emitir Boleta de Honorarios en el SII o factura?',

@@ -43,6 +43,8 @@ const plans = [
   {
     slug: 'individual',
     name: 'Solo / Independiente',
+    monthlyPriceUF: 0.5,
+    annualPriceUF: 0.4,
     monthlyPrice: 19990,
     semiAnnualPrice: 17990,
     annualPrice: 15990,
@@ -52,20 +54,22 @@ const plans = [
     users: '1 Kinesiólogo',
     features: [
       'Pacientes e historias clínicas ilimitadas',
-      'Portal de reservas online público (/reservar/slug/) con doble factor seguro (RUT + nacimiento)',
-      'Prescripción de pautas de ejercicios con catálogo anatómico y envío a WhatsApp/PDF en 1 clic',
-      'Fichas clínicas SOAP digitales y evoluciones continuas',
-      '13 escalas clínicas validadas (Oswestry, LEFS, WOMAC, EVA, PSFS, Barthel)',
-      'Admisión con código QR y formulario remoto de 14 páginas',
-      'Registro de pagos (efectivo, transferencia, débito) y control de deudas',
-      'Cumplimiento normativo de salud (Ley 21.719, Ley 20.584 y Derechos ARCO)',
-      'Dashboard clínico y atención directa con equipo Kenkomed por WhatsApp',
+      'Página web propia para que tus pacientes reserven su hora por internet',
+      'Pautas de ejercicios con fotos e instrucciones enviadas por WhatsApp y PDF en 1 clic',
+      'Ficha clínica kinésica rápida (formato SOAP) con historial completo',
+      '13 cuestionarios y escalas que se calculan solas (EVA, Oswestry, LEFS, WOMAC...)',
+      'Admisión con código QR: el paciente llena sus datos desde el celular antes de entrar',
+      'Control de pagos (efectivo, transferencia, tarjetas) y saldos pendientes',
+      'Cumplimiento de las leyes chilenas de Ficha Médica y Protección de Datos Personales',
+      'Panel de estadísticas de tu consulta y soporte directo por WhatsApp',
     ],
     cta: 'Agendar Demo',
   },
   {
     slug: 'clinica-duo',
     name: 'Clínico Pro',
+    monthlyPriceUF: 0.9,
+    annualPriceUF: 0.7,
     monthlyPrice: 34990,
     semiAnnualPrice: 30990,
     annualPrice: 27990,
@@ -74,24 +78,27 @@ const plans = [
     highlighted: true,
     users: 'Hasta 2 Kinesiólogos (o 1 Kine + Secretaria)',
     features: [
-      'Hasta 2 cuentas profesionales independientes (o 1 Kine + 1 Asistente)',
-      'Agendamiento Multi-Box con bloqueo atómico contra sobrecupos y co-branding dual con tu logo',
-      'Prescripción de pautas de ejercicios membretadas con código de verificación y auditoría médica',
-      'Módulo de Pagos y Caja (Cobros, saldos pendientes y registro de pagos)',
-      'Gestión de Packs de Sesiones (Cobros por sesión y paquetes con descuento automático)',
-      'Ciclos clínicos (episodios terapéuticos) con alta y diagnóstico final estructurado',
-      'Informes clínicos de alta estructurada con deltas funcionales',
-      'Reportes clínicos y análisis DSS (Banderas Rojas y Amarillas) por profesional',
-      'Registro inmutable de auditoría médica (AuditoriaAcceso) y bloqueo anti shoulder surfing',
-      'Blindaje legal garantizado bajo Ley 21.719, Ley 20.584 y Ley 19.628',
-      'Branding personalizado (Logo en portada de agenda, correos e informes PDF)',
-      'Atención directa con el equipo Kenkomed por WhatsApp',
+      'Hasta 2 cuentas profesionales (o 1 Kinesiólogo + 1 Secretaria/Recepción)',
+      'Agenda para atender en varios boxes a la vez sin topar horarios (cero sobrecupos)',
+      'Pautas de ejercicios con tu propio logo, listas para enviar a WhatsApp o imprimir',
+      'Caja diaria: registro de ingresos, cobros del día y pacientes al día',
+      'Venta de paquetes de sesiones (ej. 5 o 10) con descuento automático por asistencia',
+      'Tratamientos por ciclo clínico (evaluación inicial, sesiones y alta médica)',
+      'Informes de alta automáticos con gráficos que demuestran la mejoría del paciente',
+      'Detección automática de alertas y síntomas de alarma (Banderas Rojas y Amarillas)',
+      'Bloqueo automático de pantalla si te alejas del computador para cuidar la privacidad',
+      'Fichas 100% legales y protegidas ante la normativa de salud en Chile',
+      'Tu propio logo en la agenda web, correos a pacientes e informes médicos',
+      'Atención prioritaria y soporte continuo por WhatsApp con nuestro equipo',
     ],
     cta: 'Agendar Demo',
   },
   {
     slug: 'clinica',
     name: 'Clínica Pro',
+    monthlyPriceUF: 1.4,
+    annualPriceUF: 1.1,
+    extraKinePriceUF: 0.3,
     monthlyPrice: 54990,
     semiAnnualPrice: 48990,
     annualPrice: 43990,
@@ -101,17 +108,17 @@ const plans = [
     users: '3 Kinesiólogos incluidos (+ staff)',
     extraKinePrice: 12990,
     features: [
-      'Todo lo del Plan Clínico Pro',
-      '3 licencias de Kinesiólogo incluidas (+ staff de recepción)',
-      'Agendamiento Multi-Box y Multi-Centro con slots sincronizados para recepción y boxes',
-      'Módulo de Pagos y Caja Centralizado (Registro de ingresos, saldos y control de deuda)',
-      'Pautas de ejercicios digitales ilimitadas por WhatsApp y correo para todo el centro',
-      'Gestión de Packs de Sesiones Multi-Kinesiólogo con control de saldos y morosidad',
-      'Multi-sede con migración y aislamiento estricto de pacientes por centro',
-      'Roles avanzados: Director · Admin del Centro · Kinesiólogo · Recepción',
-      'Auditoría médica integral Ley 21.719 exportable en PDF y portabilidad ARCO (JSON/HTML)',
-      'Endpoint de monitoreo 24/7 (/health/) y respaldo continuo de base de datos',
-      'Onboarding y migración de datos personalizada con gerente de cuenta dedicado',
+      'Todo lo incluido en el Plan Clínico Pro',
+      '3 licencias de Kinesiólogo incluidas + cuentas para secretarias y recepción',
+      'Agenda coordinada para todos los boxes, gimnasio de rehabilitación y profesionales',
+      'Caja centralizada: control de pagos, ingresos mensuales y lista de pacientes con deuda',
+      'Pautas de ejercicios ilimitadas para todos los kinesiólogos del centro',
+      'Paquetes de sesiones compartidos entre distintos kinesiólogos de la clínica',
+      'Soporte para múltiples sucursales con pacientes y agendas ordenados por sede',
+      'Permisos por función: Director del Centro, Administrador, Kinesiólogos y Recepción',
+      'Exportación de fichas completas a PDF con un solo clic si un paciente lo solicita',
+      'Copias de seguridad diarias automáticas y plataforma siempre en línea',
+      'Te ayudamos a migrar tus datos desde Excel u otro sistema y capacitamos a tu equipo',
     ],
     cta: 'Agendar Demo',
     ctaStyle: 'secondary' as const,
@@ -120,6 +127,13 @@ const plans = [
 
 function formatPrice(price: number) {
   return `$${new Intl.NumberFormat('es-CL', { maximumFractionDigits: 0 }).format(price)}`
+}
+
+function formatUF(uf: number, decimals: number = 1) {
+  return `UF ${uf.toLocaleString('es-CL', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  })}`
 }
 
 /* ── Lead Capture Modal Formal & Personalizado ───────────────── */
@@ -222,7 +236,11 @@ function LeadModal({
     e.preventDefault()
     setIsSubmitting(true)
 
-    const planName = plan?.name ?? 'No especificado'
+    const priceValueUF = plan
+      ? billingCycle === 'annual'
+        ? plan.annualPriceUF
+        : plan.monthlyPriceUF
+      : undefined
     const priceValue = plan
       ? billingCycle === 'annual'
         ? plan.annualPrice
@@ -238,7 +256,9 @@ function LeadModal({
         ? 'Facturación Semestral (6 meses)'
         : 'Facturación Mensual'
 
-    const priceText = priceValue ? `${formatPrice(priceValue)} CLP/mes + IVA (${cycleLabel})` : 'A convenir'
+    const priceText = priceValueUF && priceValue
+      ? `${formatUF(priceValueUF, 1)} / mes + IVA (${cycleLabel} · aprox. ${formatPrice(priceValue)} CLP)`
+      : 'A convenir'
 
     let structuredMessage = ''
     let emailSubject = ''
@@ -376,6 +396,11 @@ Plan: Clínica (${priceText})
 
   if (!open) return null
 
+  const selectedPriceUF = plan
+    ? billingCycle === 'annual'
+      ? plan.annualPriceUF
+      : plan.monthlyPriceUF
+    : undefined
   const selectedPrice = plan
     ? billingCycle === 'annual'
       ? plan.annualPrice
@@ -411,7 +436,7 @@ Plan: Clínica (${priceText})
               isIndividual ? 'bg-emerald/10 border-emerald/30 text-emerald' : isClinicoPro ? 'bg-brand/10 border-brand/30 text-brand' : 'bg-sapphire/20 border-sapphire/40 text-foreground'
             }`}>
               <Zap size={11} className={isIndividual ? 'fill-emerald text-emerald' : 'fill-brand text-brand'} />
-              Plan {plan?.name} {selectedPrice ? `· ${formatPrice(selectedPrice)} CLP/mes + IVA` : ''}
+              Plan {plan?.name} {selectedPriceUF ? `· ${formatUF(selectedPriceUF, 1)}/mes + IVA (≈ ${formatPrice(selectedPrice || 0)} CLP)` : ''}
             </div>
             
             <h3 className="font-display font-bold text-xl sm:text-2xl text-foreground">
@@ -1074,6 +1099,8 @@ export function Pricing() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-4 max-w-6xl mx-auto">
             {plans.map((plan, index) => {
+              const basePriceUF = isMonthly ? plan.monthlyPriceUF : plan.annualPriceUF
+              const priceWithIvaUF = Number((basePriceUF * 1.19).toFixed(2))
               const basePrice = isMonthly ? plan.monthlyPrice : plan.annualPrice
               const priceWithIva = Math.round(basePrice * 1.19)
 
@@ -1125,17 +1152,17 @@ export function Pricing() {
                   </p>
                   <p className="text-sm font-medium text-brand mt-1">{plan.users}</p>
                   
-                  <div className="mt-6 flex flex-col gap-1">
+                  <div className="mt-6 flex flex-col gap-1.5">
                     <div className="flex items-end gap-x-2">
-                      <span className="text-4xl font-bold tracking-tight text-foreground flex items-center">
-                        $
+                      <span className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground flex items-center">
+                        <span className="text-xl sm:text-2xl font-bold text-foreground mr-1.5">UF</span>
                         <NumberFlow
-                          value={basePrice}
+                          value={basePriceUF}
                           locales="es-CL"
                           format={{
                             style: "decimal",
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0,
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1,
                           }}
                           transformTiming={{
                             duration: 600,
@@ -1145,19 +1172,25 @@ export function Pricing() {
                           className="font-variant-numeric: tabular-nums"
                         />
                       </span>
-                      <span className="text-xs font-semibold text-foreground-muted mb-1 flex items-baseline gap-1">
+                      <span className="text-xs font-semibold text-foreground-muted mb-1.5 flex items-baseline gap-1">
                         / mes <span className="text-[10px] uppercase font-bold text-brand ml-0.5">neto</span>
                       </span>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald bg-emerald/10 border border-emerald/20 px-2.5 py-1 rounded-md w-fit">
+                    <div className="text-xs font-medium text-foreground-muted flex items-center gap-1.5">
+                      <span>Aprox. <strong>{formatPrice(basePrice)} CLP</strong> / mes neto</span>
+                    </div>
+
+                    <div className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald bg-emerald/10 border border-emerald/20 px-2.5 py-1 rounded-md w-fit mt-0.5">
                       <ShieldCheck size={13} className="text-emerald" />
-                      <span>Total con IVA (19%): <strong>{formatPrice(priceWithIva)} / mes</strong></span>
+                      <span>Total con IVA (19%): <strong>{formatUF(priceWithIvaUF, 2)} / mes</strong> <span className="text-[11px] opacity-80">(~{formatPrice(priceWithIva)})</span></span>
                     </div>
                   </div>
 
                   <p className="text-xs leading-5 text-foreground-subtle mt-2 mb-6">
-                    {isMonthly ? "Facturado mensualmente" : `Facturado anualmente (${formatPrice(basePrice * 12)} neto / ${formatPrice(priceWithIva * 12)} IVA incl.)`}
+                    {isMonthly 
+                      ? `Facturado mensualmente (${formatUF(basePriceUF, 1)} al mes + IVA)` 
+                      : `Facturado anualmente (${formatUF(basePriceUF * 12, 1)} al año neto + IVA · aprox. ${formatPrice(basePrice * 12)} CLP)`}
                   </p>
 
                   <ul className="gap-3 flex flex-col flex-1">
@@ -1167,11 +1200,11 @@ export function Pricing() {
                         <span className="text-sm text-foreground-muted leading-snug">{feature}</span>
                       </li>
                     ))}
-                    {'extraKinePrice' in plan && plan.extraKinePrice && (
+                    {'extraKinePriceUF' in plan && plan.extraKinePriceUF && (
                       <li className="flex items-start gap-3 mt-2 border-t border-border pt-3">
                         <User className="h-4 w-4 text-brand mt-0.5 flex-shrink-0" />
                         <span className="text-sm text-brand font-medium leading-snug">
-                          +${new Intl.NumberFormat('es-CL').format(plan.extraKinePrice)}/mes <span className="text-[10px] uppercase font-bold">+ IVA</span> por kinesiólogo adicional
+                          +{formatUF(plan.extraKinePriceUF, 1)} / mes <span className="text-[10px] uppercase font-bold">+ IVA</span> por kinesiólogo adicional <span className="text-xs font-normal text-foreground-muted">(≈ +{formatPrice(plan.extraKinePrice)} CLP)</span>
                         </span>
                       </li>
                     )}
@@ -1199,13 +1232,14 @@ export function Pricing() {
 
           <div className="mt-14 text-center space-y-2">
             <p className="text-sm text-foreground-muted">
-              Todos los precios son neto + IVA (19%). Sabemos que cambiar de software es una decisión importante, por eso te ofrecemos{' '}
+              Precios en Unidades de Fomento (UF) neto + IVA (19%). La conversión a pesos chilenos se calcula según la UF al momento de facturar.
+              Sabemos que cambiar de software es una decisión importante, por eso te ofrecemos{' '}
               <strong className="text-foreground">3 días de prueba gratuita</strong> y una demo en video guiada paso a paso.
             </p>
             <p className="text-sm text-foreground-muted">
-              ¿Tienes dudas sobre los planes?{' '}
+              ¿Tienes dudas sobre los planes o formas de pago?{' '}
               <a href="#contact" className="text-brand font-medium hover:underline">
-                Escríbenos y te asesoramos
+                Escríbenos por WhatsApp y te asesoramos
               </a>
             </p>
           </div>

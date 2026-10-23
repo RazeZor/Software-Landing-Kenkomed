@@ -11,7 +11,7 @@ import { RiShieldCheckLine as ShieldCheck, RiFlashlightLine as Zap, RiCheckLine 
 export const metadata: Metadata = {
   title: 'Precios y Planes — Software para Kinesiólogos',
   description:
-    'Planes transparentes para kinesiólogos independientes y clínicas en Chile. Desde $15.990 CLP/mes neto ($19.028 IVA incluido). Ficha digital DSS y demo sin costo.',
+    'Planes transparentes para kinesiólogos independientes y clínicas en Chile. Desde 0,4 UF / mes neto (+ IVA en plan anual, aprox. $15.990 CLP). Ficha digital y demo sin costo.',
   alternates: {
     canonical: '/precios',
   },

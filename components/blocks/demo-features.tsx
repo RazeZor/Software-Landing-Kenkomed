@@ -66,28 +66,28 @@ export function DemoFeatures() {
                                         <Shield className="m-auto size-7" strokeWidth={1.5} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-xl font-bold text-slate-800">Blindaje Ley 21.719 y 20.584</h2>
-                                        <p className="text-sm text-slate-500">Consentimiento informado digital, derechos ARCO, registro inmutable de auditoría médica y bloqueo por inactividad.</p>
+                                        <h2 className="text-xl font-bold text-slate-800">Fichas 100% Legales y Seguras</h2>
+                                        <p className="text-sm text-slate-500">Consentimiento informado digital, fichas protegidas por ley, historial de accesos y bloqueo de pantalla si te alejas.</p>
                                     </div>
                                 </div>
                                 <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6 flex flex-col justify-center">
                                     <div className="space-y-3">
                                       <div className="flex items-center justify-between text-xs font-semibold text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/70">
-                                        <span>Auditoría Médica</span>
-                                        <span className="text-emerald-600 font-bold">Inmutable (IP/Fecha)</span>
+                                        <span>Historial de Accesos</span>
+                                        <span className="text-emerald-600 font-bold">Protegido con fecha y hora</span>
                                       </div>
                                       <div className="flex items-center justify-between text-xs font-semibold text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/70">
-                                        <span>Derechos ARCO</span>
-                                        <span className="text-sky-600 font-bold">JSON / HTML</span>
+                                        <span>Ficha Descargable</span>
+                                        <span className="text-sky-600 font-bold">PDF oficial en 1 clic</span>
                                       </div>
                                       <div className="flex items-center justify-between text-xs font-semibold text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/70">
-                                        <span>Anti Shoulder Surfing</span>
-                                        <span className="text-violet-600 font-bold">Bloqueo 10 min</span>
+                                        <span>Privacidad en Box</span>
+                                        <span className="text-violet-600 font-bold">Bloqueo automático</span>
                                       </div>
                                     </div>
                                     <div className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3">
                                       <span className="text-[11px] font-bold text-slate-400 uppercase">Seguridad en Salud</span>
-                                      <span className="text-[11px] font-bold text-emerald-600">Cumplimiento 100%</span>
+                                      <span className="text-[11px] font-bold text-emerald-600">Normativa chilena 100%</span>
                                     </div>
                                 </div>
                             </CardContent>
@@ -100,8 +100,8 @@ export function DemoFeatures() {
                                         <CalendarCheck className="m-auto size-7" strokeWidth={1.5} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-xl font-bold text-slate-800">Agenda Multi-Box y 0% Sobrecupos</h2>
-                                        <p className="text-sm text-slate-500">Slots inteligentes para boxes paralelos, bloqueo pesimista en base de datos y verificación segura de paciente por RUT + fecha de nacimiento.</p>
+                                        <h2 className="text-xl font-bold text-slate-800">Agenda Multi-Box y Cero Sobrecupos</h2>
+                                        <p className="text-sm text-slate-500">Horarios en paralelo para tus boxes y gimnasio. El sistema asegura que nunca se topen dos citas y el paciente reserva fácil por internet.</p>
                                     </div>
                                 </div>
                                 <div className="flex flex-col justify-center space-y-3 py-4 pr-4">
@@ -115,7 +115,7 @@ export function DemoFeatures() {
                                         <span className="text-[10px] bg-sky-100 text-sky-700 font-bold px-2 py-0.5 rounded-full">Disponible</span>
                                       </div>
                                     </div>
-                                    <p className="text-[11px] text-slate-400 text-center">Consistencia atómica: previene colisiones en el mismo segundo.</p>
+                                    <p className="text-[11px] text-slate-400 text-center">Sincronización en tiempo real: cero choques de citas en tus boxes.</p>
                                 </div>
                             </CardContent>
                         </Card>

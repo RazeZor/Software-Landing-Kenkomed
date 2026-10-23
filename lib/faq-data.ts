@@ -79,11 +79,11 @@ export const homeFaqItems: FaqItem[] = [
   {
     question: '¿De qué manera cumple Kenkomed con la nueva Ley 21.719 de Protección de Datos Personales y la Ley 20.584?',
     answer:
-      'Kenkomed está adaptado a las exigencias más rigurosas de la legislación chilena: incluye consentimiento informado electrónico fechado con IP, gestión integral de Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición), exportación del expediente clínico en formatos abiertos interoperables (JSON y HTML estructurado), registro inmutable de auditoría médica (AuditoriaAcceso) que rastrea cada consulta o edición de ficha, y bloqueo automático de pantalla tras 10 minutos de inactividad para evitar miradas no autorizadas en el box (anti shoulder surfing).',
+      'Kenkomed cumple con toda la normativa de salud y protección de datos en Chile: tus pacientes pueden firmar consentimientos digitales desde el celular, puedes exportar fichas completas a PDF si el paciente lo solicita, queda registrado quién revisa cada ficha y la pantalla se bloquea automáticamente por seguridad si te alejas de tu computador.',
   },
   {
     question: '¿Cuánto cuesta y hay permanencia?',
     answer:
-      'Los planes parten desde $15.990 CLP/mes neto (plan anual). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual, semestral y anual con IVA incluido. Solicita una demo para conocer el plan que mejor se adapta a tu consulta o clínica.',
+      'Los planes parten desde 0,4 UF / mes neto (+ IVA en plan anual, equivalente a aprox. $15.990 CLP). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual y anual. Solicita una demo guiada para conocer el plan que mejor se adapta a tu consulta o clínica.',
   },
 ]

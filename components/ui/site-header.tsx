@@ -412,7 +412,7 @@ export function SiteHeader() {
                       <div className="flex items-center gap-2">
                         <span>Precios</span>
                         <span className="text-[10px] font-semibold text-emerald bg-emerald/10 border border-emerald/20 px-2 py-0.5 rounded-full">
-                          Desde $15.990 CLP
+                          Desde 0,4 UF / mes
                         </span>
                       </div>
                       <ChevronRight className="h-4 w-4 text-foreground-muted/50" />
