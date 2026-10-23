@@ -5,6 +5,7 @@ import { Shield, CalendarCheck } from 'lucide-react'
 import { RobotLottie } from '@/components/robot-lottie'
 import { QRLottie } from '@/components/qr-lottie'
 import { StatsLottie } from '@/components/stats-lottie'
+import { EjercicioLottie } from '@/components/ejercicio-lottie'
 
 export function DemoFeatures() {
     return (
@@ -49,9 +50,7 @@ export function DemoFeatures() {
                         <Card className="relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2 border-slate-200/80 bg-white shadow-sm hover:shadow-md transition-shadow">
                             <CardContent className="pt-6">
                                 <div className="relative mx-auto flex aspect-square size-32 rounded-full border border-rose-100 bg-rose-50 items-center justify-center p-3 overflow-hidden">
-                                    <div className="w-16 h-16 rounded-2xl bg-rose-500/10 text-rose-600 flex items-center justify-center text-3xl font-bold">
-                                      🏋️
-                                    </div>
+                                    <EjercicioLottie className="w-full h-full" />
                                 </div>
                                 <div className="relative z-10 mt-6 space-y-2 text-center">
                                     <h2 className="text-xl font-bold text-slate-800">Pautas de Ejercicios</h2>
