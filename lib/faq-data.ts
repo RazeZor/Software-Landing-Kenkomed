@@ -67,6 +67,21 @@ export const homeFaqItems: FaqItem[] = [
       'Tus datos clínicos se almacenan en servidores seguros con cifrado. Solo tú y los profesionales autorizados de tu centro pueden acceder a la información de los pacientes. El sistema registra cada acceso para trazabilidad.',
   },
   {
+    question: '¿Cómo funciona el agendamiento online y cómo evita la doble reserva en boxes simultáneos?',
+    answer:
+      'Cada profesional cuenta con su página pública segura (/reservar/<slug-profesional>/) y cada centro con su catálogo (/reservar/centro/<id>/). Si atiendes en 2 o 3 boxes en paralelo (ej: gimnasio y fisioterapia), el sistema admite exactamente los cupos configurados. Para prevenir overbooking, utiliza transacciones atómicas con bloqueo pesimista en base de datos: si dos pacientes intentan reservar en el mismo segundo, el sistema garantiza consistencia matemática entregando respuesta limpia sin duplicar citas. Además, los pacientes habituales se validan con doble factor seguro (RUT + Fecha de nacimiento), protegiendo la privacidad bajo la Ley 19.628 y 21.719.',
+  },
+  {
+    question: '¿Cómo funciona la prescripción de pautas de ejercicios y su envío por WhatsApp?',
+    answer:
+      'Kenkomed cuenta con una biblioteca curada de ejercicios terapéuticos clasificados por regiones anatómicas (cervical, hombro, lumbar, cadera, rodilla, tobillo y pie). El kinesiólogo selecciona los ejercicios, define series, repeticiones, descanso y precauciones, y con un solo clic genera un PDF oficial membretado con código de verificación que se despacha automáticamente por correo electrónico o se comparte al instante por WhatsApp con un mensaje preconfigurado.',
+  },
+  {
+    question: '¿De qué manera cumple Kenkomed con la nueva Ley 21.719 de Protección de Datos Personales y la Ley 20.584?',
+    answer:
+      'Kenkomed está adaptado a las exigencias más rigurosas de la legislación chilena: incluye consentimiento informado electrónico fechado con IP, gestión integral de Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición), exportación del expediente clínico en formatos abiertos interoperables (JSON y HTML estructurado), registro inmutable de auditoría médica (AuditoriaAcceso) que rastrea cada consulta o edición de ficha, y bloqueo automático de pantalla tras 10 minutos de inactividad para evitar miradas no autorizadas en el box (anti shoulder surfing).',
+  },
+  {
     question: '¿Cuánto cuesta y hay permanencia?',
     answer:
       'Los planes parten desde $15.990 CLP/mes neto (plan anual). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual, semestral y anual con IVA incluido. Solicita una demo para conocer el plan que mejor se adapta a tu consulta o clínica.',

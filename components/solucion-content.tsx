@@ -101,91 +101,125 @@ const pains = [
     },
 ]
 
-/* ─── Comparison table ─── */
 const comparisons = [
+    { topic: 'Agendamiento y boxes', sin: 'Sobrecupos por WhatsApp o llamadas', con: 'Reserva online multi-box con bloqueo atómico y cero colisiones' },
+    { topic: 'Pautas de ejercicios', sin: 'Fotocopias que el paciente pierde', con: 'Catálogo anatómico enviado directo a WhatsApp y PDF membretado' },
+    { topic: 'Cumplimiento legal', sin: 'Riesgo de multas por Ley 21.719 y 20.584', con: 'Consentimiento digital, auditoría inmutable y derechos ARCO' },
     { topic: 'Registro de pacientes', sin: 'Papel / Excel desorganizado', con: 'Historia clínica digital estructurada' },
     { topic: 'Escalas clínicas', sin: 'Impresas o no se usan', con: '13 escalas validadas integradas y automáticas' },
     { topic: 'Toma de decisiones', sin: 'Solo intuición del profesional', con: 'DSS: alertas y recomendaciones basadas en evidencia' },
     { topic: 'Informes clínicos', sin: 'No existen o son manuales', con: 'Generados automáticamente al terminar la anamnesis' },
     { topic: 'Detección de comorbilidades', sin: 'Depende de la memoria del profesional', con: 'Screening automático: fibromialgia, neuropatía, ansiedad, depresión' },
-    { topic: 'Evolución del paciente', sin: 'Invisible, sin comparativas', con: 'Gráficos de progreso sesión a sesión' },
+    { topic: 'Evolución del paciente', sin: 'Invisible, sin comparativas', con: 'Gráficos de progreso sesión a sesión y deltas de alta' },
     { topic: 'Tiempo por sesión', sin: '+30% en papeleo y búsqueda', con: 'Anamnesis en minutos, informe listo al instante' },
     { topic: 'Costo de implementación', sin: 'ERPs costosos e inaccesibles', con: 'Diseñado para centros emergentes y en crecimiento' },
 ]
 
-/* ─── Clinical Scales Data (9 escalas incluye Oswestry + Lefebvre) ─── */
+/* ─── Clinical Scales Data (13 escalas validadas completas) ─── */
 const scales = [
     {
-        name: 'EVA — Escala Visual Analógica',
-        abbr: 'EVA',
+        name: 'EVA / ENA — Dolor Agudo y Crónico',
+        abbr: 'EVA / ENA',
         icon: Activity,
-        description: 'Gold standard internacional para medir la intensidad del dolor percibido, en una escala de 0 a 10.',
-        evidence: 'Huskisson (1974). Validada en múltiples idiomas y contextos clínicos.',
+        description: 'Gold standard internacional para cuantificar la intensidad del dolor percibido en escala continua y numérica de 0 a 10.',
+        evidence: 'Huskisson (1974) & Downie et al. (1978). Validadas en múltiples idiomas y contextos clínicos.',
         color: 'bg-teal-50 text-teal-600',
     },
     {
         name: 'PSFS — Patient-Specific Functional Scale',
         abbr: 'PSFS',
         icon: ClipboardList,
-        description: 'Permite al paciente identificar actividades difíciles y medir el cambio funcional durante el tratamiento.',
-        evidence: 'Stratford et al. (1995). Alta sensibilidad al cambio y excelente fiabilidad test-retest.',
+        description: 'Permite al paciente identificar de 3 a 5 actividades prioritarias y medir el cambio funcional sesión a sesión.',
+        evidence: 'Stratford et al. (1995). Alta sensibilidad al cambio y excelente fiabilidad test-retest (ICC > 0.90).',
         color: 'bg-blue-50 text-blue-600',
     },
     {
-        name: 'Índice de Barthel',
-        abbr: 'Barthel',
+        name: 'ODI / Oswestry — Discapacidad Lumbar',
+        abbr: 'Oswestry',
+        icon: Layers,
+        description: 'Cuestionario de 10 ítems que cuantifica la limitación funcional por dolor lumbar en actividades cotidianas y laborales.',
+        evidence: 'Fairbank et al. (1980). Estándar de oro mundial en discapacidad de columna lumbar.',
+        color: 'bg-emerald-50 text-emerald-600',
+    },
+    {
+        name: 'LEFS — Extremidad Inferior',
+        abbr: 'LEFS',
+        icon: TrendingUp,
+        description: '20 ítems que evalúan la capacidad funcional en cadera, rodilla, tobillo y pie durante actividades cotidianas y deporte.',
+        evidence: 'Binkley et al. (1999). Alta fiabilidad y sensibilidad al cambio en rehabilitación musculoesquelética.',
+        color: 'bg-orange-50 text-orange-600',
+    },
+    {
+        name: 'QuickDASH — Extremidad Superior',
+        abbr: 'QuickDASH',
+        icon: Activity,
+        description: 'Mide síntomas y discapacidad funcional en hombro, codo, muñeca y mano con puntuación de 0 a 100.',
+        evidence: 'Beaton et al. (2005). Validada internacionalmente en patología ortopédica y traumatológica.',
+        color: 'bg-sky-50 text-sky-600',
+    },
+    {
+        name: 'WOMAC — Artrosis de Cadera y Rodilla',
+        abbr: 'WOMAC',
         icon: Heart,
-        description: 'Evalúa la capacidad funcional en 10 actividades básicas de la vida diaria: alimentación, baño, vestido, traslados y más.',
-        evidence: 'Mahoney & Barthel (1965). Uno de los instrumentos más utilizados en rehabilitación a nivel mundial.',
+        description: 'Evalúa dolor, rigidez articular y capacidad física en pacientes con gonartrosis y coxartrosis.',
+        evidence: 'Bellamy et al. (1988). Medida estándar de desenlace clínico avalada por OARSI y OMS.',
         color: 'bg-rose-50 text-rose-600',
     },
     {
         name: 'GROC — Global Rating of Change',
         abbr: 'GROC',
         icon: BarChart3,
-        description: 'Escala de percepción global que permite al paciente valorar su mejoría o empeoramiento desde el inicio del tratamiento.',
-        evidence: 'Jaeschke et al. (1989). Ampliamente validada en rehabilitación musculoesquelética.',
+        description: 'Escala de transición de -7 a +7 que permite al paciente valorar objetivamente su evolución clínica global.',
+        evidence: 'Jaeschke et al. (1989). Ampliamente validada para determinar el cambio clínico significativo.',
         color: 'bg-purple-50 text-purple-600',
     },
     {
-        name: 'EQ-5D — Calidad de Vida',
+        name: 'EQ-5D — Calidad de Vida en Salud',
         abbr: 'EQ-5D',
         icon: Shield,
-        description: 'Evalúa calidad de vida en 5 dimensiones: movilidad, cuidado personal, actividades cotidianas, dolor y ansiedad.',
-        evidence: 'EuroQol Group (1990). Utilizado en más de 180 países.',
+        description: 'Evalúa 5 dimensiones: movilidad, autocuidado, actividades cotidianas, dolor/malestar y ansiedad/depresión.',
+        evidence: 'EuroQol Group (1990). Instrumento estandarizado de preferencia internacional en salud.',
         color: 'bg-amber-50 text-amber-600',
     },
     {
-        name: 'ENA — Evaluación Nutricional Abreviada',
-        abbr: 'ENA',
-        icon: Activity,
-        description: 'Herramienta validada para la detección rápida de riesgo nutricional. Evalúa estado alimenticio y su impacto en la recuperación clínica.',
-        evidence: 'Guigoz et al. (1994). Ampliamente utilizada en contextos clínicos de rehabilitación y geriatría.',
-        color: 'bg-sky-50 text-sky-600',
+        name: 'Índice de Barthel',
+        abbr: 'Barthel',
+        icon: Heart,
+        description: 'Evalúa la capacidad funcional e independencia en 10 actividades básicas de la vida diaria.',
+        evidence: 'Mahoney & Barthel (1965). Fundamental en rehabilitación neurológica, geriatría y hospitalaria.',
+        color: 'bg-teal-50 text-teal-600',
     },
     {
-        name: 'Screening de Riesgos y Comorbilidades',
-        abbr: 'Screening',
-        icon: Stethoscope,
-        description: 'Protocolo de detección temprana de comorbilidades: fibromialgia, neuropatías, diabetes, ansiedad y depresión.',
-        evidence: 'Basado en guías clínicas NICE, IASP y recomendaciones de la OMS.',
+        name: 'TUG — Timed Up and Go',
+        abbr: 'TUG',
+        icon: TrendingUp,
+        description: 'Prueba cronometrada en segundos que cuantifica el equilibrio dinámico y el riesgo de caídas.',
+        evidence: 'Podsiadlo & Richardson (1991). Validación masiva para tamizaje motor y fragilidad.',
         color: 'bg-indigo-50 text-indigo-600',
     },
     {
-        name: 'ODI / Oswestry — Discapacidad Lumbar',
-        abbr: 'Oswestry',
+        name: 'Escala de Berg',
+        abbr: 'Berg',
         icon: Layers,
-        description: 'Cuestionario de 10 ítems que mide la discapacidad funcional en pacientes con dolor lumbar. Evalúa sedestación, carga de peso, desplazamientos y vida social.',
-        evidence: 'Fairbank et al. (1980). Estándar de oro en discapacidad lumbar, validado en más de 30 idiomas.',
+        description: '14 pruebas de equilibrio estático y dinámico (0 a 56 pts) para prevención de caídas y reeducación funcional.',
+        evidence: 'Berg et al. (1992). Máxima precisión en evaluación de estabilidad y balance motor.',
+        color: 'bg-blue-50 text-blue-600',
+    },
+    {
+        name: 'Tinetti — Marcha y Estabilidad',
+        abbr: 'Tinetti',
+        icon: Activity,
+        description: 'Batería clínica de evaluación de patrones de marcha y balance postural en reposo y locomoción.',
+        evidence: 'Tinetti (1986). Estándar en programas kinésicos de prevención y movilidad osteoarticular.',
         color: 'bg-emerald-50 text-emerald-600',
     },
     {
-        name: 'LEFS — Escala Funcional de Extremidad Inferior',
-        abbr: 'LEFS',
-        icon: TrendingUp,
-        description: '20 ítems que evalúan la capacidad funcional de la extremidad inferior: caminar, subir escaleras, actividades de ocio y trabajo. Ideal para rodilla, cadera y tobillo.',
-        evidence: 'Binkley et al. (1999). Alta fiabilidad y sensibilidad al cambio en rehabilitación musculoesquelética.',
-        color: 'bg-orange-50 text-orange-600',
+        name: 'Screening DSS — Banderas Rojas y Riesgos',
+        abbr: 'Screening DSS',
+        icon: Stethoscope,
+        description: 'Protocolo de detección precoz de banderas rojas médicas urgentes, neuropatía, fibromialgia y factores psicosociales.',
+        evidence: 'Basado en guías clínicas NICE, IASP y lineamientos de la OMS.',
+        color: 'bg-rose-50 text-rose-600',
     },
 ]
 
@@ -414,7 +448,7 @@ export default function SolucionContent() {
                             {[
                                 { icon: BarChart3, label: 'Gráficos de evolución', desc: 'Tendencias visuales del progreso del paciente' },
                                 { icon: FileText, label: 'Informes automáticos', desc: 'Reportes clínicos exportables con un clic' },
-                                { icon: ClipboardList, label: '9 escalas validadas', desc: 'Instrumentos reconocidos internacionalmente' },
+                                { icon: ClipboardList, label: '13 escalas validadas', desc: 'Instrumentos reconocidos internacionalmente' },
                                 { icon: Zap, label: 'Alertas inteligentes', desc: 'Recomendaciones automáticas según respuestas' },
                             ].map((item) => {
                                 const Icon = item.icon
@@ -442,11 +476,11 @@ export default function SolucionContent() {
                     <div className={`text-center mb-16 scroll-reveal ${scalesSection.visible ? 'is-visible' : ''}`}>
                         <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">Escalas Clínicas</span>
                         <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-5 text-balance">
-                            8 instrumentos validados internacionalmente
+                            13 instrumentos validados internacionalmente
                         </h2>
                         <p className="text-lg text-foreground-muted leading-relaxed max-w-2xl mx-auto">
                             Cada escala fue seleccionada por su evidencia científica, fiabilidad y relevancia clínica.
-                            Incluye <strong className="text-foreground">PSFS, GROC, EQ-5D, Barthel, Screening, ENA, Oswestry y LEFS</strong>.
+                            Incluye <strong className="text-foreground">Oswestry, LEFS, WOMAC, QuickDASH, Berg, TUG, Tinetti, EVA/ENA, PSFS, Barthel, GROC, EQ-5D y Screening DSS</strong>.
                         </p>
                     </div>
 

@@ -15,9 +15,9 @@ import { PhoneCarousel } from '@/components/ui/phone-mockups-1-utils/phone-carou
 
 
 const stats = [
-  { value: 13, suffix: '', label: 'Escalas clínicas validadas (EVA, PSFS, WOMAC, etc.)' },
-  { value: 14, suffix: '', label: 'Pasos de anamnesis inteligente vía QR' },
-  { value: 100, suffix: '%', label: 'Especializado en kinesiología y fisioterapia' },
+  { value: 13, suffix: '', label: 'Escalas clínicas validadas (Oswestry, LEFS, WOMAC, etc.)' },
+  { value: 0, suffix: '%', label: 'Sobrecupos: agenda multi-box con bloqueo atómico' },
+  { value: 100, suffix: '%', label: 'Kinesiología basada en evidencia y Ley 21.719 / 20.584' },
 ]
 
 function ProofStat({ stat, isVisible }: { stat: (typeof stats)[0]; isVisible: boolean }) {
@@ -304,22 +304,23 @@ export function Hero() {
             </motion.div>
 
             <motion.h1 variants={itemVariants} className="hm-hero-h1">
-              El sistema clínico del kinesiólogo:{' '}
-              <span className="hm-hero-h1-highlight">de la admisión al alta.</span>
+              El software clínico creado{' '}
+              <span className="hm-hero-h1-highlight">por y para kinesiólogos.</span>
             </motion.h1>
 
             <motion.p variants={itemVariants} className="hm-hero-lede">
-              Del QR de admisión al informe de alta. Kenkomed acompaña cada etapa clínica de tu
-              paciente: <strong className="font-semibold text-foreground">evaluación, seguimiento y resultados</strong>, sin papel.
+              Automatiza tu agendamiento online multi-box sin sobrecupos, evalúa con cuestionarios funcionales validados,
+              prescribe pautas de ejercicios en 1 clic y cumple con la{' '}
+              <strong className="font-semibold text-foreground">Ley 21.719 de Protección de Datos Personales</strong> en Chile.
             </motion.p>
 
             <motion.div variants={itemVariants} className="hm-hero-actions">
               <Link href="/#contact" className="hm-btn-primary">
-                Solicitar software
+                Comenzar prueba gratis
                 <ArrowRight size={15} aria-hidden="true" />
               </Link>
-              <Link href="/precios/" className="hm-btn-ghost">
-                Ver precios
+              <Link href="/funcionalidades" className="hm-btn-ghost">
+                Ver catálogo completo
               </Link>
             </motion.div>
 
@@ -331,22 +332,22 @@ export function Hero() {
                 ))}
               </span>
               <span className="hm-social-text">
-                <strong>Kinesiólogos en Chile</strong> ya gestionan sus fichas con Kenkomed
+                <strong>Clínicas y Kinesiólogos en Chile</strong> confían en KenkoMed v2.4
               </span>
             </motion.div>
 
             <motion.div variants={itemVariants} className="hm-trust-list">
               <span className="hm-trust-item">
                 <CheckCircle2 size={16} className="text-emerald" />
-                Demuestra la evolución de tu paciente
+                Agenda Multi-Box sin choques (Doble factor seguro RUT + Fecha de nacimiento)
               </span>
               <span className="hm-trust-item">
                 <CheckCircle2 size={16} className="text-emerald" />
-                1ª sesión lista antes que llegue el paciente
+                Pautas de ejercicios en WhatsApp y PDF membretado auditado en 1 clic
               </span>
               <span className="hm-trust-item">
                 <CheckCircle2 size={16} className="text-emerald" />
-                Diseñado para kinesiólogos, precio transparente
+                Blindaje normativo chileno: Ley 21.719, Ley 20.584 y Derechos ARCO
               </span>
             </motion.div>
           </motion.div>
@@ -361,7 +362,7 @@ export function Hero() {
               <PhoneCarousel variant="single" />
             </motion.div>
 
-            {/* Floating card #1 — WhatsApp reminder */}
+            {/* Floating card #1 — WhatsApp Pauta de Ejercicios */}
             <motion.div
               className="hm-float-card hm-float-reminder hidden sm:flex"
               initial={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -374,12 +375,12 @@ export function Hero() {
                 </svg>
               </div>
               <div>
-                <p className="hm-float-title">Anamnesis por WhatsApp</p>
-                <p className="hm-float-sub">Envío vía QR o link directo</p>
+                <p className="hm-float-title">Pauta de Ejercicios</p>
+                <p className="hm-float-sub">Enviada en 1 clic a WhatsApp</p>
               </div>
             </motion.div>
 
-            {/* Floating card #2 — waitlist stat */}
+            {/* Floating card #2 — Multi-Box Zero Overbooking */}
             <motion.div
               className="hm-float-card hm-float-waitlist hidden sm:flex"
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
@@ -387,12 +388,12 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div>
-                <p className="hm-float-title">Ficha lista</p>
-                <p className="hm-float-sub">antes de cada consulta</p>
+                <p className="hm-float-title">Agenda Multi-Box</p>
+                <p className="hm-float-sub">Cero sobrecupos en paralelo</p>
               </div>
             </motion.div>
 
-            {/* Floating card #3 — Goniometría / ROM */}
+            {/* Floating card #3 — Cumplimiento Ley 21.719 */}
             <motion.div
               className="hm-float-card hm-float-rom hidden lg:flex"
               initial={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -400,11 +401,11 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 1.3, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-xs">
-                +80°
+                ✓
               </div>
               <div>
-                <p className="hm-float-title">ROM Articular</p>
-                <p className="hm-float-sub">Flexión: 122° (Alta clínica)</p>
+                <p className="hm-float-title">Ley 21.719 y 20.584</p>
+                <p className="hm-float-sub">Auditoría médica inmutable</p>
               </div>
             </motion.div>
           </div>

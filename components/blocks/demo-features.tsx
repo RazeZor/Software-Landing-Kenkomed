@@ -28,7 +28,7 @@ export function DemoFeatures() {
                                 <div className="relative z-10 mt-6 space-y-2 text-center">
                                     <h2 className="text-xl font-bold text-slate-800">Admisión Remota</h2>
                                     <p className="text-sm text-slate-500">
-                                      El paciente completa sus datos, anamnesis y escalas desde casa.
+                                      El paciente completa su anamnesis, mapa de dolor y antecedentes antes de entrar al box.
                                     </p>
                                 </div>
                             </CardContent>
@@ -41,19 +41,21 @@ export function DemoFeatures() {
                                 </div>
                                 <div className="relative z-10 mt-6 space-y-2 text-center">
                                     <h2 className="text-xl font-bold text-slate-800">IA y Banderas Rojas</h2>
-                                    <p className="text-sm text-slate-500">Sistema DSS que pre-analiza el ingreso y detecta riesgos clínicos al instante.</p>
+                                    <p className="text-sm text-slate-500">Sistema DSS que detecta alertas de alarma y factores psicosociales al instante.</p>
                                 </div>
                             </CardContent>
                         </Card>
                         
                         <Card className="relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2 border-slate-200/80 bg-white shadow-sm hover:shadow-md transition-shadow">
                             <CardContent className="pt-6">
-                                <div className="relative mx-auto flex aspect-square size-32 rounded-full border border-violet-100 bg-violet-50 items-center justify-center p-3 overflow-hidden">
-                                    <StatsLottie className="w-full h-full" />
+                                <div className="relative mx-auto flex aspect-square size-32 rounded-full border border-rose-100 bg-rose-50 items-center justify-center p-3 overflow-hidden">
+                                    <div className="w-16 h-16 rounded-2xl bg-rose-500/10 text-rose-600 flex items-center justify-center text-3xl font-bold">
+                                      🏋️
+                                    </div>
                                 </div>
                                 <div className="relative z-10 mt-6 space-y-2 text-center">
-                                    <h2 className="text-xl font-bold text-slate-800">Resultados y Alta</h2>
-                                    <p className="text-sm text-slate-500">Gráficos de evolución y reportes en PDF listos para el médico derivador.</p>
+                                    <h2 className="text-xl font-bold text-slate-800">Pautas de Ejercicios</h2>
+                                    <p className="text-sm text-slate-500">Catálogo anatómico curado con envío en 1 clic a WhatsApp y PDF membretado auditado.</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -65,22 +67,28 @@ export function DemoFeatures() {
                                         <Shield className="m-auto size-7" strokeWidth={1.5} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-xl font-bold text-slate-800">Seguridad Clínica</h2>
-                                        <p className="text-sm text-slate-500">Escalas validadas, mapas corporales interactivos y alertas tempranas para tu práctica diaria.</p>
+                                        <h2 className="text-xl font-bold text-slate-800">Blindaje Ley 21.719 y 20.584</h2>
+                                        <p className="text-sm text-slate-500">Consentimiento informado digital, derechos ARCO, registro inmutable de auditoría médica y bloqueo por inactividad.</p>
                                     </div>
                                 </div>
                                 <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6 flex flex-col justify-center">
                                     <div className="space-y-3">
-                                      {[1, 2, 3].map((i) => (
-                                        <div key={i} className="flex items-center gap-3">
-                                          <div className="h-2 w-2 rounded-full bg-blue-400" />
-                                          <div className="h-2 w-full rounded-full bg-slate-200" />
-                                        </div>
-                                      ))}
+                                      <div className="flex items-center justify-between text-xs font-semibold text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/70">
+                                        <span>Auditoría Médica</span>
+                                        <span className="text-emerald-600 font-bold">Inmutable (IP/Fecha)</span>
+                                      </div>
+                                      <div className="flex items-center justify-between text-xs font-semibold text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/70">
+                                        <span>Derechos ARCO</span>
+                                        <span className="text-sky-600 font-bold">JSON / HTML</span>
+                                      </div>
+                                      <div className="flex items-center justify-between text-xs font-semibold text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/70">
+                                        <span>Anti Shoulder Surfing</span>
+                                        <span className="text-violet-600 font-bold">Bloqueo 10 min</span>
+                                      </div>
                                     </div>
-                                    <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-4">
-                                      <span className="text-xs font-bold text-slate-400 uppercase">Rango Articular (ROM)</span>
-                                      <span className="text-xs font-bold text-emerald-600">Flexión 120°</span>
+                                    <div className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3">
+                                      <span className="text-[11px] font-bold text-slate-400 uppercase">Seguridad en Salud</span>
+                                      <span className="text-[11px] font-bold text-emerald-600">Cumplimiento 100%</span>
                                     </div>
                                 </div>
                             </CardContent>
@@ -93,23 +101,22 @@ export function DemoFeatures() {
                                         <CalendarCheck className="m-auto size-7" strokeWidth={1.5} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-xl font-bold text-slate-800">Gestión Integrada</h2>
-                                        <p className="text-sm text-slate-500">Agenda, control de sesiones en packs y flujo de pagos directamente en la misma plataforma.</p>
+                                        <h2 className="text-xl font-bold text-slate-800">Agenda Multi-Box y 0% Sobrecupos</h2>
+                                        <p className="text-sm text-slate-500">Slots inteligentes para boxes paralelos, bloqueo pesimista en base de datos y verificación segura de paciente por RUT + fecha de nacimiento.</p>
                                     </div>
                                 </div>
-                                <div className="flex flex-col justify-center space-y-4 py-4 pr-4">
-                                    <div className="relative flex w-full items-center justify-end gap-3 opacity-60">
-                                        <span className="block rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold shadow-sm">Pedro S.</span>
-                                        <div className="size-8 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-500">PS</div>
+                                <div className="flex flex-col justify-center space-y-3 py-4 pr-4">
+                                    <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm space-y-1.5">
+                                      <div className="flex items-center justify-between">
+                                        <span className="text-xs font-bold text-slate-800">Box 1: Gimnasio Terapéutico</span>
+                                        <span className="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">Ocupado</span>
+                                      </div>
+                                      <div className="flex items-center justify-between">
+                                        <span className="text-xs font-bold text-slate-800">Box 2: Fisioterapia / Electro</span>
+                                        <span className="text-[10px] bg-sky-100 text-sky-700 font-bold px-2 py-0.5 rounded-full">Disponible</span>
+                                      </div>
                                     </div>
-                                    <div className="relative flex items-center gap-3 mr-8">
-                                        <div className="size-10 rounded-full bg-blue-100 text-blue-600 border-2 border-white shadow-sm flex items-center justify-center text-xs font-bold">MA</div>
-                                        <span className="block rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 shadow-md">María A.</span>
-                                    </div>
-                                    <div className="relative flex w-full items-center justify-end gap-3 opacity-60">
-                                        <span className="block rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold shadow-sm">Juan P.</span>
-                                        <div className="size-8 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-500">JP</div>
-                                    </div>
+                                    <p className="text-[11px] text-slate-400 text-center">Consistencia atómica: previene colisiones en el mismo segundo.</p>
                                 </div>
                             </CardContent>
                         </Card>

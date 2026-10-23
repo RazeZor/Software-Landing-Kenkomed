@@ -52,15 +52,14 @@ const plans = [
     users: '1 Kinesiólogo',
     features: [
       'Pacientes e historias clínicas ilimitadas',
-      'Agenda digital con calendario personal',
-      'Envío de anamnesis por WhatsApp (QR o link directo)',
-      'Fichas clínicas SOAP digitales y evoluciones',
-      '13 escalas clínicas validadas (EVA, PSFS, Barthel, GROC)',
-      'Admisión con código QR y formulario remoto',
-      'Detalle de sesiones para reembolso Isapre y seguros (PDF con códigos FONASA)',
-      'Control de pagos de sesiones y registro para Boleta de Honorarios SII',
-      'Prescripción de ejercicios y comunicación clínica directa',
-      'Dashboard clínico y atención directa con equipo Kenkomed',
+      'Portal de reservas online público (/reservar/slug/) con doble factor seguro (RUT + nacimiento)',
+      'Prescripción de pautas de ejercicios con catálogo anatómico y envío a WhatsApp/PDF en 1 clic',
+      'Fichas clínicas SOAP digitales y evoluciones continuas',
+      '13 escalas clínicas validadas (Oswestry, LEFS, WOMAC, EVA, PSFS, Barthel)',
+      'Admisión con código QR y formulario remoto de 14 páginas',
+      'Registro de pagos (efectivo, transferencia, débito) y control de deudas',
+      'Cumplimiento normativo de salud (Ley 21.719, Ley 20.584 y Derechos ARCO)',
+      'Dashboard clínico y atención directa con equipo Kenkomed por WhatsApp',
     ],
     cta: 'Agendar Demo',
   },
@@ -76,16 +75,16 @@ const plans = [
     users: 'Hasta 2 Kinesiólogos (o 1 Kine + Secretaria)',
     features: [
       'Hasta 2 cuentas profesionales independientes (o 1 Kine + 1 Asistente)',
-      'Módulo de Pagos y Caja (Cobros, saldos, recibos y control de boleta/factura)',
-      'Gestión de Packs de Sesiones (Cobros por sesión y packs)',
-      'Detalle de sesiones e informes de alta para reembolso Isapre y seguros',
-      'Envío de anamnesis por WhatsApp (código QR o link directo)',
-      'Agenda avanzada (Presencial · Domicilio · Telemedicina)',
-      'Anamnesis remota QR de 14 páginas',
-      'Ciclos clínicos con alta y diagnóstico final',
-      'Reportes clínicos y análisis DSS por profesional',
-      'Trazabilidad y firmas independientes (Alineado con Ley 20.584 y datos de salud)',
-      'Branding personalizado (Logo en correos, informes y PDF)',
+      'Agendamiento Multi-Box con bloqueo atómico contra sobrecupos y co-branding dual con tu logo',
+      'Prescripción de pautas de ejercicios membretadas con código de verificación y auditoría médica',
+      'Módulo de Pagos y Caja (Cobros, saldos pendientes y registro de pagos)',
+      'Gestión de Packs de Sesiones (Cobros por sesión y paquetes con descuento automático)',
+      'Ciclos clínicos (episodios terapéuticos) con alta y diagnóstico final estructurado',
+      'Informes clínicos de alta estructurada con deltas funcionales',
+      'Reportes clínicos y análisis DSS (Banderas Rojas y Amarillas) por profesional',
+      'Registro inmutable de auditoría médica (AuditoriaAcceso) y bloqueo anti shoulder surfing',
+      'Blindaje legal garantizado bajo Ley 21.719, Ley 20.584 y Ley 19.628',
+      'Branding personalizado (Logo en portada de agenda, correos e informes PDF)',
       'Atención directa con el equipo Kenkomed por WhatsApp',
     ],
     cta: 'Agendar Demo',
@@ -103,18 +102,16 @@ const plans = [
     extraKinePrice: 12990,
     features: [
       'Todo lo del Plan Clínico Pro',
-      '3 licencias de Kinesiólogo incluidas (+ staff)',
-      'Módulo de Pagos y Caja Centralizado (Multi-kine, boletas, facturas y auditoría)',
-      'Detalle de sesiones Isapre y certificados masivos con código FONASA',
-      'Facilidades de comunicación directa con pacientes por WhatsApp',
-      'Gestión de Packs de Sesiones Multi-Kinesiólogo',
-      'Multi-sede con migración de pacientes',
-      'Roles avanzados: Director · Admin · Kine · Secretaria',
-      'Calendario unificado del centro',
-      'Dashboard gerencial con métricas comparativas por profesional',
-      'Auditoría PDF exportable por período',
-      'Onboarding y migración de datos personalizada',
-      'Gerente de cuenta dedicado (12h)',
+      '3 licencias de Kinesiólogo incluidas (+ staff de recepción)',
+      'Agendamiento Multi-Box y Multi-Centro con slots sincronizados para recepción y boxes',
+      'Módulo de Pagos y Caja Centralizado (Registro de ingresos, saldos y control de deuda)',
+      'Pautas de ejercicios digitales ilimitadas por WhatsApp y correo para todo el centro',
+      'Gestión de Packs de Sesiones Multi-Kinesiólogo con control de saldos y morosidad',
+      'Multi-sede con migración y aislamiento estricto de pacientes por centro',
+      'Roles avanzados: Director · Admin del Centro · Kinesiólogo · Recepción',
+      'Auditoría médica integral Ley 21.719 exportable en PDF y portabilidad ARCO (JSON/HTML)',
+      'Endpoint de monitoreo 24/7 (/health/) y respaldo continuo de base de datos',
+      'Onboarding y migración de datos personalizada con gerente de cuenta dedicado',
     ],
     cta: 'Agendar Demo',
     ctaStyle: 'secondary' as const,
@@ -757,13 +754,13 @@ Plan: Clínica (${priceText})
                         onChange={handleChange}
                         className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
+                        <option value="Agendamiento Multi-Box y Cero Sobrecupos">Agendamiento Multi-Box y Cero Sobrecupos</option>
+                        <option value="Pautas de Ejercicios por WhatsApp y PDF">Pautas de Ejercicios por WhatsApp y PDF</option>
                         <option value="Admisión QR y Ficha Digital DSS">Admisión QR y Ficha Digital DSS</option>
-                        <option value="Escalas Validadas (EVA, PSFS, Barthel)">Escalas Validadas (EVA, PSFS, Barthel)</option>
-                        <option value="Trazabilidad y Auditoría de Accesos">Trazabilidad y Auditoría de Accesos</option>
-                        <option value="Prescripción de ejercicios y Reportes PDF">Prescripción de ejercicios y Reportes PDF</option>
-                        <option value="Agenda para múltiples profesionales">Agenda para múltiples profesionales</option>
-                        <option value="Agenda y Telemedicina">Agenda y Telemedicina</option>
-                        <option value="Todo el software completo">Todo el software completo</option>
+                        <option value="13 Escalas Clínicas Validadas (Oswestry, LEFS, WOMAC...)">13 Escalas Clínicas Validadas (Oswestry, LEFS, WOMAC...)</option>
+                        <option value="Módulo de Pagos, Caja y Packs de Sesiones">Módulo de Pagos, Caja y Packs de Sesiones</option>
+                        <option value="Cumplimiento Ley 21.719, 20.584 y Derechos ARCO">Cumplimiento Ley 21.719, 20.584 y Derechos ARCO</option>
+                        <option value="Todo el ecosistema clínico completo">Todo el ecosistema clínico completo</option>
                       </select>
                     </div>
                   </div>

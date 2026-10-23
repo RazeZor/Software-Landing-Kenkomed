@@ -51,13 +51,13 @@ const stackFeatures = [
   },
   {
     number: '03',
-    label: 'Plan de tratamiento',
-    title: 'Objetivos y Prescripción',
-    desc: 'Definición de objetivos funcionales, número de sesiones y dosificación de ejercicios estructurada en un solo lugar.',
-    tags: ['Objetivos funcionales', 'Prescripción de ejercicios'],
+    label: 'Prescripción y Casa',
+    title: 'Pautas de Ejercicios por WhatsApp',
+    desc: 'Catálogo anatómico completo con dosificación clínica exacta. Envíale la pauta en PDF membretado directo a su WhatsApp o correo en 1 clic.',
+    tags: ['Directo a WhatsApp', 'PDF membretado auditado'],
     icon: CalendarCheck,
     imageSrc: '/software/Objetivos_y_prescripcion.png',
-    imageAlt: 'Pantalla de prescripción de ejercicios',
+    imageAlt: 'Pantalla de prescripción de ejercicios de Kenkomed',
     accentToken: '--color-accent',
   },
   {
@@ -345,21 +345,21 @@ export function SolucionTeaser() {
                   Solicita una demo gratuita. Te mostramos todo en 30 minutos.
                 </h2>
                 <p className="hm-cta-description">
-                  Descubre cómo Kenkomed simplifica tu práctica clínica diaria: menos tiempo en papeleo, fichas completas con escalas automáticas y trazabilidad total de tus pacientes.
+                  Descubre cómo Kenkomed simplifica tu práctica clínica diaria: agenda multi-box sin sobrecupos, pautas de ejercicios por WhatsApp, fichas con escalas automáticas y cumplimiento estricto de la Ley 21.719.
                 </p>
 
                 <ul className="hm-cta-bullets">
                   <li className="hm-cta-bullet-item">
                     <AnimatedIcon animation={checkmark} size={22} strokeColor="#0284c7" autoplay />
-                    <span>Configuración personalizada a tu centro o consulta</span>
+                    <span>Configuración personalizada a tu centro o consulta (boxes, equipo y horarios)</span>
                   </li>
                   <li className="hm-cta-bullet-item">
                     <AnimatedIcon animation={checkmark} size={22} strokeColor="#0284c7" autoplay />
-                    <span>Migración de datos y acompañamiento clínico continuo</span>
+                    <span>Migración de datos y acompañamiento clínico continuo sin costo adicional</span>
                   </li>
                   <li className="hm-cta-bullet-item">
                     <AnimatedIcon animation={checkmark} size={22} strokeColor="#0284c7" autoplay />
-                    <span>Sin costo de instalación ni permanencia forzada</span>
+                    <span>Cumplimiento legal garantizado: Ley 21.719, Ley 20.584 y Derechos ARCO</span>
                   </li>
                 </ul>
 

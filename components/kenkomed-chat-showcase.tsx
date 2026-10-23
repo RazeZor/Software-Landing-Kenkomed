@@ -3,8 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { MacbookMockup } from "@/components/ui/great-ui-macbook-mockup";
-import { QrCode, Mic, ArrowRight, Sparkles, MessageSquareHeart } from "lucide-react";
-import { RobotLottie } from "@/components/robot-lottie";
+import { QrCode, Mic, ArrowRight, Sparkles, MessageSquareHeart, Dumbbell } from "lucide-react";
 
 export interface KenkomedChatShowcaseProps {
   className?: string;
@@ -55,6 +54,18 @@ export function KenkomedChatShowcase({ className }: KenkomedChatShowcaseProps) {
               </div>
               <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
                 Mándale la anamnesis por WhatsApp a tu paciente: ya sea enviándole el enlace directo o compartiéndole el código QR. La completa desde su celular y su ficha queda lista antes de llegar.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-emerald-500/35 transition-all duration-300 shadow-sm">
+              <div className="flex items-center gap-3 mb-2.5">
+                <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400">
+                  <Dumbbell size={20} />
+                </div>
+                <h3 className="font-semibold text-white text-base">Pautas de Ejercicios por WhatsApp</h3>
+              </div>
+              <p className="text-xs sm:text-sm text-zinc-300/90 leading-relaxed">
+                Prescribe rutinas del catálogo anatómico con dosificación exacta (series, repeticiones, descanso) y envíale la pauta en PDF membretado directo a su WhatsApp en un solo clic.
               </p>
             </div>
 

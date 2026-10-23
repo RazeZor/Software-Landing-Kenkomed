@@ -4,23 +4,25 @@ import { motion, type Variants } from "framer-motion";
 import { RiCheckLine as Check } from "react-icons/ri";
 
 const traditional = [
-  "Riesgo de perder o traspapelar la ficha clínica",
-  "Búsqueda manual de fichas de sesiones anteriores",
-  "Cálculo y graficación a mano de escalas clínicas",
-  "Tardas 15 minutos solo en transcribir datos de ingreso",
+  "Sobrecupos y choques horarios por agendas en papel o WhatsApp",
+  "Pautas de ejercicios en fotocopias borrosas que el paciente pierde",
+  "Cálculo y graficación a mano de escalas (EVA, Oswestry, WOMAC, LEFS)",
+  "Riesgo legal y multas bajo Ley 21.719 por falta de auditoría y consentimiento",
+  "Tardas 15 minutos solo en transcribir datos de ingreso y anamnesis",
 ];
 
 const kenkomed = [
-  "Todo el historial clínico en la nube y accesible con un clic",
-  "Evolución SOAP rápida con opciones pre-llenadas",
-  "Escalas (EVA, PSFS, WOMAC) se calculan y grafican solas",
-  "Admisión vía QR: el paciente llena sus datos antes de entrar",
+  "Agenda Multi-Box inteligente con bloqueo atómico (0% sobrecupos)",
+  "Pautas de ejercicios con catálogo anatómico enviadas a WhatsApp y PDF",
+  "13 escalas validadas calculadas solas con gráficos comparativos de evolución",
+  "Blindaje normativo total: Ley 21.719, Ley 20.584 y trazabilidad inmutable ARCO",
+  "Admisión remota vía QR: el paciente llena su historial antes de entrar al box",
 ];
 
 const stats = [
-  { value: "100% digital", label: "fichas y evolución sin papel ni desorden" },
-  { value: "0 papel", label: "información clínica segura y ordenada" },
-  { value: "1 solo lugar", label: "para evolución, escalas y gráficas" },
+  { value: "0% sobrecupos", label: "bloqueo pesimista multi-box en tiempo real" },
+  { value: "1 clic", label: "para prescribir y enviar pautas a WhatsApp y PDF" },
+  { value: "100% conforme", label: "cumplimiento de Ley 21.719, 20.584 y derechos ARCO" },
 ];
 
 const container: Variants = {

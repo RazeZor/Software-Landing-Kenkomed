@@ -20,6 +20,8 @@ import {
     Network,
     ClipboardList,
     Brain,
+    CalendarCheck,
+    Wallet,
 } from 'lucide-react'
 
 function useReveal() {
@@ -39,15 +41,15 @@ function useReveal() {
 }
 
 const capabilities = [
-    { icon: Zap,          text: 'Automatiza todo el ciclo de vida del paciente',      detail: 'Desde la admisión remota hasta el alta, sin papel ni fricción.' },
-    { icon: ClipboardList,text: '13 escalas clínicas validadas internacionalmente',       detail: 'PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, etc.' },
-    { icon: Brain,        text: 'Sistema inteligente de apoyo a decisiones (DSS)',     detail: 'Alertas en tiempo real y recomendaciones basadas en evidencia.' },
-    { icon: QrCode,       text: 'Admisión remota via QR — formulario de 14 páginas', detail: 'El paciente completa la anamnesis completa desde casa antes de llegar.' },
-    { icon: FileText,     text: 'Fichas clínicas y sesiones de kinesiología',          detail: 'Sesión inicial, seguimiento y alta. Todo estructurado y consultable.' },
-    { icon: TrendingUp,   text: 'Seguimiento de evolución y outcomes clínicos',       detail: 'Gráficos interactivos de progreso sesión a sesión con historial.' },
-    { icon: Layers,       text: 'Prescripción de ejercicios y plan casero', detail: 'Crea, edita, elimina y renderiza tu pauta de ejercicios para el paciente.' },
-    { icon: ShieldCheck,  text: 'Control de roles: Admin vs Clínico Regular',           detail: 'Admin accede a todo. Clínico solo a sus pacientes asignados.' },
-    { icon: Network,      text: 'Escala desde practitioner hasta redes de clínicas',    detail: 'Un profesional independiente o múltiples sedes — mismo sistema.' },
+    { icon: CalendarCheck, text: 'Agendamiento Online & Multi-Box inteligente', detail: 'Portal público con co-branding dual, doble factor seguro y bloqueo atómico sin sobrecupos.' },
+    { icon: Dumbbell,      text: 'Pautas de ejercicios en casa por WhatsApp',     detail: 'Catálogo anatómico curado con dosificación exacta, despacho en 1 clic y PDF membretado.' },
+    { icon: ClipboardList, text: '13 escalas clínicas validadas internacionalmente', detail: 'Oswestry, LEFS, WOMAC, QuickDASH, Berg, TUG, Tinetti, EVA/ENA, PSFS, Barthel, GROC, EQ-5D y screening.' },
+    { icon: Brain,         text: 'Sistema inteligente de apoyo a decisiones (DSS)', detail: 'Alertas tempranas de banderas rojas/amarillas, comorbilidades e informes automáticos.' },
+    { icon: FileText,      text: 'Ficha kinésica y ciclos clínicos estructurados',   detail: 'Episodios de atención por patología, evoluciones SOAP y alta médica con deltas funcionales.' },
+    { icon: QrCode,        text: 'Admisión remota vía QR — formulario de 14 páginas', detail: 'El paciente completa antecedentes, dolor y estilo de vida desde casa antes de ingresar al box.' },
+    { icon: Wallet,        text: 'Finanzas, pagos y packs de sesiones',          detail: 'Control de caja, saldos pendientes y packs con descuento automático de sesiones por asistencia.' },
+    { icon: ShieldCheck,   text: 'Blindaje normativo Ley 21.719, 20.584 y 19.628', detail: 'Auditoría médica inmutable (AuditoriaAcceso), consentimiento IP, portabilidad ARCO y bloqueo de pantalla.' },
+    { icon: Network,       text: 'Multiclínica y roles: Director, Kine y Recepción', detail: 'Aislamiento estricto de pacientes por centro, cambio de sede en 1 clic y permisos avanzados.' },
 ]
 
 const idealFor = [
@@ -108,7 +110,7 @@ export function PlatformOverview() {
                                 </div>
                                 <div>
                                     <p className="font-semibold text-foreground text-sm">Kenkomed incluye</p>
-                                    <p className="text-xs text-foreground-muted">9 capacidades core, listas para usar</p>
+                                    <p className="text-xs text-foreground-muted">Ecosistema clínico integral, listo para usar</p>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-4">
@@ -156,20 +158,20 @@ export function PlatformOverview() {
                         {/* Highlight metric boxes */}
                         <div className="grid grid-cols-2 gap-4">
                             <div className="p-6 rounded-2xl bg-teal-50 border border-teal-200/60 text-center">
-                                <p className="font-display font-bold text-4xl text-teal-700 mb-1">8</p>
+                                <p className="font-display font-bold text-4xl text-teal-700 mb-1">13</p>
                                 <p className="text-xs text-teal-700/80 font-medium">Escalas clínicas validadas</p>
                             </div>
                             <div className="p-6 rounded-2xl bg-blue-50 border border-blue-200/60 text-center">
-                                <p className="font-display font-bold text-4xl text-blue-700 mb-1">QR</p>
-                                <p className="text-xs text-blue-700/80 font-medium">Admisión remota sin papel</p>
+                                <p className="font-display font-bold text-4xl text-blue-700 mb-1">0%</p>
+                                <p className="text-xs text-blue-700/80 font-medium">Sobrecupos (bloqueo atómico)</p>
                             </div>
                             <div className="p-6 rounded-2xl bg-purple-50 border border-purple-200/60 text-center">
-                                <p className="font-display font-bold text-4xl text-purple-700 mb-1">DSS</p>
-                                <p className="text-xs text-purple-700/80 font-medium">Apoyo a decisión inteligente</p>
+                                <p className="font-display font-bold text-4xl text-purple-700 mb-1">QR</p>
+                                <p className="text-xs text-purple-700/80 font-medium">Admisión remota sin papel</p>
                             </div>
                             <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-center">
-                                <p className="font-display font-bold text-4xl text-emerald-700 mb-1">∞</p>
-                                <p className="text-xs text-emerald-700/80 font-medium">Escala con tu clínica</p>
+                                <p className="font-display font-bold text-4xl text-emerald-700 mb-1">100%</p>
+                                <p className="text-xs text-emerald-700/80 font-medium">Ley 21.719 y 20.584</p>
                             </div>
                         </div>
 
