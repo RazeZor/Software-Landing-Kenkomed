@@ -236,6 +236,7 @@ function LeadModal({
     e.preventDefault()
     setIsSubmitting(true)
 
+    const planName = plan?.name ?? 'No especificado'
     const priceValueUF = plan
       ? billingCycle === 'annual'
         ? plan.annualPriceUF
