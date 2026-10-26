@@ -67,7 +67,7 @@ const faqData = {
   "precios": [
     {
       question: '¿Cuánto cuesta y hay permanencia?',
-      answer: 'Los planes parten desde 0,4 UF / mes neto (+ IVA en plan anual, aprox. $15.990 CLP neto / $19.028 IVA incluido). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual y anual con boleta o factura legal.'
+      answer: 'Los planes parten desde 0,4 UF / mes neto (+ IVA en plan anual, aprox. $15.000 CLP neto). Plan Clínico Pro en 0,7 UF / mes neto (aprox. $26.000 CLP) y Plan Clínica / Centro en 1,1 UF / mes neto (aprox. $41.000 CLP). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual y anual con boleta o factura legal.'
     },
     {
       question: '¿Permite gestionar cobros para emitir Boleta de Honorarios en el SII o factura?',

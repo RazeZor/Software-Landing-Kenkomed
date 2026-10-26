@@ -84,6 +84,6 @@ export const homeFaqItems: FaqItem[] = [
   {
     question: '¿Cuánto cuesta y hay permanencia?',
     answer:
-      'Los planes parten desde 0,4 UF / mes neto (+ IVA en plan anual, equivalente a aprox. $15.990 CLP). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual y anual. Solicita una demo guiada para conocer el plan que mejor se adapta a tu consulta o clínica.',
+      'Los planes parten desde 0,4 UF / mes neto (+ IVA en plan anual, aprox. $15.000 CLP). El Plan Clínico Pro tiene un valor de 0,7 UF / mes neto (aprox. $26.000 CLP) y el Plan Clínica / Centro 1,1 UF / mes neto (aprox. $41.000 CLP). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual y anual. Solicita una demo guiada para conocer el plan que mejor se adapta a tu consulta o clínica.',
   },
 ]

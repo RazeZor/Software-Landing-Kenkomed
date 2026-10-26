@@ -34,93 +34,96 @@ import {
   RiStackLine as Layers,
   RiWallet3Line as Wallet
 } from 'react-icons/ri'
+import { PricingComparisonTable } from './pricing-comparison-table'
 
-/* ── Plan data (Opción B aprobada) ─────────────────────────────── */
+/* ── Plan data (3 Planes Oficiales Kenkomed) ─────────────────────────────── */
 
 export type BillingCycle = 'monthly' | 'semi-annual' | 'annual'
 
 const plans = [
   {
     slug: 'individual',
-    name: 'Solo / Independiente',
+    name: 'Plan Individual',
     monthlyPriceUF: 0.5,
     annualPriceUF: 0.4,
-    monthlyPrice: 19990,
-    semiAnnualPrice: 17990,
-    annualPrice: 15990,
-    description: 'Para 1 kinesiólogo independiente que busca digitalizar su consulta.',
+    monthlyPrice: 19000,
+    semiAnnualPrice: 17000,
+    annualPrice: 15000,
+    description: 'El punto de partida ideal para kinesiólogos que inician su consulta o realizan atención a domicilio con respaldo legal.',
     badge: null,
     highlighted: false,
     users: '1 Kinesiólogo',
+    capacity: 'Hasta 100 pacientes',
     features: [
-      'Pacientes e historias clínicas ilimitadas',
-      'Página web propia para que tus pacientes reserven su hora por internet',
-      'Pautas de ejercicios con fotos e instrucciones enviadas por WhatsApp y PDF en 1 clic',
-      'Ficha clínica kinésica rápida (formato SOAP) con historial completo',
-      '13 cuestionarios y escalas que se calculan solas (EVA, Oswestry, LEFS, WOMAC...)',
-      'Admisión con código QR: el paciente llena sus datos desde el celular antes de entrar',
-      'Control de pagos (efectivo, transferencia, tarjetas) y saldos pendientes',
-      'Cumplimiento de las leyes chilenas de Ficha Médica y Protección de Datos Personales',
-      'Panel de estadísticas de tu consulta y soporte directo por WhatsApp',
+      '1 Profesional kinesiólogo (gestión unipersonal)',
+      'Hasta 100 pacientes activos con historial clínico completo',
+      'Ficha kinesiológica digital completa (formato SOAP, antecedentes y evolución)',
+      '13 cuestionarios y escalas con cálculo automático (EVA, Oswestry, LEFS, WOMAC...)',
+      'Pautas de ejercicios en casa ilimitadas con catálogo clínico y envío por WhatsApp y PDF',
+      'Gestión multi-box simultánea y libre (boxes ilimitados sin recargo)',
+      'Agenda interna de turnos (organización privada de tus horas y citas)',
+      'Admisión remota con código QR (tope 20 envíos/mes) y sala de espera',
+      'Cumplimiento legal: Ley 20.584, Derechos ARCO (Ley 21.719) y descarga SEREMI',
     ],
-    cta: 'Agendar Demo',
+    cta: 'Pedir Demo Individual',
   },
   {
-    slug: 'clinica-duo',
-    name: 'Clínico Pro',
+    slug: 'clinico-pro',
+    name: 'Plan Clínico Pro',
     monthlyPriceUF: 0.9,
     annualPriceUF: 0.7,
-    monthlyPrice: 34990,
-    semiAnnualPrice: 30990,
-    annualPrice: 27990,
-    description: 'Para kinesiólogos que trabajan con asistente o clínicas de hasta 2 kinesiólogos.',
-    badge: '⭐ Recomendado',
+    monthlyPrice: 34000,
+    semiAnnualPrice: 29900,
+    annualPrice: 26000,
+    description: 'Para el kinesiólogo que vive de su consulta privada, duplas o centros en crecimiento continuo.',
+    badge: 'Recomendado',
     highlighted: true,
-    users: 'Hasta 2 Kinesiólogos (o 1 Kine + Secretaria)',
+    users: 'Hasta 2 Kinesiólogos',
+    capacity: 'Pacientes Ilimitados',
     features: [
-      'Hasta 2 cuentas profesionales (o 1 Kinesiólogo + 1 Secretaria/Recepción)',
-      'Agenda para atender en varios boxes a la vez sin topar horarios (cero sobrecupos)',
-      'Pautas de ejercicios con tu propio logo, listas para enviar a WhatsApp o imprimir',
-      'Caja diaria: registro de ingresos, cobros del día y pacientes al día',
-      'Venta de paquetes de sesiones (ej. 5 o 10) con descuento automático por asistencia',
-      'Tratamientos por ciclo clínico (evaluación inicial, sesiones y alta médica)',
-      'Informes de alta automáticos con gráficos que demuestran la mejoría del paciente',
-      'Detección automática de alertas y síntomas de alarma (Banderas Rojas y Amarillas)',
-      'Bloqueo automático de pantalla si te alejas del computador para cuidar la privacidad',
-      'Fichas 100% legales y protegidas ante la normativa de salud en Chile',
-      'Tu propio logo en la agenda web, correos a pacientes e informes médicos',
-      'Atención prioritaria y soporte continuo por WhatsApp con nuestro equipo',
+      'Hasta 2 cuentas profesionales (Titular + Reemplazo o Socio comercial)',
+      'Cuenta para Secretaría / Recepción incluida (Paso 4 del onboarding)',
+      'Pacientes e historias clínicas ilimitadas',
+      'Página web pública de agendamiento 24/7 (/reservar/tu-nombre/) con reserva online',
+      'Admisión remota por código QR ilimitada (el paciente completa antes de entrar)',
+      'Módulo de pagos, abonos y control de deudas al día',
+      'Control de packs de 5 y 10 sesiones con saldo y descuento por asistencia',
+      'Informes médicos DSS con gráficos de evolución listos para Traumatólogos',
+      'Branding propio: tu logo profesional en fichas, pautas e informes médicos',
+      'Agenda compartida multi-profesional sincronizada en tiempo real',
+      'Detección automática de alertas clínicas (Banderas Rojas y Amarillas) y bloqueo de pantalla',
+      'Soporte prioritario continuo por WhatsApp',
     ],
-    cta: 'Agendar Demo',
+    cta: 'Elegir Plan Clínico Pro',
   },
   {
     slug: 'clinica',
-    name: 'Clínica Pro',
+    name: 'Plan Clínica / Centro',
     monthlyPriceUF: 1.4,
     annualPriceUF: 1.1,
     extraKinePriceUF: 0.3,
-    monthlyPrice: 54990,
-    semiAnnualPrice: 48990,
-    annualPrice: 43990,
-    description: 'Para centros de rehabilitación con 3 o más kinesiólogos. Escalable.',
-    badge: 'Para centros multi-kine',
+    monthlyPrice: 53000,
+    semiAnnualPrice: 46000,
+    annualPrice: 41000,
+    extraKinePrice: 11000,
+    description: 'Para clínicas consolidadas, policlínicos y centros de rehabilitación con recepción y múltiples boxes.',
+    badge: 'Centros & Policlínicos',
     highlighted: false,
-    users: '3 Kinesiólogos incluidos (+ staff)',
-    extraKinePrice: 12990,
+    users: 'Hasta 4 Profesionales incluidos (+UF 0,3 por extra)',
+    capacity: 'Multi-Sede · Pacientes Ilimitados',
     features: [
       'Todo lo incluido en el Plan Clínico Pro',
-      '3 licencias de Kinesiólogo incluidas + cuentas para secretarias y recepción',
-      'Agenda coordinada para todos los boxes, gimnasio de rehabilitación y profesionales',
-      'Caja centralizada: control de pagos, ingresos mensuales y lista de pacientes con deuda',
-      'Pautas de ejercicios ilimitadas para todos los kinesiólogos del centro',
-      'Paquetes de sesiones compartidos entre distintos kinesiólogos de la clínica',
-      'Soporte para múltiples sucursales con pacientes y agendas ordenados por sede',
-      'Permisos por función: Director del Centro, Administrador, Kinesiólogos y Recepción',
-      'Exportación de fichas completas a PDF con un solo clic si un paciente lo solicita',
-      'Copias de seguridad diarias automáticas y plataforma siempre en línea',
-      'Te ayudamos a migrar tus datos desde Excel u otro sistema y capacitamos a tu equipo',
+      'Hasta 4 kinesiólogos incluidos (+UF 0,3 / mes neto por profesional extra)',
+      'Cuentas ilimitadas para Secretaría, Recepción y Administrador',
+      'Multi-Sede / Sucursales Físicas: gestiona diferentes sedes con agendas coordinadas',
+      'Web de agendamiento doble: portal por kine + web central de la clínica (/reservar/centro/ID/)',
+      'Dashboard gerencial: métricas de ocupación de boxes, facturación mensual y rendimiento',
+      'Caja centralizada: control de pagos, deudas consolidadas y packs compartidos',
+      'Logo de la clínica en todo el sistema y en los portales de pacientes',
+      'Permisos por roles: Director Técnico, Administrador, Kinesiólogos y Recepción',
+      'Migración de datos asistida (Excel/otro sistema) y capacitación guiada para el equipo',
     ],
-    cta: 'Agendar Demo',
+    cta: 'Cotizar Plan Clínica',
     ctaStyle: 'secondary' as const,
   },
 ]
@@ -183,7 +186,7 @@ function LeadModal({
         phone: '',
         clinic: '',
         role: plan?.slug === 'clinica' ? 'Director / Kinesiólogo Jefe' : 'Kinesiólogo Principal',
-        kines: plan?.slug === 'clinica' ? '3+' : plan?.slug === 'clinica-duo' ? '2' : '1',
+        kines: plan?.slug === 'clinica' ? '4+' : (plan?.slug === 'clinico-pro' || plan?.slug === 'clinica-duo') ? '2' : '1',
         branches: '1 sede',
         specialty: 'Traumatología y Ortopedia',
         modality: 'Presencial en consulta',
@@ -1151,7 +1154,16 @@ export function Pricing() {
                   <p className="text-xl font-bold font-display text-foreground">
                     {plan.name}
                   </p>
-                  <p className="text-sm font-medium text-brand mt-1">{plan.users}</p>
+                  <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                    <span className="text-xs font-semibold text-brand bg-brand/10 border border-brand/20 px-2 py-0.5 rounded-md">
+                      {plan.users}
+                    </span>
+                    {'capacity' in plan && plan.capacity && (
+                      <span className="text-xs font-semibold text-emerald bg-emerald/10 border border-emerald/20 px-2 py-0.5 rounded-md">
+                        {plan.capacity}
+                      </span>
+                    )}
+                  </div>
                   
                   <div className="mt-6 flex flex-col gap-1.5">
                     <div className="flex items-end gap-x-2">
@@ -1214,7 +1226,7 @@ export function Pricing() {
                   <button
                     onClick={() => setModalPlan(plan)}
                     className={cn(
-                      "mt-8 group relative w-full flex items-center justify-center gap-2 overflow-hidden text-sm font-semibold tracking-wide py-3.5 rounded-full transition-all duration-300 ease-out hover:shadow-lg",
+                      "mt-8 group relative w-full flex items-center justify-center gap-2 overflow-hidden text-sm font-semibold tracking-wide py-3.5 rounded-full transition-all duration-300 ease-out hover:shadow-lg cursor-pointer",
                       plan.highlighted
                         ? "bg-brand text-white hover:bg-brand-dark hover:shadow-brand/25"
                         : "bg-surface border border-border/80 text-foreground hover:bg-foreground hover:text-background"
@@ -1230,6 +1242,15 @@ export function Pricing() {
               </motion.div>
             )})}
           </div>
+
+          {/* Interactive Detailed Comparison Table */}
+          <PricingComparisonTable
+            onSelectPlan={(slug) => {
+              const selected = plans.find((p) => p.slug === slug) ?? plans[0]
+              setModalPlan(selected)
+            }}
+            isMonthly={isMonthly}
+          />
 
           <div className="mt-14 text-center space-y-2">
             <p className="text-sm text-foreground-muted">

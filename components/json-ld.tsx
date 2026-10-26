@@ -68,18 +68,18 @@ export const softwareSchema = {
   offers: {
     '@type': 'AggregateOffer',
     priceCurrency: 'CLP',
-    lowPrice: '15990',
-    highPrice: '54990',
+    lowPrice: '15000',
+    highPrice: '53000',
     offerCount: '3',
     offers: [
       {
         '@type': 'Offer',
-        name: 'Plan Solo / Independiente',
-        price: '15990',
+        name: 'Plan Individual',
+        price: '15000',
         priceCurrency: 'CLP',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
-          price: '15990',
+          price: '15000',
           priceCurrency: 'CLP',
           valueAddedTaxIncluded: 'false',
           referenceQuantity: {
@@ -88,16 +88,16 @@ export const softwareSchema = {
             unitCode: 'MON',
           },
         },
-        description: 'Plan anual para 1 kinesiólogo independiente. 0,4 UF / mes neto (aprox. $15.990 CLP neto / $19.028 IVA incluido).',
+        description: 'Plan anual para 1 kinesiólogo independiente o atención a domicilio. 0,4 UF / mes neto (aprox. $15.000 CLP neto).',
       },
       {
         '@type': 'Offer',
         name: 'Plan Clínico Pro',
-        price: '27990',
+        price: '26000',
         priceCurrency: 'CLP',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
-          price: '27990',
+          price: '26000',
           priceCurrency: 'CLP',
           valueAddedTaxIncluded: 'false',
           referenceQuantity: {
@@ -106,16 +106,16 @@ export const softwareSchema = {
             unitCode: 'MON',
           },
         },
-        description: 'Plan anual para hasta 2 kinesiólogos o Kine + Secretaria. 0,7 UF / mes neto (aprox. $27.990 CLP neto / $33.308 IVA incluido).',
+        description: 'Plan anual para hasta 2 kinesiólogos + cuenta secretaria incluida. 0,7 UF / mes neto (aprox. $26.000 CLP neto).',
       },
       {
         '@type': 'Offer',
-        name: 'Plan Clínica Pro',
-        price: '43990',
+        name: 'Plan Clínica / Centro',
+        price: '41000',
         priceCurrency: 'CLP',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
-          price: '43990',
+          price: '41000',
           priceCurrency: 'CLP',
           valueAddedTaxIncluded: 'false',
           referenceQuantity: {
@@ -124,7 +124,7 @@ export const softwareSchema = {
             unitCode: 'MON',
           },
         },
-        description: 'Plan anual para centros de rehabilitación con 3 kinesiólogos incluidos. 1,1 UF / mes neto (aprox. $43.990 CLP neto / $52.348 IVA incluido).',
+        description: 'Plan anual para centros de rehabilitación y clínicas con hasta 4 kinesiólogos incluidos, multi-sede y secretaría. 1,1 UF / mes neto (aprox. $41.000 CLP neto).',
       },
     ],
   },
