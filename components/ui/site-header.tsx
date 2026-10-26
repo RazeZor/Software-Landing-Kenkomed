@@ -7,12 +7,6 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { AnimatedIcon } from '@/components/ui/animated-icon'
 import menu4 from 'react-useanimations/lib/menu4'
-import phoneCall from 'react-useanimations/lib/phoneCall'
-import activity from 'react-useanimations/lib/activity'
-import clipboard from 'react-useanimations/lib/clipboard'
-import trendingUp from 'react-useanimations/lib/trendingUp'
-import userCheck from 'react-useanimations/lib/userCheck'
-import shield from 'react-useanimations/lib/shield'
 import {
   Sheet,
   SheetContent,
@@ -51,46 +45,36 @@ const funcionesSubMenu = [
     href: '/funcionalidades#funcionalidades',
     desc: 'Reservas online 24/7 con bloqueo atómico.',
     icon: CalendarCheck,
-    color: 'text-orange-500 bg-orange-500/10 border-orange-500/20',
   },
   {
     title: 'Pautas de Ejercicios WhatsApp',
     href: '/funcionalidades#funcionalidades',
     desc: 'Catálogo anatómico y PDF membretado.',
     icon: Whatsapp,
-    color: 'text-emerald bg-emerald/10 border-emerald/20',
   },
   {
     title: 'DSS Clínico & 13 Escalas',
     href: '/funcionalidades#plataforma',
     desc: '13 escalas validadas, banderas rojas y algoritmos.',
-    animation: activity,
     icon: Stethoscope,
-    color: 'text-teal-600 bg-teal-500/10 border-teal-500/20',
   },
   {
     title: 'Admisión Express QR',
     href: '/funcionalidades#admision-remota',
     desc: 'Anamnesis inteligente desde el celular (14 págs).',
-    animation: userCheck,
     icon: QrCode,
-    color: 'text-blue-500 bg-blue-500/10 border-blue-500/20',
   },
   {
     title: 'Ficha Digital & Ciclos',
     href: '/funcionalidades#funcionalidades',
     desc: 'Episodios clínicos, evoluciones SOAP y alta.',
-    animation: clipboard,
     icon: FileText,
-    color: 'text-purple-500 bg-purple-500/10 border-purple-500/20',
   },
   {
     title: 'Monitoreo & Outcomes',
     href: '/funcionalidades#monitoreo',
     desc: 'Gráficos de recuperación en tiempo real.',
-    animation: trendingUp,
     icon: LineChart,
-    color: 'text-amber-500 bg-amber-500/10 border-amber-500/20',
   },
 ]
 
@@ -99,22 +83,20 @@ const solucionSubMenu = [
     title: 'Nuestra Solución',
     href: '/solucion',
     desc: 'Transformación digital clínica integral.',
-    animation: activity,
     icon: Sparkles,
   },
   {
     title: 'Investigación Científica',
     href: '/investigacion',
     desc: 'Evidencia clínica y base de datos DSS.',
-    animation: shield,
     icon: Flask,
   },
 ]
 
 const recursosSubMenu = [
-  { title: 'Blog & Guías Clínicas', href: '/blog', desc: 'Guías de Ficha Digital, SOAP e Isapre', animation: clipboard, icon: BookOpen, badge: 'Guías' },
+  { title: 'Blog & Guías Clínicas', href: '/blog', desc: 'Guías de Ficha Digital, SOAP e Isapre', icon: BookOpen, badge: 'Guías' },
   { title: 'Preguntas Frecuentes', href: '/#preguntas-frecuentes', desc: 'Respuestas a dudas comunes', icon: Questionnaire },
-  { title: 'Seguridad & Datos', href: '/seguridad', desc: 'Privacidad y cifrado de datos', animation: shield, icon: ShieldCheck },
+  { title: 'Seguridad & Datos', href: '/seguridad', desc: 'Privacidad y cifrado de datos', icon: ShieldCheck },
 ]
 
 const NAV_ITEMS: NavItem[] = [
@@ -127,7 +109,6 @@ const NAV_ITEMS: NavItem[] = [
           label: item.title,
           description: item.desc,
           href: item.href,
-          animation: item.animation,
           icon: item.icon,
         }))
       }
@@ -143,7 +124,6 @@ const NAV_ITEMS: NavItem[] = [
             label: item.title,
             description: item.desc,
             href: item.href,
-            animation: item.animation,
             icon: item.icon,
           })),
           {
@@ -172,7 +152,6 @@ const NAV_ITEMS: NavItem[] = [
         items: recursosSubMenu.map(item => ({
           label: item.title,
           href: item.href,
-          animation: item.animation,
           icon: item.icon,
         }))
       }
@@ -289,7 +268,7 @@ export function SiteHeader() {
             <Button asChild>
               <Link href="/#contact/" className="inline-flex items-center gap-1.5 font-semibold text-xs">
                 <span>Solicitar Demo</span>
-                <AnimatedIcon animation={activity} size={15} strokeColor="#ffffff" autoplay />
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </Button>
           </div>
@@ -457,14 +436,8 @@ export function SiteHeader() {
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 p-3 rounded-xl border border-border/50 bg-card/60 hover:border-emerald/40 hover:bg-card transition-colors group"
                     >
-                      <div className="h-8 w-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center shrink-0">
-                        <AnimatedIcon
-                          animation={phoneCall}
-                          size={18}
-                          strokeColor="#10b981"
-                          autoplay
-                          loop
-                        />
+                      <div className="h-8 w-8 rounded-lg bg-foreground/5 text-foreground flex items-center justify-center shrink-0">
+                        <Whatsapp className="h-4 w-4 text-foreground" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-semibold text-foreground group-hover:text-emerald transition-colors">
