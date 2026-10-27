@@ -2007,7 +2007,7 @@ export function DemoContent() {
               </a>
 
               <Link
-                href="/#contact/"
+                href="/#contact"
                 className="w-full py-2.5 px-4 bg-sky-50 hover:bg-sky-100 text-sky-800 text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-1.5"
               >
                 <span>Formulario de Contacto & Agendamiento</span>

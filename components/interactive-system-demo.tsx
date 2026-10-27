@@ -20,11 +20,15 @@ import {
   ChevronRight,
   Info,
   Clock,
-  Plus
+  Plus,
+  Smartphone,
+  Monitor,
+  ArrowRight
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 import { DemoFeatures } from '@/components/blocks/demo-features'
+import { KenkomedPhoneFeed } from '@/components/kenkomed-phone-feed'
 
 const EXPLANATIONS = [
   {
@@ -58,6 +62,7 @@ const EXPLANATIONS = [
 ]
 
 export function InteractiveSystemDemo() {
+  const [viewMode, setViewMode] = useState<'mobile' | 'desktop'>('mobile')
   const [activeStep, setActiveStep] = useState(0)
   const [activeTab, setActiveTab] = useState('clinical') // 'clinical', 'inicio'
 
@@ -87,8 +92,44 @@ export function InteractiveSystemDemo() {
       {/* Demo Features Grid */}
       <DemoFeatures />
 
-      {/* Browser / App Frame */}
-      <div className="w-full h-[700px] bg-[#f8fafc] rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200/80 flex flex-col relative z-10">
+      {/* View Mode Switcher (Segmented Control) */}
+      <div className="inline-flex items-center p-1 bg-slate-100/90 rounded-full border border-slate-200/80 shadow-inner mb-8 z-20">
+        <button
+          type="button"
+          onClick={() => setViewMode('mobile')}
+          className={cn(
+            "flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200",
+            viewMode === 'mobile'
+              ? "bg-white text-slate-900 shadow-sm"
+              : "text-slate-600 hover:text-slate-900"
+          )}
+        >
+          <Smartphone className={cn("h-3.5 w-3.5", viewMode === 'mobile' ? "text-primary" : "text-slate-400")} />
+          <span>Experiencia Móvil</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setViewMode('desktop')}
+          className={cn(
+            "flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200",
+            viewMode === 'desktop'
+              ? "bg-white text-slate-900 shadow-sm"
+              : "text-slate-600 hover:text-slate-900"
+          )}
+        >
+          <Monitor className={cn("h-3.5 w-3.5", viewMode === 'desktop' ? "text-primary" : "text-slate-400")} />
+          <span>Portal Clínico Desktop</span>
+        </button>
+      </div>
+
+      {viewMode === 'mobile' ? (
+        <div className="w-full">
+          <KenkomedPhoneFeed />
+        </div>
+      ) : (
+        /* Browser / App Frame */
+        <div className="w-full h-[700px] bg-[#f8fafc] rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200/80 flex flex-col relative z-10">
         
         {/* Mac OS Window Controls */}
         <div className="h-10 bg-white border-b border-slate-200/60 flex items-center px-4 gap-2 shrink-0">
@@ -249,6 +290,7 @@ export function InteractiveSystemDemo() {
           </nav>
         </div>
       </div>
+      )}
     </div>
   )
 }

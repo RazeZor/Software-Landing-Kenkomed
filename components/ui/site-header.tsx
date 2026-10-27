@@ -34,6 +34,7 @@ import {
   RiArrowRightSLine as ChevronRight,
   RiCheckLine as Check,
   RiCloseLine as CloseIcon,
+  RiPlayFill as Play,
 } from 'react-icons/ri'
 import { DropdownNavigation, NavItem } from '@/components/ui/dropdown-navigation'
 
@@ -259,18 +260,19 @@ export function SiteHeader() {
           <div className="hidden items-center gap-2.5 md:flex">
             <Link
               href="/demo/"
-              className="inline-flex items-center gap-2 h-9 px-3.5 rounded-lg text-xs font-semibold text-foreground/80 hover:text-foreground bg-foreground/[0.04] hover:bg-foreground/[0.08] border border-border/70 hover:border-border transition-all duration-200 active:scale-95"
+              className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-xs font-semibold text-foreground/80 hover:text-foreground bg-foreground/[0.04] hover:bg-foreground/[0.08] border border-border/80 hover:border-border transition-all duration-200 active:scale-95 shadow-2xs"
             >
-              <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
+              <Play className="h-2.5 w-2.5 text-primary" />
               <span>Ver Demo</span>
             </Link>
 
-            <Button asChild>
-              <Link href="/#contact/" className="inline-flex items-center gap-1.5 font-semibold text-xs">
-                <span>Solicitar Demo</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </Button>
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-xs font-semibold bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-md transition-all duration-200 active:scale-[0.98]"
+            >
+              <span>Solicitar Demo</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
 
           {/* Mobile Hamburger Drawer Overlay */}
@@ -455,7 +457,7 @@ export function SiteHeader() {
                 {/* Clean Bottom Actions */}
                 <div className="border-t border-border/40 p-5 bg-background/95 backdrop-blur-md space-y-2.5 shrink-0">
                   <Button asChild size="lg" className="w-full font-semibold text-sm rounded-full bg-emerald hover:bg-emerald/90 text-white shadow-md shadow-emerald/20 flex items-center justify-center gap-2 transition-all">
-                    <Link href="/#contact/" onClick={() => setMobileOpen(false)}>
+                    <Link href="/#contact" onClick={() => setMobileOpen(false)}>
                       <span>Solicitar Demo Gratuita</span>
                       <ArrowRight className="h-4 w-4" />
                     </Link>
@@ -466,7 +468,7 @@ export function SiteHeader() {
                     onClick={() => setMobileOpen(false)}
                     className="w-full h-11 font-semibold text-sm rounded-full border border-border/80 hover:border-border bg-foreground/[0.03] hover:bg-foreground/[0.07] text-foreground flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                   >
-                    <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
+                    <Play className="h-3.5 w-3.5 text-primary" />
                     <span>Ver Demo en Vivo</span>
                   </Link>
 
