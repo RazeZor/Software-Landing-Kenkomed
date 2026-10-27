@@ -10,7 +10,7 @@ import {
   useMousePosition,
   usePrefersMotionFx,
 } from '@/hooks/use-scroll-animation'
-import { PhoneCarousel } from '@/components/ui/phone-mockups-1-utils/phone-carousel'
+import { HeroPhoneShowcase } from '@/components/hero-phone-showcase'
 
 
 
@@ -359,7 +359,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
             >
-              <PhoneCarousel variant="single" />
+              <HeroPhoneShowcase />
             </motion.div>
 
             {/* Floating card #1 — WhatsApp Pauta de Ejercicios */}

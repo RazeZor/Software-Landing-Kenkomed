@@ -28,7 +28,7 @@ import {
 import { cn } from '@/lib/utils'
 
 import { DemoFeatures } from '@/components/blocks/demo-features'
-import { KenkomedPhoneFeed } from '@/components/kenkomed-phone-feed'
+import { MgDevLaptopShowcase } from '@/components/mg-dev-laptop-showcase'
 
 const EXPLANATIONS = [
   {
@@ -62,7 +62,6 @@ const EXPLANATIONS = [
 ]
 
 export function InteractiveSystemDemo() {
-  const [viewMode, setViewMode] = useState<'mobile' | 'desktop'>('mobile')
   const [activeStep, setActiveStep] = useState(0)
   const [activeTab, setActiveTab] = useState('clinical') // 'clinical', 'inicio'
 
@@ -87,210 +86,12 @@ export function InteractiveSystemDemo() {
   }
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto flex flex-col items-center">
-      
+    <div className="relative w-full max-w-6xl mx-auto flex flex-col items-center px-4 sm:px-6 lg:px-8">
       {/* Demo Features Grid */}
       <DemoFeatures />
 
-      {/* View Mode Switcher (Segmented Control) */}
-      <div className="inline-flex items-center p-1 bg-slate-100/90 rounded-full border border-slate-200/80 shadow-inner mb-8 z-20">
-        <button
-          type="button"
-          onClick={() => setViewMode('mobile')}
-          className={cn(
-            "flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200",
-            viewMode === 'mobile'
-              ? "bg-white text-slate-900 shadow-sm"
-              : "text-slate-600 hover:text-slate-900"
-          )}
-        >
-          <Smartphone className={cn("h-3.5 w-3.5", viewMode === 'mobile' ? "text-primary" : "text-slate-400")} />
-          <span>Experiencia Móvil</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setViewMode('desktop')}
-          className={cn(
-            "flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200",
-            viewMode === 'desktop'
-              ? "bg-white text-slate-900 shadow-sm"
-              : "text-slate-600 hover:text-slate-900"
-          )}
-        >
-          <Monitor className={cn("h-3.5 w-3.5", viewMode === 'desktop' ? "text-primary" : "text-slate-400")} />
-          <span>Portal Clínico Desktop</span>
-        </button>
-      </div>
-
-      {viewMode === 'mobile' ? (
-        <div className="w-full">
-          <KenkomedPhoneFeed />
-        </div>
-      ) : (
-        /* Browser / App Frame */
-        <div className="w-full h-[700px] bg-[#f8fafc] rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200/80 flex flex-col relative z-10">
-        
-        {/* Mac OS Window Controls */}
-        <div className="h-10 bg-white border-b border-slate-200/60 flex items-center px-4 gap-2 shrink-0">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-rose-400"></div>
-            <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-            <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
-          </div>
-          <div className="mx-auto px-4 py-1 bg-slate-100 rounded-md text-[10px] font-semibold text-slate-400 flex items-center gap-2">
-            app.kenkomed.com
-          </div>
-        </div>
-
-        <div className="flex flex-1 overflow-hidden">
-          {/* Sidebar */}
-          <aside className="hidden sm:flex flex-col w-20 lg:w-56 bg-white border-r border-slate-200/60 flex-shrink-0 z-10">
-            <div className="flex items-center justify-center lg:justify-start h-14 px-4 border-b border-slate-50 shrink-0">
-              <div className="font-bold text-[#0284c7] flex gap-2.5 items-center">
-                <img 
-                  src="/images/LogoKenKoMed-removebg-preview.png" 
-                  alt="Kenkomed logo" 
-                  className="w-7 h-7 object-contain"
-                />
-                <span className="hidden lg:block tracking-tight text-[0.95rem]">KenkoMed</span>
-              </div>
-            </div>
-            <div className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
-              
-              <button onClick={() => setActiveTab('inicio')} className={cn("w-full flex items-center p-2 rounded-xl transition-all", activeTab === 'inicio' ? "bg-blue-50" : "hover:bg-slate-50")}>
-                <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg shrink-0 transition-colors", activeTab === 'inicio' ? "bg-[#0284c7] text-white shadow-sm" : "bg-slate-100 text-slate-500")}>
-                  <Home size={16} strokeWidth={2.5} />
-                </div>
-                <span className={cn("hidden lg:block ml-3 text-xs font-semibold", activeTab === 'inicio' ? "text-[#0284c7]" : "text-slate-600")}>Inicio</span>
-              </button>
-
-              <button onClick={() => { setActiveTab('clinical'); setActiveStep(0) }} className={cn("w-full flex items-center p-2 rounded-xl transition-all", isClinical ? "bg-blue-50" : "hover:bg-slate-50")}>
-                <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg shrink-0 transition-colors", isClinical ? "bg-[#0284c7] text-white shadow-sm" : "bg-slate-100 text-slate-500")}>
-                  <Users size={16} strokeWidth={2.5} />
-                </div>
-                <span className={cn("hidden lg:block ml-3 text-xs font-semibold", isClinical ? "text-[#0284c7]" : "text-slate-600")}>Mis Pacientes</span>
-              </button>
-
-              <button onClick={() => { setActiveTab('clinical'); setActiveStep(6) }} className={cn("w-full flex items-center p-2 rounded-xl transition-all", activeStep === 6 && activeTab === 'clinical' ? "bg-blue-50" : "hover:bg-slate-50")}>
-                <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg shrink-0 transition-colors", activeStep === 6 && activeTab === 'clinical' ? "bg-[#0284c7] text-white shadow-sm" : "bg-slate-100 text-slate-500")}>
-                  <CreditCard size={16} strokeWidth={2.5} />
-                </div>
-                <span className={cn("hidden lg:block ml-3 text-xs font-semibold", activeStep === 6 && activeTab === 'clinical' ? "text-[#0284c7]" : "text-slate-600")}>Pagos & Packs</span>
-              </button>
-              <button onClick={() => setActiveTab('agenda')} className={cn("w-full flex items-center p-2 rounded-xl transition-all", activeTab === 'agenda' ? "bg-blue-50" : "hover:bg-slate-50")}>
-                <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg shrink-0 transition-colors", activeTab === 'agenda' ? "bg-[#0284c7] text-white shadow-sm" : "bg-slate-100 text-slate-500")}>
-                  <Calendar size={16} strokeWidth={2.5} />
-                </div>
-                <span className={cn("hidden lg:block ml-3 text-xs font-semibold", activeTab === 'agenda' ? "text-[#0284c7]" : "text-slate-600")}>Agenda</span>
-              </button>
-
-              <button onClick={() => setActiveTab('estadisticas')} className={cn("w-full flex items-center p-2 rounded-xl transition-all", activeTab === 'estadisticas' ? "bg-blue-50" : "hover:bg-slate-50")}>
-                <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg shrink-0 transition-colors", activeTab === 'estadisticas' ? "bg-[#0284c7] text-white shadow-sm" : "bg-slate-100 text-slate-500")}>
-                  <Activity size={16} strokeWidth={2.5} />
-                </div>
-                <span className={cn("hidden lg:block ml-3 text-xs font-semibold", activeTab === 'estadisticas' ? "text-[#0284c7]" : "text-slate-600")}>Estadísticas</span>
-              </button>
-            </div>
-          </aside>
-
-          {/* Main Workspace */}
-          <main className="flex-1 flex flex-col relative overflow-hidden bg-slate-50/50">
-            
-            {/* Topbar / Context */}
-            {isClinical ? (
-              <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/60 shrink-0 z-10 flex flex-col">
-                <div className="flex items-center justify-between px-6 py-3 border-b border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">MA</div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold text-slate-800 leading-none mb-0.5">Miguel Arias Silva</span>
-                      <span className="text-[10px] font-semibold text-slate-400">Expediente #4092 · 34 años</span>
-                    </div>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-wider border border-emerald-100">En Tratamiento</span>
-                </div>
-                
-                {/* Clinical Tabs Nav */}
-                <div className="flex px-4 pt-2 gap-1 overflow-x-auto hide-scrollbar">
-                  {[
-                    { id: 0, label: 'Anamnesis' },
-                    { id: 1, label: 'Evaluación' },
-                    { id: 2, label: 'Plan' },
-                    { id: 3, label: 'SOAP' },
-                    { id: 4, label: 'Resultados' },
-                    { id: 5, label: 'Alta' }
-                  ].map(tab => (
-                    <button 
-                      key={tab.id}
-                      onClick={() => setActiveStep(tab.id)}
-                      className={cn(
-                        "px-4 py-2 text-xs font-bold border-b-2 transition-colors whitespace-nowrap",
-                        activeStep === tab.id ? "border-[#0284c7] text-[#0284c7]" : "border-transparent text-slate-400 hover:text-slate-600 hover:border-slate-300"
-                      )}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-              </header>
-            ) : (
-              <header className="h-14 bg-white/80 backdrop-blur-md border-b border-slate-200/60 flex items-center px-6 shrink-0 z-10">
-                <span className="text-sm font-bold text-slate-800">
-                  {activeTab === 'inicio' ? 'Panel de Control' : 
-                   activeTab === 'agenda' ? 'Mi Agenda' : 
-                   activeTab === 'estadisticas' ? 'Estadísticas del Centro' : 
-                   'Panel Financiero'}
-                </span>
-              </header>
-            )}
-
-            {/* Dashboard Content */}
-            <div className="flex-1 p-2.5 sm:p-8 pb-16 sm:pb-8 overflow-hidden relative">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`${activeTab}-${activeStep}`}
-                  initial={{ opacity: 0, y: 10, scale: 0.99 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.99 }}
-                  transition={{ duration: 0.3 }}
-                  className={cn(
-                    "h-full overflow-y-auto",
-                    activeTab === 'inicio' ? "" : "bg-white rounded-xl sm:rounded-2xl border border-slate-200/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)] p-3 sm:p-6"
-                  )}
-                >
-                  {renderContent()}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </main>
-          
-          {/* Mobile Bottom Navigation */}
-          <nav className="sm:hidden absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200/60 flex justify-around items-center px-2 py-3 z-30">
-            <button onClick={() => setActiveTab('inicio')} className={cn("flex flex-col items-center gap-1 transition-colors", activeTab === 'inicio' ? "text-[#0284c7]" : "text-slate-400 hover:text-slate-600")}>
-              <Home size={20} strokeWidth={activeTab === 'inicio' ? 2.5 : 2} />
-              <span className="text-[10px] font-bold">Inicio</span>
-            </button>
-            <button onClick={() => { setActiveTab('clinical'); setActiveStep(0) }} className={cn("flex flex-col items-center gap-1 transition-colors", isClinical ? "text-[#0284c7]" : "text-slate-400 hover:text-slate-600")}>
-              <Users size={20} strokeWidth={isClinical ? 2.5 : 2} />
-              <span className="text-[10px] font-bold">Pacientes</span>
-            </button>
-            <button onClick={() => { setActiveTab('clinical'); setActiveStep(6) }} className={cn("flex flex-col items-center gap-1 transition-colors", activeStep === 6 && activeTab === 'clinical' ? "text-[#0284c7]" : "text-slate-400 hover:text-slate-600")}>
-              <CreditCard size={20} strokeWidth={activeStep === 6 && activeTab === 'clinical' ? 2.5 : 2} />
-              <span className="text-[10px] font-bold">Pagos</span>
-            </button>
-            <button onClick={() => setActiveTab('agenda')} className={cn("flex flex-col items-center gap-1 transition-colors", activeTab === 'agenda' ? "text-[#0284c7]" : "text-slate-400 hover:text-slate-600")}>
-              <Calendar size={20} strokeWidth={activeTab === 'agenda' ? 2.5 : 2} />
-              <span className="text-[10px] font-bold">Agenda</span>
-            </button>
-            <button onClick={() => setActiveTab('estadisticas')} className={cn("flex flex-col items-center gap-1 transition-colors", activeTab === 'estadisticas' ? "text-[#0284c7]" : "text-slate-400 hover:text-slate-600")}>
-              <Activity size={20} strokeWidth={activeTab === 'estadisticas' ? 2.5 : 2} />
-              <span className="text-[10px] font-bold">Stats</span>
-            </button>
-          </nav>
-        </div>
-      </div>
-      )}
+      {/* 21st.dev mg-dev-laptop 3D Laptop Showcase matching 1st photo */}
+      <MgDevLaptopShowcase />
     </div>
   )
 }
