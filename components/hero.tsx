@@ -145,17 +145,31 @@ export function Hero() {
         }
         .hm-btn-ghost:hover { color: var(--kenko-sapphire); }
 
-        /* ── Social proof row ── */
+        /* ── Trust badges & Social proof row ── */
+        .hm-trust-badges {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 0.5rem 1.25rem;
+          margin-bottom: var(--space-md);
+        }
+        .hm-trust-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.375rem;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          color: var(--foreground-muted);
+        }
+
         .hm-social-proof {
-          display: flex; align-items: center; gap: 0.625rem;
-          margin-bottom: var(--space-xl);
+          display: flex;
+          align-items: center;
+          gap: 0.625rem;
         }
         .hm-social-stars { display: flex; gap: 1px; color: #F5A623; flex-shrink: 0; }
         .hm-social-text { font-size: 0.8125rem; color: var(--foreground-muted); }
         .hm-social-text strong { color: var(--foreground); font-weight: 600; }
-
-        .hm-trust-list { display: flex; flex-direction: column; gap: 0.625rem; }
-        .hm-trust-item { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--foreground-muted); }
 
         /* ── Right column: Phone mockup showcase + floating overlap cards ── */
         .hm-visual-wrap {
@@ -309,9 +323,7 @@ export function Hero() {
             </motion.h1>
 
             <motion.p variants={itemVariants} className="hm-hero-lede">
-              Automatiza tu agendamiento online multi-box sin sobrecupos, evalúa con cuestionarios funcionales validados,
-              prescribe pautas de ejercicios en 1 clic y cumple con la{' '}
-              <strong className="font-semibold text-foreground">Ley 21.719 de Protección de Datos Personales</strong> en Chile.
+              Agenda multi-box sin sobrecupos, fichas con escalas validadas y pautas a WhatsApp en 1 clic. Diseñado al 100% para la normativa de salud en Chile.
             </motion.p>
 
             <motion.div variants={itemVariants} className="hm-hero-actions">
@@ -324,7 +336,22 @@ export function Hero() {
               </Link>
             </motion.div>
 
-            {/* Social proof — swap the number for a real, verifiable one before shipping */}
+            <motion.div variants={itemVariants} className="hm-trust-badges">
+              <span className="hm-trust-badge">
+                <CheckCircle2 size={15} className="text-emerald shrink-0" />
+                Ley 21.719 & Derechos ARCO
+              </span>
+              <span className="hm-trust-badge">
+                <CheckCircle2 size={15} className="text-emerald shrink-0" />
+                Sin tarjeta de crédito
+              </span>
+              <span className="hm-trust-badge">
+                <CheckCircle2 size={15} className="text-emerald shrink-0" />
+                Onboarding guiado
+              </span>
+            </motion.div>
+
+            {/* Social proof */}
             <motion.div variants={itemVariants} className="hm-social-proof">
               <span className="hm-social-stars" aria-hidden="true">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -333,21 +360,6 @@ export function Hero() {
               </span>
               <span className="hm-social-text">
                 <strong>Clínicas y Kinesiólogos en Chile</strong> confían en KenkoMed v2.4
-              </span>
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="hm-trust-list">
-              <span className="hm-trust-item">
-                <CheckCircle2 size={16} className="text-emerald" />
-                Agenda Multi-Box sin choques (Doble factor seguro RUT + Fecha de nacimiento)
-              </span>
-              <span className="hm-trust-item">
-                <CheckCircle2 size={16} className="text-emerald" />
-                Pautas de ejercicios en WhatsApp y PDF membretado auditado en 1 clic
-              </span>
-              <span className="hm-trust-item">
-                <CheckCircle2 size={16} className="text-emerald" />
-                Blindaje normativo chileno: Ley 21.719, Ley 20.584 y Derechos ARCO
               </span>
             </motion.div>
           </motion.div>

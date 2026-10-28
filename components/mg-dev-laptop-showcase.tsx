@@ -1,25 +1,32 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { cn } from '@/lib/utils'
+import { useReveal } from '@/hooks/use-scroll-animation'
 
 interface MgDevLaptopProps {
   className?: string
   kicker?: string
   headline?: string
   caption?: string
+  imageSrc?: string
 }
 
 export function MgDevLaptopShowcase({
   className,
   kicker = "KenkoMed for clinics",
   headline = "Tu clínica completa en una pantalla",
-  caption = "Fichas SOAP, agenda multi-box y resúmenes clínicos con IA, en vivo para tu equipo."
+  caption = "Fichas SOAP, agenda multi-box y resúmenes clínicos con IA, en vivo para tu equipo.",
+  imageSrc = "/software/panel.png"
 }: MgDevLaptopProps) {
-  const [activeTab, setActiveTab] = useState<'kpi' | 'soap' | 'agenda'>('kpi')
+  const { ref: containerRef, isVisible } = useReveal<HTMLDivElement>({ threshold: 0.1, rootMargin: '60px' })
 
   return (
-    <div className={cn("relative w-full max-w-6xl mx-auto my-4", className)}>
+    <div
+      ref={containerRef}
+      className={cn("relative w-full max-w-6xl mx-auto my-4", className)}
+      style={{ '--laptop-play-state': isVisible ? 'running' : 'paused' } as React.CSSProperties}
+    >
       <style>{`
         /* ── 21st.dev mg-dev-laptop Exact Engine ── */
         .v-dev-laptop-root {
@@ -61,7 +68,7 @@ export function MgDevLaptopShowcase({
           perspective-origin: 50% 22%;
         }
 
-        /* 3D Rig positioned precisely like 21st mg-dev-laptop */
+        /* 3D Rig - animated 21st.dev orbit (runs once, stays open) */
         .v-dev-laptop-root .rig {
           position: absolute;
           left: 50%;
@@ -69,12 +76,8 @@ export function MgDevLaptopShowcase({
           width: 0;
           height: 0;
           transform-style: preserve-3d;
-          transform: scale3d(0.92, 0.92, 0.92) translate3d(0cqw, 0cqw, 0cqw) rotateX(-14deg) rotateY(12deg);
-          transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .v-dev-laptop-root:hover .rig {
-          transform: scale3d(0.94, 0.94, 0.94) translate3d(0cqw, -0.8cqw, 0cqw) rotateX(-12deg) rotateY(8deg);
+          animation: dev-laptop-orbit 3.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-play-state: var(--laptop-play-state, running);
         }
 
         /* Ground Shadow */
@@ -150,7 +153,9 @@ export function MgDevLaptopShowcase({
           top: 0;
           height: 14cqw;
           background: radial-gradient(60% 100% at 50% 0%, rgba(2, 132, 199, 0.45) 0%, rgba(2, 132, 199, 0.12) 42%, transparent 72%);
-          opacity: 0.85;
+          opacity: 0;
+          animation: dev-laptop-on 3.4s ease forwards;
+          animation-play-state: var(--laptop-play-state, running);
           pointer-events: none;
         }
 
@@ -177,16 +182,17 @@ export function MgDevLaptopShowcase({
           background: #7d7d85;
         }
 
-        /* Screen Lid (Upright open in 3D) */
+        /* Screen Lid (Upright open in 3D - animated opening, stays open) */
         .v-dev-laptop-root .lid {
           position: absolute;
           left: -23cqw;
-          top: -30cqw;
+          top: -27.5cqw;
           width: 46cqw;
-          height: 30cqw;
+          height: 27.5cqw;
           transform-origin: 50% 100%;
           transform-style: preserve-3d;
-          transform: rotateX(16deg);
+          animation: dev-laptop-lid 3.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-play-state: var(--laptop-play-state, running);
         }
 
         .v-dev-laptop-root .front,
@@ -229,6 +235,48 @@ export function MgDevLaptopShowcase({
           container-type: inline-size;
         }
 
+        /* 21st.dev Boot Screen Logo */
+        .v-dev-laptop-root .boot {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          animation: dev-laptop-boot 3.4s ease forwards;
+          animation-play-state: var(--laptop-play-state, running);
+          z-index: 10;
+          pointer-events: none;
+        }
+        .v-dev-laptop-root .boot span {
+          width: 8.5cqw;
+          height: 8.5cqw;
+          border-radius: 2.2cqw;
+          background: linear-gradient(135deg, #0284c7, #38bdf8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 7cqw rgba(2, 132, 199, 0.6);
+        }
+        .v-dev-laptop-root .boot svg {
+          width: 5cqw;
+          height: 5cqw;
+          fill: #fff;
+        }
+
+        .v-dev-laptop-root .screen-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: left top;
+          display: block;
+          user-select: none;
+          pointer-events: none;
+          opacity: 0;
+          animation: dev-laptop-app 3.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-play-state: var(--laptop-play-state, running);
+        }
+
         /* Camera Notch */
         .v-dev-laptop-root .notch {
           position: absolute;
@@ -252,326 +300,6 @@ export function MgDevLaptopShowcase({
           background: radial-gradient(circle at 35% 35%, #3c4a7a, #0d0f18 70%);
         }
 
-        /* Screen App UI */
-        .v-dev-laptop-root .app {
-          position: absolute;
-          inset: 0;
-          display: grid;
-          grid-template-columns: 20cqw 1fr;
-          background: #0d0e14;
-          color: #eaecf0;
-          font-size: 1.9cqw;
-          opacity: 1;
-        }
-
-        .v-dev-laptop-root .side {
-          background: #090a0f;
-          border-right: 1px solid rgba(255, 255, 255, 0.06);
-          padding: 2.6cqw 1.6cqw;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5cqw;
-        }
-
-        .v-dev-laptop-root .ws {
-          display: flex;
-          align-items: center;
-          gap: 1.2cqw;
-          font-weight: 700;
-          font-size: 2.2cqw;
-          margin: 0 0 2.2cqw 0.6cqw;
-          letter-spacing: -0.02em;
-          color: #fff;
-        }
-        .v-dev-laptop-root .mk {
-          width: 3.4cqw;
-          height: 3.4cqw;
-          border-radius: 1cqw;
-          background: linear-gradient(135deg, #0284c7, #38bdf8);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
-        }
-        .v-dev-laptop-root .mk svg {
-          width: 2.2cqw;
-          height: 2.2cqw;
-          fill: #fff;
-        }
-
-        .v-dev-laptop-root .nv {
-          display: flex;
-          align-items: center;
-          gap: 1.2cqw;
-          padding: 1cqw 1.1cqw;
-          border-radius: 1cqw;
-          color: #8e90a6;
-          font-size: 1.8cqw;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-        .v-dev-laptop-root .nv:hover {
-          color: #fff;
-          background: rgba(255, 255, 255, 0.05);
-        }
-        .v-dev-laptop-root .nv.on {
-          background: rgba(255, 255, 255, 0.08);
-          color: #fff;
-          font-weight: 600;
-        }
-        .v-dev-laptop-root .nv svg {
-          width: 2.3cqw;
-          height: 2.3cqw;
-          fill: none;
-          stroke: currentColor;
-          stroke-width: 2;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-        }
-        .v-dev-laptop-root .nv em {
-          margin-left: auto;
-          font-style: normal;
-          font-size: 1.4cqw;
-          font-weight: 700;
-          background: #0284c7;
-          color: #fff;
-          border-radius: 1cqw;
-          padding: 0.1cqw 0.8cqw;
-        }
-
-        .v-dev-laptop-root .cap {
-          font-size: 1.4cqw;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.06em;
-          color: #5d6078;
-          margin: 1.8cqw 0 0.5cqw 1.1cqw;
-        }
-
-        .v-dev-laptop-root .sp {
-          display: flex;
-          align-items: center;
-          gap: 1.2cqw;
-          padding: 0.7cqw 1.1cqw;
-          color: #a7a9bd;
-          font-size: 1.7cqw;
-        }
-        .v-dev-laptop-root .sp i {
-          width: 1.3cqw;
-          height: 1.3cqw;
-          border-radius: 0.4cqw;
-          background: var(--c);
-        }
-
-        /* Main Workspace */
-        .v-dev-laptop-root .main {
-          padding: 2.6cqw 3.2cqw;
-          display: flex;
-          flex-direction: column;
-          min-width: 0;
-          overflow: hidden;
-        }
-
-        .v-dev-laptop-root .top {
-          display: flex;
-          align-items: center;
-          gap: 1.4cqw;
-          color: #7f8299;
-          font-size: 1.7cqw;
-        }
-        .v-dev-laptop-root .top b {
-          color: #d9dae6;
-          font-weight: 600;
-        }
-
-        .v-dev-laptop-root .avs {
-          margin-left: auto;
-          display: flex;
-        }
-        .v-dev-laptop-root .avs i {
-          width: 2.8cqw;
-          height: 2.8cqw;
-          border-radius: 50%;
-          border: 0.3cqw solid #0d0e14;
-          margin-left: -0.9cqw;
-          background: linear-gradient(135deg, #ffb38a, #e5677d);
-        }
-        .v-dev-laptop-root .avs i:nth-child(2) {
-          background: linear-gradient(135deg, #7fd3ff, #5a6cff);
-        }
-        .v-dev-laptop-root .avs i:nth-child(3) {
-          background: linear-gradient(135deg, #9ff0c9, #2fb98a);
-        }
-
-        .v-dev-laptop-root .share {
-          background: #f1f1f6;
-          color: #111219;
-          border-radius: 1cqw;
-          padding: 0.6cqw 1.5cqw;
-          font-weight: 600;
-          font-size: 1.6cqw;
-          cursor: pointer;
-        }
-
-        .v-dev-laptop-root .h {
-          font-size: 4.4cqw;
-          font-weight: 700;
-          letter-spacing: -0.035em;
-          margin-top: 2.4cqw;
-          color: #fff;
-          line-height: 1.1;
-        }
-
-        .v-dev-laptop-root .sub {
-          display: flex;
-          align-items: center;
-          gap: 0.8cqw;
-          color: #7f8299;
-          font-size: 1.7cqw;
-          margin-top: 0.6cqw;
-        }
-        .v-dev-laptop-root .sub svg {
-          width: 1.9cqw;
-          height: 1.9cqw;
-          fill: #38bdf8;
-        }
-
-        /* KPIs Row */
-        .v-dev-laptop-root .kpis {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.6cqw;
-          margin-top: 2.6cqw;
-        }
-        .v-dev-laptop-root .k {
-          background: #14151e;
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 1.5cqw;
-          padding: 1.6cqw 1.8cqw;
-          display: grid;
-          grid-template-columns: 1fr auto;
-          align-items: end;
-          row-gap: 0.4cqw;
-        }
-        .v-dev-laptop-root .k span {
-          grid-column: 1 / 3;
-          color: #8b8da5;
-          font-size: 1.6cqw;
-        }
-        .v-dev-laptop-root .k b {
-          font-size: 3.6cqw;
-          font-weight: 700;
-          letter-spacing: -0.02em;
-          color: #fff;
-        }
-        .v-dev-laptop-root .k em {
-          font-style: normal;
-          font-size: 1.45cqw;
-          font-weight: 700;
-          color: #45e0a0;
-          background: rgba(69, 224, 160, 0.12);
-          border-radius: 0.8cqw;
-          padding: 0.2cqw 0.8cqw;
-          margin-bottom: 0.5cqw;
-        }
-
-        /* Bottom Row (Chart + AI) */
-        .v-dev-laptop-root .row {
-          display: grid;
-          grid-template-columns: 1.35fr 1fr;
-          gap: 1.6cqw;
-          margin-top: 1.6cqw;
-          flex: 1;
-          min-height: 0;
-          margin-bottom: 0.4cqw;
-        }
-
-        .v-dev-laptop-root .chart,
-        .v-dev-laptop-root .ai {
-          border-radius: 1.5cqw;
-          padding: 1.6cqw 1.8cqw;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .v-dev-laptop-root .chart {
-          background: #14151e;
-          border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .v-dev-laptop-root .chart span {
-          color: #8b8da5;
-          font-size: 1.6cqw;
-          font-weight: 500;
-        }
-
-        .v-dev-laptop-root .bars {
-          flex: 1;
-          display: flex;
-          align-items: flex-end;
-          gap: 0.9cqw;
-          margin-top: 1.4cqw;
-          transform-origin: 50% 100%;
-        }
-        .v-dev-laptop-root .bars i {
-          flex: 1;
-          height: calc(var(--h) * 100%);
-          border-radius: 0.5cqw 0.5cqw 0.2cqw 0.2cqw;
-          background: linear-gradient(180deg, #38bdf8 0%, #0369a1 100%);
-          opacity: 0.7;
-          transition: opacity 0.2s;
-        }
-        .v-dev-laptop-root .bars i.hi {
-          background: linear-gradient(180deg, #67e8f9 0%, #0284c7 100%);
-          opacity: 1;
-          box-shadow: 0 0 2cqw rgba(2, 132, 199, 0.55);
-        }
-
-        .v-dev-laptop-root .ai {
-          background: linear-gradient(160deg, rgba(2, 132, 199, 0.22), rgba(2, 132, 199, 0.08)), #14151e;
-          border: 1px solid rgba(56, 189, 248, 0.35);
-        }
-        .v-dev-laptop-root .aih {
-          display: flex;
-          align-items: center;
-          gap: 0.8cqw;
-          font-weight: 700;
-          font-size: 1.8cqw;
-          color: #fff;
-        }
-        .v-dev-laptop-root .aih svg {
-          width: 2.2cqw;
-          height: 2.2cqw;
-          fill: #38bdf8;
-        }
-        .v-dev-laptop-root .ai p {
-          margin: 1.2cqw 0 0;
-          color: #c9cad8;
-          font-size: 1.7cqw;
-          line-height: 1.45;
-        }
-
-        .v-dev-laptop-root .chips {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.8cqw;
-          margin-top: auto;
-          padding-top: 0.6cqw;
-        }
-        .v-dev-laptop-root .chips span {
-          font-size: 1.45cqw;
-          font-weight: 600;
-          border-radius: 2cqw;
-          padding: 0.4cqw 1.1cqw;
-          background: rgba(255, 255, 255, 0.1);
-          color: #e2e4e8;
-          cursor: pointer;
-          transition: background 0.2s;
-        }
-        .v-dev-laptop-root .chips span:hover {
-          background: rgba(255, 255, 255, 0.18);
-        }
-
         /* Glare */
         .v-dev-laptop-root .glare {
           position: absolute;
@@ -579,8 +307,114 @@ export function MgDevLaptopShowcase({
           top: -20%;
           width: 180%;
           height: 140%;
-          background: linear-gradient(112deg, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.11) 45%, rgba(255, 255, 255, 0.03) 52%, transparent 58%);
+          background: linear-gradient(112deg, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.14) 45%, rgba(255, 255, 255, 0.03) 52%, transparent 58%);
           pointer-events: none;
+          z-index: 20;
+          animation: dev-laptop-glare 3.4s ease forwards;
+          animation-play-state: var(--laptop-play-state, running);
+        }
+
+        /* ── 21st.dev Core Keyframes (Single Reveal Entrance Sequence) ── */
+        @keyframes dev-laptop-orbit {
+          0% {
+            transform: scale3d(0.92, 0.92, 0.92) translate3d(0cqw, 0cqw, -12cqw) rotateX(-26deg) rotateY(-18deg);
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          100% {
+            transform: scale3d(0.92, 0.92, 0.92) translate3d(0cqw, 0cqw, 0cqw) rotateX(-13deg) rotateY(12deg);
+          }
+        }
+
+        @keyframes dev-laptop-lid {
+          0%, 8% {
+            transform: rotateX(-88.6deg);
+            animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
+          }
+          46% {
+            transform: rotateX(21deg);
+            animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1);
+          }
+          66%, 100% {
+            transform: rotateX(16deg);
+          }
+        }
+
+        @keyframes dev-laptop-boot {
+          0%, 18% {
+            opacity: 0;
+            transform: scale(0.82);
+          }
+          27% {
+            opacity: 1;
+            transform: scale(1);
+            animation-timing-function: ease-in;
+          }
+          36% {
+            opacity: 1;
+            transform: scale(1.02);
+          }
+          46%, 100% {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+          }
+        }
+
+        @keyframes dev-laptop-app {
+          0%, 38% {
+            opacity: 0;
+            transform: scale(1.03);
+            animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+          }
+          54%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes dev-laptop-on {
+          0%, 34% {
+            opacity: 0;
+          }
+          52%, 100% {
+            opacity: 0.85;
+          }
+        }
+
+        @keyframes dev-laptop-glare {
+          0% {
+            transform: translateX(-22cqw);
+            animation-timing-function: cubic-bezier(0.4, 0.1, 0.5, 1);
+          }
+          65%, 100% {
+            transform: translateX(18cqw);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .v-dev-laptop-root .rig {
+            animation: none !important;
+            transform: scale3d(0.92, 0.92, 0.92) rotateX(-13deg) rotateY(12deg) !important;
+          }
+          .v-dev-laptop-root .lid {
+            animation: none !important;
+            transform: rotateX(16deg) !important;
+          }
+          .v-dev-laptop-root .screen-img {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+          .v-dev-laptop-root .boot {
+            display: none !important;
+          }
+          .v-dev-laptop-root .spill {
+            animation: none !important;
+            opacity: 0.85 !important;
+          }
+          .v-dev-laptop-root .glare {
+            animation: none !important;
+          }
         }
 
         /* ── Transform Frame (xfr) for Positioning & Scale ── */
@@ -910,125 +744,22 @@ export function MgDevLaptopShowcase({
                 <div className="front">
                   {/* Display screen */}
                   <div className="scr">
-                    <div className="app">
-                      {/* Left Sidebar */}
-                      <div className="side">
-                        <div className="ws">
-                          <span className="mk">
-                            <svg viewBox="0 0 24 24">
-                              <path d="M12 3C12.6 8.4 15.6 11.4 21 12 15.6 12.6 12.6 15.6 12 21 11.4 15.6 8.4 12.6 3 12 8.4 11.4 11.4 8.4 12 3Z" />
-                            </svg>
-                          </span>
-                          KenkoMed
-                        </div>
-
-                        <div className="nv on">
-                          <svg viewBox="0 0 24 24">
-                            <path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" />
-                          </svg>
-                          Inicio
-                        </div>
-
-                        <div className="nv">
-                          <svg viewBox="0 0 24 24">
-                            <path d="M4 13l2-8h12l2 8v6H4zM4 13h5l1 2h4l1-2h5" />
-                          </svg>
-                          Pacientes
-                          <em>8</em>
-                        </div>
-
-                        <div className="nv">
-                          <svg viewBox="0 0 24 24">
-                            <path d="M3 7h6l2 2h10v10H3z" />
-                          </svg>
-                          Agenda
-                        </div>
-
-                        <div className="nv">
-                          <svg viewBox="0 0 24 24">
-                            <path d="M12 3v3M5 9h14v10H5zM9.5 14h.01M14.5 14h.01" />
-                          </svg>
-                          DSS IA
-                        </div>
-
-                        <div className="cap">Boxes Clínicos</div>
-                        <div className="sp"><i style={{ ['--c' as any]: '#0284c7' }} />Box 1 (Kine)</div>
-                        <div className="sp"><i style={{ ['--c' as any]: '#10b981' }} />Box 2 (Columna)</div>
-                        <div className="sp"><i style={{ ['--c' as any]: '#f59e0b' }} />Box 3 (Deporte)</div>
-                      </div>
-
-                      {/* Main Workspace */}
-                      <div className="main">
-                        <div className="top">
-                          <span>Box 2 / <b>Paciente #4092 · M. Arias</b></span>
-                          <span className="avs"><i /><i /><i /></span>
-                          <span className="share">Ley 21.719 ✓</span>
-                        </div>
-
-                        <div className="h">Tu gestión clínica en tiempo real</div>
-
-                        <div className="sub">
-                          <svg viewBox="0 0 24 24">
-                            <path d="M12 3C12.6 8.4 15.6 11.4 21 12 15.6 12.6 12.6 15.6 12 21 11.4 15.6 8.4 12.6 3 12 8.4 11.4 11.4 8.4 12 3Z" />
-                          </svg>
-                          Resumen clínico automatizado por IA · 8 pacientes agendados hoy
-                        </div>
-
-                        {/* 3 KPIs matching Image 1 */}
-                        <div className="kpis">
-                          <div className="k">
-                            <span>Pacientes Hoy</span>
-                            <b>8</b>
-                            <em>Multi-Box</em>
-                          </div>
-                          <div className="k">
-                            <span>Adherencia Pautas</span>
-                            <b>94%</b>
-                            <em>+12%</em>
-                          </div>
-                          <div className="k">
-                            <span>Recuperación ROM</span>
-                            <b>+38°</b>
-                            <em>+24%</em>
-                          </div>
-                        </div>
-
-                        {/* Bottom Row: Weekly Bars + AI Card matching Image 1 */}
-                        <div className="row">
-                          <div className="chart">
-                            <span>Evolución ROM Semanal (Goniometría)</span>
-                            <div className="bars">
-                              <i style={{ ['--h' as any]: 0.28 }} />
-                              <i style={{ ['--h' as any]: 0.36 }} />
-                              <i style={{ ['--h' as any]: 0.32 }} />
-                              <i style={{ ['--h' as any]: 0.45 }} />
-                              <i style={{ ['--h' as any]: 0.41 }} />
-                              <i style={{ ['--h' as any]: 0.52 }} />
-                              <i style={{ ['--h' as any]: 0.50 }} />
-                              <i style={{ ['--h' as any]: 0.63 }} />
-                              <i style={{ ['--h' as any]: 0.60 }} />
-                              <i style={{ ['--h' as any]: 0.74 }} />
-                              <i style={{ ['--h' as any]: 0.82 }} />
-                              <i className="hi" style={{ ['--h' as any]: 1 }} />
-                            </div>
-                          </div>
-
-                          <div className="ai">
-                            <div className="aih">
-                              <svg viewBox="0 0 24 24">
-                                <path d="M12 3C12.6 8.4 15.6 11.4 21 12 15.6 12.6 12.6 15.6 12 21 11.4 15.6 8.4 12.6 3 12 8.4 11.4 11.4 8.4 12 3Z" />
-                              </svg>
-                              KenkoMed DSS
-                            </div>
-                            <p>Sin banderas rojas detectadas. Pauta de manguito rotador enviada a WhatsApp.</p>
-                            <div className="chips">
-                              <span>Pauta WhatsApp</span>
-                              <span>Ficha SOAP</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    {/* 21st.dev Boot Screen Logo */}
+                    <div className="boot">
+                      <span>
+                        <svg viewBox="0 0 24 24">
+                          <path d="M12 3C12.6 8.4 15.6 11.4 21 12 15.6 12.6 12.6 15.6 12 21 11.4 15.6 8.4 12.6 3 12 8.4 11.4 11.4 8.4 12 3Z" />
+                        </svg>
+                      </span>
                     </div>
+
+                    <img
+                      src={imageSrc}
+                      alt="Panel de control clínico KenkoMed"
+                      className="screen-img"
+                      loading="eager"
+                      decoding="async"
+                    />
 
                     {/* Glare specular reflection */}
                     <div className="glare" />
