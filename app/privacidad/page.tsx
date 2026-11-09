@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { LegalPageLayout } from '@/components/legal-page-layout'
+import { LegalPageLayout, type LegalHighlight } from '@/components/legal-page-layout'
 import { JsonLd, breadcrumbSchema } from '@/components/json-ld'
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidad',
+  title: 'Política de Privacidad y Protección de Datos',
   description:
-    'Cómo Kenkomed recopila, usa y protege los datos personales y clínicos en su plataforma para kinesiólogos en Chile.',
+    'Cómo Kenkomed recopila, utiliza y resguarda los datos personales y clínicos conforme a la Ley 19.628, Ley 20.584 y Ley 21.719 en Chile.',
   alternates: { canonical: '/privacidad' },
   robots: { index: true, follow: true },
 }
@@ -15,48 +15,93 @@ const breadcrumbs = breadcrumbSchema([
   { name: 'Política de Privacidad', url: 'https://www.kenkomed.cl/privacidad' },
 ])
 
+const highlights: LegalHighlight[] = [
+  {
+    badge: 'Roles Legales',
+    title: 'Titularidad clara de la ficha',
+    description:
+      'El centro o kinesiólogo tratante es responsable de sus fichas; Kenkomed opera como encargado tecnológico.',
+  },
+  {
+    badge: 'Cero Tráfico de Datos',
+    title: 'Sin venta ni uso publicitario',
+    description:
+      'Los datos clínicos jamás se comercializan ni se comparten con terceros ajenos a la prestación del servicio.',
+  },
+  {
+    badge: 'Derechos ARCO',
+    title: 'Portabilidad en 1 clic',
+    description:
+      'Exportación completa del historial del paciente en formatos abiertos (JSON, HTML y PDF) cuando lo solicite.',
+  },
+  {
+    badge: 'Marco Chileno',
+    title: 'Ley 19.628, 20.584 y 21.719',
+    description:
+      'Tratamiento sujeto a la legislación chilena de protección de datos personales y derechos del paciente.',
+  },
+]
+
 const sections = [
   {
     id: 'responsable',
-    title: 'Responsable del tratamiento',
+    title: 'Identificación y roles en el tratamiento de datos',
     content: (
       <>
         <p>
-          Kenkomed es el responsable del tratamiento de los datos personales recopilados a través
-          de este sitio web (<strong>kenkomed.cl</strong>) y de la plataforma de software clínico
-          Kenkomed (<strong>app.kenkomed.cl</strong>).
+          En el tratamiento de datos dentro del ecosistema Kenkomed se distinguen dos ámbitos
+          jurídicos conforme a la normativa chilena:
         </p>
+        <ul>
+          <li>
+            <strong>Datos comerciales y de cuentas de profesionales:</strong> Kenkomed es el{' '}
+            <strong>Responsable del Tratamiento</strong> respecto de los datos recopilados en este
+            sitio web (<strong>kenkomed.cl</strong>) y de las cuentas de los profesionales y centros
+            registrados en la plataforma (<strong>app.kenkomed.cl</strong>).
+          </li>
+          <li>
+            <strong>Datos clínicos y fichas de pacientes:</strong> cada centro de salud o
+            kinesiólogo tratante actúa como <strong>Responsable de los Datos</strong> frente a sus
+            pacientes conforme a la Ley N° 20.584, mientras que Kenkomed actúa como{' '}
+            <strong>Encargado del Tratamiento / Proveedor Tecnológico</strong>, procesando dicha
+            información únicamente bajo las instrucciones del profesional o centro.
+          </li>
+        </ul>
         <p>
-          Contacto para consultas de privacidad:{' '}
+          Contacto oficial para asuntos de privacidad y protección de datos:{' '}
           <a href="mailto:kenkomedplus@gmail.com">kenkomedplus@gmail.com</a> · +56 9 3710 5872 ·
-          Concepción, Chile.
+          Concepción, Región del Biobío, Chile.
         </p>
       </>
     ),
   },
   {
     id: 'datos',
-    title: 'Qué datos recopilamos',
+    title: 'Categorías de datos que tratamos',
     content: (
       <>
-        <p>Según el servicio que uses, podemos tratar:</p>
+        <p>Según tu relación con Kenkomed, tratamos las siguientes categorías de información:</p>
         <ul>
           <li>
-            <strong>Datos de contacto comercial:</strong> nombre, email, teléfono, nombre de
-            clínica y mensaje enviado desde el formulario de la landing.
+            <strong>Datos de contacto comercial:</strong> nombre, correo electrónico, teléfono,
+            nombre de la clínica, tamaño del equipo y mensaje enviados voluntariamente en el
+            formulario de solicitud de demo.
           </li>
           <li>
-            <strong>Datos de cuenta:</strong> credenciales de acceso, rol (administrador o
-            clínico), preferencias y registros de actividad en la plataforma.
+            <strong>Datos de cuenta profesional:</strong> nombre, RUT profesional, especialidad,
+            rol asignado (Director, Kinesiólogo o Recepción), credenciales cifradas y bitácora de
+            accesos.
           </li>
           <li>
-            <strong>Datos clínicos y de pacientes:</strong> fichas, anamnesis, cuestionarios,
-            escalas validadas, evolución de tratamiento y documentos asociados ingresados por
-            profesionales autorizados.
+            <strong>Datos sensibles de salud (ingresados por pacientes o clínicos):</strong>{' '}
+            anamnesis remota de 14 páginas, ubicación y comportamiento del dolor, puntajes en las 13
+            escalas funcionales, evoluciones SOAP, pautas de ejercicios y consentimientos informados
+            electrónicos.
           </li>
           <li>
-            <strong>Datos técnicos:</strong> dirección IP, tipo de navegador, logs de seguridad y
-            cookies estrictamente necesarias para el funcionamiento del sitio.
+            <strong>Datos técnicos y de auditoría:</strong> dirección IP, fecha y hora de acceso,
+            tipo de navegador y registros necesarios para la bitácora de seguridad (
+            <code>AuditoriaAcceso</code>).
           </li>
         </ul>
       </>
@@ -64,145 +109,153 @@ const sections = [
   },
   {
     id: 'finalidad',
-    title: 'Para qué usamos los datos',
+    title: 'Finalidad del tratamiento',
     content: (
       <>
-        <p>Tratamos los datos con las siguientes finalidades:</p>
+        <p>Utilizamos la información recopilada exclusivamente para:</p>
         <ul>
-          <li>Responder solicitudes de demo, contacto comercial o soporte.</li>
-          <li>Prestar, mantener y mejorar el software de gestión clínica Kenkomed.</li>
-          <li>Permitir el registro clínico, la admisión remota y el sistema DSS.</li>
-          <li>Garantizar la seguridad, integridad y continuidad del servicio.</li>
-          <li>Cumplir obligaciones legales aplicables en Chile.</li>
+          <li>Agendar demostraciones guiadas, responder consultas comerciales y brindar soporte.</li>
+          <li>
+            Operar los módulos clínicos de la plataforma: admisión remota por QR, cálculo de
+            escalas, soporte a la decisión clínica (DSS), agenda multi-box y emisión de pautas o
+            informes.
+          </li>
+          <li>
+            Enviar notificaciones transaccionales solicitadas por el profesional o paciente
+            (confirmaciones de cita, enlaces de admisión y envío de pautas domiciliarias).
+          </li>
+          <li>
+            Mantener la trazabilidad médico-legal, prevenir accesos no autorizados y garantizar la
+            continuidad operativa del servicio.
+          </li>
         </ul>
         <p>
-          No vendemos datos personales ni los usamos para publicidad de terceros ajenos al
-          servicio.
+          <strong>Compromiso estricto:</strong> Kenkomed no vende, arrienda ni cede datos personales
+          o clínicos a terceros, ni utiliza información de fichas médicas con fines publicitarios.
         </p>
       </>
     ),
   },
   {
     id: 'base-legal',
-    title: 'Base legal',
+    title: 'Marco legal aplicable en Chile',
     content: (
       <>
         <p>
-          El tratamiento se realiza conforme a la{' '}
-          <strong>Ley N° 19.628 sobre Protección de la Vida Privada</strong> y normativa
-          complementaria aplicable en Chile, en función de:
+          El tratamiento de datos se rige por la legislación vigente en la República de Chile, en
+          particular:
         </p>
         <ul>
-          <li>La ejecución de un contrato o medidas precontractuales a solicitud del titular.</li>
-          <li>El consentimiento del titular, cuando corresponda.</li>
-          <li>El interés legítimo de Kenkomed en operar un servicio seguro y confiable.</li>
-          <li>El cumplimiento de obligaciones legales en materia de salud y registros clínicos.</li>
+          <li>
+            <strong>Ley N° 20.584:</strong> regula los derechos y deberes que tienen las personas en
+            relación con acciones vinculadas a su atención en salud y el carácter reservado de la
+            ficha clínica.
+          </li>
+          <li>
+            <strong>Ley N° 19.628 y adecuación a la Ley N° 21.719:</strong> regula la protección de
+            datos personales, los principios de licitud, finalidad, proporcionalidad, seguridad y el
+            ejercicio de los derechos ARCO y portabilidad.
+          </li>
         </ul>
       </>
     ),
   },
   {
     id: 'conservacion',
-    title: 'Conservación de los datos',
+    title: 'Conservación y custodia de registros',
     content: (
       <>
         <p>
-          Conservamos los datos mientras exista una relación activa con el cliente o profesional
-          usuario, y posteriormente durante el plazo necesario para cumplir obligaciones legales,
-          resolver reclamos o respaldar auditorías de seguridad.
+          Los datos de cuenta y registros clínicos se mantienen activos mientras esté vigente el
+          servicio contratado por el profesional o centro de salud, y durante los plazos legales de
+          conservación aplicables a la documentación clínica en Chile.
         </p>
         <p>
-          Los datos clínicos ingresados en la plataforma son responsabilidad del centro o
-          profesional tratante; Kenkomed actúa como proveedor tecnológico según el acuerdo de
-          servicio correspondiente.
+          Al término del servicio, el centro o profesional titular puede exportar la totalidad de
+          sus fichas clínicas en formatos estándar (<code>JSON</code>, <code>HTML</code> y{' '}
+          <code>PDF</code>) antes del cierre definitivo de la cuenta.
         </p>
       </>
     ),
   },
   {
     id: 'terceros',
-    title: 'Encargados y transferencias',
+    title: 'Subencargados e infraestructura tecnológica',
     content: (
       <>
         <p>
-          Podemos compartir datos con proveedores que nos ayudan a operar el servicio (hosting,
-          email transaccional, formularios de contacto), siempre bajo obligaciones de
-          confidencialidad y seguridad.
+          Para operar con alta disponibilidad utilizamos proveedores de infraestructura cloud, base
+          de datos y despacho de correo transaccional que cumplen estándares internacionales de
+          seguridad de la información.
         </p>
         <p>
-          El formulario de contacto de esta landing utiliza un servicio de envío de correo
-          (Web3Forms) para entregar tu mensaje a nuestro equipo.
-        </p>
-        <p>
-          No transferimos datos fuera de Chile salvo que sea técnicamente necesario para la
-          operación del servicio y con las salvaguardas correspondientes.
+          El formulario comercial de esta página web utiliza el servicio <em>Web3Forms</em>{' '}
+          únicamente para canalizar tu solicitud de contacto hacia nuestro correo de atención.
         </p>
       </>
     ),
   },
   {
     id: 'cookies',
-    title: 'Cookies y Tecnologías de Seguimiento',
+    title: 'Cookies y almacenamiento local',
     content: (
       <>
         <p>
-          Utilizamos cookies y tecnologías similares (como Google Tag Manager) para garantizar el funcionamiento técnico del sitio, analizar el tráfico y evaluar la eficacia de nuestras comunicaciones:
+          En nuestro sitio informativo y en la aplicación clínica utilizamos cookies técnicas y de
+          análisis acotadas:
         </p>
         <ul>
           <li>
-            <strong>Cookies esenciales:</strong> Necesarias para la navegación, seguridad y carga de recursos. No se pueden desactivar.
+            <strong>Cookies técnicas y de sesión (esenciales):</strong> indispensables para mantener
+            la sesión autenticada del profesional, proteger formularios contra falsificación de
+            solicitudes (CSRF) y recordar preferencias básicas.
           </li>
           <li>
-            <strong>Cookies analíticas:</strong> Recopilan datos anónimos de interacción (páginas visitadas, tiempos de permanencia) para mejorar la usabilidad clínica de la plataforma.
-          </li>
-          <li>
-            <strong>Cookies de marketing:</strong> Permiten medir conversiones asociadas a campañas de difusión sobre el software.
+            <strong>Cookies analíticas:</strong> nos permiten medir de forma agregada el rendimiento
+            y las visitas del sitio web informativo para optimizar su velocidad y claridad.
           </li>
         </ul>
         <p>
-          Puedes modificar o revocar tus preferencias de cookies en cualquier momento utilizando nuestro panel de configuración accesible desde el enlace "Cookies" en el pie de página de la web.
+          Puedes bloquear o eliminar las cookies en cualquier momento desde la configuración de
+          privacidad de tu navegador.
         </p>
       </>
     ),
   },
   {
     id: 'derechos',
-    title: 'Tus derechos',
+    title: 'Ejercicio de derechos ARCO y portabilidad',
     content: (
       <>
-        <p>Como titular de datos personales, puedes solicitar:</p>
-        <ul>
-          <li>Acceso a tus datos.</li>
-          <li>Rectificación de datos inexactos o incompletos.</li>
-          <li>Eliminación o bloqueo, cuando proceda legalmente.</li>
-          <li>Oposición al tratamiento en los casos previstos por la ley.</li>
-        </ul>
         <p>
-          Envía tu solicitud a{' '}
-          <a href="mailto:kenkomedplus@gmail.com">kenkomedplus@gmail.com</a>. Responderemos en un
-          plazo razonable conforme a la normativa vigente.
+          Todo titular de datos personales tiene derecho a solicitar el{' '}
+          <strong>Acceso, Rectificación, Cancelación (supresión), Oposición y Portabilidad</strong>{' '}
+          de sus datos conforme a la ley chilena:
         </p>
+        <ul>
+          <li>
+            <strong>Si eres paciente de un centro que utiliza Kenkomed:</strong> puedes solicitar
+            directamente a tu kinesiólogo o centro tratante la copia íntegra o rectificación de tu
+            ficha clínica; la plataforma dispone de herramientas nativas para emitir tu historial en
+            formatos <code>JSON</code>, <code>HTML</code> y <code>PDF</code>.
+          </li>
+          <li>
+            <strong>Si eres profesional usuario o contacto comercial:</strong> puedes ejercer tus
+            derechos escribiendo directamente a{' '}
+            <a href="mailto:kenkomedplus@gmail.com">kenkomedplus@gmail.com</a>.
+          </li>
+        </ul>
       </>
     ),
   },
   {
-    id: 'menores',
-    title: 'Menores de edad',
-    content: (
-      <p>
-        Kenkomed no está dirigido a menores de 18 años de forma autónoma. Los datos de pacientes
-        menores ingresados en la plataforma deben ser tratados exclusivamente por profesionales de
-        la salud autorizados y conforme a la normativa clínica aplicable.
-      </p>
-    ),
-  },
-  {
     id: 'cambios',
-    title: 'Cambios a esta política',
+    title: 'Actualizaciones de esta política',
     content: (
       <p>
-        Podemos actualizar esta política para reflejar cambios legales o del servicio. Publicaremos
-        la versión vigente en esta página con la fecha de actualización correspondiente.
+        Actualizaremos esta Política de Privacidad cuando incorporemos nuevas funcionalidades o
+        entren en vigor nuevas disposiciones reglamentarias en Chile. La fecha de última revisión se
+        indica siempre en el encabezado de esta página.
       </p>
     ),
   },
@@ -214,8 +267,10 @@ export default function PrivacidadPage() {
       <JsonLd data={breadcrumbs} />
       <LegalPageLayout
         title="Política de Privacidad"
-        description="Información sobre cómo Kenkomed trata los datos personales y clínicos en su sitio web y plataforma."
-        lastUpdated="26 de junio de 2026"
+        description="Transparencia sobre cómo tratamos y resguardamos los datos personales y clínicos en Kenkomed."
+        lastUpdated="Abril de 2026"
+        currentPath="/privacidad"
+        highlights={highlights}
         sections={sections}
       />
     </>

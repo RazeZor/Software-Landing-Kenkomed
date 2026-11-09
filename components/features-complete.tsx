@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import {
     CheckCircle2,
@@ -15,13 +15,11 @@ import {
     Calendar,
     Users,
     Activity,
-    Pill,
     StickyNote,
     Lock,
     Smartphone,
     ChevronDown,
     ChevronUp,
-    Star,
     UserCheck,
     Mail,
     FileOutput,
@@ -30,413 +28,360 @@ import {
     Building2,
     Dumbbell,
     Layers,
+    BookOpen,
+    ShieldCheck,
 } from 'lucide-react'
 
-function useReveal() {
-    const ref = useRef<HTMLDivElement>(null)
-    const [visible, setVisible] = useState(false)
-    useEffect(() => {
-        const el = ref.current
-        if (!el) return
-        const obs = new IntersectionObserver(
-            ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
-            { threshold: 0.06 }
-        )
-        obs.observe(el)
-        return () => obs.disconnect()
-    }, [])
-    return { ref, visible }
+interface FeatureGroup {
+    icon: typeof Lock
+    title: string
+    count: number
+    badge?: string
+    defaultOpen?: boolean
+    features: string[]
 }
 
 /* ─── Feature categories ─── */
-const clinicianGroups = [
-    {
-        icon: Lock,
-        color: 'bg-slate-50 text-slate-600',
-        accent: 'border-slate-200',
-        title: 'Autenticación y Acceso',
-        count: 4,
-        features: [
-            'Iniciar sesión con RUT y contraseña',
-            'Opción "Recordarme" por 30 días',
-            'Cerrar sesión seguro',
-            'Ver y gestionar perfil clínico',
-        ],
-    },
-    {
-        icon: Users,
-        color: 'bg-blue-50 text-blue-600',
-        accent: 'border-blue-200',
-        title: 'Gestión de Clinicians',
-        count: 4,
-        features: [
-            'Agregar nuevo clínico (Admin exclusivo)',
-            'Ver lista completa de clinicians',
-            'Editar datos del clínico',
-            'Validación de rol administrador del sistema',
-        ],
-    },
-    {
-        icon: UserCheck,
-        color: 'bg-teal-50 text-teal-600',
-        accent: 'border-teal-200',
-        title: 'Gestión de Pacientes',
-        count: 5,
-        features: [
-            'Agregar paciente (manual o remoto vía QR)',
-            'Ver lista de todos sus pacientes',
-            'Editar información del paciente',
-            'Eliminar paciente en cascada (todo relacionado)',
-            'Visualizar historial clínico completo',
-        ],
-    },
+const clinicianGroups: FeatureGroup[] = [
     {
         icon: QrCode,
-        color: 'bg-indigo-50 text-indigo-600',
-        accent: 'border-indigo-200',
         title: 'Formulario Clínico Inicial — 14 páginas',
         count: 4,
-        badge: 'Exclusivo',
+        badge: 'Admisión QR',
+        defaultOpen: true,
         features: [
-            'Crear anamnesis inicial completa de 14 páginas',
-            'Editar anamnesis ya completada',
-            'Generar token QR para admisión remota del paciente',
-            'Ver y descargar QR generado en PNG',
+            'Crear anamnesis inicial estructurada de 14 páginas',
+            'Editar y actualizar antecedentes ya completados',
+            'Generar token QR único para admisión remota del paciente',
+            'Ver y descargar código QR generado en formato PNG',
+        ],
+    },
+    {
+        icon: ClipboardList,
+        title: 'Cuestionarios Clínicos — 13 escalas validadas',
+        count: 13,
+        badge: '13 escalas',
+        defaultOpen: true,
+        features: [
+            'PSFS — Escala Funcional Específica del Paciente',
+            'GROC — Calificación Global de Cambio',
+            'EQ-5D — Calidad de Vida EuroQol',
+            'Barthel — Índice de Independencia Funcional',
+            'Screening Örebro — Evaluación Psicosocial y de Riesgos',
+            'ENA — Escala Numérica de Dolor',
+            'Oswestry / ODI — Índice de Discapacidad Lumbar',
+            'LEFS — Escala Funcional de Extremidad Inferior',
+            'QuickDASH — Discapacidad de Hombro, Codo y Mano',
+            'WOMAC — Artrosis de Rodilla y Cadera (dolor, rigidez, función)',
+            'TUG — Timed Up and Go (riesgo de caída y movilidad)',
+            'Berg — Escala de Equilibrio de Berg (14 tareas, 0–56 pts)',
+            'Tinetti — Evaluación de Equilibrio y Marcha (0–28 pts)',
+        ],
+    },
+    {
+        icon: Dumbbell,
+        title: 'Pautas de Ejercicios en Casa (Prescripción Digital)',
+        count: 8,
+        badge: 'WhatsApp / PDF',
+        defaultOpen: true,
+        features: [
+            'Biblioteca organizada por regiones anatómicas (cervical, hombro, lumbar, cadera, rodilla, pie)',
+            'Dosificación clínica: series, repeticiones, descanso, frecuencia y alertas de precaución',
+            'Registro trazable de cada prescripción (PautaEjercicio) en el historial de auditoría',
+            'Envío por correo electrónico transaccional con diseño responsivo',
+            'Despacho directo al WhatsApp del paciente con mensaje preconfigurado en 1 clic',
+            'Exportación a PDF membretado con código de verificación y logo del centro',
+            'Buscador rápido de pacientes en el directorio de la clínica',
+            'Historial de pautas emitidas integrado en la ficha del paciente',
         ],
     },
     {
         icon: Activity,
-        color: 'bg-emerald-50 text-emerald-600',
-        accent: 'border-emerald-200',
-        title: 'Sesiones de Kinesiología',
+        title: 'Sesiones de Kinesiología y Evolución SOAP',
         count: 10,
         features: [
-            'Crear primera sesión (evaluación inicial comprensiva)',
-            'Crear sesiones de seguimiento con evolución',
-            'Crear sesión final con diagnóstico kinésico de alta',
-            'Registrar resumen del tratamiento y logros obtenidos',
-            'Estado al alta: mejorado, alta médica, derivado, estable',
-            'Recomendaciones al alta y plan de seguimiento',
-            'Ver lista completa de sesiones del paciente',
-            'Ver detalles de una sesión específica',
-            'Editar sesión existente',
-            'Aplicar escalas clínicas durante la sesión',
-        ],
-    },
-    {
-        icon: ClipboardList,
-        color: 'bg-purple-50 text-purple-600',
-        accent: 'border-purple-200',
-        title: 'Cuestionarios Clínicos — 13 escalas validadas',
-        count: 13,
-        badge: '13 escalas',
-        features: [
-            'PSFS — Escala Funcional Específica del Paciente',
-            'GROC — Calificación Global de Cambio',
-            'EQ-5D — Calidad de Vida Euroquol',
-            'Barthel — Índice de Independencia Funcional',
-            'Screening Örebro — Evaluación de Riesgos y Comorbilidades',
-            'ENA — Evaluación Nutricional Abreviada',
-            'Oswestry / ODI — Discapacidad Lumbar',
-            'LEFS — Funcionalidad de Extremidad Inferior',
-            'QuickDASH — Discapacidad de Hombro, Codo y Mano',
-            'WOMAC — Artrosis de Rodilla y Cadera (dolor, rigidez, función)',
-            'TUG — Timed Up and Go (riesgo de caída y movilidad)',
-            'Berg — Escala de Equilibrio de Berg (14 tareas, 0-56 pts)',
-            'Tinetti — Evaluación de Equilibrio y Marcha (0-28 pts)',
-        ],
-    },
-    {
-        icon: Dumbbell,
-        color: 'bg-rose-50 text-rose-600',
-        accent: 'border-rose-200',
-        title: 'Pautas de Ejercicios en Casa (Prescripción Digital)',
-        count: 8,
-        badge: 'Destacado',
-        features: [
-            'Biblioteca curada por regiones anatómicas (cervical, hombro, lumbar, cadera, rodilla, pie)',
-            'Dosificación clínica: series, repeticiones, descanso, frecuencia y alertas de precaución',
-            'Modelo auditado (PautaEjercicio) con trazabilidad inmutable en AuditoriaAcceso',
-            'Envío automatizado por correo transaccional HTML responsivo de alta conversión',
-            'Despacho instantáneo a WhatsApp del paciente con mensaje preconfigurado en 1 clic',
-            'Exportación a PDF oficial membretado con código de verificación y logo del centro',
-            'Buscador predictivo de pacientes con directorio paginado de la clínica',
-            'Historial de pautas emitidas integrado directamente en la ficha del paciente',
+            'Crear primera sesión con evaluación inicial integral',
+            'Registrar sesiones de seguimiento con evolución estructurada SOAP',
+            'Registrar sesión final con síntesis kinésica de alta',
+            'Documentar resumen del tratamiento y objetivos alcanzados',
+            'Estado al alta: mejorado, alta kinésica, derivado o estable',
+            'Recomendaciones al alta y plan de mantenimiento domiciliario',
+            'Consultar listado histórico de sesiones del paciente',
+            'Inspeccionar el detalle completo de cualquier sesión previa',
+            'Editar registros dentro de la ventana clínica permitida',
+            'Vincular puntajes de escalas clínicas aplicadas durante la sesión',
         ],
     },
     {
         icon: Layers,
-        color: 'bg-emerald-50 text-emerald-700',
-        accent: 'border-emerald-200',
         title: 'Ciclos Clínicos (Episodios de Atención)',
         count: 5,
-        badge: 'Kinesiología',
+        badge: 'Por patología',
         features: [
-            'Agrupación estructurada de atenciones por patología o diagnóstico específico',
-            'Control de sesiones planificadas vs realizadas con medidor visual de avance',
+            'Agrupación estructurada de sesiones por patología o diagnóstico específico',
+            'Control de sesiones planificadas vs. realizadas con indicador de avance',
             'Alta kinésica estructurada con informe de evolución final y deltas funcionales',
-            'Comparativas de dolor y escalas funcionales pre y post tratamiento',
-            'Preservación inmutable del historial del ciclo al dar el alta',
-        ],
-    },
-    {
-        icon: FileText,
-        color: 'bg-amber-50 text-amber-600',
-        accent: 'border-amber-200',
-        title: 'Reportes e Informes',
-        count: 4,
-        features: [
-            'Generar informe de anamnesis con análisis DSS',
-            'Generar ficha clínica integral del paciente',
-            'Ver informe completo del paciente',
-            'Visualizar anamnesis con interpretaciones clínicas',
-        ],
-    },
-    {
-        icon: BarChart3,
-        color: 'bg-cyan-50 text-cyan-600',
-        accent: 'border-cyan-200',
-        title: 'Dashboard y Métricas',
-        count: 6,
-        features: [
-            'Total de pacientes activos en el centro',
-            'Citas de hoy y citas de la semana',
-            'Anamnesis nuevas del mes',
-            'Sesiones kinésicas realizadas',
-            'Formularios completados',
-            'Vista diferenciada admin del centro vs profesional',
-        ],
-    },
-    {
-        icon: Calendar,
-        color: 'bg-orange-50 text-orange-600',
-        accent: 'border-orange-200',
-        title: 'Agendamiento Online & Multi-Box Inteligente',
-        count: 9,
-        badge: 'Multi-Box',
-        features: [
-            'Portal de reservas online público por profesional (/reservar/slug/) y centro',
-            'Co-branding con logo del profesional/clínica e indicador "Agenda en línea activa"',
-            'Doble factor seguro para paciente habitual (RUT + Fecha de nacimiento) con Rate Limiting',
-            'Token criptográfico temporal firmado (TimestampSigner) que protege la privacidad',
-            'Capacidad Multi-Box en paralelo (1 a 3+ boxes por clínico en simultáneo)',
-            'Prevención matemática de sobrecupos con bloqueo pesimista atómico en base de datos',
-            'Motor dinámico de disponibilidad con respeto de pausas, colación y duración de sesión',
-            'Sincronización con Google Calendar, Apple Calendar y Outlook',
-            'Calendario del centro con drag & drop y estados cromáticos de cita',
-        ],
-    },
-    {
-        icon: StickyNote,
-        color: 'bg-lime-50 text-lime-700',
-        accent: 'border-lime-200',
-        title: 'Notas Clínicas',
-        count: 2,
-        features: [
-            'Agregar notas generales del paciente',
-            'Editar notas clínicas',
+            'Comparativa objetiva de dolor y escalas funcionales pre y post tratamiento',
+            'Preservación íntegra del historial del episodio tras el alta',
         ],
     },
     {
         icon: Brain,
-        color: 'bg-violet-50 text-violet-600',
-        accent: 'border-violet-200',
-        title: 'Sistema de Análisis DSS',
+        title: 'Sistema de Apoyo a Decisiones Clínicas (DSS)',
         count: 3,
-        badge: 'IA Clínica',
+        badge: 'Algoritmo DSS',
         features: [
-            'Generar Sistema de Apoyo a Decisiones (DSS)',
-            'Ver interpretación automática de cuestionarios',
-            'Visualizar gráficos de evolución del paciente',
+            'Detección automatizada de banderas rojas y factores de riesgo biopsicosociales',
+            'Interpretación clínica automática de puntajes y umbrales MCID en escalas',
+            'Gráficos longitudinales de evolución funcional del paciente',
         ],
     },
-    {
-        icon: Mail,
-        color: 'bg-sky-50 text-sky-600',
-        accent: 'border-sky-200',
-        title: 'Notificaciones Automáticas por Email',
-        count: 8,
-        badge: '8 tipos',
-        features: [
-            'Notificar al registrar nuevo paciente',
-            'Notificar cuando paciente completa anamnesis vía QR',
-            'Notificar al crear receta médica',
-            'Notificar al actualizar receta médica',
-            'Notificar al dar de alta al paciente',
-            'Notificar al crear cita / reserva',
-            'Notificar al reagendar cita',
-            'Notificar al cancelar cita',
-        ],
-    },
-    {
-        icon: Scale,
-        color: 'bg-red-50 text-red-600',
-        accent: 'border-red-200',
-        title: 'Seguridad Legal y Cumplimiento (Ley 21.719 / 20.584)',
-        count: 6,
-        badge: 'Ley 21.719',
-        features: [
-            'Registro inmutable de auditoría médica (AuditoriaAcceso): IP, usuario, timestamp y acción',
-            'Bloqueo automático de pantalla tras 10 min de inactividad contra Shoulder Surfing en box',
-            'Consentimiento informado electrónico con registro de fecha, hora e IP',
-            'Cumplimiento estricto de Ley 21.719 (Datos Personales), Ley 20.584 y Ley 19.628',
-            'Exportar registro de auditoría a PDF filtrable por períodos (30, 90 o 180 días)',
-            'Endpoint de monitoreo 24/7 (/health/) para supervisión continua de base de datos y servicios',
-        ],
-    },
-    {
-        icon: FileOutput,
-        color: 'bg-teal-50 text-teal-600',
-        accent: 'border-teal-200',
-        title: 'Exportación y Portabilidad ARCO',
-        count: 4,
-        badge: 'Portabilidad',
-        features: [
-            'Exportar ficha completa del paciente en JSON',
-            'Exportar ficha clínica renderizable en HTML',
-            'Exportación por ciclo clínico específico',
-            'Cumplimiento ARCO (Acceso, Rectificación, Cancelación, Oposición)',
-        ],
-    },
-    {
-        icon: Shield,
-        color: 'bg-gray-50 text-gray-600',
-        accent: 'border-gray-200',
-        title: 'Control de Acceso por Roles',
-        count: 4,
-        features: [
-            'Admin del sistema: Acceso total a pacientes y clínicos',
-            'Admin del centro: Gestión del equipo y agenda completa',
-            'Miembro: Acceso solo a sus pacientes asignados',
-            'Secretaria / Recepción: Gestión de agenda sin acceso clínico',
-        ],
-    },
-    {
-        icon: Wallet,
-        color: 'bg-green-50 text-green-600',
-        accent: 'border-green-200',
-        title: 'Finanzas y Pagos',
-        count: 5,
-        badge: 'Nuevo',
-        features: [
-            'Venta y gestión de Packs de Atención',
-            'Cruce automático de deuda clínica vs pagos',
-            'Dashboard financiero y control de ingresos por mes',
-            'Soporte para tarifas diferenciadas y pacientes particulares',
-            'Listado en tiempo real de pacientes morosos',
-        ],
-    },
-    {
-        icon: Building2,
-        color: 'bg-indigo-50 text-indigo-600',
-        accent: 'border-indigo-200',
-        title: 'Gestión Multi-Centro',
-        count: 4,
-        badge: 'Escalable',
-        features: [
-            'Creación y configuración de múltiples clínicas',
-            'Panel "Mi Centro" interactivo y directorio del equipo',
-            'Separación estricta de pacientes por centro de trabajo',
-            'Módulos de administración exclusivos para secretarias',
-        ],
-    },
-]
-
-const patientGroups = [
     {
         icon: Calendar,
-        color: 'bg-orange-50 text-orange-600',
-        accent: 'border-orange-200',
-        title: 'Portal de Agendamiento Online',
-        count: 5,
-        badge: 'Online 24/7',
-        features: [
-            'Reservar hora médica 24/7 desde la página pública del kinesiólogo o centro',
-            'Flujo seguro para paciente habitual con RUT y fecha de nacimiento',
-            'Token criptográfico temporal que enmascara datos sensibles (j***@gmail.com)',
-            'Comprobante con botón directo "Añadir a Google / Apple Calendar / Outlook"',
-            'Confirmación inmediata vía correo electrónico transaccional',
-        ],
-    },
-    {
-        icon: Dumbbell,
-        color: 'bg-rose-50 text-rose-600',
-        accent: 'border-rose-200',
-        title: 'Pautas de Ejercicios en Casa',
-        count: 4,
-        badge: 'WhatsApp',
-        features: [
-            'Recibir pauta personalizada directo en su chat de WhatsApp en 1 solo clic',
-            'Descargar e imprimir PDF oficial membretado con código de verificación',
-            'Instrucciones paso a paso de ejecución biomecánicamente correcta',
-            'Dosificación precisa de series, repeticiones, tiempo de descanso y precauciones',
-        ],
-    },
-    {
-        icon: QrCode,
-        color: 'bg-blue-50 text-blue-600',
-        accent: 'border-blue-200',
-        title: 'Acceso Remoto — Token QR',
-        count: 3,
-        features: [
-            'Escanear código QR generado por el clínico en recepción o WhatsApp',
-            'Acceder con token de admisión único de un solo uso',
-            'Validación automática de expiración de token de seguridad',
-        ],
-    },
-    {
-        icon: ClipboardList,
-        color: 'bg-teal-50 text-teal-600',
-        accent: 'border-teal-200',
-        title: 'Formulario Clínico — 14 páginas',
+        title: 'Agendamiento Online & Multi-Box',
         count: 9,
-        badge: '14 páginas',
+        badge: 'Multi-Box',
         features: [
-            'Completar anamnesis inicial completa desde el celular antes de entrar al box',
-            'Responder sobre dolor: ubicación, intensidad EVA/ENA y características',
-            'Ingresar comorbilidades y antecedentes médicos previos',
-            'Registrar hábitos de sueño (horarios, despertares, duración)',
-            'Ingresar estilo de vida (alimentación, actividad física, peso)',
-            'Completar evaluación psicosocial (ánimo, ansiedad, apoyo social)',
-            'Registrar hábitos y antecedentes de consumo',
-            'Indicar motivación y objetivos personales de recuperación',
-            'Firmar consentimiento informado digital fechado',
-        ],
-    },
-    {
-        icon: Scale,
-        color: 'bg-emerald-50 text-emerald-600',
-        accent: 'border-emerald-200',
-        title: 'Derechos ARCO y Privacidad del Paciente',
-        count: 4,
-        badge: 'Ley 21.719',
-        features: [
-            'Ejercer derechos ARCO: Acceso, Rectificación, Cancelación y Oposición',
-            'Portabilidad: descarga de copia íntegra de su historial en formatos abiertos (JSON/HTML)',
-            'Protección de datos de salud bajo Ley 21.719, Ley 20.584 y Ley 19.628',
-            'Garantía de confidencialidad médica con bloqueo automático de pantalla en box',
-        ],
-    },
-    {
-        icon: UserCheck,
-        color: 'bg-purple-50 text-purple-600',
-        accent: 'border-purple-200',
-        title: 'Datos Personales y Perfil',
-        count: 2,
-        features: [
-            'Ver su perfil de paciente registrado en el centro',
-            'Datos capturados automáticamente con validación de RUT o pasaporte extranjero',
+            'Portal de reservas online público por profesional (/reservar/slug/) y por centro',
+            'Personalización con logo del profesional o clínica e indicador de disponibilidad',
+            'Verificación para paciente habitual (RUT + Fecha de nacimiento) con control de intentos',
+            'Token criptográfico temporal firmado (TimestampSigner) para resguardo de datos',
+            'Capacidad Multi-Box en paralelo (1 a 3+ boxes simultáneos por profesional)',
+            'Prevención de cruces de horario mediante bloqueo transaccional en base de datos',
+            'Cálculo dinámico de disponibilidad respetando pausas, colación y duración de sesión',
+            'Enlaces directos para Google Calendar, Apple Calendar y Outlook',
+            'Calendario del centro con estados cromáticos de cita (confirmada, atendida, ausente)',
         ],
     },
     {
         icon: FileText,
-        color: 'bg-amber-50 text-amber-600',
-        accent: 'border-amber-200',
-        title: 'Historial del Paciente',
+        title: 'Reportes e Informes Clínicos',
+        count: 4,
+        features: [
+            'Generar informe de anamnesis inicial con síntesis DSS',
+            'Emitir ficha clínica integral del paciente en PDF',
+            'Generar certificados y resúmenes con códigos FONASA para reembolso en Isapres',
+            'Visualizar anamnesis con interpretaciones clínicas estructuradas',
+        ],
+    },
+    {
+        icon: Wallet,
+        title: 'Finanzas, Pagos y Paquetes de Sesiones',
+        count: 5,
+        features: [
+            'Creación y control de paquetes o ciclos de sesiones prepagadas',
+            'Cruce automático de sesiones asistidas vs. saldo pendiente',
+            'Resumen financiero y registro de ingresos mensuales del centro',
+            'Soporte para tarifas diferenciadas por convenio o atención particular',
+            'Filtro rápido de cuentas con pagos pendientes',
+        ],
+    },
+    {
+        icon: Scale,
+        title: 'Seguridad Legal y Cumplimiento (Ley 20.584 / 21.719)',
+        count: 6,
+        badge: 'Normativa CL',
+        features: [
+            'Registro inmutable de auditoría clínica (AuditoriaAcceso): IP, usuario, fecha y acción',
+            'Bloqueo automático de pantalla tras 10 minutos de inactividad en box',
+            'Consentimiento informado electrónico con marca de tiempo y dirección IP',
+            'Arquitectura alineada con la Ley N° 20.584, Ley N° 19.628 y preparada para la Ley N° 21.719',
+            'Exportación del registro de auditoría en PDF filtrable por períodos (30, 90 o 180 días)',
+            'Endpoint de monitoreo de salud (/health/) para supervisión de base de datos y servicios',
+        ],
+    },
+    {
+        icon: FileOutput,
+        title: 'Exportación y Portabilidad ARCO',
+        count: 4,
+        badge: 'Portabilidad',
+        features: [
+            'Exportar ficha completa del paciente en formato estructurado JSON',
+            'Exportar ficha clínica legible en formato HTML/PDF',
+            'Exportación segmentada por ciclo clínico específico',
+            'Soporte técnico para solicitudes ARCO (Acceso, Rectificación, Cancelación y Oposición)',
+        ],
+    },
+    {
+        icon: Building2,
+        title: 'Gestión Multi-Centro',
+        count: 4,
+        badge: 'Multiclínica',
+        features: [
+            'Configuración de múltiples sedes o centros bajo una misma cuenta profesional',
+            'Panel "Mi Centro" con directorio del equipo clínico y administrativo',
+            'Aislamiento estricto de fichas y agendas por centro de trabajo',
+            'Cambio de sede activa en un clic desde la barra superior',
+        ],
+    },
+    {
+        icon: Shield,
+        title: 'Control de Acceso por Roles (RBAC)',
+        count: 4,
+        features: [
+            'Administrador del sistema: supervisión global de configuración y auditoría',
+            'Director / Admin del centro: gestión del equipo, finanzas y agenda completa',
+            'Kinesiólogo miembro: acceso clínico restringido a sus pacientes asignados',
+            'Recepción / Secretaría: gestión de agenda y pagos sin acceso a notas clínicas sensibles',
+        ],
+    },
+    {
+        icon: UserCheck,
+        title: 'Directorio y Gestión de Pacientes',
+        count: 5,
+        features: [
+            'Alta de paciente de forma manual o remota mediante código QR',
+            'Directorio con búsqueda instantánea por nombre o RUT',
+            'Actualización de datos demográficos y de contacto',
+            'Baja controlada de registros según política de retención',
+            'Línea de tiempo unificada del historial clínico del paciente',
+        ],
+    },
+    {
+        icon: BarChart3,
+        title: 'Dashboard y Métricas del Centro',
+        count: 6,
+        features: [
+            'Indicador de pacientes activos en el centro',
+            'Resumen de citas del día y proyección semanal',
+            'Conteo de nuevas admisiones QR completadas en el mes',
+            'Total de sesiones kinésicas realizadas por período',
+            'Tasa de cuestionarios funcionales respondidos',
+            'Vista diferenciada para Dirección del Centro vs. Kinesiólogo Tratante',
+        ],
+    },
+    {
+        icon: Mail,
+        title: 'Notificaciones Automáticas por Correo',
+        count: 8,
+        badge: '8 eventos',
+        features: [
+            'Confirmación al registrar un nuevo paciente',
+            'Aviso al clínico cuando el paciente completa su anamnesis vía QR',
+            'Envío de nueva pauta de ejercicios prescrita',
+            'Aviso de actualización en pauta o indicación domiciliaria',
+            'Envío de resumen al emitir el alta kinésica',
+            'Confirmación inmediata al reservar una cita online',
+            'Notificación de reagendamiento de hora',
+            'Notificación de cancelación de cita',
+        ],
+    },
+    {
+        icon: Users,
+        title: 'Gestión de Profesionales Clínicos',
+        count: 4,
+        features: [
+            'Incorporar nuevos kinesiólogos al centro (exclusivo Admin)',
+            'Ver directorio completo de profesionales del centro',
+            'Configurar especialidad, horarios y capacidad de boxes por profesional',
+            'Asignación y revocación de permisos administrativos',
+        ],
+    },
+    {
+        icon: StickyNote,
+        title: 'Notas Clínicas Rápidas',
         count: 2,
         features: [
-            'Sus sesiones kinésicas y ciclos quedan registrados y trazables',
-            'Historial de escalas y gráficos comparativos de evolución clínica',
+            'Registrar observaciones clínicas generales en la ficha del paciente',
+            'Editar y mantener bitácora complementaria entre sesiones',
+        ],
+    },
+    {
+        icon: Lock,
+        title: 'Autenticación y Sesión Segura',
+        count: 4,
+        features: [
+            'Inicio de sesión con RUT validado y contraseña encriptada',
+            'Sesión persistente opcional con cookies seguras',
+            'Cierre de sesión inmediato y limpieza de credenciales locales',
+            'Gestión de perfil profesional, firma y datos de contacto',
+        ],
+    },
+]
+
+const patientGroups: FeatureGroup[] = [
+    {
+        icon: Calendar,
+        title: 'Portal de Agendamiento Online',
+        count: 5,
+        badge: 'Online 24/7',
+        defaultOpen: true,
+        features: [
+            'Reservar hora kinésica 24/7 desde el enlace público del profesional o centro',
+            'Autocompletado seguro para paciente habitual con RUT y fecha de nacimiento',
+            'Enmascaramiento de datos sensibles durante la reserva pública (j***@correo.cl)',
+            'Botón directo para agregar la cita a Google Calendar, Apple Calendar u Outlook',
+            'Comprobante inmediato vía correo electrónico transaccional',
+        ],
+    },
+    {
+        icon: ClipboardList,
+        title: 'Formulario Clínico Pre-Consulta — 14 páginas',
+        count: 9,
+        badge: '14 páginas',
+        defaultOpen: true,
+        features: [
+            'Completar la anamnesis inicial desde el teléfono antes de asistir a la consulta',
+            'Indicar ubicación del dolor e intensidad mediante escala EVA/ENA',
+            'Declarar comorbilidades, cirugías y antecedentes médicos relevantes',
+            'Registrar calidad y hábitos de sueño (horarios, despertares, descanso)',
+            'Informar actividad física, ocupación y estilo de vida',
+            'Responder tamizaje psicosocial (ánimo, estrés, red de apoyo)',
+            'Registrar medicamentos actuales y alergias conocidas',
+            'Expresar expectativas y objetivos funcionales de recuperación',
+            'Firmar consentimiento informado digital con fecha y hora',
+        ],
+    },
+    {
+        icon: Dumbbell,
+        title: 'Recepción de Pautas de Ejercicios en Casa',
+        count: 4,
+        badge: 'WhatsApp',
+        features: [
+            'Recibir la pauta personalizada directamente en su WhatsApp o correo electrónico',
+            'Descargar PDF membretado con código de verificación de autenticidad',
+            'Consultar instrucciones claras de ejecución para cada ejercicio',
+            'Revisar series, repeticiones, tiempos de descanso y precauciones clínicas',
+        ],
+    },
+    {
+        icon: QrCode,
+        title: 'Acceso Remoto con Token QR Único',
+        count: 3,
+        features: [
+            'Escanear el código QR en recepción o abrir el enlace directo enviado por WhatsApp',
+            'Ingresar sin crear cuentas ni recordar contraseñas mediante token de un solo uso',
+            'Expiración automática del enlace una vez enviada la ficha para proteger su privacidad',
+        ],
+    },
+    {
+        icon: Scale,
+        title: 'Derechos ARCO y Privacidad del Paciente',
+        count: 4,
+        badge: 'Privacidad',
+        features: [
+            'Solicitar ejercicio de derechos ARCO: Acceso, Rectificación, Cancelación y Oposición',
+            'Recibir copia íntegra de su historial clínico en formatos interoperables (JSON/HTML/PDF)',
+            'Resguardo de datos sensibles de salud alineado con Ley N° 20.584 y Ley N° 21.719',
+            'Protección visual en box mediante bloqueo automático de pantalla por inactividad',
+        ],
+    },
+    {
+        icon: UserCheck,
+        title: 'Identificación Nacional e Internacional',
+        count: 2,
+        features: [
+            'Validación automática de RUT chileno con dígito verificador',
+            'Soporte completo para pacientes extranjeros mediante número de pasaporte o DNI',
+        ],
+    },
+    {
+        icon: FileText,
+        title: 'Informes de Evolución y Reembolso',
+        count: 2,
+        features: [
+            'Recibir informes de evolución con comparativa objetiva del progreso funcional',
+            'Certificados de asistencia y detalle de prestaciones listos para presentar en Isapres',
         ],
     },
 ]
@@ -444,52 +389,56 @@ const patientGroups = [
 /* ─── Collapsible group card ─── */
 function GroupCard({
     group,
-    index,
-    visible,
-    defaultOpen = false,
+    isOpen,
+    onToggle,
+    variant,
 }: {
-    group: typeof clinicianGroups[0]
-    index: number
-    visible: boolean
-    defaultOpen?: boolean
+    group: FeatureGroup
+    isOpen: boolean
+    onToggle: () => void
+    variant: 'clinician' | 'patient'
 }) {
-    const [open, setOpen] = useState(defaultOpen)
     const Icon = group.icon
+    const iconTone =
+        variant === 'clinician'
+            ? 'bg-brand/10 border border-brand/20 text-brand'
+            : 'bg-emerald/10 border border-emerald/20 text-emerald'
 
     return (
         <div
-            className={`rounded-2xl border ${group.accent} bg-card overflow-hidden transition-all duration-300 scroll-reveal stagger-${(index % 6) + 1} ${visible ? 'is-visible' : ''}`}
+            className="rounded-2xl border border-border bg-card overflow-hidden transition-colors hover:border-brand/30 shadow-2xs"
         >
             <button
-                onClick={() => setOpen(!open)}
-                className="w-full flex items-center gap-4 p-5 text-left hover:bg-surface/50 transition-colors"
-                aria-expanded={open}
+                type="button"
+                onClick={onToggle}
+                className="w-full flex items-center gap-4 p-5 text-left hover:bg-surface/60 transition-colors"
+                aria-expanded={isOpen}
             >
-                <div className={`w-10 h-10 rounded-xl ${group.color} flex items-center justify-center flex-shrink-0`}>
-                    <Icon size={18} />
+                <div className={`w-10 h-10 rounded-xl ${iconTone} flex items-center justify-center flex-shrink-0`}>
+                    <Icon size={18} aria-hidden="true" />
                 </div>
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                        <p className="font-semibold text-foreground text-sm">{group.title}</p>
+                        <p className="font-display font-bold text-foreground text-sm">{group.title}</p>
                         {group.badge && (
-                            <span className="text-[10px] font-bold text-brand bg-teal-50 border border-teal-200 rounded-full px-2 py-0.5">
+                            <span className="text-[10px] font-bold text-brand bg-brand/8 border border-brand/15 rounded-full px-2 py-0.5">
                                 {group.badge}
                             </span>
                         )}
                     </div>
-                    <p className="text-xs text-foreground-muted mt-0.5">{group.count} funcionalidades</p>
+                    <p className="text-xs text-foreground-muted mt-0.5">{group.count} capacidades incluidas</p>
                 </div>
                 <div className="flex-shrink-0 text-foreground-muted">
-                    {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    {isOpen ? <ChevronUp size={16} aria-hidden="true" /> : <ChevronDown size={16} aria-hidden="true" />}
                 </div>
             </button>
 
-            {open && (
-                <div className="px-5 pb-5 border-t border-border/40">
+            {isOpen && (
+                <div className="px-5 pb-5 border-t border-border/60 bg-surface/30">
                     <div className="flex flex-col gap-2 pt-4">
                         {group.features.map((feat, i) => (
                             <div key={i} className="flex items-start gap-2.5">
-                                <CheckCircle2 size={14} className="text-teal-500 flex-shrink-0 mt-0.5" />
+                                <CheckCircle2 size={14} className="text-emerald flex-shrink-0 mt-0.5" aria-hidden="true" />
                                 <p className="text-sm text-foreground-muted leading-relaxed">{feat}</p>
                             </div>
                         ))}
@@ -501,123 +450,163 @@ function GroupCard({
 }
 
 export function FeaturesComplete() {
-    const headerSection = useReveal()
-    const statsSection  = useReveal()
-    const clinSection   = useReveal()
-    const patSection    = useReveal()
+    const [openClinician, setOpenClinician] = useState<Record<number, boolean>>(() =>
+        Object.fromEntries(clinicianGroups.map((g, idx) => [idx, Boolean(g.defaultOpen)]))
+    )
+    const [openPatient, setOpenPatient] = useState<Record<number, boolean>>(() =>
+        Object.fromEntries(patientGroups.map((g, idx) => [idx, Boolean(g.defaultOpen)]))
+    )
 
     const totalClinician = clinicianGroups.reduce((a, g) => a + g.count, 0)
     const totalPatient   = patientGroups.reduce((a, g)   => a + g.count, 0)
 
+    const allExpanded =
+        clinicianGroups.every((_, idx) => openClinician[idx]) &&
+        patientGroups.every((_, idx) => openPatient[idx])
+
+    const handleToggleAll = () => {
+        const nextState = !allExpanded
+        setOpenClinician(Object.fromEntries(clinicianGroups.map((_, idx) => [idx, nextState])))
+        setOpenPatient(Object.fromEntries(patientGroups.map((_, idx) => [idx, nextState])))
+    }
+
     return (
         <section
             id="funcionalidades"
-            className="py-28 md:py-36 bg-surface relative overflow-hidden"
+            className="py-20 md:py-28 px-6 bg-background"
             aria-labelledby="features-complete-heading"
         >
-            {/* Background */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.025]" aria-hidden="true"
-                style={{ backgroundImage: 'linear-gradient(oklch(0.48 0.18 246) 1px,transparent 1px),linear-gradient(90deg,oklch(0.48 0.18 246) 1px,transparent 1px)', backgroundSize: '56px 56px' }} />
-
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="max-w-7xl mx-auto">
 
                 {/* Header */}
-                <div ref={headerSection.ref} className={`max-w-3xl mx-auto text-center mb-16 scroll-reveal ${headerSection.visible ? 'is-visible' : ''}`}>
-                    <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-4">
-                        Funcionalidades Completas
-                    </span>
+                <div className="max-w-3xl mx-auto text-center mb-12">
                     <h2
                         id="features-complete-heading"
-                        className="font-display font-bold text-4xl md:text-5xl text-foreground mb-5 text-balance"
+                        className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-foreground tracking-tight mb-4 text-balance"
                     >
-                        Todo lo que{' '}
-                        <span className="text-brand">Kenkomed hace por ti.</span>
+                        Catálogo técnico de{' '}
+                        <span className="text-brand">módulos y capacidades</span>
                     </h2>
-                    <p className="text-lg text-foreground-muted leading-relaxed">
-                        Un sistema completo construido para la realidad del kinesiólogo chileno.
-                        Cada funcionalidad fue diseñada con un propósito clínico concreto.
+                    <p className="text-base sm:text-lg text-foreground-muted leading-relaxed mb-6">
+                        Inspecciona las {totalClinician + totalPatient} funcionalidades desarrolladas para el flujo diario del kinesiólogo y la experiencia digital de sus pacientes.
                     </p>
+                    <button
+                        type="button"
+                        onClick={handleToggleAll}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-card border border-border hover:border-brand hover:text-brand text-foreground transition-colors shadow-2xs"
+                    >
+                        {allExpanded ? (
+                            <>
+                                <ChevronUp size={14} aria-hidden="true" />
+                                Contraer todos los módulos
+                            </>
+                        ) : (
+                            <>
+                                <ChevronDown size={14} aria-hidden="true" />
+                                Expandir los {clinicianGroups.length + patientGroups.length} módulos
+                            </>
+                        )}
+                    </button>
                 </div>
-
 
                 {/* Two columns: Clinicians + Patients */}
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
 
                     {/* ── CLINICIANS ── */}
-                    <div ref={clinSection.ref}>
-                        <div className={`flex items-center gap-3 mb-6 scroll-reveal ${clinSection.visible ? 'is-visible' : ''}`}>
-                            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center">
-                                <Stethoscope size={18} className="text-blue-600" />
+                    <div>
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center">
+                                <Stethoscope size={18} className="text-brand" aria-hidden="true" />
                             </div>
                             <div>
-                                <p className="font-display font-bold text-xl text-foreground">Para Clínicos</p>
-                                <p className="text-xs text-foreground-muted">{totalClinician} funcionalidades en {clinicianGroups.length} módulos</p>
+                                <h3 className="font-display font-bold text-xl text-foreground">Entorno del Profesional y Centro</h3>
+                                <p className="text-xs text-foreground-muted">{totalClinician} capacidades en {clinicianGroups.length} módulos clínicos y administrativos</p>
                             </div>
                         </div>
                         <div className="flex flex-col gap-3">
                             {clinicianGroups.map((group, i) => (
                                 <GroupCard
-                                    key={i}
+                                    key={group.title}
                                     group={group}
-                                    index={i}
-                                    visible={clinSection.visible}
-                                    defaultOpen={i === 0}
+                                    isOpen={Boolean(openClinician[i])}
+                                    onToggle={() =>
+                                        setOpenClinician((prev) => ({ ...prev, [i]: !prev[i] }))
+                                    }
+                                    variant="clinician"
                                 />
                             ))}
                         </div>
                     </div>
 
                     {/* ── PATIENTS ── */}
-                    <div ref={patSection.ref}>
-                        <div className={`flex items-center gap-3 mb-6 scroll-reveal ${patSection.visible ? 'is-visible' : ''}`}>
-                            <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center">
-                                <Smartphone size={18} className="text-teal-600" />
+                    <div>
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-emerald/10 border border-emerald/20 flex items-center justify-center">
+                                <Smartphone size={18} className="text-emerald" aria-hidden="true" />
                             </div>
                             <div>
-                                <p className="font-display font-bold text-xl text-foreground">Para Pacientes</p>
-                                <p className="text-xs text-foreground-muted">{totalPatient} funcionalidades en {patientGroups.length} módulos</p>
+                                <h3 className="font-display font-bold text-xl text-foreground">Experiencia del Paciente</h3>
+                                <p className="text-xs text-foreground-muted">{totalPatient} capacidades en {patientGroups.length} módulos de autoservicio y seguimiento</p>
                             </div>
                         </div>
                         <div className="flex flex-col gap-3 mb-8">
                             {patientGroups.map((group, i) => (
                                 <GroupCard
-                                    key={i}
+                                    key={group.title}
                                     group={group}
-                                    index={i}
-                                    visible={patSection.visible}
-                                    defaultOpen={i === 0}
+                                    isOpen={Boolean(openPatient[i])}
+                                    onToggle={() =>
+                                        setOpenPatient((prev) => ({ ...prev, [i]: !prev[i] }))
+                                    }
+                                    variant="patient"
                                 />
                             ))}
                         </div>
 
-                        {/* Ideal para card */}
-                        <div className="rounded-2xl border border-teal-200/60 bg-teal-50/50 p-6">
-                            <p className="text-xs font-bold text-brand tracking-widest uppercase mb-4">Ideal para</p>
-                            <div className="grid grid-cols-1 gap-2">
-                                {[
-                                    'Kinesiólogos independientes',
-                                    'Fisioterapeutas',
-                                    'Clínicas de rehabilitación',
-                                    'Centros de medicina deportiva',
-                                    'Hospitales con servicio de kinesiología',
-                                ].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-2">
-                                        <CheckCircle2 size={14} className="text-teal-500 flex-shrink-0" />
-                                        <p className="text-sm text-foreground-muted">{item}</p>
+                        {/* Deep-dive links to Research & Security */}
+                        <div className="rounded-2xl border border-border bg-card p-6 sm:p-7 shadow-2xs">
+                            <h4 className="font-display font-bold text-lg text-foreground mb-2">
+                                Documentación científica y normativa
+                            </h4>
+                            <p className="text-sm text-foreground-muted leading-relaxed mb-5">
+                                ¿Evalúas Kenkomed desde dirección clínica, TI o comité académico? Revisa las referencias bibliográficas de nuestras escalas y el detalle de nuestra arquitectura de seguridad.
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <Link
+                                    href="/investigacion"
+                                    className="flex items-start gap-3 p-4 rounded-xl bg-surface border border-border hover:border-brand/40 transition-colors group"
+                                >
+                                    <div className="w-9 h-9 rounded-xl bg-brand/10 border border-brand/20 text-brand flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <BookOpen size={16} aria-hidden="true" />
                                     </div>
-                                ))}
+                                    <div>
+                                        <p className="text-xs font-semibold text-foreground group-hover:text-brand transition-colors flex items-center gap-1">
+                                            Base científica y 13 escalas
+                                            <ArrowRight size={12} aria-hidden="true" />
+                                        </p>
+                                        <p className="text-[11px] text-foreground-muted mt-0.5">
+                                            Guías NICE, IASP, OMS y literatura de respaldo
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link
+                                    href="/seguridad"
+                                    className="flex items-start gap-3 p-4 rounded-xl bg-surface border border-border hover:border-emerald/40 transition-colors group"
+                                >
+                                    <div className="w-9 h-9 rounded-xl bg-emerald/10 border border-emerald/20 text-emerald flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <ShieldCheck size={16} aria-hidden="true" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-semibold text-foreground group-hover:text-emerald transition-colors flex items-center gap-1">
+                                            Seguridad y Ley 20.584 / 21.719
+                                            <ArrowRight size={12} aria-hidden="true" />
+                                        </p>
+                                        <p className="text-[11px] text-foreground-muted mt-0.5">
+                                            Auditoría de accesos, RBAC y portabilidad ARCO
+                                        </p>
+                                    </div>
+                                </Link>
                             </div>
-                        </div>
-
-                        {/* CTA */}
-                        <div className="mt-6">
-                            <Link
-                                href="/#contact"
-                                className="group w-full justify-center btn-kenko-primary"
-                            >
-                                Quiero todo esto para mi clínica
-                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
                         </div>
                     </div>
                 </div>

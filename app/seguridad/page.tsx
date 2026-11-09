@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { LegalPageLayout } from '@/components/legal-page-layout'
+import { LegalPageLayout, type LegalHighlight } from '@/components/legal-page-layout'
 import { JsonLd, breadcrumbSchema } from '@/components/json-ld'
 
 export const metadata: Metadata = {
-  title: 'Seguridad de Datos',
+  title: 'Seguridad y Trazabilidad Clínica',
   description:
-    'Medidas de seguridad, confidencialidad y protección de datos clínicos en la plataforma Kenkomed.',
+    'Arquitectura de seguridad, control de acceso por roles (RBAC), auditoría de fichas y cumplimiento normativo (Ley 20.584 y 21.719) en Kenkomed.',
   alternates: { canonical: '/seguridad' },
   robots: { index: true, follow: true },
 }
@@ -15,144 +15,219 @@ const breadcrumbs = breadcrumbSchema([
   { name: 'Seguridad de Datos', url: 'https://www.kenkomed.cl/seguridad' },
 ])
 
+const highlights: LegalHighlight[] = [
+  {
+    badge: 'Normativa Salud CL',
+    title: 'Alineado con Ley 20.584 y 21.719',
+    description:
+      'Resguardo de confidencialidad de la ficha clínica, consentimiento informado digital y portabilidad ARCO.',
+  },
+  {
+    badge: 'Control RBAC',
+    title: '4 niveles de acceso por rol',
+    description:
+      'Recepción gestiona agenda y pagos sin acceso a notas clínicas SOAP ni diagnósticos kinésicos.',
+  },
+  {
+    badge: 'Trazabilidad',
+    title: 'Bitácora AuditoriaAcceso',
+    description:
+      'Registro inmutable de usuario, rol, marca de tiempo e IP en operaciones sensibles, exportable en PDF.',
+  },
+  {
+    badge: 'Protección en Box',
+    title: 'Bloqueo y tokens temporales',
+    description:
+      'Bloqueo automático tras 10 min de inactividad en consulta y tokens QR de un solo uso con expiración.',
+  },
+]
+
 const sections = [
   {
-    id: 'compromiso',
-    title: 'Nuestro compromiso',
+    id: 'arquitectura-normativa',
+    title: 'Arquitectura y marco normativo en Chile',
     content: (
       <>
         <p>
-          Kenkomed gestiona información clínica sensible. Por eso diseñamos la plataforma con
-          principios de confidencialidad, integridad y disponibilidad desde el inicio.
+          Kenkomed procesa información clínica sensible sujeta a reserva legal. Nuestra arquitectura
+          de software fue diseñada desde su base bajo los principios de{' '}
+          <strong>confidencialidad, integridad, disponibilidad y trazabilidad</strong> exigidos para
+          los registros de salud en Chile.
         </p>
         <p>
-          La seguridad es un proceso continuo: revisamos accesos, actualizamos dependencias y
-          mejoramos controles conforme evoluciona el producto.
+          Los controles técnicos y operativos de la plataforma están alineados con la{' '}
+          <strong>Ley N° 20.584</strong> (Derechos y Deberes de las Personas en Atención de Salud),
+          la <strong>Ley N° 19.628</strong> sobre Protección de la Vida Privada y preparados para
+          los estándares de gobernanza, seguridad y portabilidad de la{' '}
+          <strong>Ley N° 21.719</strong> sobre Protección de Datos Personales.
         </p>
       </>
     ),
   },
   {
-    id: 'datos-clinicos',
-    title: 'Protección de datos clínicos',
+    id: 'rbac-aislamiento',
+    title: 'Control de acceso por roles (RBAC) y aislamiento multiclínica',
     content: (
       <>
-        <p>Los datos de pacientes y fichas clínicas reciben tratamiento reforzado:</p>
+        <p>
+          Aplicamos el principio de privilegio mínimo mediante separación estricta de permisos según
+          la función dentro del centro:
+        </p>
         <ul>
-          <li>Acceso restringido por roles (administrador vs clínico regular).</li>
-          <li>Separación lógica de datos entre cuentas de distintos centros.</li>
-          <li>Registro de actividad relevante para auditoría operativa.</li>
-          <li>Políticas de acceso mínimo necesario para cada perfil.</li>
+          <li>
+            <strong>Director / Administrador del Centro:</strong> gestión integral del equipo
+            profesional, configuración de sedes, reportes financieros y agenda global.
+          </li>
+          <li>
+            <strong>Kinesiólogo / Profesional Clínico:</strong> acceso exclusivo a las fichas,
+            escalas funcionales y evoluciones SOAP de sus pacientes asignados.
+          </li>
+          <li>
+            <strong>Recepción / Secretaría:</strong> acceso acotado a agendamiento multi-box,
+            confirmación de asistencia y registro de pagos, <strong>sin acceso</strong> al contenido
+            clínico de las fichas ni a los informes DSS.
+          </li>
+          <li>
+            <strong>Aislamiento por sede:</strong> en cuentas multiclínica, las fichas y agendas se
+            mantienen lógicamente segregadas por centro de trabajo.
+          </li>
         </ul>
       </>
     ),
   },
   {
-    id: 'cifrado',
-    title: 'Cifrado y transmisión',
+    id: 'trazabilidad-auditoria',
+    title: 'Trazabilidad clínica y registro de auditoría (AuditoriaAcceso)',
     content: (
       <>
         <p>
-          Las comunicaciones con la plataforma se realizan mediante conexiones cifradas (HTTPS/TLS).
-          Las credenciales y datos en tránsito entre el navegador y nuestros servidores están
-          protegidos contra interceptación en la red.
+          Para respaldar la responsabilidad médico-legal del centro y cumplir con la trazabilidad de
+          la ficha clínica, Kenkomed mantiene una bitácora inmutable de eventos relevantes (
+          <code>AuditoriaAcceso</code>):
         </p>
-        <p>
-          Los datos en reposo se almacenan en infraestructura con controles de acceso restringido
-          y prácticas de seguridad acordes a un servicio de salud digital.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 'accesos',
-    title: 'Control de accesos',
-    content: (
-      <>
-        <p>Implementamos controles para reducir el riesgo de acceso no autorizado:</p>
         <ul>
-          <li>Autenticación individual por usuario.</li>
-          <li>Roles con permisos diferenciados.</li>
-          <li>Posibilidad de revocar accesos al desvincular personal.</li>
-          <li>Recomendación de contraseñas robustas y no compartidas.</li>
+          <li>
+            Registro de lectura, creación y modificación de fichas clínicas, ciclos de atención y
+            pautas de ejercicio (<code>PautaEjercicio</code>) con fecha, hora exacta, usuario y
+            dirección IP.
+          </li>
+          <li>
+            Consentimiento informado electrónico firmado por el paciente en la admisión remota con
+            sello de tiempo y dirección IP de origen.
+          </li>
+          <li>
+            Capacidad para que el administrador del centro exporte reportes de auditoría en formato
+            PDF filtrables por ventanas de 30, 90 o 180 días.
+          </li>
         </ul>
       </>
     ),
   },
   {
-    id: 'respaldo',
-    title: 'Respaldo y continuidad',
+    id: 'seguridad-box-tokens',
+    title: 'Seguridad en box de atención y enlaces públicos',
     content: (
       <>
         <p>
-          Realizamos respaldos periódicos para facilitar la recuperación ante incidentes técnicos.
-          Nuestro objetivo es minimizar la pérdida de información y el tiempo de inactividad.
+          El entorno físico de una consulta kinésica o gimnasio terapéutico presenta riesgos
+          específicos de exposición visual que mitigamos con controles dedicados:
         </p>
-        <p>
-          En caso de incidente mayor, activamos procedimientos de respuesta para contener,
-          investigar y comunicar según corresponda.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 'proveedores',
-    title: 'Proveedores e infraestructura',
-    content: (
-      <>
-        <p>
-          Seleccionamos proveedores de hosting y servicios con estándares de seguridad
-          reconocidos. Exigimos confidencialidad y evaluamos el riesgo antes de integrar nuevos
-          servicios que procesen datos.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 'landing',
-    title: 'Datos del formulario de contacto',
-    content: (
-      <>
-        <p>
-          La landing recopila solo los datos que envías voluntariamente en el formulario de
-          contacto (nombre, email, teléfono, clínica y mensaje). Esos datos se usan exclusivamente
-          para responder tu solicitud comercial.
-        </p>
-        <p>
-          Consulta la{' '}
-          <a href="/privacidad">Política de Privacidad</a> para más detalle sobre tratamiento y
-          derechos.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 'usuario',
-    title: 'Tu parte en la seguridad',
-    content: (
-      <>
-        <p>La seguridad también depende del uso responsable:</p>
         <ul>
-          <li>No compartas tu contraseña ni dejes sesiones abiertas en equipos compartidos.</li>
-          <li>Desactiva accesos de personal que ya no trabaja en la clínica.</li>
-          <li>Reporta actividad sospechosa a soporte de inmediato.</li>
-          <li>Cumple la normativa de protección de datos de tus pacientes.</li>
+          <li>
+            <strong>Bloqueo automático por inactividad:</strong> la sesión clínica bloquea la
+            pantalla automáticamente tras 10 minutos sin interacción para evitar exposición de datos
+            en el box (<em>shoulder surfing</em>).
+          </li>
+          <li>
+            <strong>Tokens QR de un solo uso:</strong> los enlaces de admisión remota utilizan
+            tokens únicos con vigencia acotada que se invalidan automáticamente una vez completada la
+            anamnesis.
+          </li>
+          <li>
+            <strong>Reserva online protegida:</strong> el portal público de agendamiento utiliza
+            firmas criptográficas temporales (<code>TimestampSigner</code>), control de tasa de
+            intentos (<em>rate limiting</em>) y enmascaramiento de datos de contacto (ej.{' '}
+            <code>j***@correo.cl</code>).
+          </li>
         </ul>
       </>
     ),
   },
   {
-    id: 'incidentes',
-    title: 'Reporte de vulnerabilidades',
+    id: 'cifrado-infraestructura',
+    title: 'Cifrado en tránsito, reposo y continuidad operativa',
     content: (
       <>
         <p>
-          Si detectas una vulnerabilidad o incidente de seguridad relacionado con Kenkomed,
-          contáctanos de inmediato en{' '}
+          Todas las conexiones entre navegadores, dispositivos móviles de pacientes y los servidores
+          de Kenkomed se realizan exclusivamente bajo cifrado <strong>HTTPS/TLS</strong>. Las
+          contraseñas de los profesionales se almacenan mediante algoritmos de hash criptográfico con
+          sal y nunca en texto plano.
+        </p>
+        <p>
+          La base de datos cuenta con bloqueo transaccional para preservar la integridad de agendas
+          y registros, respaldos automatizados periódicos y monitoreo continuo de disponibilidad
+          mediante endpoints de salud (<code>/health/</code>).
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'portabilidad-arco',
+    title: 'Portabilidad e interoperabilidad (Derechos ARCO)',
+    content: (
+      <>
+        <p>
+          Facilitamos a los centros clínicos el cumplimiento oportuno de solicitudes de acceso y
+          portabilidad de la ficha clínica por parte de sus pacientes:
+        </p>
+        <ul>
+          <li>
+            Exportación íntegra de la ficha clínica del paciente en formatos estructurados y
+            abiertos (<strong>JSON</strong>, <strong>HTML</strong> y <strong>PDF</strong>).
+          </li>
+          <li>Exportación segmentada por episodio o ciclo clínico específico.</li>
+          <li>
+            Consulta nuestra <a href="/privacidad">Política de Privacidad</a> para conocer el
+            procedimiento detallado de ejercicio de derechos ARCO.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: 'responsabilidad-compartida',
+    title: 'Buenas prácticas del centro y profesionales',
+    content: (
+      <>
+        <p>
+          La protección efectiva de los datos clínicos es una responsabilidad compartida entre
+          Kenkomed y cada centro de salud:
+        </p>
+        <ul>
+          <li>Utilizar cuentas individuales por profesional y nunca compartir credenciales.</li>
+          <li>Revocar de inmediato el acceso de profesionales o administrativos desvinculados.</li>
+          <li>Verificar la identidad del paciente antes de entregar copias impresas o digitales.</li>
+          <li>Notificar cualquier anomalía de acceso a nuestro equipo de soporte.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: 'reporte-vulnerabilidades',
+    title: 'Reporte responsable de incidentes o vulnerabilidades',
+    content: (
+      <>
+        <p>
+          Si eres investigador de seguridad, administrador de TI de una clínica o usuario y detectas
+          un posible incidente o vulnerabilidad técnica en Kenkomed, escríbenos directamente a{' '}
           <a href="mailto:kenkomedplus@gmail.com">kenkomedplus@gmail.com</a> con el asunto{' '}
           <strong>Seguridad Kenkomed</strong>.
         </p>
-        <p>No divulgues públicamente detalles técnicos antes de darnos oportunidad de investigar.</p>
+        <p>
+          Acusamos recibo prioritario de todo reporte técnico y coordinamos su análisis y
+          remediación antes de cualquier divulgación pública.
+        </p>
       </>
     ),
   },
@@ -163,9 +238,11 @@ export default function SeguridadPage() {
     <>
       <JsonLd data={breadcrumbs} />
       <LegalPageLayout
-        title="Seguridad de Datos"
-        description="Cómo protegemos la información clínica y personal en Kenkomed."
-        lastUpdated="26 de junio de 2026"
+        title="Seguridad y Trazabilidad Clínica"
+        description="Arquitectura técnica, controles de acceso por rol y medidas de protección de datos de salud en Kenkomed."
+        lastUpdated="Abril de 2026"
+        currentPath="/seguridad"
+        highlights={highlights}
         sections={sections}
       />
     </>

@@ -98,22 +98,18 @@ export function InvestigacionEvidenceVisualizer() {
   const [selectedProtocol, setSelectedProtocol] = useState(SCIENTIFIC_PROTOCOLS[0]);
 
   return (
-    <section className="relative w-full py-20 px-4 md:px-8 bg-[#040d18] text-white overflow-hidden border-y border-white/[0.08]">
-      {/* Luz ambiental */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-gradient-to-tr from-blue-600/15 via-emerald-500/12 to-transparent blur-[140px] pointer-events-none" />
-
+    <section
+      id="consola-evidencia"
+      className="relative w-full py-20 md:py-24 px-4 md:px-8 bg-[#040d18] text-white overflow-hidden border-y border-white/[0.08]"
+    >
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Cabecera */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/25 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4">
-            <FlaskConical size={13} className="text-emerald-400" />
-            De la Literatura Científica al Algoritmo
-          </div>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-            Cómo Kenkomed traduce la evidencia en decisiones
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight text-balance">
+            De la literatura científica al algoritmo clínico
           </h2>
-          <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
-            Explora las guías científicas integradas en el software y comprueba cómo el algoritmo procesa las respuestas del paciente para guiar tu conducta terapéutica.
+          <p className="text-base sm:text-lg text-zinc-300 leading-relaxed text-balance">
+            Explora cómo el motor DSS de Kenkomed traduce puntos de corte publicados en guías internacionales en recomendaciones accionables dentro de la ficha.
           </p>
         </div>
 
