@@ -128,13 +128,6 @@ export const softwareSchema = {
       },
     ],
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '48',
-    bestRating: '5',
-    worstRating: '1',
-  },
   author: {
     '@type': 'Organization',
     name: 'Kenkomed',

@@ -32,6 +32,7 @@ export const FAQ = ({
 
   return (
     <section 
+      id="preguntas-frecuentes"
       className={cn(
         "relative overflow-hidden bg-background px-4 py-12 text-foreground",
         className

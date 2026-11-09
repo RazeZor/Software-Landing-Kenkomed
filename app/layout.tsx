@@ -131,10 +131,6 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
     >
-      <head>
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-      </head>
       <body
         suppressHydrationWarning
         className="font-sans antialiased bg-background text-foreground"
@@ -196,11 +192,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <JsonLd data={softwareSchema} />
 
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
-          <noscript>
-            <div style={{ padding: '1rem', background: '#fee2e2', color: '#991b1b', textAlign: 'center', fontFamily: 'system-ui, sans-serif' }}>
-              <strong>JavaScript está deshabilitado.</strong> Kenkomed requiere JavaScript para funcionar correctamente. Por favor, actívalo en tu navegador.
-            </div>
-          </noscript>
           <SiteHeader />
           {children}
           <FloatingWhatsApp />

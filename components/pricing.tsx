@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import confetti from 'canvas-confetti'
 import NumberFlow from '@number-flow/react'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
@@ -63,7 +62,7 @@ const plans = [
       'Gestión multi-box simultánea y libre (boxes ilimitados sin recargo)',
       'Agenda interna de turnos (organización privada de tus horas y citas)',
       'Admisión remota con código QR (tope 20 envíos/mes) y sala de espera',
-      'Cumplimiento legal: Ley 20.584, Derechos ARCO (Ley 21.719) y descarga SEREMI',
+      'Trazabilidad clínica alineada con Ley 20.584, Derechos ARCO (Ley 21.719) y exportación PDF',
     ],
     cta: 'Pedir Demo Individual',
   },
@@ -155,6 +154,7 @@ function LeadModal({
   const backdropRef = useRef<HTMLDivElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   // Estados diferenciados del formulario
   const [form, setForm] = useState({
@@ -384,15 +384,16 @@ Plan: Clínica (${priceText})
       if (contentType && contentType.includes('application/json')) {
         const result = await response.json()
         if (result.success) {
+          setSubmitError(null)
           setIsSubmitted(true)
         } else {
-          alert(`Error al enviar la solicitud: ${result.message || 'Por favor intenta de nuevo.'}`)
+          setSubmitError('No pudimos procesar el formulario en este momento. Puedes escribirnos directamente por WhatsApp.')
         }
       } else {
-        alert('Respuesta inesperada de servidor. Intenta de nuevo.')
+        setSubmitError('No pudimos conectar con el servidor de correo. Escríbenos directamente por WhatsApp para atenderte de inmediato.')
       }
     } catch {
-      alert('Hubo un error de conexión al enviar la solicitud. Por favor intenta de nuevo.')
+      setSubmitError('Error de conexión al enviar la solicitud. Por favor intenta nuevamente o contáctanos por WhatsApp.')
     } finally {
       setIsSubmitting(false)
     }
@@ -976,6 +977,22 @@ Plan: Clínica (${priceText})
 
               {/* Action Submit Diferenciado */}
               <div className="pt-2 space-y-3">
+                {submitError && (
+                  <div
+                    role="alert"
+                    className="rounded-xl border border-rose-200 bg-rose-50 p-3.5 text-xs text-rose-800 flex flex-col gap-1.5"
+                  >
+                    <span>{submitError}</span>
+                    <a
+                      href="https://wa.me/56937105872"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold text-rose-900 underline"
+                    >
+                      Hablar por WhatsApp (+56 9 3710 5872) →
+                    </a>
+                  </div>
+                )}
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -1028,31 +1045,6 @@ export function Pricing() {
 
   const handleToggle = (checked: boolean) => {
     setIsMonthly(!checked)
-    if (checked && switchRef.current) {
-      const rect = switchRef.current.getBoundingClientRect()
-      const x = rect.left + rect.width / 2
-      const y = rect.top + rect.height / 2
-
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: {
-          x: x / window.innerWidth,
-          y: y / window.innerHeight,
-        },
-        colors: [
-          "hsl(var(--primary))",
-          "hsl(var(--accent))",
-          "hsl(var(--secondary))",
-          "hsl(var(--muted))",
-        ],
-        ticks: 200,
-        gravity: 1.2,
-        decay: 0.94,
-        startVelocity: 30,
-        shapes: ["circle"],
-      })
-    }
   }
 
   const billingCycle: BillingCycle = isMonthly ? 'monthly' : 'annual'
@@ -1072,9 +1064,6 @@ export function Pricing() {
             transition={{ duration: 0.5 }}
             className="text-center space-y-4 mb-12"
           >
-            <span className="inline-block text-xs font-bold text-brand tracking-widest uppercase mb-2">
-              Diseñado para kinesiología
-            </span>
             <h2 id="pricing-heading" className="text-4xl font-bold tracking-tight sm:text-5xl font-display text-balance">
               Tus costos, claros <span className="text-brand">desde el día uno.</span>
             </h2>

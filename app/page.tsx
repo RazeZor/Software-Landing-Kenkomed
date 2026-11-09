@@ -5,6 +5,11 @@ import { JsonLd, faqSchema } from '@/components/json-ld'
 import { homeFaqItems } from '@/lib/faq-data'
 import { SectionSkeleton } from '@/components/section-skeleton'
 
+const BeforeAfter = dynamic(
+  () => import('@/components/before-after').then((m) => m.BeforeAfter),
+  { loading: () => <SectionSkeleton className="h-[32rem]" /> }
+)
+
 const SolucionTeaser = dynamic(
   () => import('@/components/features').then((m) => m.SolucionTeaser),
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
@@ -15,19 +20,14 @@ const KenkomedChatShowcase = dynamic(
   { loading: () => <SectionSkeleton className="h-[36rem]" /> }
 )
 
-const BeforeAfter = dynamic(
-  () => import('@/components/before-after').then((m) => m.BeforeAfter),
-  { loading: () => <SectionSkeleton className="h-[32rem]" /> }
-)
-
 const Testimonials = dynamic(
   () => import('@/components/ui/testimonial').then((m) => m.default),
   { loading: () => <SectionSkeleton className="h-[24rem]" /> }
 )
 
-const HomeMidCta = dynamic(
-  () => import('@/components/home-mid-cta').then((m) => m.HomeMidCta),
-  { loading: () => <SectionSkeleton className="h-48" /> }
+const ClinicalBackingSection = dynamic(
+  () => import('@/components/clinical-backing-section').then((m) => m.ClinicalBackingSection),
+  { loading: () => <SectionSkeleton className="h-72" /> }
 )
 
 const Pricing = dynamic(
@@ -54,7 +54,7 @@ export default function Home() {
       <SolucionTeaser />
       <KenkomedChatShowcase />
       <Testimonials />
-      <HomeMidCta />
+      <ClinicalBackingSection />
       <Pricing />
       <FaqSection />
       <ContactForm />
@@ -62,4 +62,3 @@ export default function Home() {
     </main>
   )
 }
-

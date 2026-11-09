@@ -3,87 +3,102 @@ export type FaqItem = {
   answer: string
 }
 
-export const homeFaqItems: FaqItem[] = [
-  {
-    question: '¿Qué es Kenkomed y para quién está pensado?',
-    answer:
-      'Kenkomed es un software de gestión clínica y Sistema de Soporte a la Decisión (DSS) diseñado para kinesiólogos, fisioterapeutas y centros de rehabilitación en Chile. Centraliza fichas clínicas digitales, agenda, 13 cuestionarios validados (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, etc) y reportes en una sola plataforma web.',
-  },
-  {
-    question: '¿En qué se diferencia Kenkomed de un software genérico de salud?',
-    answer:
-      'Kenkomed no es una agenda médica ni un ERP adaptado: es un DSS (Sistema de Soporte a la Decisión Clínica) construido desde cero para kinesiología. Incluye 13 escalas validadas integradas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS y screening de comorbilidades), admisión remota vía QR con anamnesis de 14 páginas, evolución en formato SOAP enlazada a objetivos funcionales, gráficos automáticos de resultados para demostrar la evolución al paciente y al médico derivador, y un módulo de Packs de Sesiones flexible para cobros por sesión y tarifas particulares. Además, incorpora arquitectura orientada a la privacidad y trazabilidad clínica (Ley 20.584 y estándares de datos de salud): trazabilidad de accesos, cifrado, control por profesional y auditoría PDF por período.',
-  },
-  {
-    question: '¿Kenkomed cumple con la protección de datos de pacientes?',
-    answer:
-      'Sí. La plataforma utiliza cifrado de datos, respaldos automáticos y control de roles (administrador vs clínico). Cada profesional accede solo a la información de sus pacientes asignados. El sistema incluye herramientas de trazabilidad y seguridad alineadas con la Ley N° 20.584 y preparadas para la normativa de datos personales en salud.',
-  },
-  {
-    question: '¿Hay demo gratuita del software?',
-    answer:
-      'Sí. Puedes solicitar una demo guiada sin costo desde la web o ver la sección Demo con capturas y video del panel. Un especialista te muestra el sistema DSS, la agenda inteligente y las historias clínicas digitales antes de contratar.',
-  },
-  {
-    question: '¿Funciona en celular y para clínicas con varios kinesiólogos?',
-    answer:
-      'Kenkomed funciona en cualquier navegador web, incluyendo el de tu celular — no necesitas instalar nada. Escala desde un kinesiólogo independiente hasta redes de clínicas con múltiples sedes, con roles diferenciados y panel de monitoreo en tiempo real.',
-  },
-  {
-    question: '¿Qué escalas y cuestionarios clínicos incluye?',
-    answer:
-      'Incluye 13 escalas clínicas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDash, Barthel, GROC, EQ-5D, Oswestry, LEFS), screening de comorbilidades (fibromialgia, neuropatía, ansiedad, depresión) y generación automática de informes clínicos al completar la anamnesis, sin papel ni Excel.',
-  },
-  // ─── Preguntas clave del mercado chileno (Isapre, WhatsApp, SII) ───
-  {
-    question: '¿Kenkomed genera el detalle de sesiones para reembolso en Isapre y seguros complementarios?',
-    answer:
-      'Sí. Con un solo clic emites el certificado y detalle de sesiones en PDF con fechas asistidas, diagnóstico kinésico y códigos de arancel FONASA exigidos por todas las Isapres (Colmena, Banmédica, Consalud, CruzBlanca, Vida Tres, Nueva Masvida, etc.) y seguros complementarios en Chile para reembolsar sin trabas.',
-  },
-  {
-    question: '¿Cómo se utiliza WhatsApp para la comunicación con los pacientes?',
-    answer:
-      'Kenkomed facilita la comunicación directa entre el kinesiólogo y sus pacientes: al estar toda la información centralizada y digitalizada, el profesional puede enviar la anamnesis previa directamente por WhatsApp mediante código QR o un link directo para que el paciente la complete desde su celular. Además, ante cualquier duda o asistencia sobre el software, la comunicación con el equipo de Kenkomed se realiza directamente vía WhatsApp de manera efectiva con un equipo preparado para ello.',
-  },
-  {
-    question: '¿Permite gestionar cobros para emitir Boleta de Honorarios en el SII o factura?',
-    answer:
-      'Sí. Incluye módulo de control de caja y registro de pagos por sesión individual o pack (transferencia, tarjeta o efectivo), entregando el desglose con RUT y datos fiscales del paciente para facilitar la emisión de tu Boleta de Honorarios Electrónica en el portal del SII o la facturación médica de tu centro.',
-  },
-  // ─── Nuevas preguntas de objeciones ───
-  {
-    question: '¿Ya uso Excel u otra agenda, puedo migrar mis datos?',
-    answer:
-      'Sí. Kenkomed te permite comenzar de cero o migrar tus fichas históricas. En el plan Clínica ofrecemos asistencia personalizada para importar datos desde Excel u otro software. Contáctanos para evaluar tu caso.',
-  },
-  {
-    question: '¿Y si mis pacientes no usan el código QR?',
-    answer:
-      'El QR es opcional. Si un paciente no lo completa antes de la cita, tú puedes ingresar los datos directamente en el sistema durante la sesión. El QR simplemente ahorra tiempo cuando el paciente lo usa.',
-  },
-  {
-    question: '¿Dónde están mis datos y quién los ve?',
-    answer:
-      'Tus datos clínicos se almacenan en servidores seguros con cifrado. Solo tú y los profesionales autorizados de tu centro pueden acceder a la información de los pacientes. El sistema registra cada acceso para trazabilidad.',
-  },
-  {
-    question: '¿Cómo funciona el agendamiento online y cómo evita la doble reserva en boxes simultáneos?',
-    answer:
-      'Cada profesional cuenta con su página pública segura (/reservar/<slug-profesional>/) y cada centro con su catálogo (/reservar/centro/<id>/). Si atiendes en 2 o 3 boxes en paralelo (ej: gimnasio y fisioterapia), el sistema admite exactamente los cupos configurados. Para prevenir overbooking, utiliza transacciones atómicas con bloqueo pesimista en base de datos: si dos pacientes intentan reservar en el mismo segundo, el sistema garantiza consistencia matemática entregando respuesta limpia sin duplicar citas. Además, los pacientes habituales se validan con doble factor seguro (RUT + Fecha de nacimiento), protegiendo la privacidad bajo la Ley 19.628 y 21.719.',
-  },
-  {
-    question: '¿Cómo funciona la prescripción de pautas de ejercicios y su envío por WhatsApp?',
-    answer:
-      'Kenkomed cuenta con una biblioteca curada de ejercicios terapéuticos clasificados por regiones anatómicas (cervical, hombro, lumbar, cadera, rodilla, tobillo y pie). El kinesiólogo selecciona los ejercicios, define series, repeticiones, descanso y precauciones, y con un solo clic genera un PDF oficial membretado con código de verificación que se despacha automáticamente por correo electrónico o se comparte al instante por WhatsApp con un mensaje preconfigurado.',
-  },
-  {
-    question: '¿De qué manera cumple Kenkomed con la nueva Ley 21.719 de Protección de Datos Personales y la Ley 20.584?',
-    answer:
-      'Kenkomed cumple con toda la normativa de salud y protección de datos en Chile: tus pacientes pueden firmar consentimientos digitales desde el celular, puedes exportar fichas completas a PDF si el paciente lo solicita, queda registrado quién revisa cada ficha y la pantalla se bloquea automáticamente por seguridad si te alejas de tu computador.',
-  },
-  {
-    question: '¿Cuánto cuesta y hay permanencia?',
-    answer:
-      'Los planes parten desde 0,4 UF / mes neto (+ IVA en plan anual, aprox. $15.000 CLP). El Plan Clínico Pro tiene un valor de 0,7 UF / mes neto (aprox. $26.000 CLP) y el Plan Clínica / Centro 1,1 UF / mes neto (aprox. $41.000 CLP). No hay permanencia mínima: puedes cancelar cuando quieras. Ofrecemos facturación mensual y anual. Solicita una demo guiada para conocer el plan que mejor se adapta a tu consulta o clínica.',
-  },
-]
+export const faqCategories: Record<string, string> = {
+  general: 'General',
+  caracteristicas: 'Características Clínicas',
+  seguridad: 'Seguridad y Normativa',
+  precios: 'Precios e Implementación',
+}
+
+export const faqDataByCategory: Record<string, FaqItem[]> = {
+  general: [
+    {
+      question: '¿Qué es Kenkomed y para quién está pensado?',
+      answer:
+        'Kenkomed es un software de gestión clínica y Sistema de Soporte a la Decisión (DSS) diseñado para kinesiólogos, fisioterapeutas y centros de rehabilitación en Chile. Centraliza fichas clínicas digitales, agenda multi-box, 13 cuestionarios validados (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, Oswestry, LEFS, etc.) y reportes clínicos en una sola plataforma web.',
+    },
+    {
+      question: '¿Hay demostración guiada sin costo?',
+      answer:
+        'Sí. Puedes agendar una demostración guiada sin costo desde la web o explorar la sección Demo. Un especialista de nuestro equipo te muestra en vivo el sistema DSS, la agenda multi-box y las historias clínicas digitales aplicadas a tu flujo de atención.',
+    },
+    {
+      question: '¿Necesito instalar algún programa en mi computador?',
+      answer:
+        'No. Kenkomed es una plataforma 100% basada en la nube (SaaS). Solo necesitas conexión a internet y un navegador web para acceder desde cualquier computador, tablet o teléfono celular, sin instalaciones ni actualizaciones manuales.',
+    },
+  ],
+  caracteristicas: [
+    {
+      question: '¿En qué se diferencia Kenkomed de un software genérico de salud?',
+      answer:
+        'Kenkomed no es una agenda médica genérica adaptada: es un Sistema de Soporte a la Decisión Clínica (DSS) diseñado desde cero para kinesiología. Integra 13 escalas funcionales validadas, admisión remota vía código QR (anamnesis de 14 páginas), evolución en formato SOAP enlazada a objetivos funcionales, alertas clínicas automáticas (banderas rojas y amarillas), gráficos de evolución para el paciente y médico derivador, y control de packs de sesiones.',
+    },
+    {
+      question: '¿Kenkomed genera el detalle de sesiones para reembolso en Isapres y seguros?',
+      answer:
+        'Sí. Con un clic emites el certificado y detalle de sesiones en formato PDF con las fechas de atención, diagnóstico kinésico y códigos de arancel FONASA solicitados por Isapres y seguros complementarios de salud en Chile para facilitar el reembolso del paciente.',
+    },
+    {
+      question: '¿Cómo funciona el envío de anamnesis y pautas de ejercicios por WhatsApp?',
+      answer:
+        'Puedes compartir el enlace o código QR de admisión previa por WhatsApp para que el paciente complete su anamnesis desde su celular antes de llegar a la consulta. Asimismo, al prescribir ejercicios del catálogo anatómico (con series, repeticiones y dosificación), generas un PDF membretado que se envía en un clic al WhatsApp o correo del paciente.',
+    },
+    {
+      question: '¿Qué escalas y cuestionarios clínicos incluye?',
+      answer:
+        'Incluye 13 escalas clínicas validadas (EVA, PSFS, WOMAC, TUG, Berg, Tinetti, QuickDASH, Barthel, GROC, EQ-5D, Oswestry, LEFS y screening de comorbilidades), calculando puntajes e interpretaciones automáticamente al completar la evaluación.',
+    },
+    {
+      question: '¿Funciona en celular y para clínicas con varios kinesiólogos?',
+      answer:
+        'Sí. Funciona en cualquier navegador móvil o de escritorio y escala desde un kinesiólogo independiente hasta centros de rehabilitación con múltiples boxes y sedes, con permisos diferenciados por rol.',
+    },
+    {
+      question: '¿Y si mis pacientes no usan el código QR?',
+      answer:
+        'El código QR es completamente opcional. Si un paciente prefiere no completarlo antes de la cita, puedes registrar los datos directamente en la ficha durante la sesión.',
+    },
+  ],
+  seguridad: [
+    {
+      question: '¿Cómo protege Kenkomed los datos clínicos de los pacientes?',
+      answer:
+        'La plataforma utiliza cifrado de datos en tránsito y en reposo, respaldos automáticos, bloqueo automático de pantalla en box y control de acceso por roles (Director Técnico, Administrador, Kinesiólogo y Recepción). Su arquitectura de trazabilidad está diseñada conforme a la Ley N° 20.584 (Derechos y Deberes de los Pacientes) y preparada para los estándares de la Ley N° 21.719 de Protección de Datos Personales.',
+    },
+    {
+      question: '¿Dónde se almacenan los datos y quién puede acceder a ellos?',
+      answer:
+        'Los datos clínicos se resguardan en servidores seguros con cifrado. Solo el profesional tratante y el personal autorizado de tu centro pueden acceder a las fichas según su rol, quedando cada acceso registrado en el historial de auditoría.',
+    },
+    {
+      question: '¿Puedo exportar o descargar las fichas de mis pacientes?',
+      answer:
+        'Sí. El profesional o centro de salud mantiene la titularidad de sus registros y puede exportar las fichas e informes clínicos en formato PDF en cualquier momento para entregarlos al paciente, al médico derivador o para respaldo institucional.',
+    },
+  ],
+  precios: [
+    {
+      question: '¿Cuánto cuesta y existe permanencia mínima?',
+      answer:
+        'Los planes comienzan en 0,4 UF / mes neto (+ IVA en plan anual, aprox. $15.000 CLP neto) para el Plan Individual, 0,7 UF / mes neto (aprox. $26.000 CLP) para el Plan Clínico Pro y 1,1 UF / mes neto (aprox. $41.000 CLP) para el Plan Clínica / Centro. No exigimos contratos de permanencia forzosa: puedes optar por modalidad mensual o anual con factura o boleta legal.',
+    },
+    {
+      question: '¿Permite llevar el control de pagos y datos para Boleta de Honorarios o factura?',
+      answer:
+        'Sí. Incluye registro de pagos por sesión o packs de tratamiento con desglose por medio de pago (efectivo, transferencia o tarjeta) y datos del paciente (RUT, nombre y correo) para agilizar la emisión de tus documentos tributarios.',
+    },
+    {
+      question: '¿Puedo migrar mis datos si hoy uso papel, Excel u otro sistema?',
+      answer:
+        'Sí. Puedes iniciar desde cero o importar tus registros históricos. En los planes Clínico Pro y Clínica incluimos acompañamiento para migrar tu base de pacientes y configurar tus boxes y horarios.',
+    },
+    {
+      question: '¿Incluye soporte técnico y capacitación para mi equipo?',
+      answer:
+        'Todos los planes incluyen soporte directo por WhatsApp y correo con nuestro equipo en Chile, además de onboarding guiado para que tú y tu equipo dominen el flujo clínico desde el primer día.',
+    },
+  ],
+}
+
+export const homeFaqItems: FaqItem[] = Object.values(faqDataByCategory).flat()

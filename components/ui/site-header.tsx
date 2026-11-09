@@ -247,7 +247,7 @@ export function SiteHeader() {
               priority
             />
             <span className="font-display text-xl font-extrabold tracking-tight text-foreground">
-              Ken<span className="text-emerald">ko</span>med
+              Kenko<span className="text-emerald">med</span>
             </span>
           </Link>
 
@@ -270,7 +270,7 @@ export function SiteHeader() {
               href="/#contact"
               className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-xs font-semibold bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-md transition-all duration-200 active:scale-[0.98]"
             >
-              <span>Solicitar Demo</span>
+              <span>Agendar demo</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -309,7 +309,7 @@ export function SiteHeader() {
                       className="h-7.5 w-7.5 object-contain"
                     />
                     <span className="font-display font-extrabold text-lg tracking-tight text-foreground">
-                      Ken<span className="text-emerald">ko</span>med
+                      Kenko<span className="text-emerald">med</span>
                     </span>
                   </SheetTitle>
                   <SheetDescription className="sr-only">

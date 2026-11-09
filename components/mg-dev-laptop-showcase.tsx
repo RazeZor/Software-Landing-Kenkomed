@@ -14,9 +14,9 @@ interface MgDevLaptopProps {
 
 export function MgDevLaptopShowcase({
   className,
-  kicker = "KenkoMed for clinics",
+  kicker = "Panel clínico en vivo",
   headline = "Tu clínica completa en una pantalla",
-  caption = "Fichas SOAP, agenda multi-box y resúmenes clínicos con IA, en vivo para tu equipo.",
+  caption = "Fichas SOAP, agenda multi-box, 13 escalas validadas y alertas clínicas DSS en vivo para tu equipo.",
   imageSrc = "/software/panel.png"
 }: MgDevLaptopProps) {
   const { ref: containerRef, isVisible } = useReveal<HTMLDivElement>({ threshold: 0.1, rootMargin: '60px' })
@@ -757,7 +757,7 @@ export function MgDevLaptopShowcase({
                       src={imageSrc}
                       alt="Panel de control clínico KenkoMed"
                       className="screen-img"
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
                     />
 
@@ -791,10 +791,10 @@ export function MgDevLaptopShowcase({
 
           <div className="xactions">
             <a href="#contact" className="xbtn-primary">
-              Probar plataforma
+              Agendar demo gratuita
             </a>
             <a href="/funcionalidades" className="xbtn-ghost">
-              Ver catálogo →
+              Ver funcionalidades →
             </a>
           </div>
         </div>
