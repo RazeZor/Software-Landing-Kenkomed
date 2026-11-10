@@ -1,1 +1,6 @@
-export { default as Testimonials, davidTestimonial } from './ui/testimonial'
+export {
+  default as Testimonials,
+  davidTestimonial,
+  danielaTestimonial,
+  clinicalTestimonials,
+} from './ui/testimonial'
