@@ -15,6 +15,10 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
+  --font-inter: 'Inter';
+  --font-space-grotesk: 'Space Grotesk';
+  --font-geist-mono: 'Geist Mono';
+
   /* ── PALETA KENKOMED CORE ── */
   /* Azul marino profundo — autoridad y confianza */
   --kenko-navy:      #05111e;
