@@ -38,15 +38,22 @@ export const Comparison03 = () => {
           whileInView="show"
           viewport={{ once: true, margin: "200px" }}
           variants={container}
-          className="mx-auto max-w-2xl text-center"
+          className="mx-auto max-w-3xl text-center"
         >
+          <motion.p
+            variants={item}
+            className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand/6 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand mb-4"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden="true" />
+            Antes y después en tu consulta
+          </motion.p>
           <motion.h2
             variants={item}
-            className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl text-balance"
+            className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-[-0.024em] leading-[1.12] text-foreground text-balance"
           >
-            Menos papeleo administrativo, más tiempo clínico con tu paciente
+            Menos papeleo administrativo, más tiempo clínico con tu paciente.
           </motion.h2>
-          <motion.p variants={item} className="mt-4 text-base sm:text-lg leading-relaxed text-foreground-muted text-balance mx-auto max-w-xl">
+          <motion.p variants={item} className="mt-3.5 text-base sm:text-[1.0625rem] leading-relaxed text-foreground-muted mx-auto max-w-2xl">
             Kenkomed reemplaza fichas en papel, planillas sueltas y cálculos manuales por un flujo clínico estructurado de principio a fin.
           </motion.p>
         </motion.div>

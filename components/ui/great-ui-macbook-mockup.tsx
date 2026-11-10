@@ -131,6 +131,7 @@ export interface MacbookMockupProps {
   messages?: ChatMessage[];
   sidebarChats?: SidebarChatItem[];
   autoPlay?: boolean;
+  compact?: boolean;
   className?: string;
   children?: React.ReactNode;
 }
@@ -145,6 +146,7 @@ export function MacbookMockup({
   messages = KENKOMED_DEFAULT_MESSAGES,
   sidebarChats = KENKOMED_SIDEBAR_CHATS,
   autoPlay = true,
+  compact = false,
   className,
   children,
 }: MacbookMockupProps) {
@@ -234,11 +236,21 @@ export function MacbookMockup({
         animate={{ rotateX: 0, opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 140, damping: 20, mass: 0.9 }}
         style={{ transformOrigin: "bottom center" }}
-        className="relative z-10 flex h-[320px] w-full transform-gpu flex-col overflow-hidden rounded-t-2xl bg-neutral-900 p-2 sm:h-[390px] sm:p-2.5 md:h-[430px] dark:bg-neutral-950 shadow-2xl"
+        className={cn(
+          "relative z-10 flex w-full transform-gpu flex-col overflow-hidden rounded-t-2xl bg-neutral-900 p-2 sm:p-2.5 dark:bg-neutral-950 shadow-2xl",
+          compact ? "h-[330px] sm:h-[370px] lg:h-[395px]" : "h-[320px] sm:h-[390px] md:h-[430px]",
+        )}
       >
         <div className="relative isolate flex h-full w-full transform-gpu overflow-hidden rounded-t-[10px] bg-white text-neutral-900 transition-colors dark:bg-[#111b21] dark:text-neutral-100">
           {/* Panel Izquierdo: Lista de Chats */}
-          <div className="flex w-[170px] shrink-0 flex-col bg-[#f0f2f5] transition-colors sm:w-[220px] md:w-[250px] dark:bg-[#111b21] border-r border-neutral-200/60 dark:border-neutral-800/60">
+          <div
+            className={cn(
+              "shrink-0 flex-col bg-[#f0f2f5] transition-colors dark:bg-[#111b21] border-r border-neutral-200/60 dark:border-neutral-800/60",
+              compact
+                ? "hidden sm:flex sm:w-[155px] xl:w-[178px]"
+                : "flex w-[170px] sm:w-[220px] md:w-[250px]",
+            )}
+          >
             {/* Header del Sidebar */}
             <div className="flex shrink-0 items-center justify-between bg-[#f0f2f5] px-3 py-2 dark:bg-[#202c33]">
               {/* Logo de Kenkomed en el avatar de usuario */}

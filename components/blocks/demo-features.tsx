@@ -51,29 +51,29 @@ function CheckList({ items }: { items: string[] }) {
 }
 
 const cardBase =
-  'relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] border border-slate-200/90 bg-white p-6 shadow-[0_12px_35px_-18px_rgba(10,35,64,0.12)]'
+  'relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] border border-slate-200/90 bg-white p-6 shadow-[0_12px_35px_-18px_rgba(0,113,193,0.12)]'
 const softStage =
-  'mt-5 rounded-2xl border border-indigo-100/80 bg-gradient-to-b from-sky-50/70 via-indigo-50/40 to-slate-50/80 p-3.5'
+  'mt-5 rounded-2xl border border-[#0071c1]/15 bg-gradient-to-b from-[#0071c1]/[0.05] via-[#16a996]/[0.04] to-slate-50/90 p-3.5'
 
 export function DemoFeatures() {
   return (
     <div className="w-full">
       {/* Encabezado estilo Bento */}
       <div className="mx-auto mb-10 max-w-3xl text-center">
-        <p className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand/5 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.12em] text-brand">
+        <p className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand/6 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand">
           <Sparkles size={12} aria-hidden="true" />
           Ecosistema clínico todo en uno
         </p>
-        <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-foreground text-balance md:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">
+        <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-[-0.024em] leading-[1.12] text-foreground text-balance">
           Todo lo que tu centro necesita para operar en un solo lugar.
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-base text-foreground-muted md:text-lg">
+        <p className="mx-auto mt-3.5 max-w-2xl text-base sm:text-[1.0625rem] leading-relaxed text-foreground-muted">
           Agenda de sesiones, historia clínica SOAP, 13 escalas validadas, pautas PDF y cobros trabajando conectados desde la admisión hasta el alta.
         </p>
         <div className="mt-6 flex justify-center">
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-[#0a2340] px-7 py-3 text-sm font-bold text-white shadow-[0_12px_28px_-10px_rgba(10,35,64,0.55)] transition-all hover:bg-brand"
+            className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3 text-sm font-bold text-white shadow-[0_12px_28px_-10px_rgba(0,113,193,0.5)] transition-all hover:bg-brand-dark"
           >
             Agendar demo gratuita
             <ArrowRight size={14} aria-hidden="true" />
@@ -103,18 +103,18 @@ export function DemoFeatures() {
               </div>
             </div>
 
-            {/* Mini-widget de calendario HD en vivo */}
+            {/* Mini-widget de calendario HD en vivo (100% colores del logo) */}
             <div className={softStage}>
               <div className="rounded-xl border border-slate-200/90 bg-white p-3 shadow-xs">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-2">
                   <span className="text-xs font-extrabold text-slate-900">Lun 12 · Hoy</span>
                   <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-600">
                     <span className="inline-flex items-center gap-1">
-                      <span className="h-2 w-2 rounded-full bg-indigo-500" />
+                      <span className="h-2 w-2 rounded-full bg-brand" />
                       Klga. Daniela
                     </span>
                     <span className="inline-flex items-center gap-1">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                      <span className="h-2 w-2 rounded-full bg-emerald" />
                       Klgo. David
                     </span>
                   </div>
@@ -122,31 +122,31 @@ export function DemoFeatures() {
 
                 <div className="mt-2.5 grid grid-cols-[2.2rem_1fr_1fr] gap-1.5 text-[10px]">
                   <span className="py-1 font-mono text-slate-400">10:00</span>
-                  <div className="rounded-md border-l-[3px] border-indigo-500 bg-indigo-50/90 px-2 py-1">
-                    <p className="font-bold text-indigo-950 leading-tight">Esguince tobillo</p>
-                    <p className="text-indigo-700/80">Camila R. · Box 1</p>
+                  <div className="rounded-md border-l-[3px] border-brand bg-[#0071c1]/[0.08] px-2 py-1">
+                    <p className="font-bold text-[#062b47] leading-tight">Esguince tobillo</p>
+                    <p className="text-brand">Camila R. · Box 1</p>
                   </div>
-                  <div className="rounded-md border-l-[3px] border-emerald-500 bg-emerald-50/90 px-2 py-1">
-                    <p className="font-bold text-emerald-950 leading-tight">Kinesio motora</p>
-                    <p className="text-emerald-700/80">Andrés M. · Gimnasio</p>
+                  <div className="rounded-md border-l-[3px] border-emerald bg-[#16a996]/[0.1] px-2 py-1">
+                    <p className="font-bold text-[#063a34] leading-tight">Kinesio motora</p>
+                    <p className="text-emerald-dark">Andrés M. · Gimnasio</p>
                   </div>
 
                   <span className="py-1 font-mono text-slate-400">11:00</span>
-                  <div className="rounded-md border-l-[3px] border-amber-500 bg-amber-50/90 px-2 py-1">
-                    <p className="font-bold text-amber-950 leading-tight">Lumbalgia aguda</p>
-                    <p className="text-amber-700/80">Sofía V. · Ses. 3/10</p>
+                  <div className="rounded-md border-l-[3px] border-emerald bg-[#16a996]/[0.1] px-2 py-1">
+                    <p className="font-bold text-[#063a34] leading-tight">Lumbalgia aguda</p>
+                    <p className="text-emerald-dark">Sofía V. · Ses. 3/10</p>
                   </div>
-                  <div className="rounded-md border-l-[3px] border-sky-500 bg-sky-50/90 px-2 py-1">
-                    <p className="font-bold text-sky-950 leading-tight">Post-op hombro</p>
-                    <p className="text-sky-700/80">Matías P. · Box 2</p>
+                  <div className="rounded-md border-l-[3px] border-brand bg-[#0071c1]/[0.08] px-2 py-1">
+                    <p className="font-bold text-[#062b47] leading-tight">Post-op hombro</p>
+                    <p className="text-brand">Matías P. · Box 2</p>
                   </div>
                 </div>
 
-                <div className="mt-2.5 flex items-center gap-2 rounded-lg border border-emerald-200/70 bg-emerald-50/60 px-2.5 py-1.5 text-[11px]">
-                  <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white">
+                <div className="mt-2.5 flex items-center gap-2 rounded-lg border border-emerald/25 bg-[#16a996]/[0.08] px-2.5 py-1.5 text-[11px]">
+                  <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald text-white">
                     <CalendarCheck size={10} aria-hidden="true" />
                   </span>
-                  <div className=" leading-tight">
+                  <div className="leading-tight">
                     <span className="font-bold text-slate-800">Reserva online confirmada</span>
                     <span className="block text-[10px] text-slate-500">WhatsApp · Camila R. · 10:00 hs</span>
                   </div>
@@ -176,18 +176,18 @@ export function DemoFeatures() {
             {/* Mini-widget de Portal Público de Reserva */}
             <div className={softStage}>
               <div className="rounded-xl border border-slate-200/90 bg-white p-3 shadow-xs">
-                <div className="flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-medium text-slate-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <div className="flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-medium text-slate-600">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
                   app.kenkomed.cl/reservar/daniela-huichalaf
                 </div>
 
                 <div className="mt-2.5 flex items-center justify-between gap-2">
                   <div>
                     <p className="text-xs font-extrabold text-slate-900">Klga. Daniela Huichalaf</p>
-                    <p className="text-[10px] font-semibold text-amber-600">
+                    <p className="text-[10px] font-semibold text-brand">
                       ★★★★★ <span className="text-slate-500">Atención kinésica integral</span>
                     </p>
-                    <p className="mt-0.5 text-[10px] font-semibold text-emerald-600">
+                    <p className="mt-0.5 text-[10px] font-semibold text-emerald-dark">
                       Agenda abierta · Horas disponibles hoy
                     </p>
                   </div>
@@ -198,7 +198,7 @@ export function DemoFeatures() {
                     height={44}
                     loading="lazy"
                     decoding="async"
-                    className="h-11 w-11 shrink-0 rounded-xl object-cover ring-2 ring-brand/15"
+                    className="h-11 w-11 shrink-0 rounded-xl object-cover ring-2 ring-brand/20"
                   />
                 </div>
 
@@ -207,11 +207,11 @@ export function DemoFeatures() {
                     href="https://app.kenkomed.cl/reservar/daniela-huichalaf/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 rounded-full bg-[#0a2340] px-3 py-1 text-[10px] font-bold text-white hover:bg-brand"
+                    className="inline-flex items-center gap-1 rounded-full bg-brand px-3 py-1 text-[10px] font-bold text-white hover:bg-brand-dark"
                   >
                     Reservar hora
                   </a>
-                  <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10px] font-semibold text-slate-700">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-brand/20 bg-[#0071c1]/[0.05] px-2.5 py-1 text-[10px] font-semibold text-slate-700">
                     <QrCode size={10} className="text-brand" aria-hidden="true" />
                     QR Anamnesis 14 etapas
                   </span>
@@ -221,8 +221,8 @@ export function DemoFeatures() {
           </article>
         </div>
 
-        {/* ── COLUMNA CENTRAL OSCURA (Protagonista alta) ── */}
-        <article className="kenko-band-deep relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-white/10 p-6 sm:p-7 shadow-[0_30px_70px_-30px_rgba(5,17,30,0.65)] md:col-span-2 lg:col-span-4">
+        {/* ── COLUMNA CENTRAL OSCURA (Azul profundo derivado de #0071C1) ── */}
+        <article className="kenko-band-deep relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-white/10 p-6 sm:p-7 shadow-[0_30px_70px_-30px_rgba(4,26,46,0.6)] md:col-span-2 lg:col-span-4">
           <div>
             <h3 className="font-display text-2xl sm:text-[1.65rem] font-extrabold leading-[1.15] tracking-tight text-white">
               Lo que Kenkomed hace por tu consulta kinésica
@@ -242,19 +242,19 @@ export function DemoFeatures() {
             </div>
           </div>
 
-          {/* Composición visual estilo AgendaPro: Tarjeta clínica principal + 4 tarjetas de estado */}
+          {/* Composición visual: Tarjeta clínica principal + 4 tarjetas con paleta del logo */}
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-[1.12fr_0.88fr] items-stretch">
             {/* Tarjeta izquierda: Evaluación + DSS en vivo */}
             <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 text-slate-900 shadow-lg">
               <div>
                 <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-[#0a2340]">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-[#062b47]">
                     <span className="flex h-4 w-4 items-center justify-center rounded-md bg-brand text-white">
                       <Activity size={10} aria-hidden="true" />
                     </span>
                     Kenkomed DSS
                   </span>
-                  <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[9px] font-bold text-emerald-700">
+                  <span className="rounded-full bg-[#16a996]/15 px-2 py-0.5 text-[9px] font-bold text-emerald-dark">
                     En box
                   </span>
                 </div>
@@ -271,8 +271,8 @@ export function DemoFeatures() {
                   />
                 </div>
 
-                <div className="mt-2.5 rounded-lg bg-slate-50 p-2 text-[10px]">
-                  <p className="font-bold text-slate-800">
+                <div className="mt-2.5 rounded-lg bg-[#0071c1]/[0.05] p-2 text-[10px]">
+                  <p className="font-bold text-[#062b47]">
                     “Dolor lumbar al levantar carga · EVA 6/10”
                   </p>
                   <p className="mt-0.5 text-slate-500">
@@ -290,29 +290,29 @@ export function DemoFeatures() {
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
                   <div className="h-full w-4/5 rounded-full bg-brand" />
                 </div>
-                <p className="text-[9px] font-semibold text-emerald-700">
+                <p className="text-[9px] font-semibold text-emerald-dark">
                   ✓ Sin banderas rojas · Apto para carga progresiva
                 </p>
               </div>
             </div>
 
-            {/* Columna derecha: 4 mini-tarjetas de inteligencia clínica */}
+            {/* Columna derecha: 4 mini-tarjetas de inteligencia clínica (colores logo) */}
             <div className="flex flex-col justify-between gap-2.5">
               <div className="rounded-xl bg-white p-2.5 text-slate-900 shadow-md">
-                <p className="text-[9px] font-bold uppercase tracking-wider text-amber-600">
+                <p className="text-[9px] font-bold uppercase tracking-wider text-brand">
                   ● Alerta clínica DSS
                 </p>
                 <p className="mt-0.5 text-[11px] font-extrabold leading-tight text-slate-900">
                   Bandera amarilla: Kinesiofobia alta
                 </p>
-                <span className="mt-1 inline-block rounded-md bg-sky-50 px-2 py-0.5 text-[9px] font-bold text-brand">
+                <span className="mt-1 inline-block rounded-md bg-[#0071c1]/10 px-2 py-0.5 text-[9px] font-bold text-brand">
                   Sugerencia: Educación en dolor
                 </span>
               </div>
 
               <div className="rounded-xl bg-white p-2.5 text-slate-900 shadow-md">
-                <p className="text-[9px] font-bold uppercase tracking-wider text-emerald-600">
-                  ● Adherencia de packs
+                <p className="text-[9px] font-bold uppercase tracking-wider text-emerald-dark">
+                  ● Escalas integradas
                 </p>
                 <div className="mt-0.5 flex items-baseline gap-1.5">
                   <span className="font-display text-lg font-extrabold leading-none text-slate-900">
@@ -324,7 +324,7 @@ export function DemoFeatures() {
                 </div>
                 <div className="mt-1 flex items-center justify-between">
                   <span className="text-[9px] font-medium text-slate-400">PubMed + MCID</span>
-                  <span className="rounded-full bg-[#0a2340] px-2 py-0.5 text-[9px] font-bold text-white">
+                  <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-bold text-white">
                     1 clic
                   </span>
                 </div>
@@ -338,19 +338,19 @@ export function DemoFeatures() {
                   PDF con series y carga
                 </p>
                 <div className="mt-1 flex items-center justify-between text-[10px]">
-                  <span className="font-bold text-emerald-600">Enviada al celular</span>
+                  <span className="font-bold text-emerald-dark">Enviada al celular</span>
                   <span className="font-mono text-[9px] text-slate-400">100% digital</span>
                 </div>
               </div>
 
               <div className="rounded-xl bg-white p-2.5 text-slate-900 shadow-md">
-                <p className="text-[9px] font-bold uppercase tracking-wider text-indigo-600">
+                <p className="text-[9px] font-bold uppercase tracking-wider text-emerald-dark">
                   ● Soporte de decisión
                 </p>
                 <p className="mt-0.5 text-[10px] font-semibold text-slate-700">
                   Cruza anamnesis + comorbilidades
                 </p>
-                <span className="mt-1 inline-block rounded-md bg-indigo-50 px-2 py-0.5 text-[9px] font-bold text-indigo-700">
+                <span className="mt-1 inline-block rounded-md bg-[#16a996]/15 px-2 py-0.5 text-[9px] font-bold text-emerald-dark">
                   9 etapas de análisis
                 </span>
               </div>
@@ -378,7 +378,7 @@ export function DemoFeatures() {
               </div>
             </div>
 
-            {/* Mini-widget de Ficha de Paciente HD (inspirado en referencia) */}
+            {/* Mini-widget de Ficha de Paciente HD */}
             <div className={softStage}>
               <div className="rounded-xl border border-slate-200/90 bg-white p-3 shadow-xs">
                 <div className="flex items-center justify-between gap-2">
@@ -393,7 +393,7 @@ export function DemoFeatures() {
                       </p>
                     </div>
                   </div>
-                  <span className="rounded-md bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700">
+                  <span className="rounded-md bg-[#0071c1]/10 px-2 py-0.5 text-[10px] font-bold text-brand">
                     FONASA / Isapre
                   </span>
                 </div>
@@ -405,7 +405,7 @@ export function DemoFeatures() {
                   </div>
                   <div className="rounded-lg border border-slate-100 bg-slate-50/80 px-2 py-1.5">
                     <p className="text-[9px] font-medium text-slate-400">Dolor (EVA)</p>
-                    <p className="text-xs font-extrabold text-emerald-600">2/10</p>
+                    <p className="text-xs font-extrabold text-emerald-dark">2/10</p>
                   </div>
                   <div className="rounded-lg border border-slate-100 bg-slate-50/80 px-2 py-1.5">
                     <p className="text-[9px] font-medium text-slate-400">Pauta PDF</p>
@@ -428,12 +428,12 @@ export function DemoFeatures() {
                   </div>
                 </div>
 
-                <div className="mt-2.5 flex items-center justify-between rounded-lg border border-emerald-200/80 bg-emerald-50/70 px-2.5 py-1.5 text-[10px]">
+                <div className="mt-2.5 flex items-center justify-between rounded-lg border border-emerald/25 bg-[#16a996]/[0.08] px-2.5 py-1.5 text-[10px]">
                   <span className="inline-flex items-center gap-1 font-bold text-slate-800">
-                    <ShieldCheck size={12} className="text-emerald-600" aria-hidden="true" />
+                    <ShieldCheck size={12} className="text-emerald-dark" aria-hidden="true" />
                     Consentimiento informado
                   </span>
-                  <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 font-extrabold text-emerald-700">
+                  <span className="rounded-full bg-[#16a996]/20 px-2 py-0.5 font-extrabold text-emerald-dark">
                     Firmado
                   </span>
                 </div>
@@ -469,7 +469,7 @@ export function DemoFeatures() {
                     </p>
                     <p className="text-[10px] text-slate-400">Seguimiento longitudinal por escala</p>
                   </div>
-                  <TrendingUp size={15} className="text-emerald-600" aria-hidden="true" />
+                  <TrendingUp size={15} className="text-emerald" aria-hidden="true" />
                 </div>
 
                 <div className="mt-2.5 space-y-2 text-[11px]">
@@ -479,7 +479,7 @@ export function DemoFeatures() {
                       <span className="font-extrabold text-slate-900">92%</span>
                     </div>
                     <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-                      <div className="h-full w-[92%] rounded-full bg-emerald-500" />
+                      <div className="h-full w-[92%] rounded-full bg-emerald" />
                     </div>
                   </div>
 
@@ -499,19 +499,19 @@ export function DemoFeatures() {
                       <span className="font-extrabold text-slate-900">81%</span>
                     </div>
                     <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-                      <div className="h-full w-[81%] rounded-full bg-indigo-500" />
+                      <div className="h-full w-[81%] rounded-full bg-[#2b95df]" />
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-2.5 flex items-center justify-between rounded-lg bg-emerald-50/90 px-2.5 py-1.5 text-[10px]">
+                <div className="mt-2.5 flex items-center justify-between rounded-lg bg-[#16a996]/10 px-2.5 py-1.5 text-[10px]">
                   <div>
-                    <p className="font-extrabold text-emerald-900">
+                    <p className="font-extrabold text-[#063a34]">
                       ↗ Informe de alta listo en PDF
                     </p>
-                    <p className="text-emerald-700/80">Respaldo bibliográfico PubMed incluido</p>
+                    <p className="text-emerald-dark">Respaldo bibliográfico PubMed incluido</p>
                   </div>
-                  <span className="rounded-full bg-slate-900 px-2 py-0.5 font-bold text-white">
+                  <span className="rounded-full bg-[#062b47] px-2 py-0.5 font-bold text-white">
                     +38%
                   </span>
                 </div>
@@ -545,7 +545,7 @@ export function DemoFeatures() {
 
             <Link
               href="/funcionalidades"
-              className="mt-5 inline-flex items-center gap-1.5 text-xs font-extrabold text-foreground hover:text-brand"
+              className="mt-5 inline-flex items-center gap-1.5 text-xs font-extrabold text-brand hover:underline"
             >
               Conocer la admisión remota
               <ArrowRight size={13} aria-hidden="true" />
@@ -556,7 +556,7 @@ export function DemoFeatures() {
             <div className="overflow-hidden rounded-xl border border-slate-200/90 bg-white shadow-sm">
               <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-3 py-1.5 text-[10px] font-semibold text-slate-500">
                 <span>Admisión Remota · 14 etapas</span>
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-bold text-emerald-700">
+                <span className="rounded-full bg-[#16a996]/15 px-2 py-0.5 text-[9px] font-bold text-emerald-dark">
                   Recibido en ficha
                 </span>
               </div>
@@ -597,7 +597,7 @@ export function DemoFeatures() {
 
             <Link
               href="/precios"
-              className="mt-5 inline-flex items-center gap-1.5 text-xs font-extrabold text-foreground hover:text-brand"
+              className="mt-5 inline-flex items-center gap-1.5 text-xs font-extrabold text-brand hover:underline"
             >
               Conocer planes y módulo de cobros
               <ArrowRight size={13} aria-hidden="true" />
@@ -608,7 +608,7 @@ export function DemoFeatures() {
             <div className="relative rounded-xl border border-slate-200/90 bg-white p-3.5 shadow-sm">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2 text-[10px]">
                 <span className="font-extrabold text-slate-800">Resumen de pack #0042</span>
-                <span className="rounded-md bg-emerald-50 px-2 py-0.5 font-bold text-emerald-700">
+                <span className="rounded-md bg-[#16a996]/15 px-2 py-0.5 font-bold text-emerald-dark">
                   Pagado
                 </span>
               </div>
@@ -627,7 +627,7 @@ export function DemoFeatures() {
                 </div>
               </div>
               <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-                <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-semibold text-slate-700">
+                <span className="inline-flex items-center gap-1 rounded-md border border-brand/20 bg-[#0071c1]/[0.05] px-2 py-1 text-[10px] font-semibold text-[#062b47]">
                   <FileCheck2 size={11} className="text-brand" aria-hidden="true" />
                   Código FONASA listo para Isapre
                 </span>
@@ -637,24 +637,27 @@ export function DemoFeatures() {
         </article>
       </div>
 
-      {/* Franja inferior de métricas verificables (estilo AgendaPro) */}
-      <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 divide-y divide-slate-200 rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-3 shadow-2xs sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+      {/* Franja inferior de métricas verificables (100% colores del logo) */}
+      <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 divide-y divide-slate-200 rounded-2xl border border-brand/15 bg-white/80 px-4 py-3 shadow-2xs sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         {[
           {
             v: '13',
+            accent: 'text-brand',
             l: 'Escalas clínicas validadas en PubMed con cálculo automático',
           },
           {
             v: '14 etapas',
+            accent: 'text-emerald',
             l: 'De anamnesis remota por QR completadas antes de entrar al box',
           },
           {
             v: '26 módulos',
+            accent: 'text-brand',
             l: 'Clínicos y administrativos diseñados para kinesiología en Chile',
           },
         ].map((s) => (
           <div key={s.v} className="flex items-center justify-center gap-3.5 px-6 py-4">
-            <span className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0a2340]">
+            <span className={`font-display text-3xl sm:text-4xl font-extrabold tracking-tight ${s.accent}`}>
               {s.v}
             </span>
             <span className="max-w-[12.5rem] text-xs leading-snug text-foreground-muted">

@@ -1062,14 +1062,17 @@ export function Pricing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "200px" }}
             transition={{ duration: 0.5 }}
-            className="text-center space-y-4 mb-12"
+            className="text-center max-w-3xl mx-auto mb-12"
           >
-            <h2 id="pricing-heading" className="text-4xl font-bold tracking-tight sm:text-5xl font-display text-balance">
-              Tus costos, claros <span className="text-brand">desde el día uno.</span>
+            <p className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand/6 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden="true" />
+              Planes y precios en Chile
+            </p>
+            <h2 id="pricing-heading" className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-[-0.024em] leading-[1.12] font-display text-foreground text-balance">
+              Tus costos claros desde el día uno.
             </h2>
-            <p className="text-muted-foreground text-lg whitespace-pre-line">
-              Sin cobros extra por módulos ni límites ocultos.
-              Demo guiada sin costo en cualquier plan.
+            <p className="text-foreground-muted mt-3.5 text-base sm:text-[1.0625rem] leading-relaxed max-w-2xl mx-auto">
+              Sin cobros extra por módulos ni límites ocultos. Demo guiada sin costo en cualquier plan.
             </p>
           </motion.div>
 

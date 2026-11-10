@@ -38,14 +38,18 @@ export function ClinicalBackingSection() {
       className="py-20 md:py-24 px-6 bg-surface/60 border-y border-border/60"
     >
       <div className="max-w-6xl mx-auto">
-        <div className="max-w-2xl mx-auto text-center mb-12">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <p className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand/6 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden="true" />
+            Respaldo científico y normativo
+          </p>
           <h2
             id="backing-heading"
-            className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground text-balance"
+            className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-[-0.024em] leading-[1.12] text-foreground text-balance"
           >
-            Rigor clínico, evidencia y resguardo normativo
+            Rigor clínico, evidencia y resguardo normativo.
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
+          <p className="mt-3.5 text-base sm:text-[1.0625rem] text-foreground-muted leading-relaxed max-w-2xl mx-auto">
             Kenkomed combina ingeniería de software y práctica kinesiológica real bajo los estándares de salud de Chile.
           </p>
         </div>

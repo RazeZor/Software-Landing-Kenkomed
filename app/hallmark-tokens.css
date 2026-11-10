@@ -30,7 +30,7 @@
   --color-focus:    var(--kenko-sky);        /* oklch(0.62 0.16 230) */
 
   /* ── FONT TOKENS ── */
-  --font-display:  var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-display:  var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif;
   --font-body:     var(--font-inter), 'Inter', sans-serif;
   --font-outlier:  var(--font-geist-mono), 'Geist Mono', monospace;
 

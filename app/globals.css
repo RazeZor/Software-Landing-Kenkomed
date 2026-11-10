@@ -16,27 +16,28 @@
 
 :root {
   --font-inter: 'Inter';
-  --font-space-grotesk: 'Space Grotesk';
+  --font-plus-jakarta: 'Plus Jakarta Sans';
+  --font-space-grotesk: 'Plus Jakarta Sans';
   --font-geist-mono: 'Geist Mono';
 
-  /* ── PALETA KENKOMED CORE ── */
-  /* Azul marino profundo — autoridad y confianza */
-  --kenko-navy:      #05111e;
-  --kenko-deep:      oklch(0.22 0.10 240);   /* #0a2340 */
-  --kenko-cobalt:    oklch(0.32 0.14 246);   /* #1350a0 */
-  --kenko-sapphire:  oklch(0.48 0.18 246);   /* #1a6fc4 vivid blue */
-  --kenko-sky:       oklch(0.62 0.16 230);   /* #3a9fd6 sky accent */
-  --kenko-mist:      oklch(0.96 0.015 246);
+  /* ── PALETA KENKOMED CORE (Calibrada 100% al logo: #0071C1 + #16A996) ── */
+  /* Azul Kenkomed — autoridad y confianza clínica */
+  --kenko-navy:      #041A2E;   /* Marino noche derivado de #0071C1 */
+  --kenko-deep:      #062B47;   /* Marino profundo derivado de #0071C1 */
+  --kenko-cobalt:    #005896;   /* Hover oscuro exacto de #0071C1 */
+  --kenko-sapphire:  #0071C1;   /* Azul exacto del logo Kenkomed */
+  --kenko-sky:       #2B95DF;   /* Tinte luminoso derivado de #0071C1 */
+  --kenko-mist:      #F3F8FC;   /* Fondo suave derivado de #0071C1 */
 
-  /* Verde esmeralda — vita, movimiento, recuperación */
-  --kenko-mint:      oklch(0.66 0.19 163);   /* #1db87a firma */
-  --kenko-pulse:     oklch(0.80 0.17 163);   /* #00d98b latido néon */
-  --kenko-forest:    oklch(0.45 0.17 163);   /* verde oscuro */
+  /* Turquesa / Verde Agua Kenkomed — movimiento y recuperación */
+  --kenko-mint:      #16A996;   /* Turquesa exacto del logo Kenkomed */
+  --kenko-pulse:     #24C9B3;   /* Acento luminoso derivado de #16A996 */
+  --kenko-forest:    #0E7B6D;   /* Variante oscura AA derivada de #16A996 */
 
-  /* Ámbar cálido — calidez humana, rehabilitación, diferenciación */
-  --kenko-amber:     oklch(0.78 0.14 75);    /* #d4a030 acento cálido */
-  --kenko-amber-light: oklch(0.88 0.10 75);  /* #e8c870 badges y highlights */
-  --kenko-amber-dark:  oklch(0.62 0.14 55);  /* #b07820 urgencia suave */
+  /* Neutralización de acento cálido hacia tinte clínico del logo */
+  --kenko-amber:     #16A996;
+  --kenko-amber-light: #D7F3EF;
+  --kenko-amber-dark:  #0E7B6D;
 
   /* ── TOKENS PRIMARIOS (alias semánticos) ── */
   --brand:           var(--kenko-sapphire);
@@ -58,9 +59,9 @@
   --surface-deep:        oklch(0.22 0.10 240);
 
   /* ── TEXTO ── */
-  --foreground:          oklch(0.12 0.02 246);
-  --foreground-muted:    oklch(0.45 0.01 250);
-  --foreground-subtle:   oklch(0.65 0.006 250);
+  --foreground:          oklch(0.14 0.03 246);
+  --foreground-muted:    oklch(0.42 0.02 250);
+  --foreground-subtle:   oklch(0.60 0.01 250);
 
   /* ── SHADCN/UI SEMÁNTICOS ── */
   --card:                oklch(1 0 0);
@@ -165,11 +166,11 @@
 
 @theme inline {
   /* ── TIPOGRAFÍA CLÍNICA KENKOMED ──
-     Inter        → cuerpo: precisión, legibilidad máxima (estándar médico)
-     Space Grotesk → display: autoridad técnica, geométrica, clínica */
-  --font-sans:    var(--font-inter),          'Inter',            sans-serif;
-  --font-display: var(--font-space-grotesk),  'Space Grotesk',    sans-serif;
-  --font-mono:    var(--font-geist-mono),     'Geist Mono',       monospace;
+     Plus Jakarta Sans → display: autoridad clínica moderna con peso 700 y 800 nativo
+     Inter             → cuerpo: precisión y legibilidad máxima (estándar médico) */
+  --font-sans:    var(--font-inter),          'Inter',               sans-serif;
+  --font-display: var(--font-plus-jakarta),   'Plus Jakarta Sans',   sans-serif;
+  --font-mono:    var(--font-geist-mono),     'Geist Mono',          monospace;
 
   --color-background:    var(--background);
   --color-foreground:    var(--foreground);
@@ -270,26 +271,47 @@
     @apply bg-background text-foreground font-sans antialiased;
     overflow-x: clip; /* Hallmark gate 34 — both html and body */
     font-size: 1rem;          /* 16px base */
-    line-height: 1.65;        /* Lectura cómoda para contenido clínico */
-    letter-spacing: -0.01em;  /* Ligero apriete — Inter se ve mejor así */
+    line-height: 1.62;        /* Lectura cómoda para contenido clínico */
+    letter-spacing: -0.008em; /* Ligero ajuste para Inter */
     /* Note: no transition on body — gate 24 compliance */
   }
-  /* Jerarquía tipográfica clínica — Hallmark: roman headings, no italic (gate 38a) */
+  /* Jerarquía tipográfica clínica — Plus Jakarta Sans con pesos 700 y 800 nativos */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
-    font-weight: 700;
+    font-family: var(--font-display), 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
     font-style: normal; /* Hallmark gate 38a — headings always roman */
     line-height: 1.12;
-    letter-spacing: -0.03em; /* Space Grotesk se ve premium con tracking negativo */
+    letter-spacing: -0.024em;
     text-wrap: balance;
-    overflow-wrap: anywhere; /* Hallmark gate 51 — prevent overflow on narrow viewports */
+    overflow-wrap: break-word;
     min-width: 0;
   }
-  h1 { font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem); }
-  h2 { font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);   letter-spacing: -0.025em; }
-  h3 { font-size: clamp(1.25rem, 2vw + 0.25rem, 1.75rem); letter-spacing: -0.02em; }
-  h4 { font-size: 1.125rem; letter-spacing: -0.015em; }
-  p  { line-height: 1.70; }
+  h1 {
+    font-size: clamp(2.25rem, 3.6vw + 0.85rem, 3.65rem);
+    line-height: 1.08;
+    letter-spacing: -0.028em;
+  }
+  h2 {
+    font-size: clamp(1.875rem, 2.5vw + 0.65rem, 2.65rem);
+    line-height: 1.12;
+    letter-spacing: -0.024em;
+  }
+  h3 {
+    font-size: clamp(1.125rem, 1vw + 0.5rem, 1.375rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.016em;
+  }
+  h4 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+  }
+  p {
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
   /* Links y texto pequeño */
   small, .text-sm { letter-spacing: -0.005em; }
   label { font-weight: 500; font-size: 0.875rem; letter-spacing: -0.005em; }
@@ -346,24 +368,24 @@
   .hover\:bg-brand-dark:hover { background-color: var(--brand-dark); }
 
   .font-display {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
-    letter-spacing: -0.025em;
+    font-family: var(--font-display), 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.022em;
   }
 
   /* ═══════════════════════════════════════════════════════════
      KENKOMED BRAND SYSTEM — Sistema de bandas y superficies
      ═══════════════════════════════════════════════════════════ */
 
-  /* Banda profunda — fondo marino con gradiente */
+  /* Banda profunda — fondo marino derivado del azul del logo (#0071C1) */
   .kenko-band-deep {
     background:
       linear-gradient(
         160deg,
-        #05111e 0%,
-        #0a2340 35%,
-        #0d2d52 60%,
-        #0a2340 85%,
-        #051520 100%
+        #041A2E 0%,
+        #062B47 38%,
+        #08385C 65%,
+        #062B47 88%,
+        #041E33 100%
       );
     color: oklch(0.97 0.003 246);
   }
@@ -373,10 +395,10 @@
     background:
       linear-gradient(
         160deg,
-        rgba(5, 17, 30, 0.97) 0%,
-        rgba(10, 35, 64, 0.92) 40%,
-        rgba(13, 45, 82, 0.88) 65%,
-        rgba(10, 35, 64, 0.95) 100%
+        rgba(4, 26, 46, 0.97) 0%,
+        rgba(6, 43, 71, 0.92) 40%,
+        rgba(8, 56, 92, 0.88) 65%,
+        rgba(6, 43, 71, 0.95) 100%
       ),
       url('/images/hero-bg-deep.png') center/cover no-repeat;
     color: oklch(0.97 0.003 246);

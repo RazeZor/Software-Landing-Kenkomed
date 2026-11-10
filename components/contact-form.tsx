@@ -127,10 +127,14 @@ Origen: Sección Contacto Principal Landing
     >
       <div className="relative mx-auto max-w-3xl px-6">
         <div className="mb-10 text-center">
-          <h2 id="contact-heading" className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-            Agenda tu demostración gratuita
+          <p className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand/6 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden="true" />
+            Atención personalizada en Chile
+          </p>
+          <h2 id="contact-heading" className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-[-0.024em] leading-[1.12] text-foreground text-balance">
+            Agenda tu demostración gratuita.
           </h2>
-          <p className="mx-auto mt-3 max-w-lg text-foreground-muted text-base">
+          <p className="mx-auto mt-3.5 max-w-xl text-foreground-muted text-base sm:text-[1.0625rem] leading-relaxed">
             Te mostramos Kenkomed en vivo en 20 minutos, adaptado a tu flujo de consulta o centro de rehabilitación.
           </p>
         </div>

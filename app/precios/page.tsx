@@ -90,7 +90,7 @@ export default function PreciosPage() {
                 </p>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border/60">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 text-green-600 flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <div className="w-8 h-8 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center mb-3 font-bold text-sm">✓</div>
                 <h3 className="font-bold text-foreground mb-1">WhatsApp + Correo Integrado</h3>
                 <p className="text-xs text-foreground-muted leading-relaxed">
                   Recordatorios automáticos de cita por WhatsApp con enlace QR de anamnesis previa, aviso inmediato al completar datos y envío de pautas de ejercicios al correo con alerta.
@@ -111,7 +111,7 @@ export default function PreciosPage() {
                 </p>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border/60">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 flex items-center justify-center mb-3 font-bold text-sm">✓</div>
+                <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center mb-3 font-bold text-sm">✓</div>
                 <h3 className="font-bold text-foreground mb-1">Onboarding y Migración Asistida</h3>
                 <p className="text-xs text-foreground-muted leading-relaxed">
                   Te ayudamos a migrar tus fichas históricas desde Excel u otro software y a configurar tus plantillas clínicas en tiempo récord con asistencia personalizada por WhatsApp.

@@ -98,17 +98,16 @@ export default function Testimonial({
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto mb-12 md:mb-14 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/6 border border-brand/15 text-brand text-xs font-semibold tracking-wide mb-4">
-            <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-            Validación Clínica Real en Chile
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand/6 border border-brand/15 text-brand text-xs font-semibold tracking-wide mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald" aria-hidden="true" />
+            Validación clínica real en Chile
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-display font-extrabold text-foreground tracking-tight leading-[1.1] text-balance">
-            Experiencia real en{' '}
-            <span className="text-brand">consulta kinésica.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-display font-extrabold text-foreground tracking-[-0.024em] leading-[1.12] text-balance">
+            Experiencia real en consulta kinésica.
           </h2>
 
-          <p className="text-foreground-muted mt-3.5 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+          <p className="text-foreground-muted mt-3.5 max-w-2xl mx-auto text-base sm:text-[1.0625rem] leading-relaxed">
             Profesionales de la kinesiología en Chile que gestionan su agenda, admisión autónoma de pacientes y evaluaciones con escalas funcionales en Kenkomed.
           </p>
         </div>

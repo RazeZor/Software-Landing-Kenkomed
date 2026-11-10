@@ -14,11 +14,11 @@ import { SiteHeader } from '@/components/ui/site-header'
 import './globals.css'
 
 /* ──────────────────────────────────────────────────────────────
-   SISTEMA TIPOGRÁFICO KENKOMED — Clínico y Preciso
+   SISTEMA TIPOGRÁFICO KENKOMED — Clínico, Moderno y Preciso
    ──────────────────────────────────────────────────────────────
-   Inter         → cuerpo de texto · estándar médico/SaaS, legibilidad máxima
-   Space Grotesk → display / titulares · técnica, autoridad sin decoración
-   Geist Mono    → código / datos clínicos / métricas
+   Plus Jakarta Sans → display / titulares (H1, H2, H3) · geométrica humanista con peso 700 y 800 nativo
+   Inter             → cuerpo de texto y UI clínica · legibilidad máxima
+   Geist Mono        → código / datos clínicos / métricas
    ────────────────────────────────────────────────────────────── */
 
 /* ─── SEO Metadata ─── */
@@ -114,7 +114,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
         />
       </head>
       <body

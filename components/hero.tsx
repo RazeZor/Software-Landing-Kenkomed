@@ -92,23 +92,25 @@ export function Hero() {
         }
         .hm-hero-h1 {
           font-family: var(--font-display);
-          font-size: clamp(2.5rem, 4.5vw + 0.5rem, 4.25rem);
+          font-size: clamp(2.25rem, 3.6vw + 0.85rem, 3.65rem);
           font-weight: 800;
-          line-height: 1.04;
-          letter-spacing: -0.045em;
+          line-height: 1.08;
+          letter-spacing: -0.028em;
           color: var(--foreground);
           margin-bottom: var(--space-md);
-          word-break: break-word;
+          text-wrap: balance;
+          overflow-wrap: break-word;
         }
         .hm-hero-h1-highlight { color: var(--kenko-sapphire); }
         .hm-hero-lede {
           font-family: var(--font-body);
           font-size: 1.0625rem;
           color: var(--foreground-muted);
-          line-height: 1.65;
+          line-height: 1.62;
           margin-bottom: var(--space-xl);
-          max-width: 50ch;
-          word-break: break-word;
+          max-width: 52ch;
+          text-wrap: pretty;
+          overflow-wrap: break-word;
         }
         .hm-hero-actions {
           display: flex;
@@ -243,9 +245,9 @@ export function Hero() {
             padding: 0.3rem 0.75rem;
           }
           .hm-hero-h1 {
-            font-size: clamp(1.85rem, 7.5vw, 2.5rem);
+            font-size: clamp(1.875rem, 7vw, 2.35rem);
             line-height: 1.1;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.024em;
             margin-bottom: 0.75rem;
           }
           .hm-hero-lede {

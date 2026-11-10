@@ -15,18 +15,13 @@ const SolucionTeaser = dynamic(
   { loading: () => <SectionSkeleton className="h-[32rem]" /> }
 )
 
-const KenkomedChatShowcase = dynamic(
-  () => import('@/components/kenkomed-chat-showcase').then((m) => m.KenkomedChatShowcase),
-  { loading: () => <SectionSkeleton className="h-[36rem]" /> }
-)
-
 const Testimonials = dynamic(
   () => import('@/components/ui/testimonial').then((m) => m.default),
   { loading: () => <SectionSkeleton className="h-[24rem]" /> }
 )
 
-const ClinicalBackingSection = dynamic(
-  () => import('@/components/clinical-backing-section').then((m) => m.ClinicalBackingSection),
+const MigrationSection = dynamic(
+  () => import('@/components/migration-section').then((m) => m.MigrationSection),
   { loading: () => <SectionSkeleton className="h-72" /> }
 )
 
@@ -52,9 +47,8 @@ export default function Home() {
       <Hero />
       <BeforeAfter />
       <SolucionTeaser />
-      <KenkomedChatShowcase />
       <Testimonials />
-      <ClinicalBackingSection />
+      <MigrationSection />
       <Pricing />
       <FaqSection />
       <ContactForm />

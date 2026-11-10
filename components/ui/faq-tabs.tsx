@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Plus } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface FAQItemProps {
@@ -18,156 +17,120 @@ interface FAQProps {
   className?: string;
 }
 
-// Main reusable FAQ component
-export const FAQ = ({ 
-  title = "FAQs",
-  subtitle = "Frequently Asked Questions",
+export const FAQ = ({
+  title = 'Preguntas Frecuentes',
+  subtitle = 'Resolvemos tus dudas sobre la plataforma, seguridad e implementación',
   categories,
   faqData,
   className,
-  ...props 
+  ...props
 }: FAQProps) => {
-  const categoryKeys = Object.keys(categories);
-  const [selectedCategory, setSelectedCategory] = useState(categoryKeys[0]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('todas');
+
+  const visibleGroups =
+    selectedCategory === 'todas'
+      ? Object.entries(faqData)
+      : Object.entries(faqData).filter(([key]) => key === selectedCategory);
 
   return (
-    <section 
+    <section
       id="preguntas-frecuentes"
+      aria-labelledby="faq-heading"
       className={cn(
-        "relative overflow-hidden bg-background px-4 py-12 text-foreground",
+        'relative bg-background py-20 md:py-24 px-6 text-foreground border-t border-border/60',
         className
       )}
       {...props}
     >
-      <FAQHeader title={title} subtitle={subtitle} />
-      <FAQTabs 
-        categories={categories}
-        selected={selectedCategory} 
-        setSelected={setSelectedCategory} 
-      />
-      <FAQList 
-        faqData={faqData}
-        selected={selectedCategory} 
-      />
-    </section>
-  );
-};
+      <div className="mx-auto max-w-3xl">
+        {/* Encabezado limpio y tradicional */}
+        <div className="text-center mb-10">
+          <p className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand/6 px-3.5 py-1 text-xs font-semibold tracking-wide text-brand mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden="true" />
+            Resolvemos tus dudas
+          </p>
+          <h2
+            id="faq-heading"
+            className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-[-0.024em] leading-[1.12] text-foreground text-balance"
+          >
+            {title}.
+          </h2>
+          <p className="mt-3.5 max-w-2xl mx-auto text-base sm:text-[1.0625rem] leading-relaxed text-foreground-muted">
+            {subtitle}
+          </p>
+        </div>
 
-const FAQHeader = ({ title, subtitle }: { title: string, subtitle: string }) => (
-  <div className="relative z-10 flex flex-col items-center justify-center text-center">
-    <span className="mb-8 bg-gradient-to-r from-primary to-primary/60 bg-clip-text font-medium text-transparent">
-      {subtitle}
-    </span>
-    <h2 className="mb-8 text-5xl font-bold">{title}</h2>
-    <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-primary/10 to-primary/5 blur-3xl" />
-  </div>
-);
-
-const FAQTabs = ({ categories, selected, setSelected }: { categories: Record<string, string>, selected: string, setSelected: (val: string) => void }) => (
-  <div className="relative z-10 flex flex-wrap items-center justify-center gap-4">
-    {Object.entries(categories).map(([key, label]) => (
-      <button
-        key={key}
-        onClick={() => setSelected(key)}
-        className={cn(
-          "relative overflow-hidden whitespace-nowrap rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-500",
-          selected === key
-            ? "border-primary text-background"
-            : "border-border bg-transparent text-muted-foreground hover:text-foreground"
-        )}
-      >
-        <span className="relative z-10">{label}</span>
-        <AnimatePresence>
-          {selected === key && (
-            <motion.span
-              initial={{ y: "100%" }}
-              animate={{ y: "0%" }}
-              exit={{ y: "100%" }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="absolute inset-0 z-0 bg-gradient-to-r from-primary to-primary/80"
-            />
-          )}
-        </AnimatePresence>
-      </button>
-    ))}
-  </div>
-);
-
-const FAQList = ({ faqData, selected }: { faqData: Record<string, FAQItemProps[]>, selected: string }) => (
-  <div className="mx-auto mt-12 max-w-3xl">
-    <AnimatePresence mode="wait">
-      {Object.entries(faqData).map(([category, questions]) => {
-        if (selected === category) {
-          return (
-            <motion.div
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="space-y-4"
-            >
-              {questions.map((faq, index) => (
-                <FAQItem key={index} {...faq} />
-              ))}
-            </motion.div>
-          );
-        }
-        return null;
-      })}
-    </AnimatePresence>
-  </div>
-);
-
-const FAQItem = ({ question, answer }: FAQItemProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <motion.div
-      animate={isOpen ? "open" : "closed"}
-      className={cn(
-        "rounded-xl border transition-colors",
-        isOpen ? "bg-muted/50" : "bg-card"
-      )}
-    >
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between gap-4 p-4 text-left"
-      >
-        <span
-          className={cn(
-            "text-lg font-medium transition-colors",
-            isOpen ? "text-foreground" : "text-muted-foreground"
-          )}
-        >
-          {question}
-        </span>
-        <motion.span
-          variants={{
-            open: { rotate: "45deg" },
-            closed: { rotate: "0deg" },
-          }}
-          transition={{ duration: 0.2 }}
-        >
-          <Plus
+        {/* Filtro simple y clásico */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          <button
+            type="button"
+            onClick={() => setSelectedCategory('todas')}
             className={cn(
-              "h-5 w-5 transition-colors",
-              isOpen ? "text-foreground" : "text-muted-foreground"
+              'rounded-full border px-4 py-1.5 text-xs sm:text-sm font-semibold transition-colors cursor-pointer',
+              selectedCategory === 'todas'
+                ? 'border-brand bg-brand text-white'
+                : 'border-border bg-white text-foreground-muted hover:text-foreground hover:border-brand/40'
             )}
-          />
-        </motion.span>
-      </button>
-      <motion.div
-        initial={false}
-        animate={{ 
-          height: isOpen ? "auto" : "0px", 
-          marginBottom: isOpen ? "16px" : "0px" 
-        }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-        className="overflow-hidden px-4"
-      >
-        <p className="text-muted-foreground">{answer}</p>
-      </motion.div>
-    </motion.div>
+          >
+            Todas
+          </button>
+          {Object.entries(categories).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setSelectedCategory(key)}
+              className={cn(
+                'rounded-full border px-4 py-1.5 text-xs sm:text-sm font-semibold transition-colors cursor-pointer',
+                selectedCategory === key
+                  ? 'border-brand bg-brand text-white'
+                  : 'border-border bg-white text-foreground-muted hover:text-foreground hover:border-brand/40'
+              )}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Acordeón tradicional nativo (<details>) accesible y buscable con Ctrl+F */}
+        <div className="space-y-8">
+          {visibleGroups.map(([categoryKey, questions], groupIndex) => (
+            <div key={categoryKey}>
+              {selectedCategory === 'todas' && (
+                <h3 className="mb-3 px-1 text-xs font-bold uppercase tracking-[0.12em] text-brand">
+                  {categories[categoryKey] ?? categoryKey}
+                </h3>
+              )}
+
+              <div className="divide-y divide-border rounded-2xl border border-border bg-card shadow-2xs overflow-hidden">
+                {questions.map((faq, itemIndex) => (
+                  <details
+                    key={faq.question}
+                    name="kenkomed-faq"
+                    open={groupIndex === 0 && itemIndex === 0}
+                    className="group"
+                  >
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-5 text-left transition-colors hover:bg-slate-50/70 [&::-webkit-details-marker]:hidden">
+                      <span className="font-display text-base sm:text-[1.0625rem] font-bold leading-snug text-foreground">
+                        {faq.question}
+                      </span>
+                      <ChevronDown
+                        size={18}
+                        className="shrink-0 text-foreground-muted transition-transform duration-200 group-open:rotate-180 group-open:text-brand"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-0">
+                      <p className="text-sm sm:text-[0.9375rem] leading-relaxed text-foreground-muted">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
