@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import NumberFlow from '@number-flow/react'
 import { Switch } from '@/components/ui/switch'
@@ -1035,7 +1036,7 @@ Plan: Clínica (${priceText})
 /* ── Main Pricing Section ──────────────────────────────────────── */
 
 
-export function Pricing() {
+export function Pricing({ showComparisonTable = true }: { showComparisonTable?: boolean }) {
   const [isMonthly, setIsMonthly] = useState(false) // Default to annual as before
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const switchRef = useRef<HTMLButtonElement>(null)
@@ -1236,13 +1237,25 @@ export function Pricing() {
           </div>
 
           {/* Interactive Detailed Comparison Table */}
-          <PricingComparisonTable
-            onSelectPlan={(slug) => {
-              const selected = plans.find((p) => p.slug === slug) ?? plans[0]
-              setModalPlan(selected)
-            }}
-            isMonthly={isMonthly}
-          />
+          {showComparisonTable ? (
+            <PricingComparisonTable
+              onSelectPlan={(slug) => {
+                const selected = plans.find((p) => p.slug === slug) ?? plans[0]
+                setModalPlan(selected)
+              }}
+              isMonthly={isMonthly}
+            />
+          ) : (
+            <div className="mt-10 flex justify-center">
+              <Link
+                href="/precios"
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-5 py-2.5 text-xs font-bold text-foreground shadow-2xs transition-colors hover:border-brand/40 hover:text-brand"
+              >
+                Comparar todas las características por plan
+                <ChevronRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          )}
 
           <div className="mt-14 text-center space-y-2">
             <p className="text-sm text-foreground-muted">

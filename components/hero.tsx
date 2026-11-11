@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { motion, Variants } from 'framer-motion'
 import { useReveal, useCountUp } from '@/hooks/use-scroll-animation'
-import { HeroPhoneShowcase } from '@/components/hero-phone-showcase'
+import { HeroSystemTour } from '@/components/hero-system-tour'
 
 const stats = [
   {
@@ -67,28 +67,6 @@ export function Hero() {
           gap: var(--space-3xl);
           align-items: center;
           box-sizing: border-box;
-        }
-        .hm-hero-outlier {
-          font-family: var(--font-body);
-          font-size: 0.8125rem;
-          font-weight: 600;
-          color: var(--kenko-sapphire);
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.375rem 0.875rem;
-          border-radius: 999px;
-          background: oklch(0.48 0.18 246 / 0.06);
-          border: 1px solid oklch(0.48 0.18 246 / 0.14);
-          margin-bottom: var(--space-md);
-          max-width: 100%;
-        }
-        .hm-outlier-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: var(--kenko-mint);
-          flex-shrink: 0;
         }
         .hm-hero-h1 {
           font-family: var(--font-display);
@@ -240,21 +218,25 @@ export function Hero() {
             padding-block: var(--space-xl) var(--space-xl);
             gap: var(--space-xl);
           }
-          .hm-hero-outlier {
-            font-size: 0.75rem;
-            padding: 0.3rem 0.75rem;
+          .hm-hero-col {
+            text-align: center;
           }
           .hm-hero-h1 {
             font-size: clamp(1.875rem, 7vw, 2.35rem);
             line-height: 1.1;
             letter-spacing: -0.024em;
             margin-bottom: 0.75rem;
+            text-align: center;
           }
           .hm-hero-lede {
             font-size: 0.9375rem;
             line-height: 1.55;
             margin-bottom: 1.25rem;
+            margin-inline: auto;
             max-width: 100%;
+          }
+          .hm-trust-badges {
+            justify-content: center;
           }
           .hm-hero-actions {
             flex-direction: column;
@@ -288,12 +270,7 @@ export function Hero() {
 
       <section className="hm-hero-section" aria-label="Sección principal">
         <div className="hm-hero-grid relative z-10">
-          <motion.div variants={containerVariants} initial="hidden" animate="show" className="w-full min-w-0 max-w-full">
-            <motion.div variants={itemVariants} className="hm-hero-outlier">
-              <span className="hm-outlier-dot" aria-hidden="true" />
-              Software clínico y DSS para kinesiología en Chile
-            </motion.div>
-
+          <motion.div variants={containerVariants} initial="hidden" animate="show" className="hm-hero-col w-full min-w-0 max-w-full">
             <motion.h1 variants={itemVariants} className="hm-hero-h1">
               El software clínico creado{' '}
               <span className="hm-hero-h1-highlight">por y para kinesiólogos.</span>
@@ -336,7 +313,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             >
-              <HeroPhoneShowcase />
+              <HeroSystemTour />
             </motion.div>
 
             {/* Floating card #1 — WhatsApp Pauta de Ejercicios */}

@@ -186,24 +186,58 @@ const NAV_ITEMS: NavItem[] = [
 
 /* ── Scroll hook ──────────────────────────────────────────────── */
 
-function useScrolled(threshold = 15) {
-  const [scrolled, setScrolled] = React.useState(false)
+function useHeaderScroll() {
+  const [state, setState] = React.useState({
+    scrolled: false,
+    pastHero: false,
+    scrollingUp: false,
+  })
 
   React.useEffect(() => {
     let raf = 0
+    let lastY = window.scrollY
+
     const handler = () => {
       if (raf) return
       raf = requestAnimationFrame(() => {
         raf = 0
-        setScrolled(window.scrollY > threshold)
+        const y = window.scrollY
+        const delta = y - lastY
+
+        setState((prev) => {
+          const nextScrolled = y > 15
+          const nextPastHero = y > 180
+          let nextUp = prev.scrollingUp
+          if (!nextPastHero) {
+            nextUp = false
+          } else if (delta < -6) {
+            nextUp = true
+          } else if (delta > 6) {
+            nextUp = false
+          }
+          if (
+            prev.scrolled === nextScrolled &&
+            prev.pastHero === nextPastHero &&
+            prev.scrollingUp === nextUp
+          ) {
+            return prev
+          }
+          return {
+            scrolled: nextScrolled,
+            pastHero: nextPastHero,
+            scrollingUp: nextUp,
+          }
+        })
+        lastY = y
       })
     }
+
     handler()
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
-  }, [threshold])
+  }, [])
 
-  return scrolled
+  return state
 }
 
 /* ── SiteHeader Component ─────────────────────────────────────── */
@@ -212,7 +246,7 @@ export function SiteHeader() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [funcionalidadesOpen, setFuncionalidadesOpen] = React.useState(false)
-  const scrolled = useScrolled(15)
+  const { scrolled, pastHero, scrollingUp } = useHeaderScroll()
   const progress = useScrollProgress()
 
   React.useEffect(() => {
@@ -315,14 +349,26 @@ export function SiteHeader() {
             </Link>
           </div>
 
-          {/* Mobile Hamburger Drawer Overlay */}
+          {/* Mobile Sticky Pill CTA + Hamburger Drawer Overlay */}
           <div className="flex items-center gap-2 lg:hidden">
+            {pastHero && (
+              <Link
+                href="/#contact"
+                className="md:hidden inline-flex h-9.5 shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-gradient-to-r from-[#0071C1] to-[#16A996] px-4 text-xs font-extrabold tracking-tight text-white shadow-[0_8px_20px_-6px_rgba(0,113,193,0.48)] transition-transform duration-150 active:scale-95"
+              >
+                Quiero mi software
+              </Link>
+            )}
+
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-foreground hover:bg-foreground/5 relative z-50 rounded-xl flex items-center justify-center p-2"
+                  className={cn(
+                    'text-foreground hover:bg-foreground/5 relative z-50 rounded-xl items-center justify-center p-2',
+                    !pastHero || scrollingUp || mobileOpen ? 'inline-flex' : 'hidden md:inline-flex'
+                  )}
                   aria-label="Abrir menú"
                 >
                   <AnimatedIcon

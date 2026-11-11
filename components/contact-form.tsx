@@ -132,10 +132,10 @@ Origen: Sección Contacto Principal Landing
             Atención personalizada en Chile
           </p>
           <h2 id="contact-heading" className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-[-0.024em] leading-[1.12] text-foreground text-balance">
-            Agenda tu demostración gratuita.
+            Solicita tu software con nosotros.
           </h2>
           <p className="mx-auto mt-3.5 max-w-xl text-foreground-muted text-base sm:text-[1.0625rem] leading-relaxed">
-            Te mostramos Kenkomed en vivo en 20 minutos, adaptado a tu flujo de consulta o centro de rehabilitación.
+            Te mostramos Kenkomed en vivo en 20 minutos y dejamos todo listo para tu consulta o centro de rehabilitación.
           </p>
         </div>
 
@@ -367,7 +367,7 @@ Origen: Sección Contacto Principal Landing
                     </>
                   ) : (
                     <>
-                      Agendar demo gratuita
+                      Solicitar mi software
                       <Send size={15} aria-hidden="true" />
                     </>
                   )}

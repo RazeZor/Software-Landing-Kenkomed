@@ -49,7 +49,7 @@ export default function Home() {
       <SolucionTeaser />
       <Testimonials />
       <MigrationSection />
-      <Pricing />
+      <Pricing showComparisonTable={false} />
       <FaqSection />
       <ContactForm />
       <Footer />
